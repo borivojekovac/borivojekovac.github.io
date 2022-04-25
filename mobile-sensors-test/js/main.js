@@ -94,8 +94,17 @@ class App {
         this.renderer.setClearColor("#000000");
         this.renderer.setSize( window.innerWidth, window.innerHeight );
 
-        // init DOM
+        // init DOM & attach resize handler
         document.body.appendChild( this.renderer.domElement );
+
+        window.addEventListener("resize", (function() {
+
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+
+            this.renderer.setSize( window.innerWidth, window.innerHeight );
+
+        }).bind(this));
     }
 
     initSensor(sensorName, sensorClass, labelElement, handler) {
@@ -175,7 +184,7 @@ class App {
 
         // create cube
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        var material = new THREE.MeshBasicMaterial( { color: "#433F81" } );
+        var material = new THREE.MeshLambertMaterial( { color: "#433F81" } );
         this.cube = new THREE.Mesh( geometry, material );
         this.scene.add( this.cube );
 
