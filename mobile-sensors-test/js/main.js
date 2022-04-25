@@ -22,14 +22,6 @@ class App {
     LogElement = null;
 
     constructor() {
-
-        this.log(`Accelerometer check: ${typeof(Accelerometer)}`);
-        this.log(`Gyroscope check: ${typeof(Gyroscope)}`);
-        this.log(`LinearAccelerationSensor check: ${typeof(LinearAccelerationSensor)}`);
-        this.log(`AbsoluteOrientationSensor check: ${typeof(AbsoluteOrientationSensor)}`);
-        this.log(`RelativeOrientationSensor check: ${typeof(RelativeOrientationSensor)}`);
-        this.log(`Magnetometer check: ${typeof(Magnetometer)}`);
-        this.log(`THREE check: ${typeof(THREE)}`);
     }
 
     init() {
@@ -40,6 +32,14 @@ class App {
 
             this.log("initializing app...");
 
+            this.log(`Accelerometer check: ${typeof(Accelerometer)}`);
+            this.log(`Gyroscope check: ${typeof(Gyroscope)}`);
+            this.log(`LinearAccelerationSensor check: ${typeof(LinearAccelerationSensor)}`);
+            this.log(`AbsoluteOrientationSensor check: ${typeof(AbsoluteOrientationSensor)}`);
+            this.log(`RelativeOrientationSensor check: ${typeof(RelativeOrientationSensor)}`);
+            this.log(`Magnetometer check: ${typeof(Magnetometer)}`);
+            this.log(`THREE check: ${typeof(THREE)}`);
+    
             this.AccelerometerSensorLabel = document.querySelector("#AccelerometerSensorLabel");
             this.GyroscopeSensorLabel = document.querySelector("#GyroscopeSensorLabel");
             this.LinearAccelerationSensorLabel = document.querySelector("#LinearAccelerationSensorLabel");
