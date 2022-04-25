@@ -20,7 +20,7 @@ class App {
     init() {
 
         this.initThree();
-        this.initThreeGeometry();
+        this.initGeometry();
     }
 
     initThree() {
@@ -70,7 +70,7 @@ class App {
         this.heartbeat();
     }
 
-    initThreeGeometry() {
+    initGeometry() {
 
         // Create a Cube Mesh with basic material
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -83,8 +83,8 @@ class App {
 
     render() {
 
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        this.cube.rotation.x += 0.01;
+        this.cube.rotation.y += 0.01;
 
         // Render the scene
         this.renderer.render(this.scene, this.camera);
