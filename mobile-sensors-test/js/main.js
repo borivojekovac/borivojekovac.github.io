@@ -103,12 +103,13 @@ class App {
 
             var sensor = new sensorClass({ frequency: 60 });
 
-            sensor.onreading = function() {
+            sensor.onreading = (function() {
     
                 labelElement.innerText = `${sensorName}: ${JSON.stringify(sensor.quaternion)}`;
-            }
+                
+            }).bind(this);
     
-            sensor.onerror = function(event) {
+            sensor.onerror = (function(event) {
     
                 if (event.error.name == 'NotReadableError') {
     
@@ -118,7 +119,8 @@ class App {
         
                     this.log(`Unexpected ${sensorName} sensor error.`);
                 }
-            }
+
+            }).bind(this);
     
             sensor.start();
         }
