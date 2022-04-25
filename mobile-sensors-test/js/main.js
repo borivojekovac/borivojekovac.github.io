@@ -1,7 +1,7 @@
 import {
     Accelerometer,
     Gyroscope,
-    LinearAcceleration,
+    LinearAccelerationSensor,
     RelativeOrientationSensor,
     AbsoluteOrientationSensor,
     Magnetometer
