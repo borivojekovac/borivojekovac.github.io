@@ -54,7 +54,7 @@ class App {
             this.initSensor("gyroscope", typeof(Gyroscope) == "undefined" ? null : Gyroscope, this.GyroscopeSensorLabel);
             this.initSensor("linear acceleration", typeof(LinearAccelerationSensor) == "undefined" ? null : LinearAccelerationSensor, this.LinearAccelerationSensorLabel);
             this.initSensor("absolute orientation", typeof(AbsoluteOrientationSensor) == "undefined" ? null : AbsoluteOrientationSensor, this.AbsoluteOrientationSensorLabel);
-            this.initSensor("relative orientation", typeof(RelativeOrientationSensor) == "undefined" ? null : RelativeOrientationSensor, this.RelativeOrientationSensorLabel);
+            this.initSensor("relative orientation", typeof(RelativeOrientationSensor) == "undefined" ? null : RelativeOrientationSensor, this.RelativeOrientationSensorLabel, this.onRelativeOrientationUpdate);
             this.initSensor("magnetometer", typeof(Magnetometer) == "undefined" ? null : Magnetometer, this.MagnetometerSensorLabel);
 
             return true;
@@ -98,7 +98,7 @@ class App {
         document.body.appendChild( this.renderer.domElement );
     }
 
-    initSensor(sensorName, sensorClass, labelElement) {
+    initSensor(sensorName, sensorClass, labelElement, handler) {
 
         this.log(`Initializing ${sensorName} sensor...`);
 
@@ -109,6 +109,10 @@ class App {
             sensor.onreading = (function() {
     
                 labelElement.innerText = `${sensorName}: ${JSON.stringify(sensor.quaternion)}`;
+                if (handler) {
+
+                    handler.bind(this)(sensor);
+                }
 
             }).bind(this);
     
@@ -123,6 +127,8 @@ class App {
                     this.log(`Unexpected ${sensorName} sensor error.`);
                 }
 
+                labelElement.innerText = `${sensorName}: N/A}`;
+
             }).bind(this);
     
             sensor.start();
@@ -130,6 +136,7 @@ class App {
         catch (ex) {
 
             this.log(`Unable to initialize ${sensorName} sensor: ${ex.toString()}`);
+            labelElement.innerText = `${sensorName}: N/A}`;
         }
     }
 
@@ -173,6 +180,11 @@ class App {
 
         // add it to the scene
         this.scene.add( this.cube );
+    }
+
+    onRelativeOrientationUpdate(sensor) {
+
+        this.cube.quaternion.fromArray(sensor.quaternion);
     }
 
     render() {
