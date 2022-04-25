@@ -1,6 +1,10 @@
 import {
+    Accelerometer,
+    Gyroscope,
+    LinearAcceleration,
     RelativeOrientationSensor,
     AbsoluteOrientationSensor,
+    Magnetometer
 } from "./lib/sensors/motion-sensors.js";
 
 class App {
@@ -16,7 +20,6 @@ class App {
     AbsoluteOrientationSensorLabel = null;
     RelativeOrientationSensorLabel = null;
     MagnetometerSensorLabel = null;
-
 
     constructor() {
 
@@ -64,7 +67,7 @@ class App {
 
     initThree() {
 
-        this.log("initializing Three.js...").
+        this.log("initializing Three.js...");
 
         // init scene
         this.scene = new THREE.Scene();
