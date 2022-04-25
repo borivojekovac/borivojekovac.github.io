@@ -47,18 +47,18 @@ class App {
             this.initThree();
             this.initGeometry();
     
-            this.initSensor("accelerometer", Accelerometer ?? null, this.AccelerometerSensorLabel);
-            this.initSensor("gyroscope", Gyroscope ?? null, this.GyroscopeSensorLabel);
-            this.initSensor("linear acceleration", LinearAccelerationSensor ?? null, this.LinearAccelerationSensorLabel);
-            this.initSensor("absolute orientation", AbsoluteOrientationSensor ?? null, this.AbsoluteOrientationSensorLabel);
-            this.initSensor("relative orientation", RelativeOrientationSensor ?? null, this.RelativeOrientationSensorLabel);
-            this.initSensor("magnetometer", Magnetometer ?? null, this.MagnetometerSensorLabel);
+            this.initSensor("accelerometer", typeof(Accelerometer) == "undefined" ? null : Accelerometer, this.AccelerometerSensorLabel);
+            this.initSensor("gyroscope", typeof(Gyroscope) == "undefined" ? null : Gyroscope, this.GyroscopeSensorLabel);
+            this.initSensor("linear acceleration", typeof(LinearAccelerationSensor) == "undefined" ? null : LinearAccelerationSensor, this.LinearAccelerationSensorLabel);
+            this.initSensor("absolute orientation", typeof(AbsoluteOrientationSensor) == "undefined" ? null : AbsoluteOrientationSensor, this.AbsoluteOrientationSensorLabel);
+            this.initSensor("relative orientation", typeof(RelativeOrientationSensor) == "undefined" ? null : RelativeOrientationSensor, this.RelativeOrientationSensorLabel);
+            this.initSensor("magnetometer", typeof(Magnetometer) == "undefined" ? null : Magnetometer, this.MagnetometerSensorLabel);
 
             return true;
         }
         catch (ex) {
 
-            this.log(`Unable to initialize the app: ${JSON.stringify(ex)}`);
+            this.log(`Unable to initialize the app: ${ex.toString()}`);
 
             return false;
         }
@@ -126,7 +126,7 @@ class App {
         }
         catch (ex) {
 
-            this.log(`Unable to initialize ${sensorName} sensor: ${JSON.stringify(ex)}`);
+            this.log(`Unable to initialize ${sensorName} sensor: ${ex.toString()}`);
         }
     }
 

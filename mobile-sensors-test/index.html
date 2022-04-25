@@ -43,6 +43,17 @@
                 left: 70vw;
             }
 
+            #log {
+
+                z-index: 1000;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                overflow-y: auto;
+            }
+
         </style>
     </head>
     <body>
@@ -52,5 +63,6 @@
         <div id="AbsoluteOrientationSensorLabel" class="label"></div>
         <div id="RelativeOrientationSensorLabel" class="label"></div>
         <div id="MagnetometerSensorLabel" class="label"></div>
+        <div id="log"></div>
     </body>
 </html>
