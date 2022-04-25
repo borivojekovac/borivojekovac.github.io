@@ -47,12 +47,12 @@ class App {
             this.initThree();
             this.initGeometry();
     
-            this.initSensor("accelerometer", Accelerometer, this.AccelerometerSensorLabel);
-            this.initSensor("gyroscope", Gyroscope, this.GyroscopeSensorLabel);
-            this.initSensor("linear acceleration", LinearAccelerationSensor, this.LinearAccelerationSensorLabel);
-            this.initSensor("absolute orientation", AbsoluteOrientationSensor, this.AbsoluteOrientationSensorLabel);
-            this.initSensor("relative orientation", RelativeOrientationSensor, this.RelativeOrientationSensorLabel);
-            this.initSensor("magnetometer", Magnetometer, this.MagnetometerSensorLabel);
+            this.initSensor("accelerometer", Accelerometer ?? null, this.AccelerometerSensorLabel);
+            this.initSensor("gyroscope", Gyroscope ?? null, this.GyroscopeSensorLabel);
+            this.initSensor("linear acceleration", LinearAccelerationSensor ?? null, this.LinearAccelerationSensorLabel);
+            this.initSensor("absolute orientation", AbsoluteOrientationSensor ?? null, this.AbsoluteOrientationSensorLabel);
+            this.initSensor("relative orientation", RelativeOrientationSensor ?? null, this.RelativeOrientationSensorLabel);
+            this.initSensor("magnetometer", Magnetometer ?? null, this.MagnetometerSensorLabel);
 
             return true;
         }
@@ -106,7 +106,7 @@ class App {
             sensor.onreading = (function() {
     
                 labelElement.innerText = `${sensorName}: ${JSON.stringify(sensor.quaternion)}`;
-                
+
             }).bind(this);
     
             sensor.onerror = (function(event) {
