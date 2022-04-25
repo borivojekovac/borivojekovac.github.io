@@ -148,7 +148,7 @@ class App {
 
     log(text) {
 
-        this.log(text);
+        console.log(text);
     }
 
     initGeometry() {
