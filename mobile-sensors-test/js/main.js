@@ -48,7 +48,7 @@ class App {
             this.MagnetometerSensorLabel = document.querySelector("#MagnetometerSensorLabel");
     
             this.initThree();
-            this.initGeometry();
+            this.initScene();
     
             this.initSensor("accelerometer", typeof(Accelerometer) == "undefined" ? null : Accelerometer, this.AccelerometerSensorLabel);
             this.initSensor("gyroscope", typeof(Gyroscope) == "undefined" ? null : Gyroscope, this.GyroscopeSensorLabel);
@@ -111,7 +111,7 @@ class App {
                 labelElement.innerText = `${sensorName}: ${JSON.stringify(sensor.quaternion)}`;
                 if (handler) {
 
-                    handler.bind(this)(sensor);
+                    (handler.bind(this))(sensor);
                 }
 
             }).bind(this);
@@ -127,7 +127,7 @@ class App {
                     this.log(`Unexpected ${sensorName} sensor error.`);
                 }
 
-                labelElement.innerText = `${sensorName}: N/A}`;
+                labelElement.innerText = `${sensorName}: N/A`;
 
             }).bind(this);
     
@@ -136,7 +136,7 @@ class App {
         catch (ex) {
 
             this.log(`Unable to initialize ${sensorName} sensor: ${ex.toString()}`);
-            labelElement.innerText = `${sensorName}: N/A}`;
+            labelElement.innerText = `${sensorName}: N/A`;
         }
     }
 
@@ -169,22 +169,34 @@ class App {
         this.LogElement.appendChild(logEntryElement);
     }
 
-    initGeometry() {
+    initScene() {
 
-        this.log("Initializing 3D geometry...");
+        this.log("Initializing 3D scene...");
 
         // create cube
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
         var material = new THREE.MeshBasicMaterial( { color: "#433F81" } );
         this.cube = new THREE.Mesh( geometry, material );
-
-        // add it to the scene
         this.scene.add( this.cube );
+
+        // create light
+        this.light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+        this.light.position.x = 0;
+        this.light.position.y = -5;
+        this.light.position.z = 0;
+        this.light.target = this.cube;
+        this.scene.add( this.light);
     }
 
     onRelativeOrientationUpdate(sensor) {
 
-        this.cube.quaternion.fromArray(sensor.quaternion);
+        try {
+
+            this.cube.quaternion.fromArray(sensor.quaternion);
+        }
+        catch (ex) {
+
+        }
     }
 
     render() {
