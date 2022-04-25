@@ -24,7 +24,7 @@ class App {
     constructor() {
     }
 
-    init() {
+    async init() {
 
         try {
 
@@ -50,12 +50,12 @@ class App {
             this.initThree();
             this.initScene();
     
-            this.initSensor("accelerometer", typeof(Accelerometer) == "undefined" ? null : Accelerometer, this.AccelerometerSensorLabel);
-            this.initSensor("gyroscope", typeof(Gyroscope) == "undefined" ? null : Gyroscope, this.GyroscopeSensorLabel);
-            this.initSensor("linear acceleration", typeof(LinearAccelerationSensor) == "undefined" ? null : LinearAccelerationSensor, this.LinearAccelerationSensorLabel);
-            this.initSensor("absolute orientation", typeof(AbsoluteOrientationSensor) == "undefined" ? null : AbsoluteOrientationSensor, this.AbsoluteOrientationSensorLabel);
-            this.initSensor("relative orientation", typeof(RelativeOrientationSensor) == "undefined" ? null : RelativeOrientationSensor, this.RelativeOrientationSensorLabel, this.onRelativeOrientationUpdate);
-            this.initSensor("magnetometer", typeof(Magnetometer) == "undefined" ? null : Magnetometer, this.MagnetometerSensorLabel);
+            await this.initSensor("accelerometer", "accelerometer", typeof(Accelerometer) == "undefined" ? null : Accelerometer, this.AccelerometerSensorLabel);
+            await this.initSensor("gyroscope", "gyroscope", typeof(Gyroscope) == "undefined" ? null : Gyroscope, this.GyroscopeSensorLabel);
+            await this.initSensor(null, "linear acceleration", typeof(LinearAccelerationSensor) == "undefined" ? null : LinearAccelerationSensor, this.LinearAccelerationSensorLabel);
+            await this.initSensor(null, "absolute orientation", typeof(AbsoluteOrientationSensor) == "undefined" ? null : AbsoluteOrientationSensor, this.AbsoluteOrientationSensorLabel);
+            await this.initSensor(null, "relative orientation", typeof(RelativeOrientationSensor) == "undefined" ? null : RelativeOrientationSensor, this.RelativeOrientationSensorLabel, this.onRelativeOrientationUpdate);
+            await this.initSensor("magnetometer", "magnetometer", typeof(Magnetometer) == "undefined" ? null : Magnetometer, this.MagnetometerSensorLabel);
 
             return true;
         }
@@ -107,9 +107,27 @@ class App {
         }).bind(this));
     }
 
-    initSensor(sensorName, sensorClass, labelElement, handler) {
+    async initSensor(permission, sensorName, sensorClass, labelElement, handler) {
 
         this.log(`Initializing ${sensorName} sensor...`);
+
+        if (permission) {
+
+            try {
+
+                const result = await navigator.permissions.query({ name: permission });
+                if (result.state != "granted") {
+    
+                    this.log(`Permission not granted for ${sensorName} sensor...`);
+                    return;
+                }
+            }
+            catch (ex) {
+    
+                this.log(`Unable to request permissions for ${sensorName} sensor: ${ex.toString()}`);
+                return;
+            }
+        }
 
         try {
 
@@ -156,9 +174,9 @@ class App {
         this.render();
     }
 
-    run() {
+    async run() {
 
-        if (!this.init()) {
+        if (!await this.init()) {
 
             return;
         }
@@ -184,12 +202,12 @@ class App {
 
         // create cube
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        var material = new THREE.MeshLambertMaterial( { color: "#433F81" } );
+        var material = new THREE.MeshLambertMaterial( { color: "#8888ff" } );
         this.cube = new THREE.Mesh( geometry, material );
         this.scene.add( this.cube );
 
         // create light
-        this.light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+        this.light = new THREE.DirectionalLight( 0xffffff, 1.0 );
         this.light.position.x = 0;
         this.light.position.y = -5;
         this.light.position.z = 0;
