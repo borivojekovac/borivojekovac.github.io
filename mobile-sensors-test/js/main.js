@@ -21,6 +21,7 @@ class App {
 
         this.initThree();
         this.initGeometry();
+        this.initSensor();
     }
 
     initThree() {
@@ -55,6 +56,14 @@ class App {
         document.body.appendChild( this.renderer.domElement );
     }
 
+    initSensor() {
+
+        this.sensor = new AbsoluteOrientationSensor({ frequency: 60 });
+        this.sensor.onreading = this.onSensorUpdated;
+        this.sensor.onerror = this.onSensorError;
+        this.sensor.start();
+    }
+
     heartbeat() {
 
         requestAnimationFrame( this.heartbeat.bind(this) );
@@ -81,10 +90,27 @@ class App {
         this.scene.add( this.cube );
     }
 
+    onSensorUpdated() {
+
+        this.cube.quaternion.fromArray(this.sensor.quaternion);
+    }
+
+    onSensorError(event) {
+
+        if (event.error.name == 'NotReadableError') {
+
+            console.log('Sensor is not available.');
+        }
+        else {
+
+            console.log('Unexpected Sensor error.');
+        }
+    }
+
     render() {
 
-        this.cube.rotation.x += 0.01;
-        this.cube.rotation.y += 0.01;
+        /*this.cube.rotation.x += 0.01;
+        this.cube.rotation.y += 0.01;*/
 
         // Render the scene
         this.renderer.render(this.scene, this.camera);
