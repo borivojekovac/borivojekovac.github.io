@@ -36,6 +36,8 @@ class App {
 
         try {
 
+            this.LogElement = document.querySelector("#log");
+
             this.log("initializing app...");
 
             this.AccelerometerSensorLabel = document.querySelector("#AccelerometerSensorLabel");
@@ -44,7 +46,6 @@ class App {
             this.AbsoluteOrientationSensorLabel = document.querySelector("#AbsoluteOrientationSensorLabel");
             this.RelativeOrientationSensorLabel = document.querySelector("#RelativeOrientationSensorLabel");
             this.MagnetometerSensorLabel = document.querySelector("#MagnetometerSensorLabel");
-            this.LogElement = document.querySelector("#log");
     
             this.initThree();
             this.initGeometry();
