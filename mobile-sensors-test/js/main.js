@@ -176,4 +176,4 @@ class App {
 
 const _app = new App();
 
-window.addEventListener("load", _app.run);
+window.addEventListener("load", _app.run.bind(_app));
