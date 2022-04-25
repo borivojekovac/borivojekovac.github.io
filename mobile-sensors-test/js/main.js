@@ -19,6 +19,7 @@ class App {
     AbsoluteOrientationSensorLabel = null;
     RelativeOrientationSensorLabel = null;
     MagnetometerSensorLabel = null;
+    LogElement = null;
 
     constructor() {
 
@@ -43,6 +44,7 @@ class App {
             this.AbsoluteOrientationSensorLabel = document.querySelector("#AbsoluteOrientationSensorLabel");
             this.RelativeOrientationSensorLabel = document.querySelector("#RelativeOrientationSensorLabel");
             this.MagnetometerSensorLabel = document.querySelector("#MagnetometerSensorLabel");
+            this.LogElement = document.querySelector("#log");
     
             this.initThree();
             this.initGeometry();
@@ -153,6 +155,10 @@ class App {
     log(text) {
 
         console.log(text);
+
+        const logEntryElement = document.createElement("div");
+        logEntryElement.innerText = text;
+        this.LogElement.appendChild(logEntryElement);
     }
 
     initGeometry() {
