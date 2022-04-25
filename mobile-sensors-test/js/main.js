@@ -12,6 +12,8 @@ class App {
     camera = null;
     renderer = null;
     cube = null;
+    light = null;
+    ambientLight = null;
 
     AccelerometerSensorLabel = null;
     GyroscopeSensorLabel = null;
@@ -206,20 +208,23 @@ class App {
         this.cube = new THREE.Mesh( geometry, material );
         this.scene.add( this.cube );
 
-        // create light
+        // create lights
         this.light = new THREE.DirectionalLight( 0xffffff, 1.0 );
         this.light.position.x = 0;
         this.light.position.y = -5;
         this.light.position.z = 0;
         this.light.target = this.cube;
         this.scene.add( this.light);
+
+        this.ambientLight = new THREE.AmbientLight( 0x404040 );
+        this.scene.add( this.ambientLight );
     }
 
     onRelativeOrientationUpdate(sensor) {
 
         try {
 
-            this.cube.quaternion.fromArray(sensor.quaternion);
+            this.cube.quaternion.fromArray(sensor.quaternion).inverse();
         }
         catch (ex) {
 
