@@ -3,8 +3,54 @@
         <title>Mobile Sensors Test</title>
         <script src="js/lib/three/three.min.js"></script>
         <script src="js/main.js" type="module"></script>
+        <style>
+
+            body {
+
+                margin: 0;
+                padding: 0;
+            }
+
+            .label {
+
+                position: fixed;
+                width: 20vw;
+                height: 10vw;
+            }
+
+            #AccelerometerSensorLabel, #GyroscopeSensorLabel, #LinearAccelerationSensorLabel {
+
+                top: 10vw;
+            }
+
+            #AbsoluteOrientationSensorLabel, #RelativeOrientationSensorLabel, #MagnetometerSensorLabel {
+
+                top: 30vw;
+            }
+
+            #AccelerometerSensorLabel, #AbsoluteOrientationSensorLabel {
+
+                left: 10vw;
+            }
+
+            #GyroscopeSensorLabel, #RelativeOrientationSensorLabel {
+
+                left: 40vw;
+            }
+
+            #LinearAccelerationSensorLabel, #MagnetometerSensorLabel {
+
+                left: 70vw;
+            }
+
+        </style>
     </head>
     <body>
-        Hello World!
+        <div id="AccelerometerSensorLabel" class="label"></div>
+        <div id="GyroscopeSensorLabel" class="label"></div>
+        <div id="LinearAccelerationSensorLabel" class="label"></div>       
+        <div id="AbsoluteOrientationSensorLabel" class="label"></div>
+        <div id="RelativeOrientationSensorLabel" class="label"></div>
+        <div id="MagnetometerSensorLabel" class="label"></div>
     </body>
 </html>

@@ -10,18 +10,43 @@ class App {
     renderer = null;
     cube = null;
 
+    AccelerometerSensorLabel = null;
+    GyroscopeSensorLabel = null;
+    LinearAccelerationSensorLabel = null;
+    AbsoluteOrientationSensorLabel = null;
+    RelativeOrientationSensorLabel = null;
+    MagnetometerSensorLabel = null;
+
+
     constructor() {
 
-        console.log(`RelativeOrientationSensor check: ${typeof(RelativeOrientationSensor)}`);
+        console.log(`Accelerometer check: ${typeof(Accelerometer)}`);
+        console.log(`Gyroscope check: ${typeof(Gyroscope)}`);
+        console.log(`LinearAccelerationSensor check: ${typeof(LinearAccelerationSensor)}`);
         console.log(`AbsoluteOrientationSensor check: ${typeof(AbsoluteOrientationSensor)}`);
+        console.log(`RelativeOrientationSensor check: ${typeof(RelativeOrientationSensor)}`);
+        console.log(`Magnetometer check: ${typeof(Magnetometer)}`);
         console.log(`THREE check: ${typeof(THREE)}`);
     }
 
     init() {
 
+        this.AccelerometerSensorLabel = document.querySelector("#AccelerometerSensorLabel");
+        this.GyroscopeSensorLabel = document.querySelector("#GyroscopeSensorLabel");
+        this.LinearAccelerationSensorLabel = document.querySelector("#LinearAccelerationSensorLabel");
+        this.AbsoluteOrientationSensorLabel = document.querySelector("#AbsoluteOrientationSensorLabel");
+        this.RelativeOrientationSensorLabel = document.querySelector("#RelativeOrientationSensorLabel");
+        this.MagnetometerSensorLabel = document.querySelector("#MagnetometerSensorLabel");
+
         this.initThree();
         this.initGeometry();
-        this.initSensor();
+
+        this.initSensor("accelerometer", Accelerometer, this.AccelerometerSensorLabel);
+        this.initSensor("gyroscope", Gyroscope, this.GyroscopeSensorLabel);
+        this.initSensor("linear acceleration", LinearAccelerationSensor, this.LinearAccelerationSensorLabel);
+        this.initSensor("absolute orientation", AbsoluteOrientationSensor, this.AbsoluteOrientationSensorLabel);
+        this.initSensor("relative orientation", RelativeOrientationSensor, this.RelativeOrientationSensorLabel);
+        this.initSensor("magnetometer", Magnetometer, this.MagnetometerSensorLabel);
     }
 
     initThree() {
@@ -56,12 +81,29 @@ class App {
         document.body.appendChild( this.renderer.domElement );
     }
 
-    initSensor() {
+    initSensor(sensorName, sensorClass, labelElement) {
 
-        this.sensor = new AbsoluteOrientationSensor({ frequency: 60 });
-        this.sensor.onreading = this.onSensorUpdated;
-        this.sensor.onerror = this.onSensorError;
-        this.sensor.start();
+        console.log(`Initializing ${sensorName}`);
+        
+        var sensor = new sensorClass({ frequency: 60 });
+        sensor.onreading = function() {
+
+            labelElement.innerText = `${sensorName}: ${JSON.stringify(sensor.quaternion)}`;
+        }
+
+        sensor.onerror = function(event) {
+
+            if (event.error.name == 'NotReadableError') {
+
+                console.log(`${sensorName} sensor is not available.`);
+            }
+            else {
+    
+                console.log(`Unexpected ${sensorName} sensor error.`);
+            }
+        }
+
+        sensor.start();
     }
 
     heartbeat() {
@@ -90,27 +132,10 @@ class App {
         this.scene.add( this.cube );
     }
 
-    onSensorUpdated() {
-
-        this.cube.quaternion.fromArray(this.sensor.quaternion);
-    }
-
-    onSensorError(event) {
-
-        if (event.error.name == 'NotReadableError') {
-
-            console.log('Sensor is not available.');
-        }
-        else {
-
-            console.log('Unexpected Sensor error.');
-        }
-    }
-
     render() {
 
-        /*this.cube.rotation.x += 0.01;
-        this.cube.rotation.y += 0.01;*/
+        this.cube.rotation.x += 0.01;
+        this.cube.rotation.y += 0.01;
 
         // Render the scene
         this.renderer.render(this.scene, this.camera);
@@ -118,4 +143,5 @@ class App {
 };
 
 const _app = new App();
-_app.run();
+
+document.onload = _app.run;
