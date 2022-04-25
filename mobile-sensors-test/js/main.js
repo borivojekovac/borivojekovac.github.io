@@ -30,6 +30,11 @@ class App {
 
         try {
 
+            if (window.location.hash == "debug") {
+
+                document.body.className == "";
+            }
+
             this.LogElement = document.querySelector("#log");
 
             this.log("initializing app...");
