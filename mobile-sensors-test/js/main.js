@@ -1,3 +1,7 @@
+import {
+    RelativeOrientationSensor,
+    AbsoluteOrientationSensor,
+} from "./lib/sensors/motion-sensors.js";
 
 class App {
 
