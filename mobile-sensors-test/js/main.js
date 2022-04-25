@@ -57,7 +57,7 @@ class App {
 
     heartbeat() {
 
-        requestAnimationFrame( this.heartbeat );
+        requestAnimationFrame( this.heartbeat.bind(this) );
 
         this.render();
     }
