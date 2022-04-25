@@ -3,8 +3,7 @@ import {
     Gyroscope,
     LinearAccelerationSensor,
     RelativeOrientationSensor,
-    AbsoluteOrientationSensor,
-    Magnetometer
+    AbsoluteOrientationSensor
 } from "./lib/sensors/motion-sensors.js";
 
 class App {
