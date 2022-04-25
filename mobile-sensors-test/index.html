@@ -64,9 +64,15 @@
                 font-size: small;
             }
 
+            .no-debug #log,
+            .no-debug .label {
+
+                display: none;
+            }
+
         </style>
     </head>
-    <body>
+    <body class="no-debug">
 
         <div id="AccelerometerSensorLabel" class="label"></div>
         <div id="GyroscopeSensorLabel" class="label"></div>

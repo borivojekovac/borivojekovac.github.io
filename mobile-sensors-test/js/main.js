@@ -204,7 +204,7 @@ class App {
 
         // create cube
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        var material = new THREE.MeshLambertMaterial( { color: "#8888ff" } );
+        var material = new THREE.MeshLambertMaterial( { color: "#88ff00" } );
         this.cube = new THREE.Mesh( geometry, material );
         this.scene.add( this.cube );
 
@@ -216,7 +216,7 @@ class App {
         this.light.target = this.cube;
         this.scene.add( this.light);
 
-        this.ambientLight = new THREE.AmbientLight( 0x404040 );
+        this.ambientLight = new THREE.AmbientLight( 0x888888 );
         this.scene.add( this.ambientLight );
     }
 
