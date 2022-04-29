@@ -231,8 +231,8 @@ class App {
         try {
 
             this.sensorsActive = true;
-            //this.cube.quaternion.fromArray(sensor.quaternion).inverse();
-            this.camera.quaternion.fromArray(sensor.quaternion);
+            this.cube.quaternion.fromArray(sensor.quaternion).inverse();
+            //this.camera.quaternion.fromArray(sensor.quaternion);
         }
         catch (ex) {
 
