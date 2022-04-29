@@ -14,6 +14,7 @@ class App {
     cube = null;
     light = null;
     ambientLight = null;
+    sensorsActive = false;
 
     AccelerometerSensorLabel = null;
     GyroscopeSensorLabel = null;
@@ -229,7 +230,9 @@ class App {
 
         try {
 
+            this.sensorsActive = true;
             this.cube.quaternion.fromArray(sensor.quaternion).inverse();
+            this.camera.quaternion.fromArray(sensor.quaternion).inverse();
         }
         catch (ex) {
 
@@ -238,8 +241,11 @@ class App {
 
     render() {
 
-        this.cube.rotation.x += 0.01;
-        this.cube.rotation.y += 0.01;
+        if (!this.sensorsActive) {
+
+            this.cube.rotation.x += 0.01;
+            this.cube.rotation.y += 0.01;
+        }
 
         // render the scene onto DOM
         this.renderer.render(this.scene, this.camera);
