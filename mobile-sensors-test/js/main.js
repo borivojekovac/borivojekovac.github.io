@@ -91,7 +91,11 @@ class App {
             1000
         );
 
-        this.camera.position.z = 4;
+        this.camera.position.x = 
+        this.camera.position.y = 
+        this.camera.position.z = 5;
+
+        this.camera.lookAt(0, 0, 0);
 
         // init renderer
         this.renderer = new THREE.WebGLRenderer({
