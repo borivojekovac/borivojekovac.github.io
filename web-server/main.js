@@ -1,5 +1,5 @@
 // Dependencies
-const http = require('http');
+const https = require('https');
 const url = require('url');
 const fs = require('fs');
 const path = require('path');
@@ -7,12 +7,18 @@ const path = require('path');
 // Container Object
 const server = {};
 
+// HTTPS options
+const options = {
+  key: fs.readFileSync('./web-server/key.pem'),
+  cert: fs.readFileSync('./web-server/cert.pem')
+};
+
 // Base Directory - Assuming minimal-http-server 
 // will be accessed  from its own folder.
 const baseDir = path.join(__dirname, '../');
 
 // Create a server
-const httpServer = http.createServer((request, response) => {
+const httpServer = https.createServer(options, (request, response) => {
   
   const parsedUrl = url.parse(request.url, true);
   let pathName = parsedUrl.pathname;
@@ -63,7 +69,7 @@ const getContentType = pathName => {
 //'port' defaults to 3000 and 'host' defaults to 127.0.0.1
 server.init = (port = 3000, host = '127.0.0.1') => {
   httpServer.listen(port, () => {
-    console.log(`\x1b[32m%s\x1b[0m`, `Server is running at http://${host}:${port}`);
+    console.log(`\x1b[32m%s\x1b[0m`, `Server is running at https://${host}:${port}`);
   });
 };
 

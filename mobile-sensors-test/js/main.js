@@ -82,21 +82,6 @@ class App {
         // init scene
         this.scene = new THREE.Scene();
 
-        // init camera
-        this.camera = new THREE.PerspectiveCamera(
-            
-            75,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000
-        );
-
-        this.camera.position.x = 
-        this.camera.position.y = 
-        this.camera.position.z = 5;
-
-        this.camera.lookAt(0, 0, 0);
-
         // init renderer
         this.renderer = new THREE.WebGLRenderer({
 
@@ -106,6 +91,15 @@ class App {
         this.renderer.setClearColor("#000000");
         this.renderer.setSize( window.innerWidth, window.innerHeight );
 
+        // init camera
+        this.camera = new THREE.PerspectiveCamera(
+    
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        
         // init DOM & attach resize handler
         document.body.appendChild( this.renderer.domElement );
 
@@ -212,11 +206,28 @@ class App {
 
         this.log("Initializing 3D scene...");
 
+        // position camera
+        this.camera.position.x = 0;
+        this.camera.position.y = -5;
+        this.camera.position.z = -0.5;
+
+        this.camera.lookAt(0, 0, 0);
+
         // create cube
-        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        var material = new THREE.MeshLambertMaterial( { color: "#88ff00" } );
-        this.cube = new THREE.Mesh( geometry, material );
-        this.scene.add( this.cube );
+        {
+            var geometry = new THREE.BoxGeometry( 2, 1, 0.2 );
+            var material = new THREE.MeshLambertMaterial( { color: "#88ff00", opacity: 0.2, transparent: true } );
+            this.cube = new THREE.Mesh( geometry, material );
+            this.scene.add( this.cube );
+        }
+
+        {            
+            var geometry = new THREE.BoxGeometry(50, 0.04, 0.04);
+            var material = new THREE.MeshLambertMaterial( { color: "#ffff00" } );
+            this.ray = new THREE.Mesh( geometry, material );
+            this.ray.geometry.translate(-25, -0.02, -0.02);
+            this.scene.add( this.ray );
+        }
 
         // create lights
         this.light = new THREE.DirectionalLight( 0xffffff, 1.0 );
@@ -236,6 +247,7 @@ class App {
 
             this.sensorsActive = true;
             this.cube.quaternion.fromArray(sensor.quaternion).inverse();
+            this.ray.quaternion.fromArray(sensor.quaternion).inverse();
             //this.camera.quaternion.fromArray(sensor.quaternion);
         }
         catch (ex) {
