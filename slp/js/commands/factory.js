@@ -1,7 +1,7 @@
 import CommandClear from "./clear.js";
 import CommandZoom from "./zoom.js";
 import CommandPadding from "./padding.js";
-import CommandNew from "./new.js";
+import CommandAgent from "./agent.js";
 import CommandList from "./list.js";
 import CommandText from "./text.js";
 import CommandSave from "./save.js";
@@ -24,7 +24,7 @@ class CommandFactory {
         "clear": CommandClear,
         "zoom": CommandZoom,
         "padding": CommandPadding,
-        "new": CommandNew,
+        "agent": CommandAgent,
         "list": CommandList,
         "text": CommandText,
         "save": CommandSave,

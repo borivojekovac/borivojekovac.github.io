@@ -7,6 +7,7 @@ class Viewer {
     value = null;
     dom = null;
     currentValueIndex = null;
+    _monospace = false;
 
     constructor(value) {
 
@@ -40,6 +41,31 @@ class Viewer {
         return value.viewDom();
     }
 
+    monospace(monospace) {
+
+        if (monospace === undefined) {
+
+            return this._monospace;
+        }
+
+        this._monospace = monospace;
+
+        if (this._monospace) {
+
+            if (this.dom && !this.dom.classList.contains("uiMonospace")) {
+
+                this.dom.classList.add("uiMonospace");
+            }            
+        }
+        else {
+
+            if (this.dom && this.dom.classList.contains("uiMonospace")) {
+
+                this.dom.classList.remove("uiMonospace");
+            }            
+        }
+    }
+
     async initUi() {
 
         const dom = TemplateManager.getDom(this.getTemplate(), this);
@@ -71,6 +97,8 @@ class Viewer {
             .addEventListener("click", this.onNext.bind(this));
 
         this.dom = uiValueViewer;
+
+        this.monospace(this.monospace());
 
         App.dom.append(...dom.childNodes);
     }

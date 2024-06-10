@@ -125,9 +125,9 @@ class Console {
 }
 
 Console.templateString = `
-    <div id="{{id}}-content" class="console-content uiElement uiBackground"></div>
+    <div id="{{id}}-content" class="console-content uiElement uiBackground uiMonospace"></div>
     <div id="{{id}}-input" class="console-input uiElement uiBackground uiGlow">
-        <input id="{{id}}-inputTextBox" type="text" placeholder="Type your input here." enterkeyhint="enter">
+        <input id="{{id}}-inputTextBox" class="uiMonospace" type="text" placeholder="Type your input here." enterkeyhint="enter">
     </div>
 `;
 

@@ -4,11 +4,11 @@ import ValueText from "../values/text.js";
 import ValueEditor from "../values/editor.js";
 import ConnectorSocket from "../connectors/socket.js";
 
-class NodeTextFormat extends Node {
+class NodeText extends Node {
 
     constructor(name, type) {
 
-        super(name, type ?? "TextFormat");
+        super(name, type ?? "Text");
 
         this.sockets.input.push(new ConnectorSocket(this, "input", "text"));
         this.sockets.output.push(new ConnectorSocket(this, "output", "text"));
@@ -21,7 +21,7 @@ class NodeTextFormat extends Node {
 
         await super.initUi();
         
-        const dom = TemplateManager.getDom(NodeTextFormat.template, this.properties);
+        const dom = TemplateManager.getDom(NodeText.template, this.properties);
         this.dom.append(...dom.childNodes);
 
         this.bindUiElement("pre");
@@ -42,7 +42,7 @@ class NodeTextFormat extends Node {
     onEditPre(evt) {
 
         const nameValue = new ValueText(this.properties.pre);
-        const valueEditor = new ValueEditor(`edit ${this.properties.type} agent prefix text`, nameValue, this.updatePre.bind(this));
+        const valueEditor = new ValueEditor(`edit ${this.properties.type} agent prefix`, nameValue, this.updatePre.bind(this));
         valueEditor.initUi();
 
         evt.preventDefault();
@@ -58,7 +58,7 @@ class NodeTextFormat extends Node {
     onEditPost(evt) {
 
         const nameValue = new ValueText(this.properties.post);
-        const valueEditor = new ValueEditor(`edit ${this.properties.type} agent postfix text`, nameValue, this.updatePost.bind(this));
+        const valueEditor = new ValueEditor(`edit ${this.properties.type} agent postfix`, nameValue, this.updatePost.bind(this));
         valueEditor.initUi();
 
         evt.preventDefault();
@@ -80,6 +80,6 @@ class NodeTextFormat extends Node {
     }
 }
     
-NodeTextFormat.template = await TemplateManager.getTemplate("nodeTextFormat");
+NodeText.template = await TemplateManager.getTemplate("nodeText");
 
-export default NodeTextFormat;
+export default NodeText;

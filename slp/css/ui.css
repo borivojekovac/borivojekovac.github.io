@@ -23,6 +23,12 @@
     box-shadow: 0 0 calc(var(--appPadding) * 1) var(--appColorLight);
 }
 
+.uiMonospace, 
+.uiMonospace textarea {
+    
+    font-family: monospace;
+}
+
 @keyframes pulsatingHighlight {
 
     0% {

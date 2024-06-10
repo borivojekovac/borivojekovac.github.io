@@ -8,7 +8,7 @@ import DataManager from "./dataManager.js";
 import ConnectorManager from "./connectors/manager.js";
 import ValueError from "./values/error.js";
 import Connector from "./connectors/connector.js";
-import NodeTextFormat from "./nodes/textFormat.js";
+import NodeText from "./nodes/text.js";
 import NodeDalle from "./nodes/dalle.js";
 import Menu from "./menu/menu.js";
 import Toolbar from "./toolbar.js";
@@ -101,7 +101,7 @@ class App {
         this.toolbar.add("toggle node view", "!toggle");
         this.toolbar.add("show nodes", "!show");
         this.toolbar.add("hide nodes", "!hide");
-        this.toolbar.add("+ agent: text", "!new textformat");
+        this.toolbar.add("+ agent: text", "!new text");
         this.toolbar.add("+ agent: openAi chat", "!new openaichat");
         this.toolbar.add("+ agent: dall-e 2", "!new dalle2");
         this.toolbar.add("+ agent: dall-e 3", "!new dalle3");
@@ -182,7 +182,7 @@ class App {
         const agentConstructors = {
             "OpenAi": NodeOpenAi,
             "OpenAiChat": NodeOpenAiChat,
-            "TextFormat": NodeTextFormat,
+            "Text": NodeTextFormat,
             "Dall-e": NodeDalle
         };
 

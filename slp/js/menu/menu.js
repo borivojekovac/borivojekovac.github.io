@@ -94,34 +94,7 @@ class Menu {
 
     async onDefaults(evt) {
 
-        const value = new ValueText(JSON.stringify(App.defaults, null, "\n"));
-        const valueEditor = new ValueEditor("Agent defaults", value, this.onDefaultsDone.bind(this));
-        valueEditor._nameReadOnly = true;
-        valueEditor.initUi();
-    }
-
-    async onDefaultsDone(defaultsString) {
-
-        var defaults = null;
-
-        try {
-
-            defaults = JSON.parse(defaultsString);
-        }
-        catch (ex) {
-
-            return;
-        }
-
-        for (const defaultValueName in App.defaults) {
-
-            if (defaults[defaultValueName] !== undefined) {
-
-                App.defaults[defaultValueName] = defaults[defaultValueName];
-            }
-        }
-
-        App.saveDefaults();
+        App.processCommand("!default");
     }
 
     async onLoad(evt) {
@@ -142,6 +115,7 @@ class Menu {
 
         const commandsValue = new ValueText(commands);
         const valueEditor = new ValueEditor(name, commandsValue, this.onEditDone.bind(this), name);
+        valueEditor._monospace = true;
         valueEditor.initUi();
     }
 

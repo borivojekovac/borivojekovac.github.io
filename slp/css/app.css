@@ -1,4 +1,4 @@
-:root, input[type="text"], select {
+:root, textarea, input[type="text"], select {
 
     font-family: var(--appFontFamily);
     font-size: var(--appFontSize);

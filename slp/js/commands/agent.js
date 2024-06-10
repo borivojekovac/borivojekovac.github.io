@@ -2,14 +2,14 @@ import Command from "./command.js";
 import Console from "../console.js";
 import NodeOpenAi from "../nodes/openAi.js";
 import NodeOpenAiChat from "../nodes/openAiChat.js";
-import NodeTextFormat from "../nodes/textFormat.js";
+import NodeTextFormat from "../nodes/text.js";
 import NodeDalle2 from "../nodes/dalle2.js";
 import NodeDalle3 from "../nodes/dalle3.js";
 import NodeGoogle from "../nodes/google.js";
 import ValueError from "../values/error.js";
 import ValueText from "../values/text.js";
 
-class CommandNew extends Command {
+class CommandAgent extends Command {
 
     constructor(commandLine, commandName, parameters) {
 
@@ -24,7 +24,7 @@ class CommandNew extends Command {
         switch (type.toLowerCase()) {
             case "openai":
                 {
-                    Console.writeVerbose(`Constructing OpenAI instruct node ${name}...`);
+                    Console.writeVerbose(`Constructing OpenAI instruct agent ${name}...`);
                     const node = new NodeOpenAi(name);
 
                     const openAiKey = this.parameters[2];
@@ -52,11 +52,11 @@ class CommandNew extends Command {
                     }
                 }
 
-                return new ValueText(`OpenAI instruct node ${name} constructed.`);
+                return new ValueText(`OpenAI instruct agent ${name} constructed.`);
 
             case "openaichat":
                 {
-                    Console.writeVerbose(`Constructing OpenAI chat node ${name}...`);
+                    Console.writeVerbose(`Constructing OpenAI chat agent ${name}...`);
                     const node = new NodeOpenAiChat(name);
 
                     const openAiKey = this.parameters[2];
@@ -79,11 +79,11 @@ class CommandNew extends Command {
 
                 }
 
-                return new ValueText(`OpenAI chat node ${name} constructed.`);
+                return new ValueText(`OpenAI chat agent ${name} constructed.`);
 
             case "dalle2":
                 {
-                    Console.writeVerbose(`Constructing Dall-e 2 node ${name}...`);
+                    Console.writeVerbose(`Constructing Dall-e 2 agent ${name}...`);
                     const node = new NodeDalle2(name);
 
                     const openAiKey = this.parameters[2];
@@ -99,11 +99,11 @@ class CommandNew extends Command {
                     }
                 }
 
-                return new ValueText(`Dall-e 2 node ${name} constructed.`);
+                return new ValueText(`Dall-e 2 agent ${name} constructed.`);
 
             case "dalle3":
                 {
-                    Console.writeVerbose(`Constructing Dall-e 3 node ${name}...`);
+                    Console.writeVerbose(`Constructing Dall-e 3 agent ${name}...`);
                     const node = new NodeDalle3(name);
 
                     const openAiKey = this.parameters[2];
@@ -131,11 +131,11 @@ class CommandNew extends Command {
                     }
                 }
 
-                return new ValueText(`Dall-e 3 node ${name} constructed.`);
+                return new ValueText(`Dall-e 3 agent ${name} constructed.`);
 
-            case "textformat":
+            case "text":
                 {
-                    Console.writeVerbose(`Constructing TextFormat node ${name}...`);
+                    Console.writeVerbose(`Constructing Text agent ${name}...`);
                     const node = new NodeTextFormat(name);
 
                     const pre = this.parameters[2];
@@ -151,11 +151,11 @@ class CommandNew extends Command {
                     }
                 }
 
-                return new ValueText(`TextFormat node ${name} constructed.`);
+                return new ValueText(`Text agent ${name} constructed.`);
 
             case "google":
                 {
-                    Console.writeVerbose(`Constructing Google node ${name}...`);
+                    Console.writeVerbose(`Constructing Google agent ${name}...`);
                     const node = new NodeGoogle(name);
 
                     const googleApiKey = this.parameters[2];
@@ -177,12 +177,12 @@ class CommandNew extends Command {
                     }
                 }
 
-                return new ValueText(`Google node ${name} constructed.`);
+                return new ValueText(`Google agent ${name} constructed.`);
 
             default:
-                return new ValueError(`Unsupported node type: ${type}`);
+                return new ValueError(`Unsupported agent type: ${type}`);
         }
     }
 }
 
-export default CommandNew;
+export default CommandAgent;
