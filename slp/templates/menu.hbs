@@ -1,0 +1,22 @@
+<div id="menu{{id}}" class="uiMenu uiGlow">
+    <ul>
+        <li class="uiMenuHeader">
+            <svg class="uiMenuIcon uiButton" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/></svg>
+            <div class="uiMenuTitle">{{name}}</div>
+        </li>
+    </ul>
+    <ul>
+        <li class="uiMenuItemReset uiButton">Reset</svg></li>
+        <li class="uiMenuItemSave uiButton">Save</li>
+        <li class="uiMenuItemDefaults uiButton">Defaults</li>
+    </ul>
+    <ul>
+    {{#each scriptNames}}
+        <li class="uiMenuItemScript">
+            <div type="text" class="uiMenuItemName" data-name="{{this}}">{{this}}</div>
+            <a class="uiMenuItemEdit uiButton" data-name="{{this}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></a>
+            <a class="uiMenuItemDelete uiButton" data-name="{{this}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></a>
+        </li>
+    {{/each}}
+    </ul>
+</div>

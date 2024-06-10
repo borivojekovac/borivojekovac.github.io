@@ -1,0 +1,14 @@
+<div class="nodeLabelValue">
+    <div class="nodeLabel">key</div>
+    <input class="nodeValue" type="text"  data-property="key" value="{{key}}" />
+</div>
+<div class="nodeLabelValue">
+    <div class="nodeLabel">size</div>
+    <select class="nodeValue" data-property="size">
+        {{#select size}}
+        {{#each _sizes}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>

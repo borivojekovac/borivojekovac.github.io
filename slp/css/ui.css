@@ -1,0 +1,65 @@
+.uiElement {
+
+    position: fixed;
+}
+
+.uiBackground {
+
+    background-color: var(--appColorPrimary);
+}
+
+.uiHighlighted {
+
+    color: var(--appColorSecondary);
+}
+
+.uiGlow {
+
+    box-shadow: 0 0 calc(var(--appPadding) * 0.5) var(--appColorUiGlow);    
+}
+
+.uiGlow:has(input:focus), .uiGlow:has(select:focus) {
+
+    box-shadow: 0 0 calc(var(--appPadding) * 1) var(--appColorLight);
+}
+
+@keyframes pulsatingHighlight {
+
+    0% {
+        box-shadow: 0 0 calc(var(--appPadding) * 0.5) var(--appColorUiGlow);    
+    }
+
+    50% {
+        box-shadow: 0 0 calc(var(--appPadding) * 1) var(--appColorLight);
+        background-color: var(--appColorLighterTransparent);
+    }
+
+    100% {
+        box-shadow: 0 0 calc(var(--appPadding) * 0.5) var(--appColorUiGlow);
+    }
+}
+
+.uiGlow.uiHighlight {
+
+    animation-name: pulsatingHighlight;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: linear;
+}
+
+#zoomSizeHelper {
+
+    position: fixed;
+    visibility: hidden;
+    width: var(--appZoom);
+    height: var(--appZoom);
+}
+
+#paddingSizeHelper {
+
+    position: fixed;
+    visibility: hidden;
+    width: var(--appPadding);
+    height: var(--appPadding);
+}

@@ -1,0 +1,26 @@
+:root {
+
+    --appColorPrimary: #3D3D4D;
+    --appColorSecondary: #F2CA79;
+    --appColorAccent: #F2F23D;
+    --appColorAccent2: #FAFA0C;
+
+    --appColorError: #ff0000;
+    --appColorText: #00aaff;
+    --appColorImage: #00bb88;
+
+    --appColorPrimaryTransparent: #3D3D4Dcc;
+    --appColorDark: #14141A;
+    --appColorLighter: #515166;
+    --appColorLighterTransparent: #515166cc;
+    --appColorLight: #C2C2F2;
+    --appColorUiGlow: #00000088;
+
+    --appFontFamily: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --appZoom: 3vmin;
+    --appPaddingRatio: 1;
+
+    --appPadding: calc(var(--appZoom) * var(--appPaddingRatio));
+    --appFontSize: calc(var(--appZoom) * 1);
+    --appBorderRadius: calc(var(--appPadding) * 0.5);
+}

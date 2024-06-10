@@ -1,0 +1,164 @@
+.uiNode {
+
+    position: fixed;
+    width: calc(var(--appZoom) * 20);
+    border-radius: var(--appBorderRadius);
+    overflow: hidden;
+    cursor: default;
+    padding:
+        0
+        0
+        calc(var(--appPadding) * 0.5)
+        0;
+    color: var(--appColorLight);
+    background-color: none;
+}
+
+.uiNode.uiMinimised {
+
+    width: calc(var(--appZoom) * 10);
+}
+
+.uiNode.uiHidden {
+
+    display: none;
+}
+
+.uiNode .nodeLabelValue option {
+
+    color: var(--appColorSecondary);
+    background-color: var(--appColorLighter);
+}    
+
+.uiNode .nodeLabelValue option:checked {
+
+    color: var(--appColorAccent2);
+}
+
+.uiNode {
+
+    background-color: var(--appColorPrimaryTransparent);
+    backdrop-filter: blur(3px);
+}
+
+.uiNode:has(input:focus), .uiNode:has(select:focus) {
+
+    background-color: var(--appColorLighterTransparent);
+}
+
+.uiNode .nodeValue:focus {
+
+    outline: none;
+    color: var(--appColorAccent2);
+}
+
+.uiNode .nodeTitle {
+
+    position: relative;
+    width: calc(var(--appZoom) * 20 - (2 * var(--appPadding)));
+    padding:
+        calc(var(--appPadding) * 0.5)
+        var(--appPadding)
+        calc(var(--appPadding) * 0.5)
+        var(--appPadding);
+    cursor: grab;
+    user-select: none;
+    background-color: var(--appColorSecondary);
+    color: var(--appColorPrimary);
+    font-weight: bold;
+}
+
+.uiNode.uiMinimised .nodeTitle {
+
+    width: calc(var(--appZoom) * 10 - (2 * var(--appPadding)));
+}
+
+.uiNode .nodeSizeToggle {
+
+    position: absolute;
+    top: 50%;
+    left: calc(var(--appZoom) * 18);
+    transform: translateY(-50%);
+    float: right;
+    width: calc(var(--appZoom));
+    height: calc(var(--appZoom) / 3);
+    background-color: var(--appColorSecondary);
+    border: calc(var(--appZoom) * 0.4) solid var(--appColorPrimary);
+    border-radius: 1vmin;
+    cursor: pointer;
+}
+
+.uiNode.uiMinimised .nodeSizeToggle {
+
+    left: calc(var(--appZoom) * 8);
+    height: calc(var(--appZoom));
+}
+
+.uiNode .nodeLabelValue {
+
+    display: flex;
+    width: calc(var(--appZoom) * 20 - (2 * var(--appZoom) * var(--appPadding)));
+    padding: 0px;
+    margin:
+        calc(var(--appPadding) * 0.5)
+        var(--appPadding)
+        calc(var(--appPadding) * 0.5)
+        var(--appPadding);
+}
+
+.uiNode.uiMinimised .nodeLabelValue {
+
+    display: none;
+}
+
+.uiNode .nodeExpanded, .uiNode.uiMinimised .nodeCollapsed {
+
+    display: inherit;
+}
+.uiNode.uiMinimised .nodeTitleType, .uiNode .nodeCollapsed {
+
+    display: none;
+}
+
+.uiNode .nodeLabel, .uiNode .nodeValue, .uiNode .nodeTitle {
+
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.uiNode .nodeLabel {
+
+    width: calc(var(--appZoom) * 5 - var(--appPadding));
+}
+
+.uiNode a.nodeLabel:hover {
+
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.uiNode .nodeValue {
+
+    background-color: inherit;
+    width: calc(var(--appZoom) * 15 - (2 * var(--appPadding)));
+    padding:
+        0
+        0
+        0
+        var(--appPadding);
+    border: none;
+    color: var(--appColorSecondary);
+    box-sizing: content-box;
+}
+
+.uiNode .nodeLastResult {
+    
+    color: var(--appColorLight);
+    height: 1lh;
+}
+
+.uiNode select {
+
+    cursor: pointer;
+}

@@ -1,0 +1,129 @@
+.uiMenu {
+
+    position: fixed;
+    top: var(--appPadding);
+    left: calc(100vw - calc(var(--appZoom) * 20 + var(--appPadding)));
+    z-index: 10000;
+
+    width: calc(var(--appZoom) * 20);
+    border-radius: var(--appBorderRadius);
+    overflow: hidden;
+
+    color: var(--appColorLight);
+
+    background-color: var(--appColorPrimaryTransparent);
+    backdrop-filter: blur(3px);
+}
+
+.uiMenu:has(input:focus), .uiMenu:has(select:focus) {
+
+    background-color: var(--appColorLighterTransparent);
+}
+
+.uiMenu.uiMinimised {
+
+    left: calc(100vw - calc(var(--appZoom) * 2 + var(--appPadding) * 3));
+    width: calc(var(--appZoom) * 2 + var(--appPadding) * 2);
+    height: calc(var(--appZoom) * 2 + var(--appPadding) * 2);
+    border-radius: 100vmax;
+}
+
+.uiMenu.uiMinimised li.uiMenuHeader {
+
+    direction: ltr;
+}
+
+.uiMenu ul {
+
+    width: 100%;
+    display: flex;
+    align-self: center;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.uiMenu li.uiMenuHeader {
+
+    direction: rtl;
+    width: calc(var(--appZoom) * 20 - var(--appPadding) * 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--appColorSecondary);
+    color: var(--appColorPrimary);
+}
+
+.uiMenu .uiButton, .uiMenuItemScript .uiMenuItemName {
+
+    cursor: pointer;
+}
+
+.uiMenu .uiMenuIcon {
+
+    width: calc(var(--appZoom) * 2);
+    fill: var(--appColorPrimary);
+}
+
+.uiMenu .uiMenuTitle {
+
+    width: calc(var(--appZoom) * 20 - var(--appZoom) * 2 - var(--appPadding) * 2);
+    display: inline-block;
+    text-align: center;
+    color: var(--appColorPrimary);
+    font-weight: bold;
+}
+
+.uiMenu ul,
+.uiMenu ul li {
+
+    margin:0;
+    text-indent: 0;
+    list-style-type: 0;
+    display: block;
+}
+
+.uiMenu ul {
+
+    padding: 0;
+}
+
+.uiMenu ul li {
+
+    padding: var(--appPadding);
+}
+
+.uiMenu ul li input {
+
+    background: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    color: var(--appColorSecondary);
+}
+
+.uiMenu ul li input:focus {
+
+    outline: none;
+    color: var(--appColorAccent2);
+}
+
+.uiMenu li.uiMenuItemScript {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--appPadding) * 0.5) var(--appPadding) calc(var(--appPadding) * 0.5) var(--appPadding);
+}
+
+.uiMenu li.uiMenuItemScript .uiMenuItemName {
+
+    width: calc(var(--appZoom) * 20 - var(--appPadding) * 2 - 4 * var(--appZoom));
+}
+
+.uiMenu li.uiMenuItemScript svg {
+
+    width: calc(var(--appZoom) + var(--appPadding));
+    height: calc(var(--appZoom) + var(--appPadding));
+    fill: var(--appColorLight);
+}

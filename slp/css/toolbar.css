@@ -1,0 +1,90 @@
+.toolbar {
+
+    top: 0vh;
+    left: 0vw;
+    height: 100vh;    
+    z-index: 2000;
+    position: fixed;
+    cursor: pointer;
+}
+
+.toolbar .handle svg {
+
+    width: calc(var(--appZoom) * 2);
+}
+
+.toolbar .title {
+
+    display: inline-block;
+    color: var(--appColorLight);
+    margin: calc(var(--appPadding));
+    margin-bottom: 0;
+}
+
+.toolbar .handle {
+
+    position: fixed;
+    top: var(--appPadding);
+    left: var(--appPadding);
+    width: calc(var(--appZoom) * 2);
+    height: calc(var(--appZoom) * 2);
+    display: flex;
+    align-self: center;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: var(--appColorSecondary);
+    fill: var(--appColorSecondary);
+    background-color: var(--appColorPrimaryTransparent);
+    backdrop-filter: blur(3px);
+    border-radius: var(--appBorderRadius);
+}
+
+.toolbar.expanded .handle {
+
+    left: calc(var(--appZoom) * 15 + var(--appPadding));
+}
+
+.toolbar .handle .expand,
+.toolbar.expanded .handle .collapse {
+
+    display: inherit;
+}
+
+.toolbar .handle .collapse,
+.toolbar.expanded .handle .expand {
+
+    display: none;
+}
+
+.toolbar .toolsContainer {
+
+    position: fixed;
+    top: 0vh;
+    left: 0vw;
+    width: calc(0vw);
+    color: var(--appColorSecondary);
+    background-color: var(--appColorPrimaryTransparent);
+    backdrop-filter: blur(3px);
+    overflow: hidden;
+}
+
+.toolbar.expanded .toolsContainer {
+
+    width: calc(var(--appZoom) * 15);
+}
+
+.toolbar .toolsContainer div {
+
+    font-weight: bold;
+    color: var(--appColorPrimary);
+    background-color: var(--appColorSecondary);
+    padding: var(--appPadding);
+    padding-top: calc(var(--appPadding) / 2);
+    padding-bottom: calc(var(--appPadding) / 2);
+    margin: calc(var(--appPadding));
+    margin-top: calc(var(--appPadding));
+    margin-bottom: calc(var(--appPadding));
+    border-radius: var(--appBorderRadius);
+}

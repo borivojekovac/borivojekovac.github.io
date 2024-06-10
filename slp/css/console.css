@@ -1,0 +1,117 @@
+.console-outputText {
+
+    padding: calc(var(--appZoom) * var(--appPadding) * 0.2);
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.console-outputText br {
+
+    display: none;
+}
+
+#appContainer .uiVerbose {
+
+    display: none;
+}
+
+#appContainer.uiVerbose .uiVerbose {
+
+    display: inherit;
+}
+
+
+#appContainer.uiVerbose .console-outputText {
+
+    height: unset;
+    overflow: unset;
+}
+
+#appContainer.uiVerbose .console-outputText br {
+
+    display: unset;
+}
+
+
+.console-content {
+
+    background-color: var(--appColorPrimary);
+    color: var(--appColorLight);
+}
+
+.console-input {
+
+    background-color: var(--appColorPrimaryTransparent);
+    backdrop-filter: blur(3px);
+    color: var(--appColorLight);
+}
+
+.console-input input {
+
+    background: none;
+    color: var(--appColorLight);
+}
+
+.console-content {
+
+    padding: var(--appPadding);
+    padding-bottom: calc(var(--appZoom) + var(--appPadding) * 5);
+    top: 0vh;
+    left: 0vw;
+    width: 100vw;
+    height: calc(100dvh - var(--appZoom) - var(--appPadding) * 5);
+    z-index: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.console-content div::selection {
+
+    color: var(--appColorPrimary);
+    background-color: var(--appColorSecondary);;
+}
+
+.console-input {
+
+    top: calc(100dvh - (2 * var(--appZoom) + var(--appPadding) * 2));
+    left: var(--appZoom);
+    width: calc(100vw - 2 * var(--appZoom));
+    height: calc(var(--appZoom) + var(--appPadding) * 2);
+    z-index: 20;
+}
+
+.console-input input {
+
+    background-color: none;
+}
+
+.console-input input::placeholder {
+
+    color: var(--appColorSecondary);
+}
+
+.console-input:has(input:focus), .console-input:has(select:focus) {
+
+    background-color: var(--appColorLighterTransparent);
+}
+
+.console-input input {
+
+    background-color: none;
+    color: var(--appColorAccent);
+    padding: var(--appPadding);
+    border: none;
+    width: calc(100% - 2 * var(--appZoom));
+    height: var(--appZoom);
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.console-input input:focus {
+
+    outline: none;
+    color: var(--appColorAccent2);
+}

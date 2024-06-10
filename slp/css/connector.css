@@ -1,0 +1,67 @@
+.uiSvg {
+
+    position: fixed;
+    top:0px;
+    left:0px;
+    width: 100vw;
+    height: 100dvh;
+    margin: 0;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.uiSvg .uiConnector {
+
+    stroke: var(--appColorSecondary);
+    stroke-linecap: round;
+    stroke-width: calc(var(--appZoom) * 0.2);
+}
+
+.uiSvg .uiConnector.uiConnectorError {
+
+    stroke: var(--appColorError);
+}
+
+.uiSvg .uiConnector.uiConnectorText {
+
+    stroke: var(--appColorText);
+}
+
+.uiSvg .uiConnector.uiConnectorImage {
+
+    stroke: var(--appColorImage);
+}
+
+.uiSvg .uiDashed {
+
+    stroke-dasharray: 0 4 0;
+}
+
+.uiSvg .uiSocket {
+
+    stroke: var(--appColorSecondary);
+    stroke-width: calc(var(--appZoom) * 0.4);
+    fill: var(--appColorPrimary);
+    cursor: pointer;
+    pointer-events: visiblePainted;
+}
+
+.uiSvg .uiHidden {
+
+    display: none;
+}
+
+.uiSvg .uiSocket.uiConnectorError {
+
+    fill: var(--appColorError);
+}
+
+.uiSvg .uiSocket.uiConnectorText {
+
+    fill: var(--appColorText);
+}
+
+.uiSvg .uiSocket.uiConnectorImage {
+
+    fill: var(--appColorImage);
+}
