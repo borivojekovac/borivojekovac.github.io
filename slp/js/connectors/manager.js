@@ -158,7 +158,16 @@ class ConnectorManager {
                         case "error":
                         case "text":
                         case "image":
-                            App.processCommand(`text ${connector.to.node.properties.id}, "${result.toString().replaceAll("\"", "'").replaceAll(",", ";")}"`);
+
+                            result = result.toString().trim();
+                            if (result[0] == "\"" && result[result.length - 1] == "\"") {
+                                
+                                result = result.substring(1, result.length - 2);
+                            }
+
+                            result = result.replaceAll("\"", "\\\"");
+
+                            App.processCommand(`text ${connector.to.node.properties.id}, "${result}"`);
                             return true;
                     }
                 }
