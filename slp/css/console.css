@@ -118,10 +118,11 @@
 
 input.uiUserInput {
 
-    font-family: monospace;
     outline: none;
     border: none;
-    background-color: transparent;
+    background: none;
+    background-color: var(--appColorPrimaryTransparent);
+    backdrop-filter: blur(3px);
     padding: none;
     margin: none;
     width: calc(100vw - 2 * var(--appPadding));
@@ -136,4 +137,6 @@ input.uiUserInput::placeholder {
 input.uiUserInput:focus {
 
     color: var(--appColorAccent2);
+    background-color: var(--appColorLighterTransparent);
+
 }

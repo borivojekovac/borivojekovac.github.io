@@ -101,11 +101,12 @@ class App {
         this.toolbar.add("toggle node view", "toggle");
         this.toolbar.add("show nodes", "show");
         this.toolbar.add("hide nodes", "hide");
-        this.toolbar.add("+ agent: text", "agent text");
-        this.toolbar.add("+ agent: openAi chat", "agent openaichat");
-        this.toolbar.add("+ agent: dall-e 2", "agent dalle2");
-        this.toolbar.add("+ agent: dall-e 3", "agent dalle3");
-        this.toolbar.add("+ agent: google", "agent google");
+        this.toolbar.add("agent: text", "agent text");
+        this.toolbar.add("agent: openAi instruct", "agent openai");
+        this.toolbar.add("agent: openAi chat", "agent openaichat");
+        this.toolbar.add("agent: dall-e 2", "agent dalle2");
+        this.toolbar.add("agent: dall-e 3", "agent dalle3");
+        this.toolbar.add("agent: google", "agent google");
 
 
         window.requestAnimationFrame(this.onUpdateFrame.bind(this));

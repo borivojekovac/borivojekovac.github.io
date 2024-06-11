@@ -18,7 +18,7 @@
     box-shadow: 0 0 calc(var(--appPadding) * 0.5) var(--appColorUiGlow);    
 }
 
-.uiGlow:has(input:focus), .uiGlow:has(select:focus) {
+.uiGlow:focus, .uiGlow:has(input:focus), .uiGlow:has(select:focus) {
 
     box-shadow: 0 0 calc(var(--appPadding) * 1) var(--appColorLight);
 }

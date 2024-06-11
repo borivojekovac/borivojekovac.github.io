@@ -115,12 +115,19 @@ class Console {
 
     async getUserInput() {
 
+        const oldUserInputElements = document.querySelectorAll(".uiUserInput");
+        for (const oldUserInputElement of oldUserInputElements) {
+            
+            oldUserInputElement.remove();
+        }
+
         const userInputContainer = document.createElement("span");
         this.dom.content.appendChild(userInputContainer);
 
         const inputBox = document.createElement("input");
+        inputBox.type = "text";
         inputBox.enterKeyHint = "Enter";
-        inputBox.className = "uiUserInput";
+        inputBox.className = "uiBackground uiUserInput uiGlow uiMonospace";
         inputBox.placeholder = "Please enter your input here...";
 
         this.dom.content.appendChild(inputBox);
