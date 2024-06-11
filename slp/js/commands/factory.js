@@ -17,6 +17,7 @@ import CommandHide from "./hide.js";
 import CommandShow from "./show.js";
 import CommandVerbose from "./verbose.js";
 import CommandAutoView from "./autoview.js";
+import CommandRun from "./run.js";
 
 class CommandFactory {
 
@@ -39,7 +40,8 @@ class CommandFactory {
         "hide": CommandHide,
         "show": CommandShow,
         "verbose": CommandVerbose,
-        "autoview": CommandAutoView
+        "autoview": CommandAutoView,
+        "run": CommandRun
     };
 
     constructor() {
@@ -47,15 +49,6 @@ class CommandFactory {
     }
 
     parseFunctionAndArguments(input) {
-
-        if (input.trim()[0] == "!") {
-
-            input = input.substring(1).trim();
-        }
-        else {
-
-            input = `text input,"${input}"`;
-        }
 
         // State variables
         let command = '';

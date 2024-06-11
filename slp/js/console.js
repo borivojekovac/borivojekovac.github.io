@@ -23,7 +23,7 @@ class Console {
         this.dom.inputTextBox = document.querySelector(`#${this.model.id}-inputTextBox`);
 
         this.dom.inputTextBox.addEventListener(
-            "keydown",
+            "keyup",
             this.onInputTextBoxKeyDown.bind(this)
         );
 
@@ -113,6 +113,42 @@ class Console {
         this.dom.inputTextBox.value = App.commandHistory[this.lookingAtHistoricalCommand].command;
     }
 
+    async getUserInput() {
+
+        const userInputContainer = document.createElement("span");
+        this.dom.content.appendChild(userInputContainer);
+
+        const inputBox = document.createElement("input");
+        inputBox.enterKeyHint = "Enter";
+        inputBox.className = "uiUserInput";
+        inputBox.placeholder = "Please enter your input here...";
+
+        this.dom.content.appendChild(inputBox);
+        inputBox.focus();
+        this.dom.content.scrollTop = this.dom.content.scrollHeight;      
+
+        const promise = new Promise(function(resolve) {
+
+            const onKeyUp = function(event) {
+
+                if (event.key == "Enter" || event.keyCode == 13) {
+
+                    inputBox.removeEventListener("keyup", onKeyUp);
+                    resolve(inputBox.value);
+                }
+            }
+
+            inputBox.addEventListener("keyup", onKeyUp);
+        });
+
+
+        userInputContainer.innerText = await promise;
+
+        inputBox.remove();
+
+        return userInputContainer.innerText;
+    }
+
     async processCommandLine() {
 
         const commandLine = this.dom.inputTextBox.value;
@@ -127,7 +163,7 @@ class Console {
 Console.templateString = `
     <div id="{{id}}-content" class="console-content uiElement uiBackground uiMonospace"></div>
     <div id="{{id}}-input" class="console-input uiElement uiBackground uiGlow">
-        <input id="{{id}}-inputTextBox" class="uiMonospace" type="text" placeholder="Type your input here." enterkeyhint="enter">
+        <input id="{{id}}-inputTextBox" class="uiMonospace" type="text" placeholder="Type your command here." enterkeyhint="enter">
     </div>
 `;
 

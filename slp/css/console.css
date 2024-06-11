@@ -60,7 +60,7 @@
     padding-bottom: calc(var(--appZoom) + var(--appPadding) * 5);
     top: 0vh;
     left: 0vw;
-    width: 100vw;
+    width: calc(100vw - 2 * var(--appPadding));
     height: calc(100dvh - var(--appZoom) - var(--appPadding) * 5);
     z-index: 1;
     overflow-y: auto;
@@ -113,5 +113,27 @@
 .console-input input:focus {
 
     outline: none;
+    color: var(--appColorAccent2);
+}
+
+input.uiUserInput {
+
+    font-family: monospace;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: none;
+    margin: none;
+    width: calc(100vw - 2 * var(--appPadding));
+    color: var(--appColorAccent);
+}
+
+input.uiUserInput::placeholder {
+
+    color: var(--appColorSecondary);
+}
+
+input.uiUserInput:focus {
+
     color: var(--appColorAccent2);
 }

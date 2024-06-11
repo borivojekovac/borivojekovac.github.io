@@ -97,15 +97,15 @@ class App {
         this.autoViewUpdated(!!DataManager.get(`app.autoview`, true));
 
         this.toolbar = new Toolbar();
-        this.toolbar.add("clear console", "!clear");
-        this.toolbar.add("toggle node view", "!toggle");
-        this.toolbar.add("show nodes", "!show");
-        this.toolbar.add("hide nodes", "!hide");
-        this.toolbar.add("+ agent: text", "!new text");
-        this.toolbar.add("+ agent: openAi chat", "!new openaichat");
-        this.toolbar.add("+ agent: dall-e 2", "!new dalle2");
-        this.toolbar.add("+ agent: dall-e 3", "!new dalle3");
-        this.toolbar.add("+ agent: google", "!new google");
+        this.toolbar.add("clear console", "clear");
+        this.toolbar.add("toggle node view", "toggle");
+        this.toolbar.add("show nodes", "show");
+        this.toolbar.add("hide nodes", "hide");
+        this.toolbar.add("+ agent: text", "agent text");
+        this.toolbar.add("+ agent: openAi chat", "agent openaichat");
+        this.toolbar.add("+ agent: dall-e 2", "agent dalle2");
+        this.toolbar.add("+ agent: dall-e 3", "agent dalle3");
+        this.toolbar.add("+ agent: google", "agent google");
 
 
         window.requestAnimationFrame(this.onUpdateFrame.bind(this));
