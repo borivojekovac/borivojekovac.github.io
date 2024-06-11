@@ -114,12 +114,12 @@ reset
 
 agent google, input
 
-agent text, prompter, "Summarize the following list of Google results to best explain the term that was queried without mentioning google or results but strictly focusing on the explanation of the term. For example, given the following Google results: \"Discover Mickey & Friends Products at DisneyStore.com · Mickey Mouse Icon Coaster Set – Mickey Mouse Home Collection. $24.99 · Mickey Mouse Icon Bottle Stopper ... Mickey Mouse ... For other uses, see Mickey Mouse (disambiguation). Mickey Mouse is an American cartoon character co-created in 1928 by Walt Disney and Ub Iwerks. Share your videos with friends family and the world. Watch full episodes of Mickey Mouse Clubhouse online. Get behind-the-scenes and extras all on Disney Junior. A reimagined blend, inspired by the iconic Mickey Mouse. Enjoy a smooth, medium-roasted coffee that is classic and delectable. This exclusive artisan coffee ... Watch full episodes of Disney Mickey Mouse online. Get behind-the-scenes and extras all on Disney Channel. 3M Followers, 13 Following, 1841 Posts - Mickey Mouse (@mickeymouse) on Instagram: 'Oh, boy! Welcome to the official Instagram of #MickeyMouse.' Jan 1, 2024 ... Copyright expiration allows you to use the original Mickey and Minnie Mouse in new creative works, even though those characters also appear in ... All-new series of cartoon shorts, Mickey Mouse finds himself in silly situations around the world! Mickey Mouse. 13758143 likes · 987 talking about this. Oh, boy!\", your response should be something along the lines of: \"Mickey Mouse is an American cartoon character co-created by Walt Disney and Ub Iwerks, there are full episodes f Mickey Mouse cartoons available online. Mickey and Minnie Mouse are allowed to be used after copyright expiration in Jan 1 2024\". Note that this was just an example, use this example to infer the type of response I expect to get and do not just copy actual response from it. Also, your response should not be in quotes. Based on these instructions, please summarise the following list of Google results:"
+agent text, prompter, "Can you infer what was the search query in the following list of google result snippets:\\\"","\\\"? Then, based on that inference and the information provided by Google, white a short explanation of the term being queried in a super funny and interesting way. Mark the term as a title of the document, and beneath the title show the explanation of what the term means and represents. Go crazy and make it super fun to read."
 
-agent openaichat, summariser,,,0.5
+agent openaichat, joker,,,1.5
 
 connect input, prompter
-connect prompter, summariser
+connect prompter, joker
 
 hide
 run
