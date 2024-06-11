@@ -121,8 +121,12 @@ class Console {
             oldUserInputElement.remove();
         }
 
+        const documentContainer = document.createElement("div");
+        documentContainer.className = "console-outputText";
+        this.dom.content.appendChild(documentContainer);
+
         const userInputContainer = document.createElement("span");
-        this.dom.content.appendChild(userInputContainer);
+        documentContainer.appendChild(userInputContainer);
 
         const inputBox = document.createElement("input");
         inputBox.type = "text";
@@ -130,8 +134,9 @@ class Console {
         inputBox.className = "uiBackground uiUserInput uiGlow uiMonospace";
         inputBox.placeholder = "Please enter your input here...";
 
-        this.dom.content.appendChild(inputBox);
+        documentContainer.appendChild(inputBox);
         inputBox.focus();
+        
         this.dom.content.scrollTop = this.dom.content.scrollHeight;      
 
         const promise = new Promise(function(resolve) {

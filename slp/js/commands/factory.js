@@ -115,7 +115,7 @@ class CommandFactory {
             return param.replace(/\\"/g, '"').replace(/\\'/g, "'");
         });
 
-        return { commandName: command, args: processedParams };
+        return { commandName: command.toLowerCase(), args: processedParams };
     }
 
     async get(commandLine) {

@@ -123,7 +123,7 @@ input.uiUserInput {
     background: none;
     background-color: var(--appColorPrimaryTransparent);
     backdrop-filter: blur(3px);
-    padding: none;
+    padding: calc(var(--appPadding));
     margin: none;
     width: calc(100vw - 2 * var(--appPadding));
     color: var(--appColorAccent);
