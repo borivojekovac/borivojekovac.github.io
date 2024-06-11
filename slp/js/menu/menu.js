@@ -72,7 +72,7 @@ class Menu {
 
     onReset(evt) {
 
-        App.processCommand("!reset");
+        App.processCommand("reset");
     }
 
     async onSave(evt) {
@@ -94,7 +94,7 @@ class Menu {
 
     async onDefaults(evt) {
 
-        App.processCommand("!default");
+        App.processCommand("default");
     }
 
     async onLoad(evt) {
