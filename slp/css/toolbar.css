@@ -3,7 +3,7 @@
     top: 0vh;
     left: 0vw;
     height: 100vh;    
-    z-index: 2000;
+    z-index: 3000;
     position: fixed;
     cursor: pointer;
 }
@@ -39,11 +39,12 @@
     background-color: var(--appColorPrimaryTransparent);
     backdrop-filter: blur(3px);
     border-radius: var(--appBorderRadius);
+    z-index: 3001;
 }
 
 .toolbar.expanded .handle {
 
-    left: calc(var(--appZoom) * 15 + var(--appPadding));
+    left: calc(var(--appZoom) * 15 - var(--appZoom) * 2 - var(--appPadding));
 }
 
 .toolbar .handle .expand,

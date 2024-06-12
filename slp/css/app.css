@@ -9,7 +9,7 @@
     background: var(--appColorPrimary);
     color: var(--appColorSecondary);
 
-    z-index: 10000;
+    z-index: 11000;
 }
 
 .uiAppFrontEnd .uiAppTitle {
@@ -38,7 +38,7 @@
 
     position: fixed;
     top: calc(2 * var(--appPadding) + var(--appFontSize) * 2);
-    left: var(--appPadding);
+    left: 0;
     padding: var(--appPadding);
 }
 

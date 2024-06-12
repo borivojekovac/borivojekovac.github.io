@@ -324,9 +324,9 @@ class App {
 
             if (!ConnectorManager.onResult(response)) {
 
-                if (this.autoView && response.source && response.source instanceof Node) {
+                if (!CommandRun.onOutput(response)) {
 
-                    if (!CommandRun.onOutput(response)) {
+                    if (this.autoView && response.source && response.source instanceof Node) {
 
                         response.source.onViewResult();
                     }
