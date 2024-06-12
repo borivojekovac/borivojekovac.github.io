@@ -34,10 +34,13 @@
     display: unset;
 }
 
-
 .console-content {
 
     background-color: var(--appColorPrimary);
+    background-size: 50vw;
+    background-image: url(../img/slp-transparent.svg);
+    background-position: center;
+    background-repeat: no-repeat;
     color: var(--appColorLight);
 }
 

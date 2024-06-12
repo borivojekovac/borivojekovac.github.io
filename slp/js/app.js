@@ -95,7 +95,7 @@ class App {
         this.dom.addEventListener("touchmove", this.onPointerMove.bind(this));
         this.dom.addEventListener("touchend", this.onPointerMove.bind(this));
 
-        this.menu = new Menu("Silly little people");
+        this.menu = new Menu("Silly Little People");
 
         this.svg = document.querySelector("#appVectorContainer");
 

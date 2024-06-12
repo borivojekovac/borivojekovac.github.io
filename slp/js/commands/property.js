@@ -16,7 +16,7 @@ class CommandProperty extends Command {
         try
         {
 
-            const propertyName = this.parameters[0];
+            const propertyName = this.parameters[0].toLowerCase();
 
             if (App.properties[propertyName] !== undefined) {
 
@@ -27,7 +27,7 @@ class CommandProperty extends Command {
                 else {
 
                     App.properties[propertyName] = this.parameters[1];
-                }
+                }                
             }
     
             return new ValueText(App.properties[propertyName].toString());

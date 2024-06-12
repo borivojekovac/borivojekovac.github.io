@@ -24,21 +24,11 @@ class CommandRun extends Command {
             this.properties.title = App.properties.title;
         }
 
-        if (parameters.length > 0) {
-
-            this.properties.title = parameters[0];            
-        }
-
         this.properties.prompt = "Type in your prompt here:";
 
         if (App.properties.prompt) {
 
             this.properties.prompt = App.properties.prompt;
-        }
-
-        if (parameters.length > 1) {
-
-            this.properties.prompt = parameters[1];            
         }
 
         this.properties.action = "Run";
@@ -47,10 +37,10 @@ class CommandRun extends Command {
 
             this.properties.action = App.properties.action;
         }
+        
+        if (parameters.length > 0) {
 
-        if (parameters.length > 2) {
-
-            this.properties.action = parameters[2];            
+            this.properties.input = parameters[0];            
         }
     }
 
@@ -78,6 +68,12 @@ class CommandRun extends Command {
             this.onInputTextBoxKeyDown.bind(this)
         );
         this.input.focus();
+
+        if (this.properties.input) {
+
+            this.input.value = this.properties.input;
+            this.onActionButtonClick();
+        }
     }
 
     async onInputTextBoxKeyDown(event) {
