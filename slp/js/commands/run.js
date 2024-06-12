@@ -73,8 +73,37 @@ class CommandRun extends Command {
         this.buttonAction.addEventListener("click", this.onActionButtonClick.bind(this));
 
         this.input = this.dom.querySelector(".uiAppInput input");
-
+        this.input.addEventListener(
+            "keyup",
+            this.onInputTextBoxKeyDown.bind(this)
+        );
         this.input.focus();
+    }
+
+    async onInputTextBoxKeyDown(event) {
+
+        try {
+
+            switch (event.code.toLowerCase()) {
+
+                case "enter":
+                case "numpadenter":
+                    await this.onActionButtonClick();
+                    return;
+            }            
+
+            switch (event.keyCode) {
+
+                case 13:
+                case 10:
+                    await this.onActionButtonClick();
+                    return;
+            }
+        }
+        catch (ex) {
+
+            this.write(`An error ocurred: ${ex.message}`);
+        }
     }
 
     async onCloseButtonClick() {
@@ -101,7 +130,8 @@ class CommandRun extends Command {
             return;
         }
 
-        const input = this.dom.querySelector(".uiAppInput input").value;
+        this.input.blur();
+        const input = this.input.value;
         const commandLine = `text input,"${input}"`;
         const command = await CommandFactory.get(commandLine);
 
