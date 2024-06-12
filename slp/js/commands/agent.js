@@ -71,7 +71,19 @@ class CommandAgent extends Command {
                         node.properties.model = openAiModel;
                     }
 
-                    const openAiSystem = this.parameters[4];
+                    const openAiHeat = this.parameters[4];
+                    if (openAiHeat) {
+
+                        node.properties.temperature = openAiHeat;
+                    }
+
+                    const openAiMaxTokens = this.parameters[5];
+                    if (openAiMaxTokens) {
+
+                        node.properties.maxTokens = openAiMaxTokens;
+                    }
+
+                    const openAiSystem = this.parameters[6];
                     if (openAiSystem) {
 
                         node.properties.system = openAiSystem;

@@ -147,7 +147,7 @@ agent google, query
 
 agent text, prompter, "Please summarise the most likely weather forecast based on the following Google search snippets\"","\". Also infer the place for which the forecast is given and present the resulting forecast by putting the name of the place in the title, and a succint and acurate forecast below it. Use natural conversational tone when reporting the forecast. Report temperatre in Celsius, and wind speeds in km/h."
 
-agent openaichat, forecaster,,,1.5
+agent openaichat, forecaster,,,0.5
 
 connect input, query
 connect query, prompter
