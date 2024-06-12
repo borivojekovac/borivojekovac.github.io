@@ -1,27 +1,177 @@
 import Command from "./command.js";
 import CommandFactory from "./factory.js";
 import Console from "../console.js";
+import TemplateManager from "../templateManager.js";
+import App from "../app.js";
+import ValueEmpty from "../values/empty.js";
+import ValueError from "../values/error.js";
 
-class CommandClear extends Command {
+class CommandRun extends Command {
+
+    dom = null;
+
+    properties = {        
+    };
 
     constructor(commandLine, commandName, parameters) {
 
         super(commandLine, commandName, parameters);
+
+        this.properties.title = "Untitled application";
+
+        if (App.properties.title) {
+
+            this.properties.title = App.properties.title;
+        }
+
+        if (parameters.length > 0) {
+
+            this.properties.title = parameters[0];            
+        }
+
+        this.properties.prompt = "Type in your prompt here:";
+
+        if (App.properties.prompt) {
+
+            this.properties.prompt = App.properties.prompt;
+        }
+
+        if (parameters.length > 1) {
+
+            this.properties.prompt = parameters[1];            
+        }
+
+        this.properties.action = "Run";
+        
+        if (App.properties.action) {
+
+            this.properties.action = App.properties.action;
+        }
+
+        if (parameters.length > 2) {
+
+            this.properties.action = parameters[2];            
+        }
+    }
+
+    async initUi() {
+
+        if (this.dom) {
+
+            this.dom.remove();
+        }
+
+        const dom = TemplateManager.getDom(CommandRun.template, this.properties);
+        this.dom = dom.querySelector(".uiAppFrontEnd");
+
+        App.dom.append(this.dom);
+
+        this.buttonClose = this.dom.querySelector(".uiAppClose.uiButton");
+        this.buttonClose.addEventListener("click", this.onCloseButtonClick.bind(this));
+
+        this.buttonAction = this.dom.querySelector(".uiAppInput button");
+        this.buttonAction.addEventListener("click", this.onActionButtonClick.bind(this));
+
+        this.input = this.dom.querySelector(".uiAppInput input");
+
+        this.input.focus();
+    }
+
+    async onCloseButtonClick() {
+
+        if (!this.dom) {
+
+            return;
+        }
+
+        this.dom.remove();
+        this.dom = null;
+
+        if (CommandRun.executeComplete) {
+
+            CommandRun.executeComplete(new ValueError("Aborted."));
+            CommandRun.executeComplete = null;
+        }
+    }
+
+    async onActionButtonClick() {
+
+        if (!this.dom) {
+
+            return;
+        }
+
+        const input = this.dom.querySelector(".uiAppInput input").value;
+        const commandLine = `text input,"${input}"`;
+        const command = await CommandFactory.get(commandLine);
+
+        if (!this.dom.classList.contains("uiRunning")) {
+
+            this.dom.classList.add("uiRunning")
+        }
+
+        const result = await command.execute();
+
+        if (CommandRun.executeComplete) {
+
+            CommandRun.executeComplete(result);
+            CommandRun.executeComplete = null;
+        }
+    }
+
+    async onOutput(output) {
+
     }
 
     async execute() {
 
-        var input = this.parameters.length ? this.parameters[0] : "";
-        if (input == "") {
+        await this.initUi();
 
-            input = await Console.getUserInput();
-        }
+        const promise = new Promise(
+
+            (function (resolve) {
+
+                if (CommandRun.executeComplete) {
+
+                    CommandRun.executeComplete(new ValueError("Aborting old run."));
+                }
+
+                CommandRun.executeComplete = resolve;
+
+            }).bind(this)
+        );
+
+        const result = await promise;
+
+        if (result instanceof ValueError) {
+
+            if (!this.dom) {
+
+                return;
+            }
     
-        const commandLine = `text input,"${input}"`;
-        const command = await CommandFactory.get(commandLine);
+            this.dom.remove();
+            this.dom = null;
+        }
 
-        return await command.execute();
+        return result;
     }
 }
 
-export default CommandClear;
+CommandRun.template = await TemplateManager.getTemplate("app");
+CommandRun.executeComplete = null;
+CommandRun.onOutput = function(output) {
+
+    const dom = App.dom.querySelector(".uiAppFrontEnd");
+    if (!dom) {
+
+        return false;
+    }
+
+    const outputContainer = dom.querySelector(".uiAppOutput");
+    outputContainer.append(output.viewDom());
+
+    return true;
+}
+
+export default CommandRun;

@@ -8,10 +8,10 @@ import DataManager from "./dataManager.js";
 import ConnectorManager from "./connectors/manager.js";
 import ValueError from "./values/error.js";
 import Connector from "./connectors/connector.js";
-import NodeText from "./nodes/text.js";
 import NodeDalle from "./nodes/dalle.js";
 import Menu from "./menu/menu.js";
 import Toolbar from "./toolbar.js";
+import CommandRun from "./commands/run.js";
 
 class App {
 
@@ -35,6 +35,12 @@ class App {
         openAiKey: "",
         googleKey: "",
         googleEngineId: ""
+    };
+
+    properties = {
+        title: null,
+        prompt: null,
+        action: null
     };
 
     size = {
@@ -320,7 +326,10 @@ class App {
 
                 if (this.autoView && response.source && response.source instanceof Node) {
 
-                    response.source.onViewResult();
+                    if (!CommandRun.onOutput(response)) {
+
+                        response.source.onViewResult();
+                    }
                 }
             }
         }

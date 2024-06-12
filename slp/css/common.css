@@ -1,0 +1,12 @@
+:root, textarea, input[type="text"], select {
+
+    font-family: var(--appFontFamily);
+    font-size: var(--appFontSize);
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+
+    background-color: var(--appColorPrimary);
+}

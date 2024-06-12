@@ -1,12 +1,118 @@
-:root, textarea, input[type="text"], select {
+.uiAppFrontEnd {
 
-    font-family: var(--appFontFamily);
-    font-size: var(--appFontSize);
-    margin: 0px;
-    padding: 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: var(--appColorPrimary);
+    color: var(--appColorSecondary);
+
+    z-index: 10000;
 }
 
-body {
+.uiAppFrontEnd .uiAppTitle {
 
-    background-color: var(--appColorPrimary);
+    position: fixed;
+    top: var(--appPadding);
+    left: var(--appPadding);
+    font-size: calc(var(--appFontSize) * 2);
+    font-weight: bold;
+}
+
+.uiAppFrontEnd svg.uiAppClose.uiButton {
+
+    cursor: pointer;
+    position: fixed;
+    display: block;
+    top: var(--appPadding);
+    left: calc(100vw - 3 * var(--appPadding) - var(--appZoom) * 2);
+    width: calc(var(--appZoom) * 4);
+    background: var(--appColorSecondary);
+    fill: var(--appColorPrimary);
+    border-radius: 100vmax;
+}
+
+.uiAppFrontEnd .uiAppPrompt {
+
+    position: fixed;
+    top: calc(2 * var(--appPadding) + var(--appFontSize) * 2);
+    left: var(--appPadding);
+    padding: var(--appPadding);
+}
+
+.uiAppFrontEnd .uiAppInput input {
+
+    position: fixed;
+    top: calc(4 * var(--appPadding) + var(--appFontSize) * 3);
+    left: var(--appPadding);
+
+    width: calc(75vw - 5 * var(--appPadding));
+    display: inline-block;
+    padding: var(--appPadding);
+    outline: none;
+    border: none;
+    color: var(--appColorAccent);
+    background-color: var(--appColorPrimaryTransparent);
+}
+
+.uiAppFrontEnd.uiRunning .uiAppPrompt {
+
+    display: none;
+}
+
+.uiAppFrontEnd.uiRunning .uiAppInput input {
+
+    color: var(--appColorLight);
+    box-shadow: none;
+}
+
+.uiAppFrontEnd.uiRunning .uiAppInput button {
+
+    background-color: var(--appColorLighter);
+}
+
+.uiAppFrontEnd .uiAppInput input:focus {
+
+    color: var(--appColorAccent2);
+    background-color: var(--appColorLighterTransparent);
+}
+
+.uiAppFrontEnd .uiAppInput button {
+
+    position: fixed;
+    top: calc(4 * var(--appPadding) + var(--appFontSize) * 3);
+    left: calc(75vw - 1 * var(--appPadding));
+    font-size: var(--appFontSize);
+
+    width: 25vw;
+    display: inline-block;
+    margin: none;
+    padding: var(--appPadding);
+    background: var(--appColorSecondary);
+    color: var(--appColorPrimary);
+    outline: none;
+    border: none;
+    border-radius: var(--appBorderRadius);
+    font-weight: bold;
+}
+
+.uiAppFrontEnd .uiAppOutput {
+
+    position: fixed;
+    top: calc(7 * var(--appPadding) + var(--appFontSize) * 4);
+    left: var(--appPadding);
+    width: calc(100vw - 2 * var(--appPadding));
+    height: calc(100vh - 8 * var(--appPadding) - var(--appFontSize) * 4);
+
+    color: var(--appColorLight);
+
+    overflow-x: none;
+    overflow-y: auto;
+}
+
+.uiAppFrontEnd .uiAppOutput img {
+
+    width: 100%;
 }
