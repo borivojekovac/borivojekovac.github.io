@@ -33,8 +33,8 @@ class App {
         dall_eSize: "1024x1024",
         maxTokens: 2048,
         openAiKey: "",
-        googleKey: "",
-        googleEngineId: ""
+        googleKey: "AIzaSyAWqJGjllRma45uO3Xy8fE8GynhOXtjyRk",
+        googleEngineId: "f252ec802180a47d4"
     };
 
     properties = {
