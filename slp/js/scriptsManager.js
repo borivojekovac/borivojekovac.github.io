@@ -145,7 +145,7 @@ agent text, input, "weather forecast, "
 
 agent google, query
 
-agent text, prompter, "Please summarise the most likely weather forecast based on the following Google search snippets\"","\". Also infer the place for which the forecast is given and present the resulting forecast by putting the name of the place in the title, and a succint and acurate forecast below it. Use natural conversational tone when reporting the forecast. Report temperatre in Celsius, and wind speeds in km/h."
+agent text, prompter, "Please summarise the most likely weather forecast based on the following Google search snippets: \\\"","\\\". Also infer the place for which the forecast is given and present the resulting forecast by putting the name of the place in the title, and a succint and acurate forecast below it. Use natural conversational tone when reporting the forecast. If the snippet shows temperature in Fahrenheit, convert it to Celsius. Also, if wind speads are reported in mph please convert to km/h."
 
 agent openaichat, forecaster,,,0.5
 
