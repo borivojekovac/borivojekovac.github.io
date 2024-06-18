@@ -9,6 +9,21 @@ class CommandKill extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Removes an agent.
+
+syntax:
+
+   kill <agent>
+   
+parameters:
+
+   agent : Name or id of the agent to remove.
+`;
+    }
+
     async execute() {
 
         const nodeRef = this.parameters[0];

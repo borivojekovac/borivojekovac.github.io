@@ -11,6 +11,17 @@ class CommandLoad extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Loads previously saved application state.
+
+syntax:
+
+   load
+`;
+    }
+
     async execute() {
 
         await App.loadState();

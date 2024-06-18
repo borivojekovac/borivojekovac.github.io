@@ -12,6 +12,24 @@ class CommandDefault extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Sets a default value to be used by agents. If both parameters are missing
+then shows editor UI so you can view and edit all the current defaults.
+
+syntax:
+
+   default [[<name>], <value>]
+   
+parameters:
+
+   name  : Name of the default value to set.
+
+   value : Value to set.
+`;
+    }
+
     async execute() {
 
         const varName = this.parameters[0];

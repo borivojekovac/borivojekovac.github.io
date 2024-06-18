@@ -29,8 +29,6 @@ class App {
         openAiModel: "gpt-3.5-turbo-instruct",
         openAiChatModel: "gpt-3.5-turbo",
         openAiTemperature: 1,
-        dall_eModel: "dall-e-3",
-        dall_eSize: "1024x1024",
         maxTokens: 2048,
         openAiKey: "",
         googleKey: "AIzaSyAWqJGjllRma45uO3Xy8fE8GynhOXtjyRk",

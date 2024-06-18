@@ -11,6 +11,29 @@ class CommandConnect extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Connects two agents, so that once the input agent's result changes, the output
+agent gets this result as its input and is then activated.
+
+syntax:
+
+   connect [[[<input>], <output>], <type>]
+   
+parameters:
+
+   input :  Name or id of the input agent. If not specified, the agent that was
+            created just before the last agent is used.
+
+   output : Name or id of the output agent. If not specified, the last agent
+            that was created is used.
+
+   type   : Type of connection. Can be "text" or "image". If not specified,
+            it is inferred from the available connectors.
+`;
+    }
+
     getBeforeLastNode() {
 
         var nodeId = Node.nextId;
@@ -50,19 +73,21 @@ class CommandConnect extends Command {
 
         const from = this.parameters[0];
         var nodeFrom = Node.lookupId[from] ?? Node.lookupName[from];
-
-        const to = this.parameters[1];
-        var nodeTo = Node.lookupId[to] ?? Node.lookupName[to];
-
-        if (!nodeFrom && !nodeTo) {
+        if (!nodeFrom) {
 
             nodeFrom = this.getBeforeLastNode();
-            nodeTo = this.getLastNode();
         }
 
         if (!nodeFrom) {
 
             return new ValueError(`Invalid source node ${from}. Please specify either a valid node id or a valid node name.`);
+        }
+
+        const to = this.parameters[1];
+        var nodeTo = Node.lookupId[to] ?? Node.lookupName[to];
+        if (!nodeTo) {
+
+            nodeTo = this.getLastNode();
         }
 
         if (!nodeTo) {

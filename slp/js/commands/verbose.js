@@ -10,6 +10,18 @@ class CommandVerbose extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Turns verbose console view on or off. When on, console displays more
+information compared to when it's off. If parameter is not specified
+varbose is toggled.
+
+syntax:
+
+   verbose [on|off]`;
+    }
+
     async execute() {
 
         var verbose = this.parameters.length ? this.parameters[0] : "";

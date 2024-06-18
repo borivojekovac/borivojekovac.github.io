@@ -1,5 +1,4 @@
 import Command from "./command.js";
-import Node from "../nodes/node.js";
 import ValueText from "../values/text.js";
 import ValueError from "../values/error.js";
 import App from "../app.js";
@@ -9,6 +8,22 @@ class CommandProperty extends Command {
     constructor(commandLine, commandName, parameters) {
 
         super(commandLine, commandName, parameters);
+    }
+
+    async help(category) {
+
+        return `
+Sets an user-application property, to customize the UI shown when running
+current agent graph using the "run" command.
+
+syntax:
+
+   property title|prompt|action[, <value>]
+   
+parameters:
+
+   value : Text to assign to the user-application property and customize the
+           "run" command view. `;
     }
 
     async execute() {

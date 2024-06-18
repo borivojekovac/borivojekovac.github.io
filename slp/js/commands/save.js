@@ -11,6 +11,18 @@ class CommandSave extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Saves application state, so that it can subsequently be re-loaded (after
+closing the application / web browser tab).
+
+syntax:
+
+   save
+`;
+    }
+
     async execute() {
 
         await App.saveState();

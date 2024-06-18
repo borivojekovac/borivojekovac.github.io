@@ -9,6 +9,22 @@ class CommandToggle extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Toggle agent's UI view from simple and full. If no agent is specified, toggles
+all the agents.
+
+syntax:
+
+   toggle [<agent>]
+   
+parameters:
+
+   agent : Name or id of the agent to toggle UI for.
+`;
+    }
+
     async execute() {
 
         const nodeRef = this.parameters[0];

@@ -9,6 +9,21 @@ class CommandHide extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Hides agent's UI. If no agent is specified, hides all agents.
+
+syntax:
+
+   hide [<agent>]
+   
+parameters:
+
+   agent : Name or id of the agent to hide UI for.
+`;
+    }
+
     async execute() {
 
         const nodeRef = this.parameters[0];

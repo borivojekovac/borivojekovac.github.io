@@ -10,6 +10,17 @@ class CommandList extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Lists current agents.
+
+syntax:
+
+   list
+`;
+    }
+
     async execute() {
 
         var count = 0;
@@ -22,7 +33,7 @@ class CommandList extends Command {
             count++;
         }
 
-        return new ValueText(`${count} node(s) listed.`);
+        return new ValueText(`${count} agent(s) listed.`);
     }
 }
 

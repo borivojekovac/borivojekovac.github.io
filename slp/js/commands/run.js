@@ -1,9 +1,7 @@
 import Command from "./command.js";
 import CommandFactory from "./factory.js";
-import Console from "../console.js";
 import TemplateManager from "../templateManager.js";
 import App from "../app.js";
-import ValueEmpty from "../values/empty.js";
 import ValueError from "../values/error.js";
 
 class CommandRun extends Command {
@@ -38,10 +36,33 @@ class CommandRun extends Command {
             this.properties.action = App.properties.action;
         }
         
-        if (parameters.length > 0) {
+        if (parameters && parameters.length > 0) {
 
             this.properties.input = parameters[0];            
         }
+    }
+
+    async help(category) {
+
+        return `
+Runs current multi agent graph. If input parameter is provided, it is used to
+initialise "prompt" text box on the user-application UI and automatically runs.
+Otherwise UI for collecting input prompt is presented and the app runs only
+when "action" button is pressed by user. In order for a user-application to
+be runnable, one of the agents needs to be named "input". Prompt collected from
+user or from command line is passed to this agent as an input and the agent is
+activated. Once the last agent finishes activation, its result is collected and
+displayed in user-application UI.
+
+syntax:
+
+   run [<prompt>]
+   
+parameters:
+
+   prompt : Prompt to initialise user-application with and run the application.
+            If not specified, user needs to provide the prompt using the user-
+            application UI and click "action" button.`;
     }
 
     async initUi() {

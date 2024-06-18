@@ -9,6 +9,17 @@ class CommandClear extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Clears the console.
+
+syntax:
+
+   clear
+`;
+    }
+
     async execute() {
 
         Console.dom.content.innerHTML = "";

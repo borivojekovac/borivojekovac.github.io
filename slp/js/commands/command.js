@@ -14,6 +14,11 @@ class Command {
 
         throw new Error("Can't execute command. Please use derived commands instead.");
     }
+
+    async help(category) {
+
+        return "Help not implemented for this command.";
+    }
 }
 
 export default Command;

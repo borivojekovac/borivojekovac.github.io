@@ -9,6 +9,18 @@ class CommandAutoView extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Turns auto-view on or off. When on, the last result of a command is
+automatically opened for viewing. If parameter is not specified,
+auto-view is toggled.
+
+syntax:
+
+   autoview [on|off]`;
+    }
+
     async execute() {
 
         var autoView = this.parameters.length ? this.parameters[0] : "";

@@ -10,6 +10,22 @@ class CommandContinue extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Continues execution from a selected agent, by taking its current result and
+then re-triggering any connections that depend on this result.
+
+syntax:
+
+   continue <agent>
+   
+parameters:
+
+   agent : Name or id of the agent to continue execution from.
+`;
+    }
+
     async execute() {
 
         const nodeRef = this.parameters[0];

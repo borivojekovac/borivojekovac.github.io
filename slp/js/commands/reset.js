@@ -10,6 +10,17 @@ class CommandReset extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Resets the application state, removing all the agents and connections.
+
+syntax:
+
+   reset
+`;
+    }
+
     async execute() {
 
         App.resetState();

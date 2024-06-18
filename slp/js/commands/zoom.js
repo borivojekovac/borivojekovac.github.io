@@ -10,6 +10,21 @@ class CommandZoom extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Changes size of the app UI.
+
+syntax:
+
+   zoom <zoom>
+   
+parameters:
+
+   zoom: A value larger than 0 and smaller than 10 to be used for UI padding.
+         Useful for customizing the app for your device. Initially set to 3.`;
+    }
+
     async execute() {
 
         const zoom = this.parameters[0];

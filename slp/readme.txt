@@ -10,10 +10,6 @@ Once you start the app, review defaults (hamburger menu on top right, defaults),
 
 "openAiTemperature": 1,
 
-"dall_eModel": "dall-e-3",
-
-"dall_eSize": "1024x1024",
-
 "maxTokens": 2048,
 
 "openAiKey": "sk-xxxxxxxxx"

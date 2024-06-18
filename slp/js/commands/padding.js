@@ -9,6 +9,22 @@ class CommandPadding extends Command {
 
         super(commandLine, commandName, parameters);
     }
+    
+    async help(category) {
+
+        return `
+Changes padding for the app UI.
+
+syntax:
+
+   padding <padding>
+   
+parameters:
+
+   padding: A value larger than 0 and smaller than 10 to be used for UI
+            padding. Useful for customizing the app for your device.
+            Initially set to 1.`;
+    }
 
     async execute() {
 

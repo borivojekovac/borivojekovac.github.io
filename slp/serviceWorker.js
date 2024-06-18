@@ -1,7 +1,7 @@
 // Names of the two caches used in this version of the service worker.
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
-const appVersion = "v1.2";
+const appVersion = "v1.3";
 const PRECACHE = "slp-precache-" + appVersion;
 const LAZYLOAD = 'slp-lazyload-' + appVersion;
 const RUNTIME = 'slp-runtime';

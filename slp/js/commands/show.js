@@ -9,6 +9,21 @@ class CommandShow extends Command {
         super(commandLine, commandName, parameters);
     }
 
+    async help(category) {
+
+        return `
+Shows agent's UI. If no agent is specified, shows all agents.
+
+syntax:
+
+   show [<agent>]
+   
+parameters:
+
+   agent : Name or id of the agent to show UI for.
+`;
+    }
+
     async execute() {
 
         const nodeRef = this.parameters[0];

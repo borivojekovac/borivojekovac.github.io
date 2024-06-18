@@ -2,7 +2,8 @@
 
     padding: calc(var(--appZoom) * var(--appPadding) * 0.2);
     
-    white-space: nowrap;
+    /*white-space: nowrap;*/
+    white-space: pre-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
