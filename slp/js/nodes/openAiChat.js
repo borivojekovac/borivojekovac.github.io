@@ -1,6 +1,7 @@
 import TemplateManager from "../templateManager.js";
 import App from "../app.js";
 import NodeOpenAi from "./openAi.js";
+import ValueEditor  from "../values/editor.js";
 import ValueError from "../values/error.js";
 import ValueText from "../values/text.js";
 
@@ -33,6 +34,24 @@ class NodeOpenAiChat extends NodeOpenAi {
         this.dom.append(...dom.childNodes);
 
         this.bindUiElement("system");
+
+        this.dom.querySelector(".nodeSystemInput")
+            .addEventListener("click", this.onEditSystem.bind(this));
+    }
+
+    onEditSystem(evt) {
+
+        const systemValue = new ValueText(this.properties.system);
+        const valueEditor = new ValueEditor(`edit ${this.properties.name} agent system`, systemValue, this.updateSystem.bind(this));
+        valueEditor.initUi();
+
+        evt.preventDefault();
+        evt.stopPropagation();
+    }
+
+    updateSystem(system) {
+
+        this.dom.querySelector(`[data-property="system"]`).value = this.properties.system = system;
     }
 
     updateUiFrame() {

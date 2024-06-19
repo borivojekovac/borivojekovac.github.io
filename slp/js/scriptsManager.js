@@ -135,8 +135,7 @@ connect prompter, joker
 
 hide
 run`, 
-"example: forecaster": `clear
-reset
+"example: forecaster": `reset
 property title, Weather forecaster
 property prompt, Enter a place to get a forecast for:
 property action, Forecast!
@@ -145,13 +144,10 @@ agent text, input, "weather forecast, "
 
 agent google, query
 
-agent text, prompter, "Please summarise the most likely weather forecast based on the following Google search snippets: \\\"","\\\". Also infer the place for which the forecast is given and present the resulting forecast by putting the name of the place in the title, and a succint and acurate forecast below it. Use natural conversational tone when reporting the forecast. If the snippet shows temperature in Fahrenheit, convert it to Celsius. Also, if wind speads are reported in mph please convert to km/h."
-
-agent openaichat, forecaster,,,0.5
+agent openaichat, summariser,,,0.5,,"You are a helpful agent which analyses top Google search results for weather forecast for a place in order to summarise it in an easy to follow and understand fashion for a human user. Infer the place for which the weather forecast was seached as well as the most likely forecast based on all the results you are given. When reporting your analysis do not explain the source of information, always identify the place that the forecast is for in the title, and then follow with clear and conversational description of the most likely forecast. If temperatures are provided in Fahrenheit always convert to Celsius. If wind speeds are provided in mph, always convert to km/h."
 
 connect input, query
-connect query, prompter
-connect prompter, forecaster
+connect query, summariser
 
 hide
 run`
