@@ -173,20 +173,11 @@ parameters:
 
         this.input.blur();
         const input = this.input.value;
-        const commandLine = `text input,"${input}"`;
-        const command = await CommandFactory.get(commandLine);
+        App.processCommand(`text input,"${input}"`);
 
         if (!this.dom.classList.contains("uiRunning")) {
 
-            this.dom.classList.add("uiRunning")
-        }
-
-        const result = await command.execute();
-
-        if (CommandRun.executeComplete) {
-
-            CommandRun.executeComplete(result);
-            CommandRun.executeComplete = null;
+            this.dom.classList.add("uiRunning");
         }
     }
 
@@ -240,7 +231,14 @@ CommandRun.onOutput = function(output) {
     }
 
     const outputContainer = dom.querySelector(".uiAppOutput");
+    outputContainer.innerHTML = "";
     outputContainer.append(output.viewDom());
+
+    if (CommandRun.executeComplete) {
+
+        CommandRun.executeComplete(output);
+        CommandRun.executeComplete = null;
+    }
 
     dom.querySelector(".uiAppInput input").focus();
     if (dom.classList.contains("uiRunning")) {
