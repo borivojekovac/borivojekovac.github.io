@@ -71,7 +71,7 @@ class Toolbar {
             return;
         }
 
-        if (evt.code.toLowerCase() === "escape") {
+        if (evt.code.toLowerCase() === "backquote") {
 
             this.onHandleClick();
         }

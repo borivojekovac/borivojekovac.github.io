@@ -86,9 +86,11 @@ parameters:
         this.input = this.dom.querySelector(".uiAppInput input");
         this.input.addEventListener(
             "keyup",
-            this.onInputTextBoxKeyDown.bind(this)
+            this.onInputTextBoxKey.bind(this)
         );
         this.input.focus();
+
+        this.dom.addEventListener("keyup", this.onKey.bind(this));
 
         if (this.properties.input) {
 
@@ -97,7 +99,24 @@ parameters:
         }
     }
 
-    async onInputTextBoxKeyDown(event) {
+    async onKey(event) {
+
+        try {
+
+            switch (event.code.toLowerCase()) {
+
+                case "escape":
+                    this.close();
+                    return;
+            }            
+        }
+        catch (ex) {
+
+            App.write(`An error ocurred: ${ex.message}`);
+        }
+    }
+
+    async onInputTextBoxKey(event) {
 
         try {
 
@@ -119,11 +138,11 @@ parameters:
         }
         catch (ex) {
 
-            this.write(`An error ocurred: ${ex.message}`);
+            App.write(`An error ocurred: ${ex.message}`);
         }
     }
 
-    async onCloseButtonClick() {
+    async close() {
 
         if (!this.dom) {
 
@@ -138,6 +157,11 @@ parameters:
             CommandRun.executeComplete(new ValueError("Aborted."));
             CommandRun.executeComplete = null;
         }
+    }
+
+    async onCloseButtonClick() {
+
+        this.close();
     }
 
     async onActionButtonClick() {

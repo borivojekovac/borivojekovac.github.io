@@ -1,5 +1,6 @@
 import TemplateManager from "./templateManager.js";
 import App from "./app.js";
+import Node from "./nodes/node.js";
 
 class Console {
 
@@ -24,13 +25,13 @@ class Console {
 
         this.dom.inputTextBox.addEventListener(
             "keyup",
-            this.onInputTextBoxKeyDown.bind(this)
+            this.onInputTextBoxKey.bind(this)
         );
 
         this.write(null, "Console initialised.");
     }
 
-    async onInputTextBoxKeyDown(event) {
+    async onInputTextBoxKey(event) {
 
         try {
 
@@ -48,6 +49,10 @@ class Console {
                 case "arrowdown":
                     this.recallHistoricalCommand(1);
                     break;
+
+                case "escape":
+                    this.toggleVisibility();
+                    break;
             }            
 
             switch (event.keyCode) {
@@ -61,6 +66,25 @@ class Console {
         catch (ex) {
 
             this.write(`An error ocurred: ${ex.message}`);
+        }
+    }
+
+    toggleVisibility() {
+
+        var anyNodeVisible = false;
+        for (const id in Node.lookupId) {
+
+            const node = Node.lookupId[id];
+            anyNodeVisible |= !node.properties.hidden;
+        }
+
+        if (anyNodeVisible) {
+
+            App.processCommand("hide");
+        }
+        else {
+
+            App.processCommand("show");
         }
     }
 

@@ -96,19 +96,46 @@ class Viewer {
         dom.querySelector(".uiNextButton")
             .addEventListener("click", this.onNext.bind(this));
 
+        uiValueViewer.addEventListener("keyup", this.onKey.bind(this));
+
         this.dom = uiValueViewer;
 
         this.monospace(this.monospace());
 
         App.dom.append(...dom.childNodes);
+
+        uiValueViewer.setAttribute("tabindex", -1);
+        uiValueViewer.focus();
     }
 
-    onClose(evt) {
+    close() {
 
         if (this.dom) {
 
             this.dom.remove();
             this.dom = null;
+        }
+    }
+
+    onClose(evt) {
+
+        this.close();
+    }
+
+    onKey(event) {
+
+        try {
+
+            switch (event.code.toLowerCase()) {
+
+                case "escape":
+                    this.close();
+                    return;
+            }            
+        }
+        catch (ex) {
+
+            App.write(`An error ocurred: ${ex.message}`);
         }
     }
 
