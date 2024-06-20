@@ -218,6 +218,12 @@ CommandRun.onOutput = function(output) {
     const outputContainer = dom.querySelector(".uiAppOutput");
     outputContainer.append(output.viewDom());
 
+    dom.querySelector(".uiAppInput input").focus();
+    if (dom.classList.contains("uiRunning")) {
+
+        dom.classList.remove("uiRunning");
+    }
+
     return true;
 }
 
