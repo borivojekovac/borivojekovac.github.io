@@ -8,7 +8,7 @@ Once you start the app, review defaults (hamburger menu on top right, defaults),
 
 "openAiChatModel": "gpt-3.5-turbo",
 
-"openAiTemperature": 1,
+"temperature": 1,
 
 "maxTokens": 2048,
 

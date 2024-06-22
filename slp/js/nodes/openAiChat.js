@@ -85,7 +85,7 @@ class NodeOpenAiChat extends NodeOpenAi {
                 },
                 body: JSON.stringify({
                     model: this.properties.model ?? App.defaults.openAiChatModel,
-                    temperature: (this.properties.temperature ?? App.defaults["openAiTemperature"])|0,
+                    temperature: (this.properties.temperature ?? App.defaults["openAiTemperature"])*1.0,
                     messages: messages,
                     max_tokens: (this.properties.maxTokens ?? App.defaults.maxTokens)|0
                 })

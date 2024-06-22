@@ -28,11 +28,12 @@ class App {
     defaults = {
         openAiModel: "gpt-3.5-turbo-instruct",
         openAiChatModel: "gpt-3.5-turbo",
-        openAiTemperature: 1,
+        temperature: 1,
         maxTokens: 2048,
         openAiKey: "",
         googleKey: "AIzaSyAWqJGjllRma45uO3Xy8fE8GynhOXtjyRk",
-        googleEngineId: "f252ec802180a47d4"
+        googleEngineId: "f252ec802180a47d4",
+        hfKey: ""
     };
 
     properties = {
@@ -111,6 +112,8 @@ class App {
         this.toolbar.add("agent: dall-e 2", "agent dalle2");
         this.toolbar.add("agent: dall-e 3", "agent dalle3");
         this.toolbar.add("agent: google", "agent google");
+        this.toolbar.add("agent: hf textgen", "agent hftextgen");
+        this.toolbar.add("agent: hf summary", "agent hfsummary");
 
 
         window.requestAnimationFrame(this.onUpdateFrame.bind(this));

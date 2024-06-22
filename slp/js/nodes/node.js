@@ -27,6 +27,8 @@ class Node {
         output: []
     };
 
+    _highlighted = false;
+
     constructor(name, type) {
 
         this.properties.name = name;
@@ -142,6 +144,11 @@ class Node {
         else {
             
             this.show();
+        }
+
+        if (this._highlighted) {
+
+            this.dom.classList.add("uiHighlight");
         }
 
         this.bindUiElement("name");
@@ -376,13 +383,18 @@ class Node {
 
     highlight(highlight) {
 
-        if (highlight && !this.dom.classList.contains("uiHighlight")) {
+        this._highlighted = highlight;
 
-            this.dom.classList.add("uiHighlight");
-        }
-        else if (!highlight && this.dom.classList.contains("uiHighlight")) {
+        if (this.dom) {
 
-            this.dom.classList.remove("uiHighlight");
+            if (highlight && !this.dom.classList.contains("uiHighlight")) {
+
+                this.dom.classList.add("uiHighlight");
+            }
+            else if (!highlight && this.dom.classList.contains("uiHighlight")) {
+    
+                this.dom.classList.remove("uiHighlight");
+            }
         }
     }
 

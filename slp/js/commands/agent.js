@@ -8,6 +8,8 @@ import NodeDalle3 from "../nodes/dalle3.js";
 import NodeGoogle from "../nodes/google.js";
 import ValueError from "../values/error.js";
 import ValueText from "../values/text.js";
+import NodeHfTextGeneration from "../nodes/hfTextGeneration.js";
+import NodeHfTextSummary from "../nodes/hfTextSummary.js";
 
 class CommandAgent extends Command {
 
@@ -44,7 +46,7 @@ parameters:
    temperature : OpenAI model temperature. A value ranging from 0 to 2
                  indicating the level of randomness in the output, where 0 is
                  deterministic, and 2 is completely random output. If not
-                 specified, default value for "openAiTemperature" is used.
+                 specified, default value for "temperature" is used.
 
    maxTokens   : OpenAI model maxTokens. Limits the number of tokens that
                  OpenAI will return. If not specified, default value of
@@ -75,7 +77,7 @@ parameters:
    temperature : OpenAI model temperature. A value ranging from 0 to 2
                  indicating the level of randomness in the output, where 0 is
                  deterministic, and 2 is completely random output. If not
-                 specified, default value for "openAiTemperature" is used.
+                 specified, default value for "temperature" is used.
 
    maxTokens   : OpenAI model maxTokens. Limits the number of tokens that
                  OpenAI will return. If not specified, default value of
@@ -175,6 +177,68 @@ parameters:
 
    results : Number of results to return. If not specified, defaults to 10.
 `;
+
+            case "hftextgen": return `
+Creates an HugginFace text generation agent. The agent takes textual input
+prompt, sends it to HuggingFace API for evaluation, and returns the resulting
+text.
+
+syntax:
+
+   agent hftextgen [[[[[, <name>], <key>], <model>], <temperature>], <maxTokens>]
+
+parameters:
+
+   name        : Name of the agent. Used to refer to the agent in other
+                 commands. Alternatively, you can use the agent's auto-
+                 generated incremental ID to refer to the agent.
+
+   key         : HugginFace API key. If not specified, default value for
+                 "hugginFaceKey" is used.
+
+   model       : HuggingFace model to use. Must be a text generation model.
+   
+   temperature : Text generation temperature. A value ranging from 0 to 2
+                 indicating the level of randomness in the output, where 0 is
+                 deterministic, and 2 is completely random output. If not
+                 specified, default value for "temperature" is used.
+
+   maxTokens   : Maximum tokens to generate. Limits the number of tokens that
+                 the model will return. If not specified, default value of
+                 "maxTokens" is used.
+`;
+
+            case "hfsummary": return `
+Creates an HugginFace text summarisation agent. The agent takes textual input
+prompt, sends it to HuggingFace API for evaluation, and returns the resulting
+text.
+
+syntax:
+
+   agent hfsummary [[[[[[, <name>], <key>], <model>], <temperature>], <minLength>], <maxLength>]
+
+parameters:
+
+   name        : Name of the agent. Used to refer to the agent in other
+                 commands. Alternatively, you can use the agent's auto-
+                 generated incremental ID to refer to the agent.
+
+   key         : HugginFace API key. If not specified, default value for
+                 "hugginFaceKey" is used.
+
+   model       : HuggingFace model to use. Must be a text summarisation model.
+
+   temperature : Text generation temperature. A value ranging from 0 to 2
+                 indicating the level of randomness in the output, where 0 is
+                 deterministic, and 2 is completely random output. If not
+                 specified, default value for "temperature" is used.
+
+   minLength   : Minimum tokens to generate. If not specified, defaults to 0.
+
+   maxLength   : Maximum tokens to generate. Limits the number of tokens that
+                 the model will return. If not specified, default value of
+                 "maxTokens" is used.
+`;
         }
         return `
 Creates a new agent. The first parameter is the type of agent to create.
@@ -183,7 +247,7 @@ Use "help agent, <type>" to get help on a creating a specific type of an agent.
 
 syntax:
 
-   agent openai|openaichat|dalle2|dalle3|text|google ...
+   agent openai|openaichat|dalle2|dalle3|text|google|hftextgen|hfsummary ...
 `;
     }
 
@@ -361,6 +425,76 @@ syntax:
                 }
 
                 return new ValueText(`Google agent ${name} constructed.`);
+
+            case "hftextgen":
+                {
+                    Console.writeVerbose(`Constructing HugginFace text generation agent ${name}...`);
+                    const node = new NodeHfTextGeneration(name);
+
+                    const huggingFaceKey = this.parameters[2];
+                    if (huggingFaceKey) {
+
+                        node.properties.key = huggingFaceKey;
+                    }
+
+                    const huggingFaceModel = this.parameters[3];
+                    if (huggingFaceModel) {
+
+                        node.properties.model = huggingFaceModel;
+                    }
+
+                    const hfHeat = this.parameters[4];
+                    if (hfHeat) {
+
+                        node.properties.temperature = hfHeat;
+                    }
+
+                    const hfMaxTokens = this.parameters[5];
+                    if (hfMaxTokens) {
+
+                        node.properties.maxTokens = hfMaxTokens;
+                    }
+                }
+
+                return new ValueText(`HuggingFace text generation agent ${name} constructed.`);
+
+            case "hfsummary":
+                {
+                    Console.writeVerbose(`Constructing HugginFace text summary agent ${name}...`);
+                    const node = new NodeHfTextSummary(name);
+
+                    const huggingFaceKey = this.parameters[2];
+                    if (huggingFaceKey) {
+
+                        node.properties.key = huggingFaceKey;
+                    }
+
+                    const huggingFaceModel = this.parameters[3];
+                    if (huggingFaceModel) {
+
+                        node.properties.model = huggingFaceModel;
+                    }
+
+                    const hfHeat = this.parameters[4];
+                    if (hfHeat) {
+
+                        node.properties.temperature = hfHeat;
+                    }
+
+                    const hfMinLength = this.parameters[5];
+                    if (hfMinLength) {
+
+                        node.properties.minLength = hfMinLength;
+                    }
+                    
+                    const hfMaxLength = this.parameters[6];
+                    if (hfMaxLength) {
+
+                        node.properties.maxLength = hfMaxLength;
+                    }
+                }
+
+                return new ValueText(`HuggingFace text summary agent ${name} constructed.`);
 
             default:
                 return new ValueError(`Unsupported agent type: ${type}`);

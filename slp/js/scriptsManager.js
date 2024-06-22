@@ -150,6 +150,18 @@ connect input, query
 connect query, summariser
 
 hide
+run`,
+"example: recipe book": `reset
+property title, Recipe book
+property prompt, Enter name of food:
+property action, Get recipe!
+
+agent text,input,"Create a step-by-step recipe for a delicious and healthy",". Include a list of ingredients, measurements, and detailed instructions: "
+agent hftextgen,cook,,meta-llama/Meta-Llama-3-8B-Instruct,0.5
+
+connect input, cook
+
+hide
 run`
 
 };

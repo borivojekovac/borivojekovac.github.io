@@ -1,7 +1,7 @@
 // Names of the two caches used in this version of the service worker.
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
-const appVersion = "v1.6";
+const appVersion = "v1.8";
 const PRECACHE = "slp-precache-" + appVersion;
 const LAZYLOAD = 'slp-lazyload-' + appVersion;
 const RUNTIME = 'slp-runtime';
@@ -66,6 +66,8 @@ const PRECACHE_URLS = [
     "./js/nodes/openAi.js",
     "./js/nodes/openAiChat.js",
     "./js/nodes/text.js",
+    "./js/nodes/hfTextGeneration.js",
+    "./js/nodes/hfTextSummary.js",
 
     // values
     "./js/values/editor.js",
@@ -98,6 +100,8 @@ const PRECACHE_URLS = [
     "./templates/valueViewError.hbs",
     "./templates/valueViewImage.hbs",
     "./templates/valueViewText.hbs",
+    "./templates/nodeHfTextGeneration.hbs",
+    "./templates/nodeHfTextSummary.hbs",
 
     // styles
     "./css/app.css",

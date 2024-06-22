@@ -53,7 +53,7 @@ class NodeOpenAi extends Node {
                 body: JSON.stringify({
                     model: this.properties.model ?? App.defaults["openAiModel"],
                     prompt: prompt,
-                    temperature: (this.properties.temperature ?? App.defaults["openAiTemperature"])|0,
+                    temperature: (this.properties.temperature ?? App.defaults.temperature)*1.0,
                     max_tokens: (this.properties.maxTokens ?? App.defaults.maxTokens)|0
                 })
             }
