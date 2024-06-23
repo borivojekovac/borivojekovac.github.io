@@ -33,7 +33,9 @@ class App {
         openAiKey: "",
         googleKey: "AIzaSyAWqJGjllRma45uO3Xy8fE8GynhOXtjyRk",
         googleEngineId: "f252ec802180a47d4",
-        hfKey: ""
+        hfKey: "",
+        hfTopK: 50,
+        hfTopP: 0.5
     };
 
     properties = {

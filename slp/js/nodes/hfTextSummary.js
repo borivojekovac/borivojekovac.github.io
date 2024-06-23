@@ -19,6 +19,8 @@ class NodeHfTextSummary extends Node {
         this.properties.minLength = null;
         this.properties.maxLength = null;
         this.properties.temperature = null;
+        this.properties.topK = null;
+        this.properties.topP = null;
     }
 
     async initUi() {
@@ -33,6 +35,8 @@ class NodeHfTextSummary extends Node {
         this.bindUiElement("minLength");
         this.bindUiElement("maxLength");
         this.bindUiElement("temperature");
+        this.bindUiElement("topK");
+        this.bindUiElement("topP");
     }
 
     updateUiFrame() {
@@ -50,7 +54,9 @@ class NodeHfTextSummary extends Node {
             parameters: {
                 min_length: this.properties.minLength|0,
                 max_length: (this.properties.maxLength ?? App.defaults.maxTokens)|0,
-                temperature: (this.properties.temperature ?? App.defaults.temperature)*1.0
+                temperature: (this.properties.temperature ?? App.defaults.temperature)*1.0,
+                top_k: (this.properties.topK ?? App.defaults.hfTopK)|0,
+                top_p: (this.properties.topP ?? App.defaults.hfTopP)*1.0
             },
             stream: false
         };

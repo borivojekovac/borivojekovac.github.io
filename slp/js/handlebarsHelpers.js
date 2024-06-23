@@ -14,6 +14,10 @@ function register() {
         var nl2br = (options.fn(this) + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
         return new Handlebars.SafeString(nl2br);
     });
+
+    window.Handlebars.registerHelper('markdown', function(markdown) {
+        return marked.parse(markdown);
+    });
 }
 
 export default register;

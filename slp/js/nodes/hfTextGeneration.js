@@ -18,6 +18,8 @@ class NodeHfTextGeneration extends Node {
         this.properties.model = null;
         this.properties.maxTokens = null;
         this.properties.temperature = null;
+        this.properties.topK = null;
+        this.properties.topP = null;
     }
 
     async initUi() {
@@ -31,6 +33,8 @@ class NodeHfTextGeneration extends Node {
         this.bindUiElement("model");
         this.bindUiElement("maxTokens");
         this.bindUiElement("temperature");
+        this.bindUiElement("topK");
+        this.bindUiElement("topP");
     }
 
     updateUiFrame() {
@@ -49,7 +53,9 @@ class NodeHfTextGeneration extends Node {
                 max_new_tokens: (this.properties.maxTokens ?? App.defaults.maxTokens)|0,
                 temperature: (this.properties.temperature ?? App.defaults.temperature)*1.0,
                 repetition_penalty: 50,
-                return_full_text: false
+                return_full_text: false,
+                top_k: (this.properties.topK ?? App.defaults.hfTopK)|0,
+                top_p: (this.properties.topP ?? App.defaults.hfTopP)*1.0
             },
             stream: false
         };

@@ -185,7 +185,8 @@ text.
 
 syntax:
 
-   agent hftextgen [[[[[, <name>], <key>], <model>], <temperature>], <maxTokens>]
+   agent hftextgen [[[[[[[, <name>], <key>], <model>], <temperature>],
+         <maxTokens>], <topK>], <topP>]
 
 parameters:
 
@@ -206,6 +207,16 @@ parameters:
    maxTokens   : Maximum tokens to generate. Limits the number of tokens that
                  the model will return. If not specified, default value of
                  "maxTokens" is used.
+
+   topK        : Integer to define the top tokens considered within the sample
+                 operation to create new text. If not specified, default value
+                 of "hfTopK" is used.
+
+   topP        : Float to define the tokens that are within the sample
+                 operation of text generation. Add tokens in the sample for
+                 more probable to least probable until the sum of the
+                 probabilities is greater than topP. If not specified, default
+                 value of "hfTopP" is used.
 `;
 
             case "hfsummary": return `
@@ -215,7 +226,8 @@ text.
 
 syntax:
 
-   agent hfsummary [[[[[[, <name>], <key>], <model>], <temperature>], <minLength>], <maxLength>]
+   agent hfsummary [[[[[[[[, <name>], <key>], <model>], <temperature>],
+         <minLength>], <maxLength>], <topK>], <topP>]
 
 parameters:
 
@@ -238,6 +250,16 @@ parameters:
    maxLength   : Maximum tokens to generate. Limits the number of tokens that
                  the model will return. If not specified, default value of
                  "maxTokens" is used.
+
+   topK        : Integer to define the top tokens considered within the sample
+                 operation to create new text. If not specified, default value
+                 of "hfTopK" is used.
+
+   topP        : Float to define the tokens that are within the sample
+                 operation of text generation. Add tokens in the sample for
+                 more probable to least probable until the sum of the
+                 probabilities is greater than topP. If not specified, default
+                 value of "hfTopP" is used.
 `;
         }
         return `
@@ -454,6 +476,18 @@ syntax:
 
                         node.properties.maxTokens = hfMaxTokens;
                     }
+
+                    const hfTopK = this.parameters[6];
+                    if (hfTopK) {
+
+                        node.properties.topK = hfTopK;
+                    }
+
+                    const hfTopP = this.parameters[7];
+                    if (hfTopP) {
+
+                        node.properties.topP = hfTopP;
+                    }
                 }
 
                 return new ValueText(`HuggingFace text generation agent ${name} constructed.`);
@@ -491,6 +525,18 @@ syntax:
                     if (hfMaxLength) {
 
                         node.properties.maxLength = hfMaxLength;
+                    }
+
+                    const hfTopK = this.parameters[7];
+                    if (hfTopK) {
+
+                        node.properties.topK = hfTopK;
+                    }
+
+                    const hfTopP = this.parameters[8];
+                    if (hfTopP) {
+
+                        node.properties.topP = hfTopP;
                     }
                 }
 

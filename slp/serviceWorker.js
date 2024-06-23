@@ -1,7 +1,7 @@
 // Names of the two caches used in this version of the service worker.
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
-const appVersion = "v1.8";
+const appVersion = "v1.9";
 const PRECACHE = "slp-precache-" + appVersion;
 const LAZYLOAD = 'slp-lazyload-' + appVersion;
 const RUNTIME = 'slp-runtime';
@@ -80,6 +80,7 @@ const PRECACHE_URLS = [
 
     // third party libs
     "./js/libs/handlebars.min.js",
+    "./js/libs/marked.min.js",
 
     // ui templates
     "./templates/app.hbs",
