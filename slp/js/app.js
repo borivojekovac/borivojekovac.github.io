@@ -35,7 +35,7 @@ class App {
         googleEngineId: "f252ec802180a47d4",
         hfKey: "",
         hfTopK: 50,
-        hfTopP: 0.5
+        hfTopP: 0.9
     };
 
     properties = {
