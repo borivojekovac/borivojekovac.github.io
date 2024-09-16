@@ -15,10 +15,10 @@
     --appColorSecondary10: #E8EAEB;
     --appColorAccent: #FFFFFF;
     --appColorShadow: #00000066;
-    --padding: 0.5vmax;
+    --padding: 0.75vmax;
 
     font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
-    font-size: calc((1vmax + 1vmin) / 2);
+    font-size: calc(2 * var(--padding));
 }
 
 /* generic styling */
@@ -130,7 +130,6 @@ h1 {
 
     flex: 1;
     display: block;
-    font-size: 0.8rem;
 }
 
 #appContainer {
