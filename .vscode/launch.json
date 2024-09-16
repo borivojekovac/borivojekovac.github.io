@@ -4,13 +4,20 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    {
-        "name": "Launch Chrome",
-        "request": "launch",
-        "type": "chrome",
-        "url": "https://localhost:3000/mobile-sensors-test/index.html",
-        "webRoot": "${workspaceFolder}"
-    },
+        {
+            "name": "Mobile sensors",
+            "request": "launch",
+            "type": "chrome",
+            "url": "https://localhost:3000/mobile-sensors-test/index.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Red Mirror",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:8080/",
+            "webRoot": "${workspaceFolder}/red-mirror"
+        },
         {
             "type": "pwa-node",
             "request": "launch",

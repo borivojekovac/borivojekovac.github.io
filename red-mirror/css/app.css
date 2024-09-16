@@ -1,0 +1,193 @@
+/* root styling */
+
+:root {
+
+    --appColorPrimary: #FF5640;
+    --appColorSecondary: #192B37;
+    --appColorSecondary90: #30404B;
+    --appColorSecondary80: #47555F;
+    --appColorSecondary70: #5E6A73;
+    --appColorSecondary60: #758087;
+    --appColorSecondary50: #8C959B;
+    --appColorSecondary40: #A3AAAF;
+    --appColorSecondary30: #BABFC3;
+    --appColorSecondary20: #D1D5D7;
+    --appColorSecondary10: #E8EAEB;
+    --appColorAccent: #FFFFFF;
+    --appColorShadow: #00000066;
+    --padding: 0.5vmax;
+
+    font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+    font-size: calc((1vmax + 1vmin) / 2);
+}
+
+/* generic styling */
+
+body {
+
+    margin: 0;
+    padding: 0;
+    color: var(--appColorPrimary);
+    background-color: var(--appColorSecondary);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+h1 {
+
+    margin: 0;
+    letter-spacing: -0.1rem;
+    font-size: 4rem;
+}
+
+.shadow {
+
+    box-shadow: 0 var(--padding) calc(2 * var(--padding)) var(--appColorShadow);    
+}
+
+.container {
+
+    margin: var(--padding);
+    padding: var(--padding);
+    display: inline-block;
+}
+
+.section {
+
+    width: 100vw;
+}
+
+.container label {
+
+    display: block;
+    color: var(--appColorSecondary50);
+}
+
+.container textarea {
+
+    resize: vertical;
+    min-height: calc(3 * var(--padding) + 1rem);
+}
+
+.container select, .container input, .container textarea {
+
+    box-sizing: border-box;
+    padding: var(--padding);
+    border-radius: var(--padding);
+    outline: none;
+    border: none;
+    color: var(--appColorPrimary);
+    background-color: var(--appColorSecondary90);
+    font-size: 1rem;
+}
+
+.container select:focus, .container input:focus, .container textarea:focus {
+
+    box-sizing: border-box;
+    padding: var(--padding);
+    border-radius: var(--padding);
+    outline: none;
+    border: none;
+    color: var(--appColorSecondary);
+    background-color: var(--appColorAccent);
+}
+
+.container.halfWidth select, .container.halfWidth input, .container.halfWidth textarea {
+
+    width: calc(50vw - 5 * var(--padding))
+}
+
+.container.fullWidth select, .container.fullWidth input, .container.fullWidth textarea {
+
+    width: calc(100vw - 4 * var(--padding))
+}
+
+
+/* non-default overrides */
+
+#heading {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: var(--appColorSecondary);
+    background-color: var(--appColorPrimary);
+}
+
+#heading .container {
+
+    display: flex;
+    align-items: center;
+}
+
+#heading .container h1 {
+
+    display: inline-block;
+    margin-right: calc(2 * var(--padding));
+}
+
+#heading .container span {
+
+    flex: 1;
+    display: block;
+    font-size: 0.8rem;
+}
+
+#appContainer {
+
+    padding-top: calc(6 * var(--padding) + 4rem);
+}
+
+#buttonPlay svg rect {
+
+    fill: var(--appColorPrimary);
+}
+
+#buttonPlay:hover {
+
+    cursor: pointer;
+}
+
+#buttonPlay:hover svg rect {
+
+    fill: var(--appColorAccent);
+}
+
+#buttonPlay svg polygon {
+
+    fill: var(--appColorSecondary);
+}
+
+#buttonPlay svg {
+
+    border-radius: calc(8 * var(--padding));
+}
+
+#buttonPlay {
+
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: calc(10 * var(--padding));
+    height: calc(10 * var(--padding));
+    background: none;
+    position: fixed;
+    left: calc(100vw - 15 * var(--padding));
+    top: calc(100vh - 15 * var(--padding));
+}
+
+#responseText span.text {
+
+    color: var(--appColorSecondary50);
+}
+
+#responseText span.error {
+
+    color: var(--appColorPrimary);
+}
+
+#responseText span.highlight {
+
+    color: var(--appColorAccent);
+}
