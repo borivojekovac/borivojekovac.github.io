@@ -16,9 +16,13 @@
     --appColorAccent: #FFFFFF;
     --appColorShadow: #00000066;
     --padding: 0.75vmax;
+    --debugDisplay: inherit;
 
     font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
     font-size: calc(2 * var(--padding));
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--appColorSecondary80) transparent;
 }
 
 /* generic styling */
@@ -38,6 +42,11 @@ h1 {
     margin: 0;
     letter-spacing: -0.1rem;
     font-size: 4rem;
+}
+
+.debug {
+
+    display: var(--debugDisplay);
 }
 
 .shadow {
@@ -66,6 +75,7 @@ h1 {
 .container textarea {
 
     resize: vertical;
+    height: calc(8 * var(--padding) + 1rem);
     min-height: calc(3 * var(--padding) + 1rem);
 }
 
@@ -110,14 +120,15 @@ h1 {
     position: fixed;
     top: 0;
     left: 0;
-    color: var(--appColorSecondary);
-    background-color: var(--appColorPrimary);
+    color: var(--appColorSecondary50);
+    background-color: var(--appColorSecondary);
 }
 
 #heading .container {
 
     display: flex;
     align-items: center;
+    height: calc(2 * var(--padding) + 4rem);
 }
 
 #heading .container h1 {
@@ -129,8 +140,66 @@ h1 {
 #heading .container span {
 
     flex: 1;
-    display: block;
+    /*display: block;*/
 }
+
+#heading .container span span {
+
+    color: var(--appColorPrimary);
+    font-weight: bold;
+}
+
+#heading .container #icon {
+
+    width: calc(4rem);
+    height: calc(4rem);
+    margin-right: calc(2 * var(--padding));
+    fill: var(--appColorPrimary);
+}
+
+.switch {
+
+    text-align: center;
+    margin-left: calc(2 * var(--padding));
+    margin-right: calc(1 * var(--padding));
+    user-select: none;
+}
+
+.switch label {
+
+    color: var(--appColorPrimary);
+    font-weight: bold;
+}
+
+.switch input[type="checkbox"] {
+
+    background: none;
+}
+
+.switch input[type="checkbox"] {
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 0.2rem solid var(--appColorPrimary);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+
+  .switch input[type="checkbox"]:checked::before {
+    content: '';
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--appColorPrimary);
+    border-radius: 50%;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: calc(-0.2rem);
+    left: calc(-0.2rem);
+  }
 
 #appContainer {
 
@@ -176,6 +245,35 @@ h1 {
     top: calc(100vh - 15 * var(--padding));
 }
 
+#processing {
+
+    display: none;
+    width: calc(10 * var(--padding));
+    height: calc(10 * var(--padding));
+    position: fixed;
+    left: calc(100vw - 15 * var(--padding));
+    top: calc(100vh - 15 * var(--padding));
+
+    border: solid var(--appColorPrimary) 4px;
+    border-bottom: none;
+    border-right: none;
+
+    border-radius: 100%;
+  
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate
+{
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 #responseText span.text {
 
     color: var(--appColorSecondary50);
@@ -189,4 +287,9 @@ h1 {
 #responseText span.highlight {
 
     color: var(--appColorAccent);
+}
+
+#controlPanel {
+
+    border-bottom: dashed 1px var(--appColorSecondary50);
 }

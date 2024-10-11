@@ -6,13 +6,16 @@ class App {
     ui = {};
 
     config = {
+        debug: true,
+        controlPanelVisible: true,        
         openAiApiKey: "",
         openAiBaseModel: "gpt-4o-mini",
         openAiSentimentModel: "gpt-3.5-turbo",
         creatorPersona: "You are a helpful agent which responds to user prompts and tries to make the User happy. You do not talk about yourself. You NEVER ask questions. You ALWAYS provide STRAIGHT responses to user's prompts. You DO NOT comment on feedback, but instead correct your previous response to match the expectations and get a positive feedback.",
         creatorPrompt: "Roses are red, violets are blue... ",
-        reviewerPersona: `You are a reviewer of agent's answers. You receive an agent's response and instructions on how to validate that response. If the response is valid per these instruction, you respond with a simple "Yes". Otherwise, you respond with a "No" and an explaination for agent to adjust his response in order to pass validation.`,
+        reviewerPersona: `You are a validator of statements. You receive a set of validation instructions, followed by a statement. If the statement is valid per these instructions, you respond with a simple "Yes". Otherwise, you respond with a "No" and add an explaination on how to adjust the statement in order to pass validation.`,
         reviewerPrompt: "There need to be one or more numbers in the response.",
+        sentimentCheckerPersona: `You are an agent who assesses whether a sentence is positive or negative. Sentence which starts with a "Yes", is always positive; otherwise it's negative. You ALWAYS respond with a single word: "positive" or "negative".`,
         temperature: 0.9,
         maxTokens: 2048,
         maxIterations: 5
@@ -39,6 +42,10 @@ class App {
         window.requestAnimationFrame(this.onUpdateFrame.bind(this));
 
         this.ui.buttonPlay = document.querySelector("#buttonPlay");
+        this.ui.processing = document.querySelector("#processing");
+        this.ui.switchDebug = document.querySelector("#switchDebug");
+        this.ui.switchControlPanel = document.querySelector("#switchControlPanel");
+        this.ui.controlPanel = document.querySelector("#controlPanel");
         this.ui.inputChatGPTApiKey = document.querySelector("#inputChatGPTApiKey");
         this.ui.comboBaseModel = document.querySelector("#comboBaseModel");
         this.ui.comboSentimentModel = document.querySelector("#comboSentimentModel");
@@ -49,6 +56,7 @@ class App {
         this.ui.inputCreatorPrompt = document.querySelector("#inputCreatorPrompt");
         this.ui.inputReviewerPersona = document.querySelector("#inputReviewerPersona");
         this.ui.inputReviewerPrompt = document.querySelector("#inputReviewerPrompt");
+        this.ui.inputSentimentCheckerPersona = document.querySelector("#inputSentimentCheckerPersona");
         this.ui.responseText = document.querySelector("#responseText");
 
         this.init();
@@ -58,6 +66,8 @@ class App {
 
         await this.loadConfig();
 
+        this.ui.switchDebug.checked = this.config.debug;
+        this.ui.switchControlPanel.checked = this.config.controlPanelVisible;
         this.ui.inputChatGPTApiKey.value = this.config.openAiApiKey;
         this.ui.comboBaseModel.value = this.config.openAiBaseModel;
         this.ui.comboSentimentModel.value = this.config.openAiSentimentModel;
@@ -68,7 +78,10 @@ class App {
         this.ui.inputCreatorPrompt.value = this.config.creatorPrompt;
         this.ui.inputReviewerPersona.value = this.config.reviewerPersona;
         this.ui.inputReviewerPrompt.value = this.config.reviewerPrompt;
+        this.ui.inputSentimentCheckerPersona.value = this.config.sentimentCheckerPersona;
 
+        this.ui.switchDebug.addEventListener("change", this.onSwitchDebugChanged.bind(this));
+        this.ui.switchControlPanel.addEventListener("change", this.onSwitchControlPanelChanged.bind(this));
         this.ui.inputChatGPTApiKey.addEventListener("change", this.onConfigChanged.bind(this));
         this.ui.comboBaseModel.addEventListener("change", this.onConfigChanged.bind(this));
         this.ui.comboSentimentModel.addEventListener("change", this.onConfigChanged.bind(this));
@@ -79,23 +92,42 @@ class App {
         this.ui.inputCreatorPrompt.addEventListener("change", this.onConfigChanged.bind(this));
         this.ui.inputReviewerPersona.addEventListener("change", this.onConfigChanged.bind(this));
         this.ui.inputReviewerPrompt.addEventListener("change", this.onConfigChanged.bind(this));
+        this.ui.inputSentimentCheckerPersona.addEventListener("change", this.onConfigChanged.bind(this));
 
         this.ui.buttonPlay.addEventListener("click", this.onPlayClicked.bind(this));
+
+        this.onSwitchDebugChanged();
+        this.onSwitchControlPanelChanged();
     }
 
-    async outputText(text) {
+    async outputText(text, debug) {
 
-        return await this.output(`<span class="text">${text}<span>`);
+        if (debug === undefined) {
+
+            debug = true;
+        }
+
+        return await this.output(`<span class="text${ debug ? " debug" : ""}">${text}<span>`);
     }
 
-    async outputError(error) {
+    async outputError(error, debug) {
 
-        return await this.output(`<span class="error">${error}<span>`);
+        if (debug === undefined) {
+
+            debug = true;
+        }
+
+        return await this.output(`<span class="error${ debug ? " debug" : ""}">${error}<span>`);
     }
 
-    async outputHighlight(text) {
+    async outputHighlight(text, debug) {
 
-        return await this.output(`<span class="highlight">${text}<span>`);
+        if (debug === undefined) {
+
+            debug = false;
+        }
+
+        return await this.output(`<span class="highlight${ debug ? " debug" : ""}">${text}<span>`);
     }
 
     async output(html) {
@@ -110,8 +142,9 @@ class App {
         return html;
     }
 
-    onConfigChanged() {
+    onConfigChanged(event) {
 
+        this.config.controlPanelVisible = this.ui.switchControlPanel.checked;
         this.config.openAiApiKey = this.ui.inputChatGPTApiKey.value;
         this.config.openAiBaseModel = this.ui.comboBaseModel.value;
         this.config.openAiSentimentModel = this.ui.comboSentimentModel.value;
@@ -122,8 +155,25 @@ class App {
         this.config.creatorPrompt = this.ui.inputCreatorPrompt.value;
         this.config.reviewerPersona = this.ui.inputReviewerPersona.value;
         this.config.reviewerPrompt = this.ui.inputReviewerPrompt.value;
+        this.config.sentimentCheckerPersona = this.ui.inputSentimentCheckerPersona.value;
 
         this.saveConfig();
+    }
+
+    onSwitchDebugChanged(event) {
+
+        const debugVisible = this.ui.switchDebug.checked;
+
+        document.documentElement.style.setProperty("--debugDisplay", debugVisible ? "inherit" : "none");
+    }
+
+    onSwitchControlPanelChanged(event) {
+
+        this.ui.controlPanel.style.display = this.ui.switchControlPanel.checked
+            ? ""
+            : "none";
+
+        this.onConfigChanged();
     }
 
     async invokeModel(model, persona, prompt, previousMessages) {
@@ -290,6 +340,11 @@ class App {
         }
     }
 
+    sleep(ms) {
+
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     async getReply(threadId, assistantId) {
 
         try {
@@ -324,6 +379,8 @@ class App {
                     throw new Error("Unable to get response from the agent.");
                 }
 
+                await this.sleep(1000);
+                
                 response = await fetch(
                     `https://api.openai.com/v1/threads/${threadId}/runs/${run.id}`,
                     {
@@ -384,6 +441,12 @@ class App {
         try {
 
             this.ui.buttonPlay.style.display = "none";
+            this.ui.processing.style.display = "inherit";
+
+            if (!this.config.openAiApiKey) {
+
+                throw new Error("You need to provide a valid Open API key in order to use this app. Check the top of the configuration part of the app.");
+            }
 
             const thread = await this.createThread();
             const creatorAssistant = await this.createAssistant(
@@ -405,7 +468,7 @@ class App {
             var attempts = this.config.maxIterations;
             var prompt = this.ui.inputCreatorPrompt.value;
 
-            this.outputText(`User: ${ prompt }`);
+            this.outputText(`<b>User</b>: ${ prompt }`);
 
             while (attempts-- > 0) {
 
@@ -417,24 +480,22 @@ class App {
                 const creatorReply = await this.getReply(thread.id, creatorAssistant.id);
                 const creatorReplyText = this.getMessageText(creatorReply);
 
-                this.outputText(`Creator: ${ creatorReplyText }`);
+                this.outputText(`<b>Creator</b>: ${ creatorReplyText }`);
 
                 const reviewerMessage = await this.sendMessage(
                     thread.id,
-                    "# agent's response\r\n"
-                    + creatorReplyText + "\r\n\r\n"
-                    + "# validation\r\n"
-                    + this.ui.inputReviewerPrompt.value
+                    `Validation rules: ${this.ui.inputReviewerPrompt.value}\r\n`
+                    + `Statement: ${creatorReplyText}`
                 );
 
                 const reviewerReply = await this.getReply(thread.id, reviewerAssistant.id);
                 const reviewerReplyText = this.getMessageText(reviewerReply);
 
-                this.outputText(`Reviewer: ${ reviewerReplyText }`);
+                this.outputText(`<b>Reviewer</b>: ${ reviewerReplyText }`);
 
                 const sentiment = await this.invokeModel(
                     this.config.openAiSentimentModel,
-                    `You are an agent who assesses whether a sentence is positive or negative. Sentence which starts with a "Yes", is always positive; the one which starts with a "No" is always negative. You ALWAYS respond with a single word: "positive" or "negative".`,
+                    this.ui.inputSentimentCheckerPersona.value,
                     reviewerReplyText
                 );
 
@@ -466,6 +527,8 @@ class App {
         finally {
 
             this.ui.buttonPlay.style.display = "";
+            this.ui.processing.style.display = "";
+
         }
     }
 

@@ -13,7 +13,14 @@ class DataManager {
             return defaultValue;
         }
 
-        return JSON.parse(value);
+        try {
+
+            return JSON.parse(value);
+        }
+        catch {
+
+            return defaultValue;
+        }
     }
 
     async set(key, value) {

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         
-        <title>The Red Mirror</title>
+        <title>The Man with a Cog Face - Basic AI Reflection Playground</title>
 
         <link rel="manifest" href="./manifest.json">
 
@@ -14,7 +14,7 @@
         <meta name="msapplication-config" content="browserconfig.xml">
         <meta name="theme-color" content="#F2CA79">
         <meta name="google" value="notranslate">
-        <meta name="description" content="The Red Mirror - Basic AI Reflection Tool">
+        <meta name="description" content="The Man with a Cog Face - Basic AI Reflection Playground">
 
         <link rel="stylesheet" href="./css/app.css">
 
@@ -29,63 +29,81 @@
                     <polygon points="30,20 80,50 30,80" fill="black" />
                 </svg>
             </button>
+            <div id="processing">
+            </div>
 
             <div id="heading" class="section shadow">
                 <div class="container">
-                    
-                    <h1>Red Mirror</h1>
-                    <span>A simple, browser based helper for running two OpenAi agents in a Reflection configuration, in order to improve accuracy of response.</span>
+                    <svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M240-80v-172q-57-52-88.5-121.5T120-520q0-150 105-255t255-105q125 0 221.5 73.5T827-615l52 205q5 19-7 34.5T840-360h-80v120q0 33-23.5 56.5T680-160h-80v80h-80v-160h160v-200h108l-38-155q-23-91-98-148t-172-57q-116 0-198 81t-82 197q0 60 24.5 114t69.5 96l26 24v208h-80Zm254-360Zm-54 80h80l6-50q8-3 14.5-7t11.5-9l46 20 40-68-40-30q2-8 2-16t-2-16l40-30-40-68-46 20q-5-5-11.5-9t-14.5-7l-6-50h-80l-6 50q-8 3-14.5 7t-11.5 9l-46-20-40 68 40 30q-2 8-2 16t2 16l-40 30 40 68 46-20q5 5 11.5 9t14.5 7l6 50Zm40-100q-25 0-42.5-17.5T420-520q0-25 17.5-42.5T480-580q25 0 42.5 17.5T540-520q0 25-17.5 42.5T480-460Z"/></svg>
+                    <span>
+                        <span>The Cog With a Red Face</span> is a javascript example of two OpenAi agents using Reflection to improve accuracy of response.
+                        Paste your OpenAI API key before trying out.
+                    </span>
+                    <div class="switch">
+                        <label for="switchDebug">Debug</label>
+                        <input id="switchDebug" type="checkbox" role="switch" checked>
+                    </div>
+                    <div class="switch">
+                        <label for="switchControlPanel">Config</label>
+                        <input id="switchControlPanel" type="checkbox" role="switch" checked>
+                    </div>
                 </div>
             </div>
 
-            <div id="chatGPTApiKey" class="container halfWidth">
-                <label>OpenAI ChatGPT API key:</label>
-                <input id="inputChatGPTApiKey" type="password">
-            </div>
-            <div id="baseModel" class="container">
-                <label>Base GPT model:</label>
-                <select id="comboBaseModel">
-                    <option value="gpt-3.5-turbo">3.5 turbo</option>
-                    <option value="gpt-4">4</option>
-                    <option value="gpt-4-turbo">4 turbo</option>
-                    <option value="gpt-4o" selected>4o</option>
-                    <option value="gpt-4o-mini">4o mini</option>
-                </select>
-            </div>
-            <div id="sentimentModel" class="container">
-                <label>Sentiment GPT model:</label>
-                <select id="comboSentimentModel">
-                    <option value="gpt-3.5-turbo" selected>3.5 turbo</option>
-                    <option value="gpt-4">4</option>
-                    <option value="gpt-4-turbo">4 turbo</option>
-                    <option value="gpt-4o">4o</option>
-                    <option value="gpt-4o-mini">4o mini</option>
-                </select>
-            </div>
-            <div id="temperature" class="container">
-                <label>Temperature:</label>
-                <input id="inputTemperature" type="number">
-            </div>
-            <div id="maxTokens" class="container">
-                <label>Max tokens:</label>
-                <input id="inputMaxTokens" type="number">
-            </div>
-            <div id="maxIterations" class="container">
-                <label>Max review iterations:</label>
-                <input id="inputMaxIterations" type="number">
-            </div>
+            <div id="controlPanel">
+                <div id="chatGPTApiKey" class="container halfWidth">
+                    <label>OpenAI API key:</label>
+                    <input id="inputChatGPTApiKey" type="password">
+                </div>
+                <div id="baseModel" class="container">
+                    <label>Base model:</label>
+                    <select id="comboBaseModel">
+                        <option value="gpt-3.5-turbo">3.5 turbo</option>
+                        <option value="gpt-4">4</option>
+                        <option value="gpt-4-turbo">4 turbo</option>
+                        <option value="gpt-4o" selected>4o</option>
+                        <option value="gpt-4o-mini">4o mini</option>
+                    </select>
+                </div>
+                <div id="sentimentModel" class="container">
+                    <label>Sentiment model:</label>
+                    <select id="comboSentimentModel">
+                        <option value="gpt-3.5-turbo" selected>3.5 turbo</option>
+                        <option value="gpt-4">4</option>
+                        <option value="gpt-4-turbo">4 turbo</option>
+                        <option value="gpt-4o">4o</option>
+                        <option value="gpt-4o-mini">4o mini</option>
+                    </select>
+                </div>
+                <div id="temperature" class="container">
+                    <label>Temperature:</label>
+                    <input id="inputTemperature" type="number">
+                </div>
+                <div id="maxTokens" class="container">
+                    <label>Max tokens:</label>
+                    <input id="inputMaxTokens" type="number">
+                </div>
+                <div id="maxIterations" class="container">
+                    <label>Max review iterations:</label>
+                    <input id="inputMaxIterations" type="number">
+                </div>
 
-            <div id="creatorPersona" class="container fullWidth" title="Instructs creator on how to act.">
-                <label>Creator persona:</label>
-                <textarea id="inputCreatorPersona" type="text"></textarea>
+                <div id="creatorPersona" class="container fullWidth" title="Instructs creator on how to act.">
+                    <label>Creator persona:</label>
+                    <textarea id="inputCreatorPersona" type="text"></textarea>
+                </div>
+                <div id="reviewerPersona" class="container fullWidth" title="Instructs reviewer on how to act.">
+                    <label>Reviewer persona:</label>
+                    <textarea id="inputReviewerPersona" type="text"></textarea>
+                </div>
+                <div id="sentimentCheckerPersona" class="container fullWidth" title="Checks whether reviewer responded with a positive or negative sentiment.">
+                    <label>Sentiment checker persona:</label>
+                    <textarea id="inputSentimentCheckerPersona" type="text"></textarea>
+                </div>
             </div>
             <div id="creatorPrompt" class="container fullWidth" title="Primary prompt.">
                 <label>Creator prompt:</label>
                 <textarea id="inputCreatorPrompt" type="text"></textarea>
-            </div>
-            <div id="reviewerPersona" class="container fullWidth" title="Instructs reviewer on how to act.">
-                <label>Reviewer persona:</label>
-                <textarea id="inputReviewerPersona" type="text"></textarea>
             </div>
             <div id="reviewerPrompt" class="container fullWidth" title="Creator output is fed to reviewer along with reviewer prompt to judge on the quality of creator's output. Reviewer's output is sent to the sentiment agent, which checks whether reviewer provided positive or negative response. If the response was negative, the whole discussion is fed back to creator, otherwise creator's output is considered good.">
                 <label>Reviewer prompt:</label>
