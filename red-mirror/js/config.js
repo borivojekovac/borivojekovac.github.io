@@ -2,7 +2,7 @@ import DataManager from "./dataManager.js";
 
 class Config {
 
-    debug = true;
+    debug = false;
     controlPanelVisible = true;
     openAiApiKey = "";
     openAiBaseModel = "gpt-4o-mini";
@@ -15,10 +15,6 @@ class Config {
     temperature = 0.9;
     maxTokens = 2048;
     maxIterations = 5;
-
-    constructor() {
-
-    }
 
     async load() {
 

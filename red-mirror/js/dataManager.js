@@ -1,9 +1,5 @@
 class DataManager {
 
-    constructor() {
-
-    }
-
     async get(key, defaultValue) {
 
         var value = window.localStorage.getItem(key);

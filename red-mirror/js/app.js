@@ -16,6 +16,11 @@ class App {
         this.openAi = new OpenAiInterface(this.config);
         this.output = new Output();
 
+        this.init();
+    }
+
+    async init() {
+
         this.ui.buttonPlay = document.querySelector("#buttonPlay");
         this.ui.processing = document.querySelector("#processing");
         this.ui.switchDebug = document.querySelector("#switchDebug");
@@ -33,13 +38,8 @@ class App {
         this.ui.inputReviewerPrompt = document.querySelector("#inputReviewerPrompt");
         this.ui.inputSentimentCheckerPersona = document.querySelector("#inputSentimentCheckerPersona");
 
-        this.init();
-    }
-
-    async init() {
-
         await this.config.load();
-
+        
         this.ui.switchDebug.checked = this.config.debug;
         this.ui.switchControlPanel.checked = this.config.controlPanelVisible;
         this.ui.inputChatGPTApiKey.value = this.config.openAiApiKey;
