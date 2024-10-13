@@ -15,7 +15,7 @@
     --appColorSecondary10: #E8EAEB;
     --appColorAccent: #FFFFFF;
     --appColorShadow: #00000066;
-    --padding: 0.75vmax;
+    --padding: 0.5em;
     --debugDisplay: inherit;
 
     font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
@@ -112,9 +112,6 @@ h1 {
     width: calc(100vw - 4 * var(--padding))
 }
 
-
-/* non-default overrides */
-
 #heading {
 
     position: fixed;
@@ -140,7 +137,11 @@ h1 {
 #heading .container span {
 
     flex: 1;
-    /*display: block;*/
+}
+
+#heading {
+
+    font-size: calc(1.25 * var(--padding));
 }
 
 #heading .container span span {
@@ -274,17 +275,17 @@ h1 {
     }
 }
 
-#responseText span.text {
+#responseText .text {
 
     color: var(--appColorSecondary50);
 }
 
-#responseText span.error {
+#responseText .error {
 
     color: var(--appColorPrimary);
 }
 
-#responseText span.highlight {
+#responseText .highlight {
 
     color: var(--appColorAccent);
 }
