@@ -75,6 +75,7 @@ class App {
 
     onConfigChanged() {
 
+        this.config.debug = this.ui.switchDebug.checked;
         this.config.controlPanelVisible = this.ui.switchControlPanel.checked;
         this.config.openAiApiKey = this.ui.inputChatGPTApiKey.value;
         this.config.openAiBaseModel = this.ui.comboBaseModel.value;
@@ -163,6 +164,8 @@ class App {
 
             this.output.highlight(`<b>User</b>: ${ prompt }`);
 
+            var lastReply = null;
+
             while (attempts-- > 0) {
 
                 const creatorMessage = await this.openAi.sendMessage(
@@ -175,7 +178,7 @@ class App {
                     creatorAssistant.id
                 );
 
-                const creatorReplyText = this.getText(creatorReply);
+                const creatorReplyText = lastReply = this.getText(creatorReply);
                 this.output.text(`<b>Creator</b>: ${ creatorReplyText }`);
 
                 const reviewerMessage = await this.openAi.sendMessage(
@@ -214,6 +217,9 @@ class App {
                         break;
                 }
             }
+
+            this.output.error(`<b>Warning</b>: Not quite sure I can answer that reliably! Here's my best attempt.`, false);
+            this.output.highlight(`<b>Swarm</b>: ${ lastReply }`);
         }
         catch (ex) {
 
