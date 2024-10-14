@@ -32,7 +32,7 @@ body {
     margin: 0;
     padding: 0;
     color: var(--appColorPrimary);
-    background-color: var(--appColorSecondary);
+    background-color: var(--appColorSecondary10);
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -69,7 +69,7 @@ h1 {
 .container label {
 
     display: block;
-    color: var(--appColorSecondary50);
+    color: var(--appColorSecondary);
 }
 
 .container textarea {
@@ -87,7 +87,7 @@ h1 {
     outline: none;
     border: none;
     color: var(--appColorPrimary);
-    background-color: var(--appColorSecondary90);
+    background-color: var(--appColorSecondary10);
     font-size: 1rem;
 }
 
@@ -148,6 +148,7 @@ h1 {
 
     color: var(--appColorPrimary);
     font-weight: bold;
+    font-size: 2em;
 }
 
 #heading .container #icon {
@@ -209,7 +210,7 @@ h1 {
 
 #buttonPlay svg rect {
 
-    fill: var(--appColorPrimary);
+    fill: var(--appColorSecondary);
 }
 
 #buttonPlay:hover {
@@ -224,7 +225,7 @@ h1 {
 
 #buttonPlay svg polygon {
 
-    fill: var(--appColorSecondary);
+    fill: var(--appColorPrimary);
 }
 
 #buttonPlay svg {
@@ -275,6 +276,11 @@ h1 {
     }
 }
 
+#responseText .output {
+
+    padding-bottom: var(--padding);
+}
+
 #responseText .text {
 
     color: var(--appColorSecondary50);
@@ -282,12 +288,12 @@ h1 {
 
 #responseText .error {
 
-    color: var(--appColorPrimary);
+    color: var(--appColorSecondary50);
 }
 
 #responseText .highlight {
 
-    color: var(--appColorAccent);
+    color: var(--appColorSecondary);
 }
 
 #controlPanel {

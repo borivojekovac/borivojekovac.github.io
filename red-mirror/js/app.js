@@ -39,7 +39,7 @@ class App {
         this.ui.inputSentimentCheckerPersona = document.querySelector("#inputSentimentCheckerPersona");
 
         await this.config.load();
-        
+
         this.ui.switchDebug.checked = this.config.debug;
         this.ui.switchControlPanel.checked = this.config.controlPanelVisible;
         this.ui.inputChatGPTApiKey.value = this.config.openAiApiKey;
@@ -161,7 +161,7 @@ class App {
             var attempts = this.config.maxIterations;
             var prompt = this.ui.inputCreatorPrompt.value;
 
-            this.output.text(`<b>User</b>: ${ prompt }`);
+            this.output.highlight(`<b>User</b>: ${ prompt }`);
 
             while (attempts-- > 0) {
 
@@ -206,14 +206,10 @@ class App {
                 switch (sentiment.response.toLowerCase()) {
 
                     case "positive":
-                        this.output.highlight(`Response: ${ creatorReplyText }`);
+                        this.output.highlight(`<b>Swarm</b>: ${ creatorReplyText }`);
                         return;
 
                     case "negative":
-                        this.output.error(`Wrong response: ${ creatorReplyText }`);
-                        prompt = `${ reviewerReplyText } Try again please.`;
-                        break;
-
                     default:
                         break;
                 }
@@ -221,7 +217,7 @@ class App {
         }
         catch (ex) {
 
-            this.output.error(`Error: ${ ex.message }`);
+            this.output.error(`<b>Error</b>: ${ ex.message }`, false);
         }
         finally {
 
