@@ -246,18 +246,44 @@
         });
     }
 
+    const STORAGE_URL = "https://borivojekovac.github.io/summariserBookmarklet/summariserBookmarklet/index.html";
+  const API_KEY_NAME = "openAiApiKey";
+
+  // Create an iframe to communicate with the storage page
+    const iframe = document.createElement("iframe");
+    iframe.src = STORAGE_URL;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+    
+    // Utility function to send a message to the iframe and wait for a response
+  const sendMessageToIframe = (action, key, value) => {
+    return new Promise((resolve) => {
+      const handleMessage = (event) => {
+        if (event.origin !== new URL(STORAGE_URL).origin) return;
+        if (event.data.action === action && event.data.key === key) {
+          window.removeEventListener("message", handleMessage);
+          resolve(event.data.value || event.data.success);
+        }
+      };
+      window.addEventListener("message", handleMessage);
+      iframe.contentWindow.postMessage({ action, key, value }, new URL(STORAGE_URL).origin);
+    });
+  };
+
     /**
      * Reads a cookie by name.
      * @param {string} name - Cookie name.
      * @returns {string|null} Cookie value if found, otherwise null.
      */
-    function getCookie(name) {
-        const match = document.cookie.match(
+    async function getCookie(name) {
+        /*const match = document.cookie.match(
             new RegExp(
                 "(^|; )" + name.replace(/([\.$?*|{}()\]\\\/+^])/g, "\\$1") + "=([^;]*)"
             )
         );
-        return match ? decodeURIComponent(match[2]) : null;
+        return match ? decodeURIComponent(match[2]) : null;*/
+        
+        return await sendMessageToIframe("get", name);
     }
 
     /**
@@ -266,12 +292,13 @@
      * @param {string} value - Cookie value.
      * @param {number} days - Number of days until the cookie expires.
      */
-    function setCookie(name, value, days) {
-        const date = new Date();
+    async function setCookie(name, value) {
+        /*const date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         document.cookie = `${name}=${encodeURIComponent(
             value
-        )}; expires=${date.toUTCString()}; path=/`;
+        )}; expires=${date.toUTCString()}; path=/`;*/
+        return await sendMessageToIframe("set", name, value);
     }
 
     /**
@@ -281,7 +308,7 @@
      * If user cancels or provides null, returns null.
      */
     async function getOpenAiApiKey() {
-        const existingKey = getCookie("openAiApiKey");
+        const existingKey = await getCookie("openAiApiKey");
         if (existingKey) {
             return existingKey;
         }
@@ -292,7 +319,7 @@
             null
         );
         if (userKey !== null) {
-            setCookie("openAiApiKey", userKey, 365); // store for 1 year
+            await setCookie("openAiApiKey", userKey);
             return userKey;
         }
         return null;
@@ -536,7 +563,7 @@ ${elemClicked.innerText}`;
             removeOverlay();
             await displayText("Error", ex.toString());
         }
-    }
+    }    
 
     // Fetch the OpenAI API key (cookie or prompt)
     const openAiApiKey = await getOpenAiApiKey();
