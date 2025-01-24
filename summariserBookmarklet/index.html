@@ -14,18 +14,14 @@
     <p>
         While on Microsoft Stream, click the bookmark, and
         then click the transcript you want summarised.
+        Alternativelym use it on any page to get summary 
+        of the whole page contents.        
     </p>
     <p>
         First time you use the script on a domain, it will
         prompt you for an OpenAI API key. From then on will
         store it in a cookie and reuse.
     </p>
-    <p>
-        This Bookmarklet is specifically designed to pick out
-        Microsoft Stream transcripts, but if that's not found
-        when the text is clicked on, it will pick out innerText
-        of the element clicked.
-    </p>
-    <a href='javascript:(function(){ var script = document.createElement("script"); script.src = window.location.protocol + "//" + window.location.host + "/transcriptSummariser.js"; document.body.appendChild(script); })()'>Summarise!</a>
+    <a href='javascript:(function(){ var script = document.createElement("script"); script.src = "https://borivojekovac.github.io/summariserBookmarklet/summariserBookmarklet.js"; document.body.appendChild(script); })()'>Summarise!</a>
 </body>
 </html>

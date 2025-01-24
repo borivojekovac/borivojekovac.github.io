@@ -303,35 +303,12 @@
 		return null;
 	}
 
-	function getTextToSummarise(e) {
+	function getPromptToSummarise(e) {
 		const elemClicked = e.target;
 		const oneTranscriptParent = elemClicked.closest("#OneTranscript");
 
 		if (oneTranscriptParent) {
-			return oneTranscriptParent.textContent;
-		} else {
-			return elemClicked.innerText;
-		}
-	}
-
-	async function onClick(e) {
-		try {
-			const textToSummarise = getTextToSummarise(e);
-
-			const response = await fetch(
-				"https://api.openai.com/v1/chat/completions",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${openAiApiKey}`,
-					},
-					body: JSON.stringify({
-						model: "gpt-4",
-						messages: [
-							{
-								role: "user",
-								content: `Prompt for Summarizing a Meeting Transcript
+			return `Prompt for Summarizing a Meeting Transcript
 
 Role/Style: You are an expert meeting summarizer with a talent for capturing essential details, participant interactions, and action items in a well-structured and concise format.
 
@@ -361,7 +338,60 @@ Use bullet points or short paragraphs for readability.
 Use neutral, professional language without personal opinions or assumptions.
 Transcript to Summarize:
 
-${textToSummarise}`,
+${oneTranscriptParent.textContent}`;
+		} else {
+            return `Role/Style: You are an expert content summarizer with a sharp eye for detail, tasked with providing a concise yet comprehensive overview of a webpage’s text content (innerText).
+
+Task: Summarize the text from the webpage provided. Your summary should be logically organized, reflecting the main topics, subtopics, and key takeaways in a structured, concise, and reader-friendly format.
+
+Structure & Guidelines:
+
+Webpage Title/Overall Theme
+Briefly introduce the subject or title of the webpage.
+State the primary purpose or theme of the content (e.g., blog article, product description, news story, how-to guide, etc.).
+Main Sections/Headings
+Identify any major sections or headings that structure the content.
+Provide short overviews of each section.
+Key Points/Arguments/Insights
+List the essential arguments, insights, or data presented on the page.
+Highlight any noteworthy facts, statistics, or figures.
+If applicable, mention examples or supporting evidence.
+Calls to Action or Recommendations
+Note any instructions, suggestions, or calls to action (e.g., subscribe, download, register, etc.).
+Include any recommended next steps or follow-up actions mentioned.
+Conclusion/Summary of Findings
+Provide a concise wrap-up of the content’s main takeaway.
+Mention the final impression or concluding remarks of the webpage (if any).
+Format & Style:
+
+Write in clear, neutral, and professional language without injecting personal opinions.
+Keep the summary balanced in length: thorough, yet not overly detailed.
+Use bullet points or short paragraphs for readability and organization.
+Do not include extraneous information that is not directly relevant to the webpage’s key content.
+Webpage Text (innerText):
+
+${document.body.innerText}`;
+		}
+	}
+
+	async function onClick(e) {
+		try {
+			const prompt = getPromptToSummarise(e);
+
+			const response = await fetch(
+				"https://api.openai.com/v1/chat/completions",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${openAiApiKey}`,
+					},
+					body: JSON.stringify({
+						model: "gpt-4",
+						messages: [
+							{
+								role: "user",
+								content: prompt,
 							},
 						],
 					}),
