@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Atomic Flow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/app.css">
+</head>
+<body>
+
+    <h1>Atomic Flow</h1>
+
+    <fieldset id="data-source-fieldset" class="persist-values shadow">
+        <legend>
+            <label for="data-source">
+                <span>Data Source</span>
+                <input type="checkbox" id="data-source" name="data-source" class="shadow-inside"/>
+            </label>
+        </legend>
+
+        <div class="input-control full-width" id="jira-host">
+            <label for="jira-host-text">Jira Host</label>
+            <input type="text" id="jira-host-text" name="jira-host-text" placeholder="https://<yourdomain>.atlassian.net" title="https://<yourdomain>.atlassian.net" />
+        </div>
+
+        <div class="input-control half-width" id="jira-api-username">
+            <label for="jira-api-username-text">Jira API Username</label>
+            <input type="text" id="jira-api-username-text" name="jira-api-username-text" placeholder="<youremail>@<yourdomain> Jira account" title="<youremail>@<yourdomain> Jira account" />
+        </div>
+
+        <div class="input-control half-width" id="jira-api-token">
+            <label for="jira-api-token-password">Jira API Token</label>
+            <input type="password" id="jira-api-token-password" name="jira-api-token-password" placeholder="Paste your Jira API access token here" title="Paste your Jira API access token here" />
+        </div>
+
+        <div class="input-control full-width" id="jql">
+            <label for="jql-text">Jira Query Language (JQL) Expression</label>
+            <input type="text" id="jql-text" name="jql-text" placeholder="JQL for selecting stories to analyse" title="JQL for selecting stories to analyse" />
+        </div>
+
+    </fieldset>
+
+    <fieldset id="aggregation-fieldset" class="persist-values shadow">
+        <legend>
+            <label for="aggregation">
+                <span>Aggregation</span>
+                <input type="checkbox" id="aggregation" name="aggregation" class="shadow-inside"/>
+            </label>
+        </legend>
+
+        <div class="input-control half-width" id="period-weeks">
+            <label for="period-weeks-text">Jira API Token</label>
+            <input type="input" id="period-weeks-text" name="period-weeks-text" placeholder="Aggregation granularity in weeks" title="Aggregation granularity in weeks" value="2" />
+        </div>
+
+    </fieldset>
+
+    <div>
+        <button id="run" class="shadow">Run</button>
+    </div>
+    
+    <script type="module">
+
+        import app from "./js/app.js";
+        app.run();
+
+    </script>
+</body>
+</html>

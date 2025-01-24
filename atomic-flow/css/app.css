@@ -1,0 +1,148 @@
+:root {
+
+    --primary-light: #fbfbfb;
+    --primary-dark: #f1f1f1;
+    --secondary-light: #707070;
+    --secondary-dark: #505050;
+    --accent: #47d1a8;
+}
+
+body {
+
+    background-color: var(--primary-light);
+    color: var(--secondary-dark);
+}
+
+body, input {
+
+    font-family: Tahoma, sans-serif;
+    font-size: 1rem;
+    color: var(--secondary-dark);
+}
+
+div {
+
+    box-sizing: border-box;
+}
+
+h1 {
+
+    padding: 1rem;
+}
+
+h1:after {
+
+    content: ".";
+    color: var(--accent);
+}
+
+.shadow {
+
+    box-shadow: 0em 0.1em 0.2em rgba(0, 0, 0, 0.25);
+}
+
+.shadow-inside {
+
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.25) inset;
+}
+
+fieldset {
+
+    display: inline-block;
+    border: none;    
+    border-radius: 0.5rem;
+    background-color: var(--primary-dark);
+    padding: 1rem;
+}
+
+fieldset legend {
+
+    color: var(--accent);
+    position: relative;
+    top: 1.25rem;
+}
+
+fieldset input[type="checkbox"] {
+
+    position: relative;
+    appearance: none;
+    background-color: var(--primary-light);
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    position: relative;
+    top: 0.25rem;
+}
+
+fieldset input[type="checkbox"]:checked::before {
+
+    content: '';
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--accent);
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    border-radius: 1rem;
+}
+
+fieldset .input-control {
+
+    display: none;
+}
+
+fieldset:has(legend input[type="checkbox"]:checked) .input-control {
+
+    display: inherit;
+}
+
+.full-width {
+
+    width: 100%;
+}
+
+.half-width {
+
+    width: calc(50% - 0.25rem);
+}
+
+.input-control {
+    
+    padding: 1rem;
+}
+
+.input-control label, .input-control input {
+
+    box-sizing: border-box;
+    display: block;
+}
+
+.input-control input {
+
+    background-color: var(--primary-light);
+    padding: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    outline: none;
+    width: 100%;
+}
+
+.input-control label {
+
+    font-size: 0.75rem;
+    color: var(--secondary-light);
+    padding-bottom: 0.5rem;
+}
+
+button {
+
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+    background-color: var(--accent);
+    color: var(--primary-light);
+    font-weight: bold;
+}

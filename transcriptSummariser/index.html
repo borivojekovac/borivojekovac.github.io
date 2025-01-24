@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Transcript Summariser Bookmarklet</title>
+</head>
+<body>
+    <h1>Transcript Summariser Bookmarklet</h1>
+    <p>
+        Drag and drop the link below to your bookmarks.
+    </p>
+    <p>
+        While on Microsoft Stream, click the bookmark, and
+        then click the transcript you want summarised.
+    </p>
+    <p>
+        First time you use the script on a domain, it will
+        prompt you for an OpenAI API key. From then on will
+        store it in a cookie and reuse.
+    </p>
+    <p>
+        This Bookmarklet is specifically designed to pick out
+        Microsoft Stream transcripts, but if that's not found
+        when the text is clicked on, it will pick out innerText
+        of the element clicked.
+    </p>
+    <a href='javascript:(function(){ var script = document.createElement("script"); script.src = window.location.protocol + "//" + window.location.host + "/transcriptSummariser.js"; document.body.appendChild(script); })()'>Summarise!</a>
+</body>
+</html>
