@@ -97,7 +97,6 @@
             // Prevent any click outside the dialog from closing it
             overlay.addEventListener("click", (event) => {
                 if (event.target === overlay) {
-                    // Ignore clicks on the overlay itself
                     event.stopPropagation();
                 }
             });
@@ -149,7 +148,6 @@
                 resolve(value);
             });
 
-            // Append elements
             buttonsEl.appendChild(okBtn);
             buttonsEl.appendChild(cancelBtn);
 
@@ -161,7 +159,6 @@
             overlay.appendChild(dialog);
             document.body.appendChild(overlay);
 
-            // Remove the modal from DOM
             function cleanup() {
                 document.body.removeChild(overlay);
             }
@@ -243,7 +240,6 @@
             overlay.appendChild(dialog);
             document.body.appendChild(overlay);
 
-            // Cleanup function to remove DOM
             function cleanup() {
                 document.body.removeChild(overlay);
             }
@@ -295,7 +291,6 @@
             "Open AI API Key:",
             null
         );
-        // userKey will be null if canceled; or it will be the new value if OK was clicked.
         if (userKey !== null) {
             setCookie("openAiApiKey", userKey, 365); // store for 1 year
             return userKey;
@@ -411,70 +406,86 @@ ${elemClicked.innerText}`;
     }
 
     /**
-     * Show a full-page overlay with a spinner and blur the page.
-     * Returns a cleanup function to remove the overlay and restore the page style.
+     * Show a full-page blurred backdrop with a non-blurred spinner on top.
+     * We'll disable scrolling (overflow:hidden) to ensure the entire page is "frozen" and blurred.
+     * Returns a cleanup function to restore everything once done.
      */
     function showLoadingOverlay() {
-        // Inject a <style> with keyframes for the spinner rotation
-        const styleEl = document.createElement("style");
-        styleEl.textContent = `
-            @keyframes spin {
-                0%   { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(styleEl);
+        // Save original overflow so we can restore it.
+        const originalOverflow = document.documentElement.style.overflow;
+        // Disable scrolling in the browser
+        document.documentElement.style.overflow = "hidden";
 
-        // Create the overlay
+        // Create an overlay container that covers the full viewport (fixed).
         const overlay = document.createElement("div");
+        overlay.id = "blur-overlay";
+
         applyStyles(overlay, {
             position: "fixed",
             top: "0",
             left: "0",
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "rgba(0,0,0,0.2)",
+            width: "100vw",
+            height: "100vh",
             zIndex: "99999",
+            // We'll use a pseudo-element for the actual blur effect behind the spinner
         });
 
-        // Create the spinner
+        // Create a <style> element to define the backdrop blur via a pseudo-element
+        const styleEl = document.createElement("style");
+        styleEl.textContent = `
+            #blur-overlay::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                backdrop-filter: blur(4px);
+                background-color: rgba(0,0,0,0.3);
+            }
+
+            @keyframes spin {
+                0%   { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+            #blur-overlay .spinner {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 48px;
+                height: 48px;
+                border: 6px solid #f3f3f3;
+                border-top: 6px solid #3498db;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+        `;
+        document.head.appendChild(styleEl);
+
+        // Create the spinner element
         const spinner = document.createElement("div");
-        applyStyles(spinner, {
-            width: "48px",
-            height: "48px",
-            border: "6px solid #f3f3f3",
-            borderTop: "6px solid #3498db",
-            borderRadius: "50%",
-            animation: "spin 1s linear infinite",
-        });
+        spinner.className = "spinner";
+
         overlay.appendChild(spinner);
-
-        // Blur the entire page and prevent clicks
-        document.body.style.filter = "blur(2px)";
-        document.body.style.pointerEvents = "none";
-
-        // Add the overlay to the body
         document.body.appendChild(overlay);
 
         // Return a cleanup function
-        return function cleanup() {
-            // Restore page style
-            document.body.style.filter = "";
-            document.body.style.pointerEvents = "";
-            // Remove overlay and spinner
+        return function removeOverlay() {
+            // Restore original scrolling
+            document.documentElement.style.overflow = originalOverflow;
+            // Remove the overlay + style
             document.body.removeChild(overlay);
-            // Remove the dynamic style element
             document.head.removeChild(styleEl);
         };
     }
 
     /**
      * Main click handler: calls OpenAI with the appropriate prompt,
-     * then removes event listeners (deactivates the app), stops highlighting,
-     * and shows a loading spinner until the request finishes.
+     * then removes event listeners (deactivates the app),
+     * stops highlighting immediately,
+     * and shows the loading spinner (non-blurred) on top of a blurred page.
      */
     async function onClickHandler(e) {
         // 1) Immediately remove mousemove highlighting
@@ -487,7 +498,7 @@ ${elemClicked.innerText}`;
         // 2) Also remove the click listener to prevent further triggers
         document.removeEventListener("click", onClickHandler);
 
-        // Show the loading overlay & blur
+        // Show the loading overlay & blur the page behind it
         const removeOverlay = showLoadingOverlay();
 
         try {
@@ -501,7 +512,7 @@ ${elemClicked.innerText}`;
                     Authorization: `Bearer ${openAiApiKey}`,
                 },
                 body: JSON.stringify({
-                    model: "gpt-4",
+                    model: prompt.length > 8000 ? "gpt-4-turbo" : "gpt-4",
                     messages: [
                         {
                             role: "user",
@@ -517,11 +528,11 @@ ${elemClicked.innerText}`;
             }
 
             const summary = data.choices[0].message.content;
-            // Hide overlay before displaying text
+            // Remove the blur overlay before showing summary
             removeOverlay();
             await displayText("Summary", summary);
         } catch (ex) {
-            // Hide overlay before showing error
+            // Remove blur overlay before showing error
             removeOverlay();
             await displayText("Error", ex.toString());
         }
@@ -536,6 +547,6 @@ ${elemClicked.innerText}`;
 
     // Listen for mouse movement to highlight the element that would be summarized
     document.addEventListener("mousemove", onMouseMoveHandler);
-    // Listen for click to trigger the summarization and remove listeners
+    // Listen for click to trigger the summarization
     document.addEventListener("click", onClickHandler);
 })();
