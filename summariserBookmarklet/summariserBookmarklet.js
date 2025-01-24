@@ -375,7 +375,7 @@ Use bullet points or short paragraphs for readability and organization.
 Do not include extraneous information that is not directly relevant to the webpage’s key content.
 Webpage Text (innerText):
 
-${document.body.innerText}`;
+${elemClicked.innerText}`;
         }
     }
 
@@ -386,7 +386,7 @@ ${document.body.innerText}`;
     function getElementToSummarize(e) {
         const elemOver = e.target;
         const oneTranscriptParent = elemOver.closest("#OneTranscript");
-        return oneTranscriptParent || document.body;
+        return oneTranscriptParent || elemOver;
     }
 
     // Keep track of the last element we highlighted, so we can remove styling from it.
