@@ -380,8 +380,9 @@ ${elemClicked.innerText}`;
     }
 
     /**
-     * Determine which element will be summarized, so we can highlight it.
-     * If closest('#OneTranscript') is found, return that element; otherwise, return document.body.
+     * Returns the element that would be summarized (for highlighting).
+     * If #OneTranscript is an ancestor of the hovered node, return that;
+     * otherwise, fallback to document.body.
      */
     function getElementToSummarize(e) {
         const elemOver = e.target;
@@ -410,10 +411,85 @@ ${elemClicked.innerText}`;
     }
 
     /**
+     * Show a full-page overlay with a spinner and blur the page.
+     * Returns a cleanup function to remove the overlay and restore the page style.
+     */
+    function showLoadingOverlay() {
+        // Inject a <style> with keyframes for the spinner rotation
+        const styleEl = document.createElement("style");
+        styleEl.textContent = `
+            @keyframes spin {
+                0%   { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(styleEl);
+
+        // Create the overlay
+        const overlay = document.createElement("div");
+        applyStyles(overlay, {
+            position: "fixed",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(0,0,0,0.2)",
+            zIndex: "99999",
+        });
+
+        // Create the spinner
+        const spinner = document.createElement("div");
+        applyStyles(spinner, {
+            width: "48px",
+            height: "48px",
+            border: "6px solid #f3f3f3",
+            borderTop: "6px solid #3498db",
+            borderRadius: "50%",
+            animation: "spin 1s linear infinite",
+        });
+        overlay.appendChild(spinner);
+
+        // Blur the entire page and prevent clicks
+        document.body.style.filter = "blur(2px)";
+        document.body.style.pointerEvents = "none";
+
+        // Add the overlay to the body
+        document.body.appendChild(overlay);
+
+        // Return a cleanup function
+        return function cleanup() {
+            // Restore page style
+            document.body.style.filter = "";
+            document.body.style.pointerEvents = "";
+            // Remove overlay and spinner
+            document.body.removeChild(overlay);
+            // Remove the dynamic style element
+            document.head.removeChild(styleEl);
+        };
+    }
+
+    /**
      * Main click handler: calls OpenAI with the appropriate prompt,
-     * then removes event listeners (deactivates the app).
+     * then removes event listeners (deactivates the app), stops highlighting,
+     * and shows a loading spinner until the request finishes.
      */
     async function onClickHandler(e) {
+        // 1) Immediately remove mousemove highlighting
+        document.removeEventListener("mousemove", onMouseMoveHandler);
+        if (lastHighlightedElement) {
+            lastHighlightedElement.style.outline = "";
+            lastHighlightedElement = null;
+        }
+
+        // 2) Also remove the click listener to prevent further triggers
+        document.removeEventListener("click", onClickHandler);
+
+        // Show the loading overlay & blur
+        const removeOverlay = showLoadingOverlay();
+
         try {
             // Generate the prompt
             const prompt = getPromptToSummarise(e);
@@ -441,26 +517,20 @@ ${elemClicked.innerText}`;
             }
 
             const summary = data.choices[0].message.content;
+            // Hide overlay before displaying text
+            removeOverlay();
             await displayText("Summary", summary);
         } catch (ex) {
+            // Hide overlay before showing error
+            removeOverlay();
             await displayText("Error", ex.toString());
-        } finally {
-            // Remove both the click and mousemove listeners (so it stops highlighting)
-            document.removeEventListener("click", onClickHandler);
-            document.removeEventListener("mousemove", onMouseMoveHandler);
-
-            // Remove highlight from any currently highlighted element
-            if (lastHighlightedElement) {
-                lastHighlightedElement.style.outline = "";
-                lastHighlightedElement = null;
-            }
         }
     }
 
     // Fetch the OpenAI API key (cookie or prompt)
     const openAiApiKey = await getOpenAiApiKey();
     if (!openAiApiKey) {
-        // If the user never provides a key, just do nothing.
+        // If the user never provides a key, do nothing.
         return;
     }
 
