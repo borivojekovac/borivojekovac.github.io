@@ -23,23 +23,5 @@
         store it in a cookie and reuse.
     </p>
     <a href='javascript:(function(){ var script = document.createElement("script"); script.src = "https://borivojekovac.github.io/summariserBookmarklet/summariserBookmarklet.js"; document.body.appendChild(script); })()'>Summarise!</a>
-    <script>
-        // Listen for messages from the parent page
-        window.addEventListener("message", (event) => {
-          // Only allow messages from the same origin
-          if (event.origin !== window.location.origin) return;
-    
-          const { action, key, value } = event.data;
-    
-          if (action === "get") {
-            // Return the key value to the parent
-            event.source.postMessage({ action: "get", key, value: localStorage.getItem(key) }, event.origin);
-          } else if (action === "set") {
-            // Save the key-value pair in localStorage
-            localStorage.setItem(key, value);
-            event.source.postMessage({ action: "set", key, success: true }, event.origin);
-          }
-        });
-      </script>
 </body>
 </html>
