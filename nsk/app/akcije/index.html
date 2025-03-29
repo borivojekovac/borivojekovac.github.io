@@ -1,0 +1,172 @@
+﻿<html manifest="kB.SmartDie.appcache">
+    <head>
+        <title>Pametna kockica</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="kb-smartdie-icon-144.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="kb-smartdie-icon-144.png" />       
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="kb-smartdie-icon-114.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="kb-smartdie-icon-114.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="kb-smartdie-icon-72.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="kb-smartdie-icon-72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="54x54" href="kb-smartdie-icon-54.png" />
+        <link rel="apple-touch-icon" sizes="54x54" href="kb-smartdie-icon-54.png" />
+        <link rel="icon" type="image/png" href="kb-smartdie-icon-32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="kb-smartdie-icon-16.png" sizes="16x16" />
+
+        <script type="text/javascript" src="kB.SmartDie.js"></script>
+
+        <style type="text/css">
+
+            body 
+            {
+                margin: 0px;
+                padding: 0px;
+                background: radial-gradient(circle farthest-side at center top, rgba(255, 255, 240, 0.5), rgba(255, 255, 240, 0));
+                background-position: center center;
+                background-repeat: no-repeat;
+                overflow: hidden;
+            }
+                                    
+            .versionElement, .speedElement, .libraryElement, .startElement, .counterElement, .questionElement, .hardnessElement, .answerElement, .pointsElement, .correctAnswer, .answerImage, .drawCardElement, .cardImage, .cardBackImage
+            {
+                font-family: Arial;
+                position: fixed;
+                background-color: #fffcee;
+                border: 1px solid #000;
+                text-align: center;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            
+            .correctAnswer, .answerImage, .cardImage, .cardBackImage
+            {
+                border: none;
+                background: none;
+            }
+                        
+            .easy
+            {
+                background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxMy4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDE0OTQ4KSAgLS0+DQo8c3ZnIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIg0KCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjcwMC42NDdweCIgaGVpZ2h0PSI2ODMuMDM3cHgiIHZpZXdCb3g9IjAgMCA3MDAuNjQ3IDY4My4wMzciIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iIzIzMUYyMCIgZD0iTTY5NS41NiwyNC4wOTZjLTQzLjk2Mi00My45Ni0xNjUuNjY0LTU1LjIyMS00OTguODk2LDIxMy4yNzFjLTguMTE5LDYuNTQyLTE1Ljg3NCwxMi45NzYtMjMuMjc1LDE5LjMxMg0KCWMxNi4yMSw0My40MjEsMzcuNzYzLDc5LjY2Miw2MC44MzEsMTIxLjI5MmMtMjQuODQ2LTI2LjE4My01Mi43NDItNjYuMDY2LTc2Ljc3Mi0xMDcuMzAyDQoJYy0xOC45NzgsMTcuMDg1LTM1LjMyOSwzMy40NzEtNDkuMjU5LDQ5LjMzNWMyNy42NSwzNy41LDU4LjQ4Myw2Ni40OTMsOTIuMjg0LDEwMC4yOTNjLTMxLjgwNy0xOC43MjktNzAuNjMtNTAuMzQ5LTEwNS43MjItODQuMjA2DQoJYy03MS4wMDcsODkuNjExLTY0LjE2NSwxNjQuMDIxLTIxLjc1MiwyNTguMzMxYy0zNi4xOTUsMjkuODAxLTgxLjEsNjguMTY5LTcxLjc0NCw4NC41OTJjOS41NzEsMTYuNzk4LDU4LjU1LTIxLjk4NiwxMDEuMTk3LTYxLjI3MQ0KCWMxNDEuODU2LDQxLjcyMiwyMzYuMjc0LTIxLjYzNywzMzQuMTQxLTExOS41MDNDNTM5LjQxOSwzOTUuNDEzLDczNC41OTcsNjMuMTMyLDY5NS41NiwyNC4wOTZ6Ii8+DQo8L3N2Zz4NCg==);
+                opacity: 0.25;
+            }
+            
+            .hard
+            {
+                background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxMy4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDE0OTQ4KSAgLS0+DQo8c3ZnIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiIGlkPSJMYXllcl8yX2NvcHkiDQoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNjgwLjMxNXB4Ig0KCSBoZWlnaHQ9IjU0NC4yNTNweCIgdmlld0JveD0iMCAwIDY4MC4zMTUgNTQ0LjI1MyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8cGF0aCBkPSJNNjU3LjYzOCwyMDQuMDk1aC0yLjg1OEM2NDQuNzEsODYuNzI1LDYwOS4xOTcsMCw1NjYuOTI5LDBINDc2LjIyYy0yOC42NDYsMC01NC4xODUsMzkuODQtNzAuODA5LDEwMi4wNDhoOTAuNzExDQoJCWMtNS40NjksMjAuNDY0LTkuOTcxLDQzLjM0Ni0xMy4zMDIsNjguMDMxSDM5Mi4xMWMtMS40ODQsMTEuMDAxLTIuNzQsMjIuMzU0LTMuNzQsMzQuMDE2aC05Ni40MjUNCgkJQzI4MS44NzUsODYuNzI1LDI0Ni4zNjIsMCwyMDQuMDk0LDBoLTkwLjcwOEM4NC43NDEsMCw1OS4yMDEsMzkuODQsNDIuNTc4LDEwMi4wNDhoOTAuNzENCgkJYy01LjQ2OCwyMC40NjQtOS45NzEsNDMuMzQ2LTEzLjMwMiw2OC4wMzFoLTkwLjcxYy0xLjQ4NSwxMS4wMDEtMi43NCwyMi4zNTQtMy43NDEsMzQuMDE2aC0yLjg1Nw0KCQljLTcuMTU5LDAtMTMuNTQsOS45NjUtMTcuNjk3LDI1LjUxMmgxOC44MDFjLTAuMjkzLDUuNjE0LTAuNTI3LDExLjI4Ni0wLjcwNSwxNy4wMDhIMS42NTVDMC41OTEsMjU0LjQ5NSwwLDI2My4xMDEsMCwyNzIuMTI2DQoJCWMwLDM3LjU3MywxMC4xNTQsNjguMDMyLDIyLjY3OCw2OC4wMzJjMC4wMDQsMCwwLjAwOC0wLjAwMSwwLjAxMy0wLjAwMWgyLjg0NWMxMC4wNjksMTE3LjM3MSw0NS41ODMsMjA0LjA5Niw4Ny44NTEsMjA0LjA5Ng0KCQloOTAuNzA4YzQyLjI2OCwwLDc3Ljc4MS04Ni43MjUsODcuODUxLTIwNC4wOTZoOTYuNDI1YzEwLjA2OSwxMTcuMzcxLDQ1LjU4MywyMDQuMDk2LDg3Ljg1MSwyMDQuMDk2aDkwLjcwOQ0KCQljNDIuMjY4LDAsNzcuNzgxLTg2LjcyNSw4Ny44NTEtMjA0LjA5NmgyLjg0NmMwLjAwNCwwLDAuMDA5LDAuMDAxLDAuMDEzLDAuMDAxYzEyLjUyNCwwLDIyLjY3Ny0zMC40NTksMjIuNjc3LTY4LjAzMg0KCQlDNjgwLjMxNSwyMzQuNTU0LDY3MC4xNjMsMjA0LjA5NSw2NTcuNjM4LDIwNC4wOTV6IE0zODUuOTEzLDI0Ni42MTRoLTIwMi44NGMwLjgzMy02LjE3MiwxLjk1OC0xMS44OTIsMy4zMjctMTcuMDA4aDIwMC4yMTgNCgkJQzM4Ni4zMjMsMjM1LjIyLDM4Ni4wODksMjQwLjg5MywzODUuOTEzLDI0Ni42MTR6IE02MzYuNjE2LDI0Ni42MTRoLTkwLjcwOWMwLjgzMy02LjE3MiwxLjk1OC0xMS44OTIsMy4zMjYtMTcuMDA4aDkwLjcwOA0KCQlDNjM4LjU3NCwyMzQuNzIzLDYzNy40NDksMjQwLjQ0Miw2MzYuNjE2LDI0Ni42MTR6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==);
+                opacity: 0.25;
+            }
+            
+            .questionElement 
+            {
+                background-color: transparent;
+                border: none;
+            }
+            
+            .hardnessElement 
+            {
+                background-repeat: no-repeat;
+                background-color: transparent;
+                border: none;
+            }
+
+            .labelContainer div 
+            {
+                height: 100%;
+                width: 100%;
+                display: table;
+            }
+            
+            .labelContainer div span
+            {
+                display: table-cell;
+                vertical-align: middle;
+            }
+            
+            .labelContainer div span span
+            {
+                display: inline-block;
+            }
+            
+            .large
+            {
+                font-size: 200%;
+            }
+            
+            .small
+            {
+                font-size: 50%;
+            }
+
+            .correctAnswer .large, .correctAnswer .small
+            {
+                font-size: inherit;
+            }
+            
+            .disabled 
+            {
+                color: #fff;
+            }
+            
+            .versionElement 
+            {
+                background: none;
+                text-align: right;
+                color: #fff;
+                opacity: 0.25;
+            }
+            
+            .speedElement 
+            {
+            }
+            
+            .libraryElement 
+            {
+            }
+            
+            .startElement
+            {
+            }
+            
+            .counterElement 
+            {
+            }
+            
+            .questionElement 
+            {
+                opacity: 0.75;
+            }
+            
+            .answerElement 
+            {
+            }
+            
+            .pointsElement 
+            {
+            }
+            
+            .correctAnswer 
+            {
+                opacity: 0.75;
+            }
+            
+            .drawCardElement 
+            {
+            }
+            
+            .cardImage 
+            {
+            }
+            
+            .cardBackImage 
+            {
+            }
+
+        </style>
+    </head>
+    <body>
+    </body>
+</html>

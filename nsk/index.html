@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Naljuti se Kovače</title>
+
+    <style type="text/css">
+
+        :root {
+            --color-background: #e8e8e8;
+            --color-container: #f0f0f0;
+            --color-container-outline: #808080;
+            --color-accent: #4080e0;
+            --color-font: #202020;
+            --color-font-light: #807060;
+            --color-font-accent: #f0f0f0;
+
+            --size-container: min(80%, 80em);
+        }
+
+
+        body {
+
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--color-font);
+        }
+
+        h1 {
+            color: var(--color-font-light);
+            padding: 1em 0 0 0;
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: var(--color-font-light);
+            padding: 1em 0 0 0;
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        div {
+
+            box-sizing: border-box;
+        }
+
+        .smallShadow {
+
+            box-shadow: 0.05em 0.05em 0.1em 0.1em rgba(0,0,0,0.2);
+        }
+
+        .shadow {
+
+            box-shadow: 0 0 1em 1em rgba(0,0,0,0.1);
+        }
+
+        #content {
+
+            width: var(--size-container);
+            margin: 0 auto;
+            background-color: var(--color-container);
+        }
+
+        #main {
+
+            padding: 0 2em 2em 2em;
+            width: 100%;
+        }
+
+        .center {
+
+            text-align: center;
+        }
+
+        .fullWidth {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .thirdWidth {
+
+            display: inline-block;
+            width: 32%;
+            vertical-align: top;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .thirdWidth p {
+
+            text-align: left;
+        }
+
+        .thirdWidth p.button {
+
+            text-align: center;
+        }
+
+        .fitImages img {
+            width: 100%;
+            height: auto;
+        }
+
+        .margin {
+
+            margin: 5%;
+        }
+
+        .button {
+
+            border: none;
+            outline: none;
+            border-radius: 0.5em;
+            background-color: var(--color-accent);
+            display: inline-block;
+            width: 40%;
+        }
+
+        a {
+
+            color: var(--color-font);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .button a {
+
+            padding: 1em;
+            color: var(--color-accent);
+            display: inline-block;
+        }
+
+        .button {
+
+            background-color: var(--color-container);
+            text-align: center;
+        }
+
+        .right {
+
+            text-align: right;
+            padding-right: 2em;
+        }
+
+        .appImage {
+
+            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .floatLeft {
+
+            float: left;
+        }
+
+        .floatRight {
+
+            float: right;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="content" class="shadow">
+        <div id="header">
+            <img src="img/Naljuti se Kovace Header.jpg" alt="Naljuti se Kovače" class="fullWidth">
+            <div class="right"><b><i>"Uradi sam" Ne Ljuti se Čoveče, sa par unapređenja.</i></b></div>
+        </div>
+        <div id="main">
+            <h1>Pravila</h1>
+            <p>
+                <ul>
+                    <li>osnovna pravila su ista kao i kod klasične igre Ne Ljuti se Čoveče.</li>
+                    <li>kada se stane na zamak ili obojeno polje pre zamka, odigrava se jedna od specijalnih akcija.</li>
+                    <li>specijalne akcije se izvlače uz pomoć web aplikacije.</li>
+                    <li>na tabli postoje tvrđave; kada je nečiji igrač u tvrđavi, drugi igrači ne mogu da ga "pregaze".</li>
+                    <li>prethodno pravilo ne važi za "gazdu" zamka, odnosno igrača koji je u boji zamka.</li>
+                    <li>pomeranje igrača može da se radi običnom kockicom, a može i pametnom kockicom, za vežbanje osnovne matematike.</li>
+                </ul>
+            </p>
+
+            <h2>Specijalne akcije</h2>
+            <p>
+                <ul>
+                    <li><b>Bomba</b>: igrač bira jednu protivničku figuricu i vraća je proizvoljan broj koraka unazad, najviše šest.</li>
+                    <li><b>Ključ</b>: igrač izvodi jednu figuricu iz kuće, kao da je dobio šest.</li>
+                    <li><b>Lisice</b>: igrač preskače sledeći krug.</li>
+                    <li><b>Detelina sa četiri lista</b>: igrač igra ponovo, kao da je dobio šesticu.</li>
+                    <li><b>Čarobni štapić</b>: igrač pomera jednu figuricu za jedno do šest polja, kao da je u dodatnom bacanju dobio taj broj.</li>
+                    <li><b>Kružne strelice</b>: igrač zamenjuje pozicije jedne svoje figurice i jedne protivničke figurice.</li>
+                </ul>
+                
+            </p>
+
+            <h2>Ostala pravila</h2>
+            <p>
+                <ul>
+                    <li>U okviru specijalne akcije nije dozvoljeno menjati poziciju figurica koje su u kući, sigurnoj zoni ispred cilja i figurica koje su na cilju.</li>
+                    <li>Igrač koji je izvukao neku specijalnu akciju, jednom u toku partije može da je "pokloni" drugim igraču. U ovom slučaju, drugi igrač mora da odigra specijalnu akciju - nema pravo da je odbije niti da je prosledi dalje.</li>
+                </ul>
+            </p>
+
+            <h1>tabla za igru</h1>
+            <p>
+                Tabla za igru mora da se odštampa i nalepi na debeli karton.
+                Dobar rezultat se dobija štampom na lepenci (kartonu) debljine 2mm dimenzije u 300dpi, odnosno 42x42cm.
+                Idealno, na kartonu se izumbaju rupe na mestima gde mogu da stoje igrači, pa se u rupe postave jaki
+                neodmijumski magneti pre lepljenja slike. Onda se sa donje strane igrača stave tanke metalne pločice,
+                pa igrači magično i čvrsto stoje na svojim mestima.
+            </p>
+            <div class="fullWidth fitImages center">
+                <div class="thirdWidth margin">
+                    <b>Prednja strana</b><p></p>
+                    <a href="img/Naljuti se Kovace.jpg" download="Naljuti-se-Kovače-tabla-napred.jpg" target="_blank">
+                        <img src="img/Naljuti se Kovace.png" alt="tabla za igru" class="smallShadow"><br>
+                        Preuzmi za štampu
+                    </a>
+                </div>
+                <div class="thirdWidth margin">
+                    <b>Zadnja strana</b><p></p>
+                    <a href="img/Naljuti se Kovace Nazad.jpg" download="Naljuti-se-Kovače-tabla-nazad.jpg" target="_blank">
+                        <img  src="img/Naljuti se Kovace Nazad.png" alt="tabla za igru sa zadnje strane" class="smallShadow"><br>
+                        Preuzmi za štampu
+                    </a>
+                </div>
+            </div>
+
+            <h1>Aplikacije</h1>
+            <p>
+                U zavisnosti od toga kako želite da igrate igru, možete koristiti jednu od ovih aplikacija.
+            </p>
+
+            <div class="thirdWidth">
+                <h2>Standardna</h2>
+                <p class="button smallShadow">
+                    <img src="./img/app-standard.png" alt="standardna aplikacija" class="appImage">
+                    <a href="./app/standard/index.html" target="_blank">Pokreni</a>
+                </p>
+                <p>
+                    Umesto obične kockice, koristite ovu aplikaciju. Ona menja kockicu sa šest strana, ali umesto
+                    čistom srećom, broj 1 do 6 određuje uz pomoć brzog odgovaranja na pitanja iz sabiranja ili množenja.
+                    Ukoliko ne odgovorite na vreme, preskačete potez. Ako odgovorite na vreme, igrate kao da vam je kockica
+                    pokazala broj koji ste dobili. Što brže odgovorite, dobijate veći broj. Pošto uspešno odgovorite,
+                    omogućeno je i izvlačenje specijalne akcije, pritiskom na taster "Vuci karticu".
+                </p>
+            </div>
+
+            <div class="thirdWidth">
+                <h2>Za specijalne akcije</h2>
+                <p class="button smallShadow">
+                    <img src="./img/app-akcije.png" alt="za specijalne akcije" class="appImage">
+                    <a href="./app/akcije/index.html" target="_blank">Pokreni</a>
+                </p>
+                <p>
+                    Ukoliko želite da koristite klasične kockice, ova aplikacija će vam omogućiti samo da izvlačite
+                    specijalne akcije kada to bude bilo potrebno.
+                </p>
+            </div>
+
+            <div class="thirdWidth">
+                <h2>Pametna kockica</h2>
+                <p class="button smallShadow">
+                    <img src="./img/app-kockica.png" alt="pametna kockica" class="appImage">
+                    <a href="./app/kockica/index.html" target="_blank">Pokreni</a>
+                </p>
+                <p>
+                    Ukoliko želite da koristite Pametnu kockicu umesto obične kockice za neku drugu igru,
+                    možete da upotrebite ovu aplikaciju - jedina razlika u odnosu na običnu aplikaciju je
+                    što neće ponuditi da izvlačite specijalne akcije pošto uspešno odgovorite na pitanje.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
