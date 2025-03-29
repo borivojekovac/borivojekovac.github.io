@@ -1,0 +1,1 @@
+app.CommandQueueFullException=function(){var e=Class.inherit(this,app.Exception,["Command queue is full.",app.Exception.Severity.Warning])};

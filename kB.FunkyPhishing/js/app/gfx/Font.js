@@ -1,0 +1,1 @@
+app.gfx.Font={register:function(e,t){var n=document.createElement("style");n.type="text/css";n.innerHTML='@font-face { font-family: "'+e+'"; src: url('+t+"); }";document.getElementsByTagName("head")[0].appendChild(n)}};

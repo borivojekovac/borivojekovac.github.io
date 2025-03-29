@@ -1,0 +1,1 @@
+app.ShowSceneCommand=function(){var e=Class.inherit(this,app.Command,["scene"]);var n={};n.scene=null;e.scene=function(e){if(e===undefined){return n.scene}return n.scene=e}};app.Command.register(app.ShowSceneCommand);

@@ -1,0 +1,43 @@
+{
+    "name": "Astro Pirouette",
+    "short_name": "Astro",
+    "start_url": "./",
+    "description": "Asteroids remake, but played on mobile and on foot.",
+    "display_override": ["fullscreen", "minimal-ui"],
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "./img/icon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./img/icon/android-chrome-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "./img/icon/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "./img/icon/android-chrome-maskable.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Astro Pirouette",
+            "short_name": "Astro",
+            "description": "Asteroids remake, but played on mobile and on foot.",
+            "url": "./",
+            "icons": [{ "src": "./img/icon/android-chrome-192x192.png", "sizes": "192x192" }]
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#000000"
+  }

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Foot Asteroids</title>
+
+        <!-- critical resources to preload -->
+        <link rel="preload" href="./game.css" as="style"/>
+
+        <!-- web app metadata -->
+        <link rel="manifest" href="./manifest.json">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="msapplication-TileColor" content="#000000">
+        <meta name="msapplication-config" content="browserconfig.xml">
+        <meta name="theme-color" content="#000000">
+        <meta name="google" value="notranslate">
+        <meta name="description" content="Asteroids remake, but played on mobile and on foot.">
+
+        <!-- icons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="./img/icon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./img/icon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./img/icon/favicon-16x16.png">
+        <link rel="mask-icon" href="./img/icon/safari-pinned-tab.svg" color="#47627a">
+        <link rel="shortcut icon" href="./img/icon/favicon.ico">
+
+        <!-- styles -->
+        <link rel="stylesheet" href="./game.css"/>
+
+    </head>
+    <body class="glowOn backgroundImageOn">
+
+        <!-- world -->
+
+        <style type="text/css">
+            
+            :root {
+
+                --backgroundAngle: 0deg;
+            }            
+
+            #containerWorld {
+
+                z-index: 0;
+
+                width: 100vw;
+                height: 100vh;
+                top: 0vw;
+                left: 0vh;
+            }
+
+            #backgroundStars {
+
+                display: none;
+            }
+
+            .backgroundImageOn #backgroundStars {
+
+                display: inherit;
+                width: calc(4 * 100vmax);
+                height: calc(4 * 100vmax);
+                left: calc(50vw - 2 * 100vmax);
+                top: calc(50vh - 2 * 100vmax);
+            }
+
+            .backgroundImageOn #backgroundStars::before {
+
+                content: "";
+                position: absolute;
+                width: 200%;
+                height: 200%;
+                top: -50%;
+                left: -50%;
+                z-index: -1;
+                background: url("./img/orion-nebula-nasa.webp") 27% -5% repeat;
+                background-size: 20%;
+                transform: rotate(var(--backgroundAngle));
+            }
+
+            #containerWorld canvas {
+
+                width: 100vw;
+                height: 100vh;
+                top: 0vw;
+                left: 0vh;
+            }
+
+        </style>
+
+        <div id="backgroundStars" class="control"></div>
+        <div id="containerWorld" class="control">
+
+        </div>
+
+        <!-- debug label -->
+
+        <style type="text/css">
+            
+            #labelDebug {
+
+                z-index: 2000;
+
+                width: calc(100vw - 20vmin);
+                height: 5vmin;
+                top: 5vmin;
+                left: 10vmin;
+
+                color: var(--colorSecondary);
+
+                font-size: 3vmin;
+            }
+
+        </style>
+
+        <div id="labelDebug" class="control">
+        </div>
+
+
+
+        <!-- transition white screen -->
+
+        <style type="text/css">
+            
+            #transitionWhiteScreen {
+             
+                z-index: 1000;
+
+                background-color: var(--colorWhite);
+            }
+
+        </style>
+
+        <div id="transitionWhiteScreen" class="screen">
+
+        </div>
+
+
+
+        <!-- transition black screen -->
+
+        <style type="text/css">
+            
+            #transitionBlackScreen {
+             
+                z-index: 1000;
+
+                background-color: var(--colorBlack);
+            }
+
+        </style>
+
+        <div id="transitionBlackScreen" class="screen">
+
+        </div>
+
+
+
+        <!-- loading screen -->
+
+        <style type="text/css">
+
+            #screenLoading {
+
+                visibility: visible;
+            }
+
+            #screenLoading #labelLoading {
+
+                width: 0vw;
+                height: 0vh;
+            }
+
+        </style>
+
+        <div id="screenLoading" class="screen">
+
+            <label id="labelLoading">loading...</label>
+
+        </div>
+
+        <script src="./js/screenLoading.js" type="module"></script>
+
+
+        
+        <!-- menu screen -->
+
+        <style type="text/css">
+            
+            #screenMenu #buttonPlay {
+
+                width: 100vw;
+                height: 10vmin;
+                top: calc(75vh);
+                left: 0vw;
+
+                font-size: 10vmin;
+
+            }
+
+            #screenMenu #buttonPlay span {
+
+                font-size: 16vmin;
+            }
+
+            .glowOn #screenMenu #buttonPlay span {
+                
+                filter: drop-shadow(0 0 1vmin var(--colorPrimary));
+            }
+
+            #imageLogo {
+
+                top: 15vh;
+                height: 40vmin;
+            }
+
+            .glowOn #imageLogo {
+
+                filter: drop-shadow(0 0 1vmin var(--colorBlack));
+            }
+
+            #imageQrCode {
+
+                width: calc(20vmin);
+                height: calc(20vmin);
+                left: calc(50vw - 11vmin);
+                top: calc(10vh + 38vmin);
+                border-radius: 1vmin;
+                image-rendering: crisp-edges;
+                opacity: 0.8;
+
+                transform: rotate(0deg);
+            }
+
+            .glowOn #imageQrCode {
+
+                filter: drop-shadow(0 0 1vmin var(--colorSecondary));
+            }
+
+            #screenMenu #controlConfig {
+
+                z-index: 2000;
+
+                width: 10vh;
+                height: 10vh;
+                top: calc(5vh);
+                left: calc(5vh);
+
+                color: var(--colorPrimary);
+
+                font-size: 10vmin;
+            }
+
+            #screenMenu #controlToggleFullScreen {
+
+                z-index: 2000;
+
+                width: 10vh;
+                height: 10vh;
+                top: calc(5vh);
+                left: calc(100vw - 5vh - 10vh);
+
+                color: var(--colorPrimary);
+
+                font-size: 10vmin;
+            }
+
+            .glowOn #screenMenu #controlToggleFullScreen {
+
+                filter: drop-shadow(0 0 1vmin var(--colorPrimary));
+            }
+
+        </style>
+
+        <div id="screenMenu" class="screen">
+
+            <div id="controlConfig" class="control material-icons">menu</div>
+            <div id="controlToggleFullScreen" class="control material-icons">fullscreen</div>
+
+            <img id="imageLogo" src="./img/logo.webp" alt="Astro Pirouette Logo">
+
+            <button id="buttonPlay"><span class="material-icons">play_arrow</span></button>
+
+            <img id="imageQrCode" src="./img/github-qr.png" alt="Astro Pirouette QR Cde">
+
+        </div>
+
+        <script src="./js/screenMenu.js" type="module"></script>
+
+
+
+        <!-- game screen -->
+
+        <style type="text/css">
+            
+            #screenPlay .touchArea {
+
+                width: 100vw;
+                height: 50vh;
+                left: 0vw;
+            }
+
+            #screenPlay #areaAccellerate {
+
+                top: 0vh;
+            }
+
+            #screenPlay #areaShoot {
+                
+                top: 50vh;
+            }
+
+            #screenPlay #labelLevel, #screenPlay #labelScore, #screenPlay #labelAsteroidCount,
+            #screenPlay #labelLevel span, #screenPlay #labelScore span, #screenPlay #labelAsteroidCount span,
+            #screenPlay #labelLevel label, #screenPlay #labelScore label, #screenPlay #labelAsteroidCount label {
+
+                display: inline-block;
+                text-align: center;
+            }
+
+            #screenPlay #labelLevel label, #screenPlay #labelScore label, #screenPlay #labelAsteroidCount label {
+
+                font-size: 3vmin;
+            }
+
+            #screenPlay #labelLevel span, #screenPlay #labelScore span, #screenPlay #labelAsteroidCount span {
+
+                font-size: 3.3vmin;
+            }
+
+            #screenPlay #labelLevel {
+
+                width: 30vw;
+                height: 10vmin;
+                top: calc(100vh - 20vmin);
+                left: 5vw;
+                font-size: 3vmin;
+                color: var(--colorPrimary);
+            }
+
+            #screenPlay #labelScore {
+
+                width: 30vw;
+                height: 10vmin;
+                top: calc(100vh - 20vmin);
+                left: 35vw;
+                font-size: 3vmin;
+                color: var(--colorPrimary);
+            }
+
+            #screenPlay #labelAsteroidCount {
+
+                width: 30vw;
+                height: 10vmin;
+                top: calc(100vh - 20vmin);
+                left: 65vw;
+                font-size: 3vmin;
+                color: var(--colorPrimary);
+            }
+
+            #screenPlay #barOverheat {
+
+                width: 0vw;
+                height: 1vmin;
+                left: 10vw;
+                top: calc(100vh - 22vmin);
+
+                border-radius: 1vmin;
+
+                opacity: 0.4;
+
+                background-color: var(--colorPrimary);
+            }
+
+        </style>
+
+        <div id="screenPlay" class="screen">
+
+            <div id="areaAccellerate" class="touchArea"></div>
+            <div id="areaShoot" class="touchArea"></div>
+            <div id="labelLevel" class="control"><span class="material-icons">line_weight</span><label></label></div>
+            <div id="labelScore" class="control"><span class="material-icons">grade</span><label></label></div>
+            <div id="labelAsteroidCount" class="control"><span class="material-icons">layers</span><label></label></div>
+            <div id="barOverheat" class="control"></div>
+        </div>
+
+        <script src="./js/screenPlay.js" type="module"></script>
+
+
+
+        <!-- game over screen -->
+
+        <style type="text/css">
+                    
+            #screenGameOver #buttonReplay {
+
+                width: 100vw;
+                height: 10vmin;
+                top: calc(50vh - 5vmin);
+                left: 0vw;
+
+                font-size: 10vmin;
+            }
+
+            .glowOn #screenGameOver #buttonReplay {
+
+                filter: drop-shadow(0 0 1vmin var(--colorPrimary));
+            }
+
+            #screenGameOver #buttonMenu {
+
+                z-index: 2000;
+
+                width: 10vh;
+                height: 10vh;
+                top: calc(5vh);
+                left: calc(5vh);
+
+                color: var(--colorPrimary);
+            }
+
+            .glowOn #screenGameOver #buttonMenu {
+
+                filter: drop-shadow(0 0 1vmin var(--colorPrimary));
+            }
+
+            #screenGameOver #buttonReplay span {
+
+                font-size: 16vmin;
+            }
+
+            #screenGameOver #buttonMenu span {
+
+                font-size: 10vmin;
+            }
+
+            #screenGameOver #labelScore, 
+            #screenGameOver #labelScore span, 
+            #screenGameOver #labelScore label,
+            #screenGameOver #labelLevel, 
+            #screenGameOver #labelLevel span, 
+            #screenGameOver #labelLevel label {
+
+                display: inline-block;
+            }
+
+            #screenGameOver #labelLevel span,
+            #screenGameOver #labelScore span {
+
+                font-size: 10vmin;
+            }
+
+            #screenGameOver #labelLevel label, 
+            #screenGameOver #labelScore label {
+
+                font-size: 9vmin;
+            }
+            
+            #screenGameOver #labelLevel,
+            #screenGameOver #labelScore {
+
+                padding-right: 5vmin;
+                width: 45vw;
+                height: 20vmin;
+                top: calc(50vh - 35vmin);
+                color: var(--colorSecondary);
+            }
+
+            .glowOn #screenGameOver #labelLevel,
+            .glowOn #screenGameOver #labelScore {
+
+                filter: drop-shadow(0 0 1vmin var(--colorSecondary));
+            }
+
+            #screenGameOver #labelLevel {
+
+                left: 0vw;
+                text-align: right;
+            }
+
+            #screenGameOver #labelLevel span {
+
+                margin-left: 5vmin;
+            }
+
+
+            #screenGameOver #labelScore{
+
+                left: 50vw;
+                text-align: left;
+            }
+            
+        </style>
+
+        <div id="screenGameOver" class="screen">
+
+            <button id="buttonReplay"><span class="material-icons">refresh</span></button>
+            <button id="buttonMenu"><span class="material-icons">arrow_back</span></button>
+
+            <div id="labelLevel" class="control"><label></label><span class="material-icons">line_weight</span></div>
+            <div id="labelScore" class="control"><span class="material-icons">grade</span><label></label></div>
+
+        </div>
+
+        <script src="./js/screenGameOver.js" type="module"></script>
+
+
+
+        <!-- config screen -->
+
+        <style type="text/css">
+
+            #screenConfig #buttonMenu {
+
+                z-index: 2000;
+
+                width: 10vh;
+                height: 10vh;
+                top: calc(5vh);
+                left: calc(5vh);
+
+                color: var(--colorPrimary);
+            }
+
+            #screenConfig #buttonMenu span {
+
+                font-size: 10vmin;
+            }
+
+            #screenConfig #buttonSound,
+            #screenConfig #buttonCloud,
+            #screenConfig #buttonGlow {
+
+                width: 10vw;
+                height: 10vmin;
+                top: calc(50vh - 5vmin);
+
+                font-size: 10vmin;
+            }
+
+            #screenConfig #buttonSound {
+
+                left: calc(50vw - 25vmin);
+            }
+
+            #screenConfig #buttonCloud {
+
+                left: calc(50vw - 5vmin);
+            }
+
+            #screenConfig #buttonGlow {
+
+                left: calc(50vw + 15vmin);
+            }
+
+            .glowOn #screenConfig #buttonMenu,
+            .glowOn #screenConfig #buttonSound,
+            .glowOn #screenConfig #buttonCloud,
+            .glowOn #screenConfig #buttonGlow {
+
+                filter: drop-shadow(0 0 1vmin var(--colorPrimary));
+            }
+
+            #screenConfig #buttonMenu span {
+
+                font-size: 10vmin;
+            }
+
+            #screenConfig #buttonSound span,
+            #screenConfig #buttonCloud span,
+            #screenConfig #buttonGlow span {
+
+                font-size: 16vmin;
+            }
+
+        </style>
+
+        <div id="screenConfig" class="screen">
+
+            <button id="buttonSound"><span class="material-icons">volume_up</span></button>
+            <button id="buttonCloud"><span class="material-icons">cloud</span></button>
+            <button id="buttonGlow"><span class="material-icons">blur_on</span></button>
+            <button id="buttonMenu"><span class="material-icons">arrow_back</span></button>
+
+        </div>
+
+        <script src="./js/screenConfig.js" type="module"></script>
+
+
+
+        <!-- the app -->
+
+        <script src="./js/game.js" type="module"></script>
+        <script src="./js/lib/three/three.min.js" defer></script>        
+        <script src="./js/lib/three/GLTFLoader.js" defer></script>
+        <script src="./js/lib/sprite-mixer/sprite-mixer.js" defer></script>
+        <script src="./js/lib/howler/howler.core.min.js" defer></script>
+
+        <script>
+
+            function toggle(cssSetting) {
+
+                if (document.querySelector("body").classList.contains(cssSetting)) {
+
+                    document.querySelector("body").classList.remove(cssSetting);
+                }
+                else {
+
+                    document.querySelector("body").classList.add(cssSetting);
+                }
+            }
+
+            function toggleGlow() {
+
+                toggle("glowOn");
+            }
+
+            function toggleBackground() {
+
+                toggle("backgroundImageOn");
+            }
+
+            if ("serviceWorker" in navigator) {
+
+                window.addEventListener('load', () => {
+
+                    navigator.serviceWorker.register('./serviceWorker.js');
+                });
+            }
+
+            /*
+            var Utility = {
+                installPromptEvent: null
+            };
+
+            window.addEventListener("installprompt", (event) => {
+
+                event.preventDefault();
+                Utility.installPromptEvent = event;
+                document.getElementById("installButton").style = "display: block";
+            });
+            */
+
+        </script>
+
+    </body>
+</html>

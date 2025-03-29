@@ -1,0 +1,1 @@
+app.CommandPoolExchaustedException=function(o){var a=Class.inherit(this,app.Exception,["Command pool exhausted for command code "+o,app.Exception.Severity.Warning])};

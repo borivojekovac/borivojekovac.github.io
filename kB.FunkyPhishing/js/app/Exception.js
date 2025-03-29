@@ -1,0 +1,1 @@
+app.Exception=function(e,r){var i=Class.inherit(this);var t={};t.message=e;t.severity=r?r:app.Exception.Severity.Error;i.message=function(){return t.message};i.severity=function(){return t.severity}};app.Exception.Severity={Information:0,Warning:1,Error:2,Critical:3};

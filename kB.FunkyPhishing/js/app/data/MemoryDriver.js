@@ -1,0 +1,1 @@
+app.data.MemoryDriver=function(){var a=Class.inherit(this,app.data.Driver);var t={};t.data=[];a.init=function(){};a.cleanup=function(){};a.get=function(n,e){if(t.data[n]===undefined){return a.base.get(n,e)}return t.data[n]};a.set=function(n,e){t.data[n]=e;a.base.set(n,e)}};

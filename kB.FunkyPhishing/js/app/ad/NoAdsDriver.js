@@ -1,0 +1,1 @@
+app.ad.NoAdsDriver=function(){var n=Class.inherit(this,app.ad.Driver);var i={};n.init=function(){};n.cleanup=function(){};n.showBanner=function(n){};n.hideBanner=function(n){}};

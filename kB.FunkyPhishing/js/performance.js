@@ -1,0 +1,1 @@
+(function(){if(typeof window.performance==="undefined"){window.performance={}}if(!window.performance.now){var n=Date.now();if(performance.timing&&performance.timing.navigationStart){n=performance.timing.navigationStart}window.performance.now=function e(){return Date.now()-n}}})();

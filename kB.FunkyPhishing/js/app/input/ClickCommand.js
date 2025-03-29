@@ -1,0 +1,1 @@
+app.input.ClickCommand=function(){var n=Class.inherit(this,app.Command,["click"]);var i={};i.x=0;i.y=0;n.x=function(n){if(n===undefined){return i.x}return i.x=n};n.y=function(n){if(n===undefined){return i.y}return i.y=n}};app.Command.register(app.input.ClickCommand);

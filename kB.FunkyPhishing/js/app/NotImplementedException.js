@@ -1,0 +1,1 @@
+app.NotImplementedException=function(){var e=Class.inherit(this,app.Exception);e.message="Not Implemented Exception";e.message=app.Exception.Severity.Critical};

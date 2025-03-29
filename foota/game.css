@@ -1,0 +1,96 @@
+:root {
+
+    --colorBlack: #000000ff;
+    --colorWhite: #ffffffff;
+    --colorBackground: #00000044;
+    --colorPrimary: #00ff00ff;
+    --colorSecondary: #b67db0ff;
+    
+    font-family: Arial;
+}
+
+@font-face {
+
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(./font/MaterialIcons-Regular.ttf) format("truetype");
+}
+
+.material-icons {
+
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+
+    background-color: var(--colorBlack);
+}
+
+.touchArea, div.control, button {
+
+    cursor: hand;
+    -webkit-touch-callout: none; /* Safari */
+        -webkit-user-select: none; /* Chrome */     
+           -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; 
+}
+
+button {
+
+    background: none;
+    color: var(--colorPrimary);
+    border: 0;
+    
+}
+
+.touchArea {
+
+    position: fixed;
+    display: flex;
+}
+
+div.control {
+
+    color: var(--colorBlack);
+}
+
+div.screen, div.control, label, button, img {
+
+    position: fixed;
+    display: flex;
+
+    margin: 0px;
+    padding: 0px;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 5vmin;
+}
+
+div.screen {
+
+    visibility: hidden;   
+
+    left: 0vw;
+    top: 0vh;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--colorBackground);
+    color: var(--colorPrimary);
+}

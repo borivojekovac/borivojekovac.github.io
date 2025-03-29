@@ -1,0 +1,1 @@
+app.input.Driver=function(){var i=Class.inherit(this);var n={};i.init=function(){};i.cleanup=function(){}};app.input.Driver.loaded=[];app.input.Driver.load=function(i){i.init();app.input.Driver.loaded.push(i)};

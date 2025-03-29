@@ -1,0 +1,112 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Funky Phishing</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <script type="text/javascript" src="js/performance.js"></script>
+        <script type="text/javascript" src="js/Class.js"></script>
+        <script type="text/javascript" src="js/rAF.js"></script>
+        <script type="text/javascript" src="js/TypedArray.js"></script>
+        <script type="text/javascript" src="js/json_parse_state.js"></script>
+
+        <script type="text/javascript" src="js/app/namespaces.js"></script>
+        <script type="text/javascript" src="js/app/Exception.js"></script>
+        <script type="text/javascript" src="js/app/NotImplementedException.js"></script>
+        <script type="text/javascript" src="js/app/CommandQueueFullException.js"></script>
+        <script type="text/javascript" src="js/app/CommandPoolExhaustedException.js"></script>
+        <script type="text/javascript" src="js/app/Command.js"></script>
+        <script type="text/javascript" src="js/app/CommandPool.js"></script>
+        <script type="text/javascript" src="js/app/CommandQueue.js"></script>
+        <script type="text/javascript" src="js/app/ShowSceneCommand.js"></script>
+
+        <script type="text/javascript" src="js/app/data/Driver.js"></script>
+        <script type="text/javascript" src="js/app/data/MemoryDriver.js"></script>
+        <script type="text/javascript" src="js/app/data/LocalStorageDriver.js"></script>
+        <script type="text/javascript" src="js/app/data/ChromeStorageDriver.js"></script>
+        <script type="text/javascript" src="js/app/data/Strings.js"></script>
+
+        <script type="text/javascript" src="js/app/analytics/Driver.js"></script>
+        <script type="text/javascript" src="js/app/analytics/NoAnalyticsDriver.js"></script>
+        <script type="text/javascript" src="js/app/analytics/ConsoleDriver.js"></script>
+        <script type="text/javascript" src="js/app/analytics/GoogleAnalyticsDriver.js"></script>
+        <script type="text/javascript" src="js/app/analytics/GoogleAnalyticsCpaDriver.js"></script>
+        <script type="text/javascript" src="js/app/analytics/GoogleAnalyticsFileDriver.js"></script>
+
+        <script type="text/javascript" src="js/app/gfx/Font.js"></script>
+        <script type="text/javascript" src="js/app/gfx/Driver.js"></script>
+        <script type="text/javascript" src="js/app/gfx/Position.js"></script>
+        <script type="text/javascript" src="js/app/gfx/Size.js"></script>
+        <script type="text/javascript" src="js/app/gfx/DomDriver.js"></script>
+        <script type="text/javascript" src="js/app/gfx/CssTextDriver.js"></script>
+        <script type="text/javascript" src="js/app/gfx/DomGpuDriver.js"></script>
+        <script type="text/javascript" src="js/app/gfx/CanvasDriver.js"></script>
+        <script type="text/javascript" src="js/app/gfx/Visual.js"></script>
+        <script type="text/javascript" src="js/app/gfx/Sprite.js"></script>
+        <script type="text/javascript" src="js/app/gfx/SpritePool.js"></script>
+        <script type="text/javascript" src="js/app/gfx/BitmapText.js"></script>
+        <script type="text/javascript" src="js/app/gfx/Text.js"></script>
+
+        <script type="text/javascript" src="js/app/gfx/HtmlSprite.js"></script>
+        <script type="text/javascript" src="js/app/gfx/ScriptWriteSprite.js"></script>
+
+        <script type="text/javascript" src="js/app/ad/Driver.js"></script>
+        <script type="text/javascript" src="js/app/ad/NoAdsDriver.js"></script>
+        <script type="text/javascript" src="js/app/ad/LeadBoltDriver.js"></script>
+        <script type="text/javascript" src="js/app/ad/CocoonJsDriver.js"></script>
+
+        <script type="text/javascript" src="js/app/Scene.js"></script>
+   
+        <script type="text/javascript" src="js/app/input/Driver.js"></script>
+        <script type="text/javascript" src="js/app/input/ClickCommand.js"></script>
+        <script type="text/javascript" src="js/app/input/ActionCommand.js"></script>
+        <script type="text/javascript" src="js/app/input/AlternativeActionCommand.js"></script>
+        <script type="text/javascript" src="js/app/input/BackCommand.js"></script>
+        <script type="text/javascript" src="js/app/input/MouseDriver.js"></script>
+        <script type="text/javascript" src="js/app/input/KeyboardDriver.js"></script>
+        <script type="text/javascript" src="js/app/input/TouchDriver.js"></script>
+
+        <script type="text/javascript" src="js/app/sfx/Sound.js"></script>
+        <script type="text/javascript" src="js/app/sfx/Driver.js"></script>
+        <script type="text/javascript" src="js/app/sfx/Channel.js"></script>
+        <script type="text/javascript" src="js/app/sfx/MuteDriver.js"></script>
+        <script type="text/javascript" src="js/app/sfx/Html5Driver.js"></script>
+        <script type="text/javascript" src="js/app/sfx/MobileHtml5Driver.js"></script>
+        <script type="text/javascript" src="js/app/sfx/CordovaDriver.js"></script>
+        <script type="text/javascript" src="js/app/sfx/WebAudioDriver.js"></script>
+        <script type="text/javascript" src="js/app/sfx/MobileWebAudioDriver.js"></script>
+
+        <script type="text/javascript" src="js/app/Application.js"></script>
+        <script type="text/javascript" src="js/app/ff/Strings.en.js"></script>
+        <script type="text/javascript" src="js/app/ff/Strings.rs.js"></script>
+
+        <script type="text/javascript" src="js/app/ff/State.js"></script>
+        <script type="text/javascript" src="js/app/ff/LoadingScene.js"></script>
+        <script type="text/javascript" src="js/app/ff/MainMenuScene.js"></script>
+        <script type="text/javascript" src="js/app/ff/MapScene.js"></script>
+        <script type="text/javascript" src="js/app/ff/GameScene.js"></script>
+        <script type="text/javascript" src="js/app/ff/GameSceneCountry.js"></script>
+        <script type="text/javascript" src="js/app/ff/GameSceneCity.js"></script>
+        <script type="text/javascript" src="js/app/ff/GameSceneResort.js"></script>
+        <script type="text/javascript" src="js/app/ff/ScoreScene.js"></script>
+        <script type="text/javascript" src="js/app/ff/IslandScene.js"></script>
+
+        <script type="text/javascript" src="js/platformSpecific.js"></script>
+
+        <style type="text/css">
+            
+            body 
+            {
+                /*-ms-touch-action: none; /* DISABLE DOUBLE-TAP-ZOOM */
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                background-color: #000;
+            }
+             
+        </style>
+    </head>
+    <body>
+    </body>
+</html>

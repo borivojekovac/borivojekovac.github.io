@@ -1,0 +1,1 @@
+app.input.AlternativeActionCommand=function(){var a=Class.inherit(this,app.Command,["altaction"]);var n={}};app.Command.register(app.input.AlternativeActionCommand);

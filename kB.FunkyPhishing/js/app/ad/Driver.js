@@ -1,0 +1,1 @@
+app.ad.Driver=function(){var r=Class.inherit(this);var n={};r.init=function(){};r.cleanup=function(){};r.showBanner=function(r){};r.hideBanner=function(r){}};app.ad.Driver.current=null;app.ad.Driver.load=function(r){if(app.ad.Driver.current!==null){app.ad.Driver.current.cleanup();delete app.ad.Driver.current}app.ad.Driver.current=r;app.ad.Driver.current.init()};

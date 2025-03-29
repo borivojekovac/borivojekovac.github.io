@@ -1,0 +1,1 @@
+var app={data:{},gfx:{},input:{},sfx:{},ff:{},platform:{},ad:{},analytics:{}};

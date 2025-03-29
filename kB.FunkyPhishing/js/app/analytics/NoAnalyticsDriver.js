@@ -1,0 +1,1 @@
+app.analytics.NoAnalyticsDriver=function(){var n=Class.inherit(this,app.analytics.Driver);var i={};n.init=function(){};n.cleanup=function(){};n.onSceneShown=function(n){};n.onLost=function(){};n.onWon=function(){}};

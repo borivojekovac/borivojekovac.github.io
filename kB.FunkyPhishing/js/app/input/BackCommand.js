@@ -1,0 +1,1 @@
+app.input.BackCommand=function(){var a=Class.inherit(this,app.Command,["back"]);var p={}};app.Command.register(app.input.BackCommand);
