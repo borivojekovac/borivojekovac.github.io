@@ -181,7 +181,7 @@ The application supports keyboard navigation for improved accessibility:
 
 ## License
 
-ISC License - see package.json for details
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 

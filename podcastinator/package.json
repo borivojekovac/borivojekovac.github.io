@@ -2,10 +2,10 @@
   "name": "podcastor",
   "version": "1.0.0",
   "description": "",
-  "license": "ISC",
+  "license": "MIT",
   "author": "",
   "type": "module",
-  "main": "main.js",
+  "main": "index.html",
   "scripts": {
     "start": "npx http-server -a localhost -p 8080 -o ./",
     "dev": "npx http-server -a localhost -p 8080 -o ./",

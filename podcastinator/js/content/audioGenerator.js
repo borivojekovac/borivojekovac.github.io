@@ -37,7 +37,7 @@ class AudioGenerator {
         // Load existing audio data from storage
         const savedData = this.storageManager.load('audioData', {});
         this.audioData = savedData.audioData || null; // Base64 encoded audio data
-        this.silenceDuration = savedData.silenceDuration || 1;
+        this.silenceDuration = savedData.silenceDuration || 500; // Default 500ms silence between speakers
         
         // If we have audio data, create a blob URL for it
         if (this.audioData) {
@@ -217,8 +217,8 @@ class AudioGenerator {
      * Handle silence duration change
      */
     handleSilenceDurationChange() {
-        // Save new duration to storage
-        this.silenceDuration = parseFloat(this.silenceInput.value);
+        // Save new duration to storage (in milliseconds)
+        this.silenceDuration = parseInt(this.silenceInput.value, 10);
         this.saveAudioData();
     }
     
@@ -371,7 +371,8 @@ class AudioGenerator {
                 
                 // Add silence between segments (except after the last segment)
                 if (i < segments.length - 1) {
-                    this.mp3Encoder.encodeSilence(this.silenceDuration);
+                    // Convert milliseconds to seconds for the encoder
+                    this.mp3Encoder.encodeSilence(this.silenceDuration / 1000);
                 }
             }
             
