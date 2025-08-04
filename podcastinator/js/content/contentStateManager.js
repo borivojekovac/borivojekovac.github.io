@@ -1,4 +1,4 @@
-// Podcastor App - Content State Manager
+// Podcastinator App - Content State Manager
 import NotificationsManager from '../ui/notifications.js';
 
 /**

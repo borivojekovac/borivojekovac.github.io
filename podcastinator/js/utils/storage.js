@@ -1,6 +1,6 @@
-// Podcastor App - Storage Manager
+// Podcastinator App - Storage Manager
 class StorageManager {
-    constructor(storageKeyPrefix = 'podcastor') {
+    constructor(storageKeyPrefix = 'Podcastinator') {
         this.storageKeyPrefix = storageKeyPrefix;
     }
 

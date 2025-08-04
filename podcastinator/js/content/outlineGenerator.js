@@ -1,4 +1,4 @@
-// Podcastor App - Outline Generator
+// Podcastinator App - Outline Generator
 import NotificationsManager from '../ui/notifications.js';
 import ProgressManager from '../ui/progressManager.js';
 
@@ -326,40 +326,40 @@ class OutlineGenerator {
                 while (!isValid && iterationCount < maxIterations) {
                     iterationCount++;
                     
-                    // Show verification notification with iteration count
-                    const verificationNotificationId = Date.now();
-                    this.notifications.showInfo(`Verifying outline quality (attempt ${iterationCount}/${maxIterations})...`, verificationNotificationId);
+                    // Show reviewing notification with iteration count
+                    const reviewNotificationId = Date.now();
+                    this.notifications.showInfo(`Reviewing outline quality (attempt ${iterationCount}/${maxIterations})...`, reviewNotificationId);
                     
-                    // Verify the outline with a second model
-                    const verificationResult = await this.verifyOutline(currentOutline, documentContent, characterData, apiData);
+                    // Review the outline with a second model
+                    const reviewResult = await this.verifyOutline(currentOutline, documentContent, characterData, apiData);
                     
-                    // Clear the verification notification
-                    this.notifications.clearNotification(verificationNotificationId);
+                    // Clear the review notification
+                    this.notifications.clearNotification(reviewNotificationId);
                     
-                    // Log verification feedback to console
-                    this.logVerificationFeedback(`Outline Verification (Iteration ${iterationCount})`, verificationResult);
+                    // Log review feedback to console
+                    this.logVerificationFeedback(`Outline Review (Iteration ${iterationCount})`, reviewResult);
                     
-                    // Update status based on verification result
-                    isValid = verificationResult.isValid;
-                    feedback = verificationResult.feedback;
+                    // Update status based on review result
+                    isValid = reviewResult.isValid;
+                    feedback = reviewResult.feedback;
                     
-                    // If still not valid and we haven't reached max iterations, improve the outline
+                    // If still not valid and we haven't reached max iterations, edit the outline
                     if (!isValid && iterationCount < maxIterations) {
                         this.progressManager.updateProgress('outline-progress', 60 + (iterationCount * 10));
-                        const improvementNotificationId = Date.now();
-                        this.notifications.showInfo(`Improving outline (attempt ${iterationCount}/${maxIterations})...`, improvementNotificationId);
+                        const editingNotificationId = Date.now();
+                        this.notifications.showInfo(`Editing outline (attempt ${iterationCount}/${maxIterations})...`, editingNotificationId);
                         
-                        // Attempt to improve the outline
-                        const improvedOutline = await this.improveOutline(currentOutline, feedback, documentContent, characterData, apiData);
+                        // Attempt to edit the outline
+                        const editedOutline = await this.improveOutline(currentOutline, feedback, documentContent, characterData, apiData);
                         
-                        // Clear the improvement notification
-                        this.notifications.clearNotification(improvementNotificationId);
+                        // Clear the editing notification
+                        this.notifications.clearNotification(editingNotificationId);
                         
-                        if (improvedOutline) {
-                            currentOutline = improvedOutline;
-                            this.notifications.showInfo(`Outline improvement ${iterationCount} complete. Re-verifying...`);
+                        if (editedOutline) {
+                            currentOutline = editedOutline;
+                            this.notifications.showInfo(`Outline editing ${iterationCount} complete. Reviewing again...`);
                         } else {
-                            // If improvement failed, break the loop
+                            // If editing failed, break the loop
                             break;
                         }
                     }
@@ -370,11 +370,11 @@ class OutlineGenerator {
                 
                 // Show final status notification
                 if (isValid) {
-                    this.notifications.showSuccess('Outline verification successful!');
+                    this.notifications.showSuccess('Outline review successful!');
                 } else if (iterationCount >= maxIterations) {
-                    this.notifications.showSuccess(`Outline improved ${iterationCount} times. Best possible version achieved.`);
+                    this.notifications.showSuccess(`Outline edited ${iterationCount} times. Best possible version achieved.`);
                 } else {
-                    this.notifications.showSuccess('Outline improvement complete.');
+                    this.notifications.showSuccess('Outline editing complete.');
                 }
                 
                 // Set outline in textarea
@@ -539,9 +539,9 @@ Create a well-organized outline that covers the key information from this docume
     }
     
     /**
-     * Log verification feedback to console in a nicely formatted way
+     * Log review feedback to console in a nicely formatted way
      * @param {string} title - Title for the log group
-     * @param {Object} result - Verification result object with isValid and feedback properties
+     * @param {Object} result - Review result object with isValid and feedback properties
      */
     logVerificationFeedback(title, result) {
     
@@ -555,7 +555,7 @@ Create a well-organized outline that covers the key information from this docume
         
         // Log the validation status
         console.log(
-            `%cValidation: ${result.isValid ? 'PASSED ✅' : 'NEEDS IMPROVEMENT ⚠️'}`,
+            `%cReview: ${result.isValid ? 'PASSED ✅' : 'NEEDS EDITING ⚠️'}`,
             validStyle
         );
         
@@ -568,12 +568,12 @@ Create a well-organized outline that covers the key information from this docume
     }
     
     /**
-     * Verify the generated outline against the original document
+     * Review the generated outline against the original document
      * @param {string} outlineText - The generated outline text
      * @param {string} documentContent - Original document content
      * @param {Object} characterData - Host and guest character data
      * @param {Object} apiData - API credentials and model data
-     * @returns {Object} - Verification result with isValid flag and feedback
+     * @returns {Object} - Review result with isValid flag and feedback
      */
     async verifyOutline(outlineText, documentContent, characterData, apiData) {
     
@@ -582,8 +582,8 @@ Create a well-organized outline that covers the key information from this docume
             const modelName = apiData.models.outlineVerify.toLowerCase();
             const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
             
-            // Create system prompt for verification
-            const systemPrompt = `You are a podcast outline quality checker. Your job is to analyze a generated podcast outline for:
+            // Create system prompt for reviewing
+            const systemPrompt = `You are a podcast outline quality reviewer. Your job is to analyze a generated podcast outline for:
 
 1. STRUCTURE QUALITY: Ensure the outline has a logical structure with appropriate sections
 2. TIMING ACCURACY: Verify that section durations add up to the target podcast duration
@@ -693,28 +693,47 @@ Verify if this outline has a logical structure, well-balanced sections, and alig
     }
     
     /**
-     * Improve the outline based on verification feedback
+     * Edit the outline based on review feedback
      * @param {string} originalOutlineText - The original outline text
-     * @param {string} feedback - Feedback from verification
+     * @param {string} feedback - Feedback from review
      * @param {string} documentContent - Original document content
      * @param {Object} characterData - Host and guest character data
      * @param {Object} apiData - API credentials and model data
-     * @returns {string} - Improved outline text
+     * @returns {string} - Edited outline text
      */
     async improveOutline(originalOutlineText, feedback, documentContent, characterData, apiData) {
     
         try {
+            // Calculate original outline length to ensure we maintain comparable structure
+            const originalOutlineLength = originalOutlineText.length;
+            console.log(`Original outline length: ${originalOutlineLength} characters`);
+            
             // Get model name in lowercase for easier comparison
             const modelName = apiData.models.outline.toLowerCase(); // Use the main outline generation model
             const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
             
-            // Create system prompt for improvement
-            const systemPrompt = this.buildSystemPrompt(characterData);
+            // Create enhanced system prompt with clear preservation instructions
+            const baseSystemPrompt = this.buildSystemPrompt(characterData);
+            const systemPrompt = `${baseSystemPrompt}
+
+IMPORTANT INSTRUCTIONS FOR OUTLINE EDITING:
+
+1. MAKE TARGETED CHANGES ONLY - Only modify specific sections mentioned in the feedback. Do not rewrite or restructure unaffected sections.
+
+2. PRESERVE ORIGINAL STRUCTURE - Keep the same section numbering scheme and overall organization unless specific issues were identified.
+
+3. MAINTAIN FORMAT INTEGRITY - Your response MUST follow the exact format with section separators (---), section numbers, titles, durations, and overviews.
+
+4. PRESERVE SECTION DETAILS - Keep the same level of detail in section overviews as the original outline.
+
+5. MAINTAIN APPROPRIATE DURATIONS - Ensure all section durations still add up to the target podcast length.
+
+Warning: If your response significantly restructures or simplifies the outline beyond addressing the specific feedback, it will be rejected.`;
             
-            // Build user prompt for improvement
+            // Build enhanced user prompt for targeted improvement
             const podcastDuration = this.podcastDuration;
             const podcastFocus = this.podcastFocus;
-            const userPrompt = `Please improve this podcast outline based on the feedback provided. The outline has some issues that need to be addressed.
+            const userPrompt = `You are a podcast outline editor. I have a podcast outline that needs targeted edits based on specific feedback. Your job is to make PRECISE EDITS to address the feedback while preserving the original structure and format.
 
 Target Podcast Duration: ${podcastDuration} minutes
 ${podcastFocus ? `Podcast Focus: ${podcastFocus}\n` : ''}
@@ -728,7 +747,21 @@ ${feedback}
 --- ORIGINAL DOCUMENT CONTENT ---
 ${documentContent}
 
-Please create an improved version of the outline that addresses the feedback while maintaining the required format with section separators (---), section numbers, titles, durations, and overviews. Focus on creating a well-structured outline with logical sections and appropriate coverage of topics. Make sure section durations add up to exactly ${podcastDuration} minutes.`;
+IMPORTANT INSTRUCTIONS:
+
+1. DO NOT REWRITE the entire outline. Make surgical changes ONLY to the specific parts mentioned in the feedback.
+
+2. If the feedback points to issues in specific sections, ONLY modify those sections.
+
+3. MAINTAIN ORIGINAL STRUCTURE - Your edited outline should have approximately the same number of sections and subsections as the original (${originalOutlineText.split('---').length - 1} sections).
+
+4. PRESERVE all section separators (---), numbering, and format from the original outline.
+
+5. KEEP DETAILED OVERVIEWS - Do not shorten or oversimplify section overviews.
+
+6. ENSURE DURATION ACCURACY - Make sure all section durations add up to exactly ${podcastDuration} minutes.
+
+7. Return the COMPLETE outline with your targeted edits incorporated.`;
             
             // Prepare request body with model-specific parameters
             const requestBody = {
@@ -739,12 +772,12 @@ Please create an improved version of the outline that addresses the feedback whi
                 ]
             };
             
-            // Handle model-specific parameters
+            // Handle model-specific parameters with lower temperature for more conservative editing
             if (isAnthropicStyle) {
                 //requestBody.max_completion_tokens = 3000;
             } else {
                 //requestBody.max_tokens = 3000;
-                requestBody.temperature = 0.7;
+                requestBody.temperature = 0.4; // Lower temperature for more conservative edits
             }
             
             // Create API request

@@ -59,14 +59,15 @@ Each main section is clearly demarcated with horizontal rule separators (---) fo
 ```
 ---
 1. Section Title
+Duration: 2 minutes
 Overview: Section overview text
-
+---
 1.1. Subsection Title
+Duration: 5 minutes
 Overview: Subsection overview text
 ---
-
----
 2. Next Section Title
+Duration: 1 minute
 Overview: Next section overview text
 ---
 ```

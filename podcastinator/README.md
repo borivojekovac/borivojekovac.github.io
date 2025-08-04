@@ -2,7 +2,7 @@
 
 **Transform your documents into engaging audio podcasts using AI-powered characters**
 
-Podcastor is a single-page web application that converts text and markdown documents into professional audio podcasts. Using OpenAI's GPT and text-to-speech APIs, it creates engaging conversations between AI-generated host and guest characters.
+Podcastinator is a single-page web application that converts text and markdown documents into professional audio podcasts. Using OpenAI's GPT and text-to-speech APIs, it creates engaging conversations between AI-generated host and guest characters.
 
 ## Features
 
@@ -32,8 +32,6 @@ Podcastor is a single-page web application that converts text and markdown docum
 
 ```bash
 npm start
-# or
-npm run dev
 ```
 
 4. Open http://localhost:8080 in your browser
@@ -61,26 +59,12 @@ npm run dev
 
 ## Development Status
 
-✅ **Completed**: App skeleton with full UI, local storage, and modern design system  
-✅ **Completed**: Responsive design with material design principles  
-✅ **Completed**: Debug mode for testing (add `?debug` to URL)  
-✅ **Completed**: OpenAI credentials section with model selection and real API validation  
-✅ **Completed**: Document upload and processing for text/markdown files  
-✅ **Completed**: Character building with personality, voice selection, and backstory generation  
-✅ **Completed**: Podcast outline generation with structured sections  
-✅ **Completed**: Script generation with character-based dialogue  
-✅ **Completed**: Audio generation with OpenAI TTS and speaker voice matching  
-✅ **Completed**: Audio processing with configurable silence between segments  
-✅ **Completed**: API usage tracking with cost estimation and editable pricing
-✅ **Completed**: Multi-language script generation with dynamic language options based on selected TTS model
-✅ **Completed**: Self-improving content generation with automatic verification and refinement
-
 See `doc/progress.md` for detailed development status.
 
 ## Project Structure
 
 ```
-podcastor/
+Podcastinator/
 ├── index.html          # Main application page
 ├── style.css           # Responsive styles with design system
 ├── css/                # Component-specific styles
@@ -90,6 +74,7 @@ podcastor/
 │   ├── characters/     # Character management
 │   ├── content/        # Content generation (outline, script, audio)
 │   ├── document/       # Document handling
+│   ├── lib/            # External libraries
 │   ├── ui/             # UI components and managers
 │   ├── usage/          # API usage tracking
 │   └── utils/          # Utility classes
@@ -106,15 +91,15 @@ podcastor/
 1. Check `doc/feature-spec.md` for detailed requirements
 2. Follow the design system in `doc/style-guide.md`
 3. Follow the development workflow in `doc/progress.md`
-4. Test locally with `npm start` or `npm run dev`
-5. Use debug mode (`?debug`) for testing all sections
+4. Test locally with `npm start`
+5. Use debug mode (`?debug`) for unlocking all the sections
 6. Submit pull requests with clear descriptions
 
 ## Technical Details
 
 ### Local Storage
 
-Podcastor persists all user data in the browser's local storage for a seamless experience. The following data is stored:
+Podcastinator persists all user data in the browser's local storage for a seamless experience. The following data is stored:
 
 - **API Key**: Securely stored after validation
 - **Model Selections**: All model preferences (GPT-4o, TTS, etc.)
@@ -153,8 +138,6 @@ The application supports keyboard navigation for improved accessibility:
 2. Start the development server:
    ```bash
    npm start
-   # or
-   npm run dev
    ```
 
 3. Open http://localhost:8080 in your browser
@@ -180,13 +163,6 @@ The application supports keyboard navigation for improved accessibility:
 - **Loading Issues**: Clear browser cache if the app doesn't load correctly
 - **Missing Features**: Check if you're in debug mode (`?debug`) for all features
 - **Usage Drawer Not Showing**: Click the gripper/hamburger icon at the top of screen to toggle the usage drawer
-
-### Getting Help
-
-1. Check the browser console for errors (F12 > Console)
-2. Verify your OpenAI API key is valid
-3. Ensure you have a stable internet connection
-4. Clear browser storage if experiencing persistence issues
 
 ## License
 

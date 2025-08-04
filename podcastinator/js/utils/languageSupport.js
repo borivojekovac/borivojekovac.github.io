@@ -1,4 +1,4 @@
-// Podcastor App - Language Support Utility
+// Podcastinator App - Language Support Utility
 
 /**
  * Provides language support information for TTS models

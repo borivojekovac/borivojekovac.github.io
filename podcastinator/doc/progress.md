@@ -81,8 +81,10 @@
   - `js/document/fileUploader.js`: FileUploader for document upload handling
   - `js/api/openaiManager.js`: OpenAIManager for API key validation and model selection
   - `js/characters/characterManager.js`: CharacterManager for host/guest character management
-  - `js/content/contentGenerator.js`: ContentGenerator for outline, script and audio generation
-  - `js/app.js`: Main PodcastorApp class orchestrating all modules
+  - `js/content/outlineGenerator.js`: OutlineGenerator for podcast outline generation
+  - `js/content/scriptGenerator.js`: ScriptGenerator for podcast script generation
+  - `js/content/audioGenerator.js`: AudioGenerator for podcast audio generation
+  - `js/app.js`: Main PodcastinatorApp class orchestrating all modules
   - `js/index.js`: Entry point initializing the application
 - Improved code organization with clear separation of concerns
 - Enhanced maintainability with smaller, focused modules
@@ -249,13 +251,53 @@
 - Added console logging with formatted verification feedback for debugging
 - Implemented proper notification lifecycle management with unique IDs
 
+### ✅ GPT-4o-mini-TTS with Voice Instructions (2025-08-04)
+- Added support for GPT-4o-mini-TTS model with customizable voice instructions
+- Implemented conditional voice instructions UI for both host and guest characters
+- Created dropdown with a dozen pre-configured voice instruction presets:
+  - Professional, Enthusiastic, Calm, Authoritative, Conversational, Dramatic
+  - Friendly, Contemplative, News, Storytelling, Educational, Academic, Technical
+- Added editable text field for custom voice instructions that appears only when GPT-4o-mini-TTS is selected
+- Implemented auto-switching to "<custom>" mode when instructions are manually edited
+- Separate voice instruction settings for host and guest characters
+- Persisted voice instructions in localStorage with character data
+- Enhanced AudioGenerator to detect voice type and apply appropriate instructions
+- Added styling consistent with app design system for new UI components
+
+### ✅ UI Streamlining for TTS Models (2025-08-04)
+- Removed redundant audio quality dropdown to simplify user experience
+- Consolidated TTS selection to a single, clear decision point
+- Eliminated potential confusion between model selection and quality options
+- Removed unused references to audioQuality from OpenAIManager
+- Streamlined model selection listeners and data storage
+- Maintained full functionality while creating a more intuitive interface
+
+### ✅ Enhanced Content Review and Editing System (2025-08-04)
+- Improved content review feedback processing with targeted editing approach
+- Enhanced prompting system to preserve original content structure and detail
+- Added explicit content preservation instructions to prevent unintended content loss
+- Implemented length preservation guidance with original character count targets
+- Lowered temperature settings from 0.7 to 0.4 for more conservative editing
+- Added robust safeguards against undesired content summarization or shortening
+- Enhanced system and user prompts with clear targeted editing instructions
+- Fixed issues where improved content was being drastically shortened or restructured
+- Added content length logging for improved debugging and verification
+- Updated terminology from "verification/improvement" to "review/editing" for clearer user experience
+- Applied enhancements to both script and outline generation workflows
+
+### ✅ Fixed gpt-4o-mini-tts Usage Tracking (2025-08-04)
+- Added proper cost tracking for gpt-4o-mini-tts model in the usage counter
+- Fixed cost calculations to correctly show estimated costs instead of $NaN
+- Updated TTS models handling to consistently identify gpt-4o-mini-tts as a TTS model
+- Created centralized TTS models array for better maintenance
+- Ensured all TTS models (tts-1, tts-1-hd, gpt-4o-mini-tts) use consistent cost calculation logic
+- Fixed total cost calculation to properly include gpt-4o-mini-tts usage
+
 ### Current State
-- **Working**: UI layout, navigation, form interactions, local storage, OpenAI credentials & model selection, text document upload, character builder with backstory generation, outline generation with structured format and duration targets, script generation with dialogue formatting and timing guidance, multi-language script generation, audio generation with TTS, audio download functionality, optimized MP3 audio encoding with correct playback speed, usage tracking and cost estimation, iterative content verification and self-improvement with multiple refinement cycles
-- **Production Ready**: API key validation, model selection, settings persistence, document handling, character creation, backstory generation, outline generation with timing control, script generation with language selection, audio generation and download, MP3 encoding and storage optimization, dynamic sample rate handling, token usage tracking, content quality verification and improvement
+- **Working**: UI layout, navigation, form interactions, local storage, OpenAI credentials & model selection, text document upload, character builder with backstory generation, outline generation with structured format and duration targets, script generation with dialogue formatting and timing guidance, multi-language script generation, audio generation with TTS, audio download functionality, optimized MP3 audio encoding with correct playback speed, usage tracking and cost estimation, iterative content verification and self-improvement with multiple refinement cycles, voice instructions for GPT-4o-mini-TTS, targeted script improvement with content preservation
+- **Production Ready**: API key validation, model selection, settings persistence, document handling, character creation, backstory generation, outline generation with timing control, script generation with language selection, audio generation and download, MP3 encoding and storage optimization, dynamic sample rate handling, token usage tracking, content quality verification and improvement, GPT-4o-mini-TTS voice instructions, robust script improvement system
 
 ## Next Steps
-1. Add support for additional TTS voices and audio styles
-2. Implement advanced audio processing features (equalization, compression)
+1. Engineer context better for outline and script generation and validation
+2. Add support for additional TTS voices and audio styles
 3. Add podcast metadata and cover image generation
-4. Create podcast series management and episode tracking
-5. Performance optimizations and caching strategies for large documents

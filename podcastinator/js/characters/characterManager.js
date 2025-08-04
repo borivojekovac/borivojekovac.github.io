@@ -1,4 +1,4 @@
-// Podcastor App - Character Manager
+// Podcastinator App - Character Manager
 import NotificationsManager from '../ui/notifications.js';
 import ProgressManager from '../ui/progressManager.js';
 
@@ -31,6 +31,62 @@ class CharacterManager {
             'onyx': 'Onyx (Male, authoritative and confident)',
             'nova': 'Nova (Female, energetic and professional)',
             'shimmer': 'Shimmer (Female, bright and expressive)'
+        };
+        
+        // Define voice instruction presets for GPT-4o-mini-TTS
+        this.voiceInstructions = {
+            'professional': {
+                'host': 'You are a professional podcast host. Speak clearly and with confidence. Maintain a moderate pace with appropriate pauses. Use subtle emphasis for important points.',
+                'guest': 'You are a professional podcast guest. Speak with authority and expertise. Maintain a clear, measured tone. Use thoughtful pacing with occasional emphasis on key points.'
+            },
+            'enthusiastic': {
+                'host': 'You are an enthusiastic podcast host. Speak with high energy and excitement. Vary your tone frequently with lots of dynamic range. Use upbeat pacing and emphasize interesting points.',
+                'guest': 'You are an enthusiastic podcast guest. Speak with passion and energy about the topic. Use animated vocal inflections and convey genuine excitement through your tone.'
+            },
+            'calm': {
+                'host': 'You are a calm and soothing podcast host. Speak gently with a warm tone. Use a slightly slower pace with soft, measured delivery. Create a relaxing atmosphere through your voice.',
+                'guest': 'You are a calm and thoughtful podcast guest. Speak in a soothing, measured way. Maintain an even tone with gentle inflections. Use a relaxed pace with natural pauses for reflection.'
+            },
+            'authoritative': {
+                'host': 'You are an authoritative podcast host. Speak with gravitas and command. Use a measured pace with deliberate emphasis. Maintain a steady, confident tone throughout.',
+                'guest': 'You are an authoritative expert guest. Speak with gravitas and deep knowledge. Use a confident, assertive tone. Emphasize key points with deliberate pacing and clear articulation.'
+            },
+            'conversational': {
+                'host': 'You are a casual, conversational podcast host. Speak naturally as if chatting with a friend. Use a relaxed tone with authentic reactions. Allow for natural pauses and informal language.',
+                'guest': 'You are a casual, down-to-earth podcast guest. Speak naturally as if in a friendly conversation. Use an informal, relaxed tone with authentic vocal patterns and occasional humor.'
+            },
+            'dramatic': {
+                'host': 'You are a dramatic podcast narrator. Use theatrical delivery with significant dynamic range. Employ dramatic pauses and emphasis. Create tension and resolution through your vocal performance.',
+                'guest': 'You are a dramatic and expressive speaker. Use theatrical vocal techniques with significant dynamic range. Employ dramatic pauses and emphasis to create impact and hold attention.'
+            },
+            'friendly': {
+                'host': 'You are a friendly, approachable podcast host. Speak warmly with a welcoming tone. Use a moderately upbeat pace with genuine enthusiasm. Sound inviting and accessible to listeners.',
+                'guest': 'You are a friendly and approachable podcast guest. Speak warmly with an inviting tone. Use a natural, comfortable pace and sound genuinely engaged and happy to share information.'
+            },
+            'contemplative': {
+                'host': 'You are a thoughtful, contemplative podcast host. Speak with measured consideration. Use deliberate pacing with thoughtful pauses. Convey depth and reflection in your tone.',
+                'guest': 'You are a thoughtful, contemplative speaker. Use a measured pace with reflective pauses. Speak with depth and nuance, conveying careful consideration of complex ideas through your tone.'
+            },
+            'news': {
+                'host': 'You are a news anchor style podcast host. Speak with clear, precise delivery. Use professional pacing with slight emphasis on key information. Maintain an informative, authoritative tone.',
+                'guest': null
+            },
+            'storytelling': {
+                'host': 'You are an engaging storyteller host. Use a dynamic narrative voice with natural rises and falls. Employ well-placed pauses for effect. Convey emotion and progression through your vocal delivery.',
+                'guest': 'You are an engaging storyteller. Use a dynamic narrative voice with well-paced delivery. Create immersion through vocal variation and well-timed pauses. Draw listeners in with your engaging tone.'
+            },
+            'educational': {
+                'host': 'You are an educational podcast host. Speak clearly with a focus on comprehension. Use a measured pace with emphasis on key concepts. Maintain an informative but engaging tone.',
+                'guest': null
+            },
+            'academic': {
+                'host': null,
+                'guest': 'You are an academic professor or researcher. Speak with precise, clear articulation. Use a measured pace appropriate for complex subjects. Maintain an authoritative but accessible tone.'
+            },
+            'technical': {
+                'host': null,
+                'guest': 'You are a technical specialist or expert. Speak with precise articulation when explaining complex concepts. Use a measured, clear delivery with emphasis on technical terminology.'
+            }
         };
         
         // Load characters data from storage
@@ -89,8 +145,24 @@ class CharacterManager {
                 });
             }
             
+            // Voice instructions preset selection
+            const voiceInstructionsPreset = document.getElementById(`${type}-voice-instructions-preset`);
+            if (voiceInstructionsPreset) {
+                voiceInstructionsPreset.addEventListener('change', function() {
+                    self.handleVoiceInstructionPresetChange(type);
+                });
+            }
+            
+            // Voice instructions manual editing
+            const voiceInstructions = document.getElementById(`${type}-voice-instructions`);
+            if (voiceInstructions) {
+                voiceInstructions.addEventListener('input', function() {
+                    self.handleVoiceInstructionsManualEdit(type);
+                });
+            }
+            
             // Real-time updates for form fields
-            const formFields = [`${type}-name`, `${type}-personality`, `${type}-voice`, `${type}-backstory`];
+            const formFields = [`${type}-name`, `${type}-personality`, `${type}-voice`, `${type}-backstory`, `${type}-voice-instructions`];
             formFields.forEach(function(fieldId) {
             
                 const field = document.getElementById(fieldId);
@@ -107,6 +179,17 @@ class CharacterManager {
                 }
             });
         });
+        
+        // Set up listener for TTS model change to show/hide voice instructions
+        const ttsModelSelect = document.getElementById('tts-model');
+        if (ttsModelSelect) {
+            ttsModelSelect.addEventListener('change', function() {
+                self.updateVoiceInstructionsVisibility();
+            });
+            
+            // Initialize visibility on page load
+            this.updateVoiceInstructionsVisibility();
+        }
     }
 
     /**
@@ -186,6 +269,18 @@ class CharacterManager {
                 
                 // Set backstory
                 document.getElementById(`${type}-backstory`).value = characterData.backstory || '';
+                
+                // Set voice instructions if they exist
+                const voiceInstructionsField = document.getElementById(`${type}-voice-instructions`);
+                if (voiceInstructionsField && characterData.voiceInstructions) {
+                    voiceInstructionsField.value = characterData.voiceInstructions;
+                }
+                
+                // Set voice instructions preset if it exists
+                const voiceInstructionsPresetField = document.getElementById(`${type}-voice-instructions-preset`);
+                if (voiceInstructionsPresetField && characterData.voiceInstructionsPreset) {
+                    voiceInstructionsPresetField.value = characterData.voiceInstructionsPreset;
+                }
                 
                 // Force character preview update
                 this.updateCharacterPreview(type);
@@ -293,37 +388,55 @@ class CharacterManager {
      */
     saveCharacter(type) {
     
-        const character = {
-            name: document.getElementById(`${type}-name`).value.trim(),
-            personality: document.getElementById(`${type}-personality`).value,
-            voice: document.getElementById(`${type}-voice`).value,
-            backstory: document.getElementById(`${type}-backstory`).value.trim() || ''
-        };
-
-        if (!character.name || !character.personality || !character.voice) {
-            this.notifications.showError(`Please fill in all required ${type} character fields`);
+        // Get form values
+        const name = document.getElementById(`${type}-name`).value.trim();
+        const personality = document.getElementById(`${type}-personality`).value;
+        const voice = document.getElementById(`${type}-voice`).value;
+        const backstory = document.getElementById(`${type}-backstory`).value.trim();
+        const voiceInstructions = document.getElementById(`${type}-voice-instructions`).value.trim();
+        const voiceInstructionsPreset = document.getElementById(`${type}-voice-instructions-preset`).value;
+        
+        // Validate required fields
+        if (!name || !personality || !voice) {
+            this.notifications.showError(`Please fill out all required fields for the ${type} character.`);
             return;
         }
-
-        this.data[type] = character;
-        this.saveToStorage();
         
-        // Show success notification with capitalized character type
-        const typeName = type.charAt(0).toUpperCase() + type.slice(1);
-        this.notifications.showSuccess(`${typeName} character saved!`);
-
-        // Update content state based on character type
+        // Update character data
+        this.data[type] = {
+            name,
+            personality,
+            voice,
+            backstory,
+            voiceInstructions,
+            voiceInstructionsPreset
+        };
+        
+        // Save to storage
+        const existingData = this.storageManager.load('data', {});
+        existingData[type] = this.data[type];
+        this.storageManager.save('data', existingData);
+        
+        // Show success message
+        this.notifications.showSuccess(`${type.charAt(0).toUpperCase() + type.slice(1)} character saved successfully!`);
+        
+        // Update content state to enable next section
         if (type === 'host') {
             this.contentStateManager.updateState('hasHostCharacter', true);
-            setTimeout(function() {
-                this.contentStateManager.updateSections();
-            }.bind(this), 1000);
         } else if (type === 'guest') {
             this.contentStateManager.updateState('hasGuestCharacter', true);
-            setTimeout(function() {
-                this.contentStateManager.updateSections();
-            }.bind(this), 1000);
         }
+        
+        // Update workflow if both characters are complete
+        if (this.contentStateManager.getState('hasHostCharacter') && 
+            this.contentStateManager.getState('hasGuestCharacter')) {
+            this.contentStateManager.updateState('hasCharacters', true);
+        }
+        
+        // Update UI sections
+        setTimeout(() => {
+            this.contentStateManager.updateSections();
+        }, 1000);
     }
 
     /**
@@ -379,7 +492,7 @@ class CharacterManager {
             Create a detailed backstory for a podcast ${type} character named ${characterName}.
             ${personalityText ? `Their personality is ${personalityText}.` : ''}
             The backstory should include their background, expertise, communication style, and unique traits.
-            Keep it concise (250-300 words max) but rich in personality.`;
+            Keep it concise (100-200 words max) but rich in personality.`;
             
             const userPrompt = `Based on this brief description, create a backstory for ${characterName}: "${prompt}"`;
             
@@ -490,6 +603,93 @@ class CharacterManager {
                    character.name && 
                    character.personality && 
                    character.voice;
+        }.bind(this));
+    }
+
+    /**
+     * Save all data to storage
+     */
+    saveToStorage() {
+    
+        const existingData = this.storageManager.load('data', {});
+        existingData.host = this.data.host;
+        existingData.guest = this.data.guest;
+        this.storageManager.save('data', existingData);
+    }
+    
+    /**
+     * Handle voice instruction preset selection changes
+     * @param {string} type - Character type ('host' or 'guest')
+     */
+    handleVoiceInstructionPresetChange(type) {
+    
+        const presetSelect = document.getElementById(`${type}-voice-instructions-preset`);
+        const instructionsTextarea = document.getElementById(`${type}-voice-instructions`);
+        
+        if (!presetSelect || !instructionsTextarea) {
+            return;
+        }
+        
+        const selectedPreset = presetSelect.value;
+        
+        if (selectedPreset === 'custom') {
+            // Do nothing if custom is selected - keep existing text
+            return;
+        }
+        
+        if (selectedPreset && this.voiceInstructions[selectedPreset] && this.voiceInstructions[selectedPreset][type]) {
+            // Set the instructions text from the preset
+            instructionsTextarea.value = this.voiceInstructions[selectedPreset][type];
+        } else {
+            // Clear the instructions if no preset is selected
+            instructionsTextarea.value = '';
+        }
+    }
+    
+    /**
+     * Handle manual editing of voice instructions
+     * @param {string} type - Character type ('host' or 'guest')
+     */
+    handleVoiceInstructionsManualEdit(type) {
+    
+        const presetSelect = document.getElementById(`${type}-voice-instructions-preset`);
+        const instructionsTextarea = document.getElementById(`${type}-voice-instructions`);
+        
+        if (!presetSelect || !instructionsTextarea) {
+            return;
+        }
+        
+        // Get current preset and instructions text
+        const selectedPreset = presetSelect.value;
+        const currentText = instructionsTextarea.value;
+        
+        // If a preset is selected (not custom) but the text doesn't match the preset,
+        // that means user has manually edited it, so we should switch to custom
+        if (selectedPreset !== 'custom' && selectedPreset !== '') {
+            const presetText = this.voiceInstructions[selectedPreset] && 
+                               this.voiceInstructions[selectedPreset][type];
+                               
+            if (presetText !== currentText) {
+                presetSelect.value = 'custom';
+            }
+        }
+    }
+    
+    /**
+     * Update voice instructions visibility based on selected TTS model
+     */
+    updateVoiceInstructionsVisibility() {
+    
+        const ttsModelSelect = document.getElementById('tts-model');
+        const isGpt4oMiniTts = ttsModelSelect && ttsModelSelect.value === 'gpt-4o-mini-tts';
+        
+        // Update visibility for each character type
+        this.types.forEach(function(type) {
+        
+            const container = document.getElementById(`${type}-voice-instructions-container`);
+            if (container) {
+                container.style.display = isGpt4oMiniTts ? 'block' : 'none';
+            }
         }.bind(this));
     }
 }

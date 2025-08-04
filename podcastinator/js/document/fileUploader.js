@@ -1,4 +1,4 @@
-// Podcastor App - File Uploader
+// Podcastinator App - File Uploader
 import NotificationsManager from '../ui/notifications.js';
 
 class FileUploader {

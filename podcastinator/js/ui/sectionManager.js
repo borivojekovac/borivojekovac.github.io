@@ -1,4 +1,4 @@
-// Podcastor App - Section Manager
+// Podcastinator App - Section Manager
 import NotificationsManager from './notifications.js';
 
 class SectionManager {

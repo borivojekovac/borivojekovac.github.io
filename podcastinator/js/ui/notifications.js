@@ -1,4 +1,4 @@
-// Podcastor App - Notifications Manager
+// Podcastinator App - Notifications Manager
 class NotificationsManager {
     constructor() {
         this.notificationTimeouts = new Map();

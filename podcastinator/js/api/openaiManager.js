@@ -1,4 +1,4 @@
-// Podcastor App - OpenAI API Manager
+// Podcastinator App - OpenAI API Manager
 import NotificationsManager from '../ui/notifications.js';
 import LanguageSupport from '../utils/languageSupport.js';
 
@@ -22,7 +22,6 @@ class OpenAIManager {
                 scriptVerify: 'o4-mini',     // o4-mini recommended for script verification
                 backstory: 'gpt-4o-mini',   // GPT-4o Mini recommended for character backstories
                 tts: 'tts-1',               // TTS-1 standard for text-to-speech
-                audioQuality: 'standard',    // Standard audio quality
                 scriptLanguage: 'english'    // Default script language
             }
         };
@@ -70,7 +69,6 @@ class OpenAIManager {
             'script-verify-model',
             'backstory-model',
             'tts-model',
-            'audio-quality',
             'script-language'
         ];
 
@@ -90,7 +88,6 @@ class OpenAIManager {
             document.getElementById('script-model').value = this.data.models.script;
             document.getElementById('backstory-model').value = this.data.models.backstory;
             document.getElementById('tts-model').value = this.data.models.tts;
-            document.getElementById('audio-quality').value = this.data.models.audioQuality;
             
             // Set verification model selections if available
             const outlineVerifyElement = document.getElementById('outline-verify-model');
@@ -137,7 +134,6 @@ class OpenAIManager {
             'script-verify-model': 'scriptVerify',
             'backstory-model': 'backstory', 
             'tts-model': 'tts',
-            'audio-quality': 'audioQuality',
             'script-language': 'scriptLanguage'
         };
 
@@ -162,7 +158,6 @@ class OpenAIManager {
             'script-verify-model': 'scriptVerify',
             'backstory-model': 'backstory',
             'tts-model': 'tts',
-            'audio-quality': 'audioQuality',
             'script-language': 'scriptLanguage'
         };
 

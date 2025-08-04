@@ -1,4 +1,4 @@
-// Podcastor App - Usage Counter
+// Podcastinator App - Usage Counter
 import StorageManager from '../utils/storage.js';
 import NotificationsManager from '../ui/notifications.js';
 
@@ -23,7 +23,8 @@ class UsageCounter {
             
             // Audio models
             'tts-1': 0.015,  // per 1k characters
-            'tts-1-hd': 0.03 // per 1k characters
+            'tts-1-hd': 0.03, // per 1k characters
+            'gpt-4o-mini-tts': 0.015  // per 1k characters
         };
         
         // Load usage data from storage
@@ -180,6 +181,9 @@ class UsageCounter {
         tableBody.innerHTML = '';
         let totalCost = 0;
         
+        // Define TTS models list including gpt-4o-mini-tts
+        const ttsModels = ['tts-1', 'tts-1-hd', 'gpt-4o-mini-tts'];
+        
         // Combine all model names from both costs and usage
         const allModels = new Set([
             ...Object.keys(this.costs),
@@ -188,7 +192,7 @@ class UsageCounter {
         
         allModels.forEach(model => {
             // Skip TTS models - they'll be handled separately
-            if (model === 'tts-1' || model === 'tts-1-hd') return;
+            if (ttsModels.includes(model)) return;
             
             const row = document.createElement('tr');
             const usageData = this.usage[model] || { input: 0, output: 0 };
@@ -212,7 +216,7 @@ class UsageCounter {
         });
         
         // Add TTS models
-        ['tts-1', 'tts-1-hd'].forEach(model => {
+        ttsModels.forEach(model => {
             const row = document.createElement('tr');
             const usageData = this.usage[model] || { characters: 0 };
             const costPerChar = this.costs[model] || this.defaultCosts[model] || 0;

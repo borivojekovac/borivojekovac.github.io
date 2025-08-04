@@ -1,4 +1,4 @@
-// Podcastor App - Main Application
+// Podcastinator App - Main Application
 import StorageManager from './utils/storage.js';
 import SectionManager from './ui/sectionManager.js';
 import NotificationsManager from './ui/notifications.js';
@@ -11,7 +11,7 @@ import ScriptGenerator from './content/scriptGenerator.js';
 import AudioGenerator from './content/audioGenerator.js';
 import UsageCounter from './usage/usageCounter.js';
 
-class PodcastorApp {
+class PodcastinatorApp {
     constructor() {
         // Initialize managers
         this.storageManager = new StorageManager();
@@ -62,7 +62,7 @@ class PodcastorApp {
         this.audioGenerator.init();
         this.usageCounter.init();
         
-        console.log('🎙️ Podcastor App initialized');
+        console.log('🎙️ Podcastinator App initialized');
     }
 
     /**
@@ -81,4 +81,4 @@ class PodcastorApp {
     }
 }
 
-export default PodcastorApp;
+export default PodcastinatorApp;

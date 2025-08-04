@@ -1,4 +1,4 @@
-# Podcastor Style Guide
+# Podcastinator Style Guide
 
 ## Color Palette
 

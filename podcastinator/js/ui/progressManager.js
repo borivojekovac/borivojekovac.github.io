@@ -1,4 +1,4 @@
-// Podcastor App - Progress Manager
+// Podcastinator App - Progress Manager
 class ProgressManager {
     constructor() {
         this.progressIntervals = {};

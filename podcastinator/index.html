@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Podcastor - Document to Podcast Converter</title>
+    <title>Podcastinator - Document to Podcast Converter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
             <section id="credentials-section" class="workflow-section active">
                 <h2>
                     <span class="step-number">1</span>
-                    OpenAI API Credentials & Model Selection
+                    Credentials & Models
                 </h2>
                 <div class="section-content">
                     <p>Configure your OpenAI API settings and select models for different tasks</p>
@@ -26,7 +26,7 @@
                     <!-- API Key Input -->
                     <form id="api-key-form" onsubmit="return false;">
                         <div class="form-group">
-                            <label for="api-key">API Key:</label>
+                            <label for="api-key">Open AI API Key:</label>
                             <input type="password" id="api-key" placeholder="sk-..." />
                         </div>
                     </form>
@@ -45,8 +45,8 @@
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
                                     <option value="o3">OpenAI o3 (200kt context)</option>
                                     <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
-                                    <option value="gpt-4o" selected>GPT-4o (128kt context)</option>
-                                    <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
+                                    <option value="gpt-4o">GPT-4o (128kt context)</option>
+                                    <option value="gpt-4o-mini" selected>GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
                                     <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k (16kt context)</option>
                                 </select>
@@ -59,8 +59,8 @@
                                     <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
                                     <option value="o3">OpenAI o3 (200kt context)</option>
-                                    <option value="o4-mini" selected>OpenAI o4-mini (200kt context)</option>
-                                    <option value="gpt-4o">GPT-4o (128kt context)</option>
+                                    <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
+                                    <option value="gpt-4o" selected>GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
                                     <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k (16kt context)</option>
@@ -72,11 +72,11 @@
                                 <label for="script-model">Script Generation:</label>
                                 <select id="script-model">
                                     <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
-                                    <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
+                                    <option value="gpt-4.1-mini" selected>GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
                                     <option value="o3">OpenAI o3 (200kt context)</option>
                                     <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
-                                    <option value="gpt-4o" selected>GPT-4o (128kt context)</option>
+                                    <option value="gpt-4o">GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
                                     <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k (16kt context)</option>
@@ -86,11 +86,11 @@
                             <div class="form-group">
                                 <label for="script-verify-model">Script Verification:</label>
                                 <select id="script-verify-model">
-                                    <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
+                                    <option value="gpt-4.1" selected>GPT-4.1 (1Mt context)</option>
                                     <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
                                     <option value="o3">OpenAI o3 (200kt context)</option>
-                                    <option value="o4-mini" selected>OpenAI o4-mini (200kt context)</option>
+                                    <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
                                     <option value="gpt-4o">GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
@@ -127,16 +127,11 @@
                                 <select id="tts-model">
                                     <option value="tts-1" selected>TTS-1 (Standard)</option>
                                     <option value="tts-1-hd">TTS-1 HD (High Quality)</option>
+                                    <option value="gpt-4o-mini-tts">GPT-4o Mini TTS</option>
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="audio-quality">Audio Quality:</label>
-                                <select id="audio-quality">
-                                    <option value="standard" selected>Standard (Faster, lower cost)</option>
-                                    <option value="hd">HD (Higher quality, more expensive)</option>
-                                </select>
-                            </div>
+
                         </div>
                     </div>
 
@@ -229,6 +224,27 @@
                             </select>
                         </div>
                         
+                        <!-- Voice Instructions (visible only when GPT-4o-mini-TTS is selected) -->
+                        <div class="form-group voice-instructions-container" id="host-voice-instructions-container" style="display: none;">
+                            <label for="host-voice-instructions-preset">Voice Instructions:</label>
+                            <select id="host-voice-instructions-preset">
+                                <option value="">Select instructions...</option>
+                                <option value="professional">Professional Podcast Host</option>
+                                <option value="enthusiastic">Enthusiastic and Energetic</option>
+                                <option value="calm">Calm and Soothing</option>
+                                <option value="authoritative">Authoritative Expert</option>
+                                <option value="conversational">Casual Conversational</option>
+                                <option value="dramatic">Dramatic Narrator</option>
+                                <option value="friendly">Friendly and Approachable</option>
+                                <option value="contemplative">Thoughtful and Contemplative</option>
+                                <option value="news">News Anchor Style</option>
+                                <option value="storytelling">Engaging Storyteller</option>
+                                <option value="educational">Educational Lecturer</option>
+                                <option value="custom">〈custom〉</option>
+                            </select>
+                            <textarea id="host-voice-instructions" rows="3" placeholder="Custom voice instructions will appear here. You can edit them directly."></textarea>
+                        </div>
+                        
                         <!-- Character Preview (shown when character has data) -->
                         <div class="character-preview" id="host-preview" style="display: none;">
                             <h3>Host Character Preview</h3>
@@ -295,6 +311,27 @@
                                 <option value="">Select voice...</option>
                                 <!-- Options will be populated from JS -->
                             </select>
+                        </div>
+                        
+                        <!-- Voice Instructions (visible only when GPT-4o-mini-TTS is selected) -->
+                        <div class="form-group voice-instructions-container" id="guest-voice-instructions-container" style="display: none;">
+                            <label for="guest-voice-instructions-preset">Voice Instructions:</label>
+                            <select id="guest-voice-instructions-preset">
+                                <option value="">Select instructions...</option>
+                                <option value="professional">Professional Podcast Guest</option>
+                                <option value="enthusiastic">Enthusiastic and Energetic</option>
+                                <option value="calm">Calm and Soothing</option>
+                                <option value="authoritative">Authoritative Expert</option>
+                                <option value="conversational">Casual Conversational</option>
+                                <option value="dramatic">Dramatic Speaker</option>
+                                <option value="friendly">Friendly and Approachable</option>
+                                <option value="contemplative">Thoughtful and Contemplative</option>
+                                <option value="academic">Academic Professor</option>
+                                <option value="storytelling">Engaging Storyteller</option>
+                                <option value="technical">Technical Specialist</option>
+                                <option value="custom">〈custom〉</option>
+                            </select>
+                            <textarea id="guest-voice-instructions" rows="3" placeholder="Custom voice instructions will appear here. You can edit them directly."></textarea>
                         </div>
                         
                         <!-- Character Preview (shown when character has data) -->

@@ -1,4 +1,4 @@
-// Podcastor App - Script Generator
+// Podcastinator App - Script Generator
 import NotificationsManager from '../ui/notifications.js';
 import ProgressManager from '../ui/progressManager.js';
 
@@ -1253,19 +1253,37 @@ Verify if this script is factually accurate (comparing to the document), follows
     async improveScript(originalScriptText, feedback, outlineText, documentContent, characterData, apiData) {
     
         try {
+            // Calculate original script length to ensure we maintain comparable size
+            const originalScriptLength = originalScriptText.length;
+            console.log(`Original script length: ${originalScriptLength} characters`);
+            
             // Get model name in lowercase for easier comparison
             const modelName = apiData.models.script.toLowerCase(); // Use the main script generation model
             const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
             
-            // Create system prompt for improvement
-            const systemPrompt = this.buildSystemPrompt(characterData, 'improvement');
+            // Create enhanced system prompt for improvement with clear preservation instructions
+            const systemPrompt = `${this.buildSystemPrompt(characterData, 'improvement')}
+
+IMPORTANT INSTRUCTIONS FOR SCRIPT IMPROVEMENT:
+
+1. MAKE TARGETED CHANGES ONLY - Only modify specific sections mentioned in the feedback. Do not rewrite or summarize unaffected sections.
+
+2. PRESERVE ORIGINAL CONTENT - Keep all dialogue that isn't directly mentioned in the feedback exactly as it is.
+
+3. MAINTAIN EQUIVALENT LENGTH - Your response MUST be approximately the same length as the original script (within 10%). Do not shorten or summarize the content.
+
+4. PRESERVE DETAILED DIALOGUE - Keep the same level of conversational detail and depth as the original script.
+
+5. PRESERVE FORMAT - Maintain section headers, speaker identifiers (HOST/GUEST), and overall structure.
+
+Warning: If your response is significantly shorter than the original script, it will be rejected. Your task is precise editing, not summarization.`;
             
             // Get language setting
             const scriptLanguage = apiData.models.scriptLanguage || 'english';
             
-            // Build user prompt for improvement
+            // Build enhanced user prompt for targeted improvement
             const targetDuration = this.totalPodcastDuration;
-            const userPrompt = `Please improve this podcast script based on the feedback provided. The script has some issues that need to be addressed.
+            const userPrompt = `You are a podcast script editor. I have a podcast script that needs targeted improvements based on specific feedback. Your job is to make PRECISE EDITS to address the feedback while preserving the original content, format, and length.
 
 Target Podcast Duration: ${targetDuration} minutes
 
@@ -1281,7 +1299,21 @@ ${outlineText}
 --- ORIGINAL DOCUMENT CONTENT ---
 ${documentContent}
 
-Please create an improved version of the script that addresses the feedback while maintaining the required format with proper HOST and GUEST speaker indicators. If the feedback mentions factual inaccuracies, PLEASE ENSURE the improved script contains ONLY information that is factually supported by the original document. Ensure the improved script follows the outline structure, avoids redundancy, and maintains appropriate length for the target duration.`;
+IMPORTANT INSTRUCTIONS:
+
+1. DO NOT REWRITE the entire script. Make surgical changes ONLY to the specific parts mentioned in the feedback.
+
+2. If the feedback points to issues in specific sections, ONLY modify those sections.
+
+3. MAINTAIN ORIGINAL LENGTH - Your improved script should be approximately ${originalScriptLength} characters (within 10%). Scripts that are significantly shorter will be rejected.
+
+4. PRESERVE all dialogue exchanges, conversational depth, and detail level from the original script. DO NOT summarize or condense content.
+
+5. Ensure proper HOST and GUEST speaker formatting is preserved.
+
+6. If addressing factual inaccuracies, ensure corrections are supported by the original document.
+
+7. Return the COMPLETE script with your targeted improvements incorporated.`;
             
             // Add language instruction to system prompt
             const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
@@ -1295,12 +1327,12 @@ Please create an improved version of the script that addresses the feedback whil
                 ]
             };
             
-            // Handle model-specific parameters
+            // Handle model-specific parameters with lower temperature for more conservative editing
             if (isAnthropicStyle) {
                 //requestBody.max_completion_tokens = 4000;
             } else {
                 //requestBody.max_tokens = 4000;
-                requestBody.temperature = 0.7;
+                requestBody.temperature = 0.4; // Lower temperature for more conservative edits
             }
             
             // Create API request

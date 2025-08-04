@@ -1,4 +1,4 @@
-// Podcastor App - Audio Generator
+// Podcastinator App - Audio Generator
 import NotificationsManager from '../ui/notifications.js';
 import ProgressManager from '../ui/progressManager.js';
 import Mp3Encoder from '../utils/mp3Encoder.js';
@@ -431,6 +431,42 @@ class AudioGenerator {
         }
         
         try {
+            // Determine if we're using the GPT-4o-mini-TTS model
+            const isGpt4oMiniTts = apiData.models.tts === 'gpt-4o-mini-tts';
+            
+            // Get character data for voice instructions if using GPT-4o-mini-TTS
+            let voiceInstructions = null;
+            if (isGpt4oMiniTts) {
+                // Determine if this is host or guest based on voice
+                const characters = this.storageManager.load('data', {});
+                let characterType = null;
+                
+                if (characters.host && characters.host.voice === voice) {
+                    characterType = 'host';
+                } else if (characters.guest && characters.guest.voice === voice) {
+                    characterType = 'guest';
+                }
+                
+                // Get voice instructions if available
+                if (characterType && characters[characterType].voiceInstructions) {
+                    voiceInstructions = characters[characterType].voiceInstructions;
+                }
+            }
+            
+            // Prepare API request body
+            const requestBody = {
+                model: apiData.models.tts,
+                voice: voice,
+                input: text,
+                response_format: 'wav', // Use uncompressed WAV instead of MP3
+                language: apiData.models.scriptLanguage || 'english'
+            };
+            
+            // Add voice instructions if available for GPT-4o-mini-TTS
+            if (isGpt4oMiniTts && voiceInstructions) {
+                requestBody.voice_instructions = voiceInstructions;
+            }
+            
             // Call OpenAI TTS API - get uncompressed wav format
             // This is more efficient for processing than mp3
             const response = await fetch('https://api.openai.com/v1/audio/speech', {
@@ -439,13 +475,7 @@ class AudioGenerator {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${apiData.apiKey}`
                 },
-                body: JSON.stringify({
-                    model: apiData.models.tts,
-                    voice: voice,
-                    input: text,
-                    response_format: 'wav', // Use uncompressed WAV instead of MP3
-                    language: apiData.models.scriptLanguage || 'english'
-                })
+                body: JSON.stringify(requestBody)
             });
             
             if (!response.ok) {

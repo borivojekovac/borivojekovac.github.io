@@ -1,4 +1,4 @@
-// Podcastor App - MP3 Encoder Utility
+// Podcastinator App - MP3 Encoder Utility
 
 /**
  * Utility class for MP3 encoding using lamejs
