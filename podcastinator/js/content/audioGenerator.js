@@ -500,7 +500,7 @@ class AudioGenerator {
                     
                     // Add voice instructions if available for GPT-4o-mini-TTS
                     if (isGpt4oMiniTts && voiceInstructions) {
-                        requestBody.voice_instructions = voiceInstructions;
+                        requestBody.instructions = voiceInstructions;
                     }
                     
                     // Call OpenAI TTS API - get uncompressed wav format

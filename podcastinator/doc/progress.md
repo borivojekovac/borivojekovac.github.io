@@ -304,6 +304,20 @@
 - Set sensible defaults (3 retries max, 1-10 second delays with jitter)
 - Enhanced error handling to distinguish between retryable and non-retryable errors
 
+### ✅ GPT-4o-mini-TTS Comprehensive Language Support (2025-08-05)
+- Fixed language selection for GPT-4o-mini-TTS model by adding proper language mapping
+- Implemented support for 130+ languages in the GPT-4o-mini-TTS model
+- Extended UI with comprehensive alphabetically sorted language list including:
+  - Major world languages (English, Mandarin Chinese, Hindi, Spanish, French, Arabic, etc.)
+  - Regional languages (Telugu, Marathi, Gujarati, Kannada, etc.)
+  - Indigenous languages (Quechua, Aymara, Guarani, Mapudungun, Nahuatl, etc.)
+  - Creoles and patois (Haitian Creole, Jamaican Patois, Tok Pisin, etc.)
+  - Celtic languages (Irish, Scottish Gaelic, Welsh, Cornish, etc.)
+  - Polynesian languages (Samoan, Tongan, Tahitian, Maori, Hawaiian, etc.)
+- Enhanced UI with proper display names for all languages
+- Implemented intelligent language selection persistence with fallback to English
+- Maintained proper compatibility with existing TTS-1 models
+
 ### Current State
 - **Working**: UI layout, navigation, form interactions, local storage, OpenAI credentials & model selection, text document upload, character builder with backstory generation, outline generation with structured format and duration targets, script generation with dialogue formatting and timing guidance, multi-language script generation, audio generation with TTS, audio download functionality, optimized MP3 audio encoding with correct playback speed, usage tracking and cost estimation, iterative content verification and self-improvement with multiple refinement cycles, voice instructions for GPT-4o-mini-TTS, targeted script improvement with content preservation
 - **Production Ready**: API key validation, model selection, settings persistence, document handling, character creation, backstory generation, outline generation with timing control, script generation with language selection, audio generation and download, MP3 encoding and storage optimization, dynamic sample rate handling, token usage tracking, content quality verification and improvement, GPT-4o-mini-TTS voice instructions, robust script improvement system

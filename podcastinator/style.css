@@ -134,10 +134,11 @@ header p {
     align-items: start;
 }
 
-/* Responsive behavior for narrow screens */
-@media (max-width: 600px) {
+/* Responsive behavior for narrow and medium screens */
+@media (max-width: 768px) {
     .model-selection-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 0;
     }
     
@@ -145,11 +146,16 @@ header p {
     .model-group.right-column,
     .model-group.content-generation,
     .model-group.audio-generation {
-        grid-column: 1;
+        width: 100%;
     }
     
     .vertical-divider {
         display: none;
+    }
+    
+    /* Ensure consistent spacing between form groups */
+    .model-selection-grid .form-group {
+        margin-bottom: 24px;
     }
 }
 
@@ -635,22 +641,6 @@ footer {
     
     .step-number {
         margin-right: 0;
-    }
-    
-    /* Mobile layout for model selection */
-    .model-selection-grid {
-        grid-template-columns: 100%;
-        gap: 32px;
-        margin: 24px 0;
-    }
-    
-    .model-group.content-generation,
-    .model-group.audio-generation {
-        grid-column: 1;
-    }
-    
-    .vertical-divider {
-        display: none;
     }
     
     /* Add a horizontal divider between sections on mobile */

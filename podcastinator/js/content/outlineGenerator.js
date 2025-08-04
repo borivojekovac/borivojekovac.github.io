@@ -430,45 +430,57 @@ Overview: [Brief summary of the discussion points and topics for this section]
 Duration: [Target duration in minutes]
 Overview: [Brief summary of the discussion points for this subsection]
 ---
-2. [Section Title]
-Duration: [Target duration in minutes]
-Overview: [Brief summary of the discussion points and topics for this section]
+
+1. Create a clear, hierarchical structure with main sections and subsections
+2. Each section must include:
+   - Section number (e.g., 1, 1.1, 2, etc.)
+   - A descriptive title
+   - Duration in minutes
+   - Overview that summarizes the key points for that section
+   - KEY FACTS: List 3-5 specific facts, concepts, or points to cover in this section
+   - UNIQUE FOCUS: Describe what makes this section distinct from others
+   - CARRYOVER: Note any topics that build on previous sections (use "None" if this is the first section or completely independent)
+3. Use horizontal rule separators (---) between each section for easy parsing
+4. Ensure all section durations add up to the target podcast length
+5. Organize content logically with natural flow between sections
+6. Balance depth vs. breadth based on available time
+7. Distribute topics strategically to minimize redundancy across sections
+
+## Enhanced Format:
+
 ---
-
-IMPORTANT: Each main section (with a whole number like 1, 2, 3) MUST start and end with a horizontal rule separator (---) on its own line. This is mandatory for parsing purposes.
-
-The outline should include:
-- Appropriate hierarchical numbering (1, 1.1, 1.2, 2, etc.)
-- Clear, informative section titles
-- Target duration in minutes for each section and subsection (durations should be realistic and including intro and outro, add up to ${targetDurationMinutes} minutes total)
-- Comprehensive overviews that summarize the key points without getting into dialogue
-- Natural flow that builds from introduction to conclusion
-
-Here is a complete example of the REQUIRED format:
-
----
-1. Introduction and Topic Overview
+1. Introduction
 Duration: 3 minutes
-Overview: A brief welcome to listeners, introduction of the guest, and overview of today's topic.
----
-1.1. Host and Guest Introduction
-Duration: 1 minute
 Overview: Brief exchange of credentials and establishing expertise.
+KEY FACTS:
+- Host introduces guest's background and expertise
+- Overview of what will be covered in the podcast
+- Why this topic is relevant to the audience
+UNIQUE FOCUS: Setting the foundation and establishing credibility
+CARRYOVER: None
 ---
 1.2. Topic Relevance
 Duration: 2 minutes
 Overview: Discussion of why this topic matters to the audience.
+KEY FACTS:
+- Current relevance and timeliness of the topic
+- Impact on the target audience
+- Brief preview of key insights to come
+UNIQUE FOCUS: Establishing importance and audience connection
+CARRYOVER: Builds on guest's expertise established in introduction
 ---
 2. Main Topic Section
 Duration: 7 minutes
 Overview: Detailed exploration of the central theme with expert insights.
----
-2.1. Key Concept Explanation
-Duration: 5 minutes
-Overview: Breaking down the main concept for the audience.
+KEY FACTS:
+- Core concept explanation
+- Expert analysis and insights
+- Real-world examples or case studies
+UNIQUE FOCUS: Deep dive into the main subject matter
+CARRYOVER: Expands on the topic relevance discussed earlier
 ---
 
-DO NOT include actual dialogue or script. This is only an outline with clear section separators for parsing, and is not indicative of actual sections or duration structure.`;
+DO NOT include actual dialogue or script. This is only an outline with clear section separators for parsing. Ensure KEY FACTS are specific and actionable, UNIQUE FOCUS explains what distinguishes each section, and CARRYOVER tracks topic continuity.`;
     }
     
     /**

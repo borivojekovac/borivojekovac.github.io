@@ -23,6 +23,7 @@ class ScriptGenerator {
         this.conversationSummary = '';
         this.lastSectionSummary = '';
         this.lastDialogueExchanges = ''; // Store actual dialogue exchanges for continuity
+        this.topicsSummary = ''; // Store structured topics summary
         this.generatedSections = [];
         
         // Load existing script data from storage
@@ -240,6 +241,7 @@ class ScriptGenerator {
             this.currentSection = 0;
             this.conversationSummary = '';
             this.lastSectionSummary = '';
+            this.topicsSummary = '';
             this.generatedSections = [];
             
             // First, generate the intro
@@ -392,7 +394,9 @@ class ScriptGenerator {
             
             // Get document data
             const data = this.storageManager.load('data', {});
+            const outlineData = this.storageManager.load('outlineData', {});
             const documentName = data.document?.name || 'this topic';
+            const podcastFocus = outlineData.podcastFocus || '';
             
             // Get language setting
             const scriptLanguage = apiData.models.scriptLanguage || 'english';
@@ -474,8 +478,10 @@ Remember this is the FIRST section of the podcast, so the host should be welcomi
         try {
             // Get the full document content first
             const data = this.storageManager.load('data', {});
+            const outlineData = this.storageManager.load('outlineData', {});
             const documentContent = data.document?.content || '';
             const documentName = data.document?.name || 'this document';
+            const podcastFocus = outlineData.podcastFocus || '';
             
             // Build system prompt for section with document content
             const systemPrompt = this.buildSystemPrompt(characterData, isLastSection ? 'lastSection' : 'section', documentContent);
@@ -521,12 +527,42 @@ ${this.lastDialogueExchanges}
 This is the first content section of the podcast. The host should transition naturally from the introduction to this topic without restarting the conversation.`;
             }
             
-            // Also include conversation summary for additional context
-            if (this.conversationSummary) {
+            // Add enhanced continuity instructions with topic-specific guidance
+            if (this.topicsSummary) {
                 userPrompt += `
 
-Previous conversation summary (for context only): ${this.conversationSummary}`;
+## PREVIOUS TOPICS COVERED:
+${this.topicsSummary}
+
+## CRITICAL: Topic Continuity Instructions
+1. When referencing previously covered topics, ALWAYS acknowledge they were discussed earlier
+2. NEVER have the host say "I've heard that..." about topics already covered above
+3. Use natural references like:
+   - HOST: "As we discussed earlier about [topic]..."
+   - HOST: "Building on what we covered about [topic]..."
+   - GUEST: "As I mentioned when we talked about [topic]..."
+   - GUEST: "To expand on my earlier point about [topic]..."
+4. If adding new details to a previously mentioned topic, explicitly acknowledge this:
+   - "We touched on [topic] earlier, but there's another aspect worth exploring..."
+   - "Building on our discussion of [topic], another interesting consideration is..."
+5. For any topics listed in CARRYOVER for this section, explicitly connect to previous discussion`;
             }
+            
+            // Enhance the section-specific content guidance
+            userPrompt += `
+
+## FOCUS FOR THIS SECTION:
+Title: ${section.title}
+Overview: ${section.overview}
+
+KEY FACTS TO COVER:
+${this.extractKeyFacts(section.content)}
+
+UNIQUE FOCUS:
+${this.extractUniqueFocus(section.content)}
+
+CARRYOVER:
+${this.extractCarryover(section.content)}`;
             
             if (isLastSection) {
                 userPrompt += `
@@ -615,6 +651,10 @@ This is NOT the final section. The conversation should feel ongoing and not conc
             // Build system prompt for outro
             const systemPrompt = this.buildSystemPrompt(characterData, 'outro');
             
+            // Get document and outline data
+            const outlineData = this.storageManager.load('outlineData', {});
+            const podcastFocus = outlineData.podcastFocus || '';
+            
             // Get language setting
             const scriptLanguage = apiData.models.scriptLanguage || 'english';
             
@@ -693,6 +733,10 @@ ${this.lastDialogueExchanges}
         const host = characterData.host || {};
         const guest = characterData.guest || {};
         
+        // Get podcast focus from outline data
+        const outlineData = this.storageManager.load('outlineData', {});
+        const podcastFocus = outlineData.podcastFocus || '';
+        
         let basePrompt = `# Podcast Script Generator Instructions
 
 ## Characters
@@ -718,7 +762,12 @@ ${guest.backstory}
 - The **HOST** only knows the podcast outline and cannot reference specific document details unless the GUEST mentions them first
 - The **HOST** should guide the conversation based on the outline topics only
 - The **GUEST** has full knowledge of the document content and can provide detailed insights, examples, and quotes from it
-- The **GUEST** should share expertise from the document without mentioning that it comes from "the document" - it should sound like their own knowledge`;
+- The **GUEST** should share expertise from the document without mentioning that it comes from "the document" - it should sound like their own knowledge
+
+${podcastFocus ? `## Podcast Focus/Steer
+
+${podcastFocus}
+` : ''}`;
         
         // Add document content if provided
         if (documentContent) {
@@ -837,10 +886,14 @@ You are improving an existing podcast script based on feedback:
 - Keep the same characters and their personalities
 - Maintain the proper HOST: and GUEST: format for speakers
 - Ensure the dialogue sounds natural and engaging
-- Remove any redundancy or repetitiveness
+- Remove any redundancy or repetitiveness, particularly:
+  * Convert host saying "I've heard that..." about topics already discussed to natural references
+  * Fix topics introduced as new when they've been covered before
+  * Connect related topics across sections with explicit acknowledgments
 - Make sure the script follows the provided outline structure
 - Do NOT add any stage directions or descriptions in [brackets]
-- Produce a complete, improved version of the script that can be used as a drop-in replacement`;  
+- Produce a complete, improved version of the script that can be used as a drop-in replacement
+- CRITICAL: When fixing redundancy, use natural references like "As we discussed earlier..." or "Building on our previous point..."`;  
         } else if (partType === 'section') {
             return `${basePrompt}
             
@@ -980,8 +1033,33 @@ This is part of an ongoing podcast conversation:
             // Get the most recent section
             const lastSection = this.generatedSections[this.generatedSections.length - 1];
             
-            // Prepare the prompt for summarization
-            const prompt = `Summarize the following podcast conversation section concisely. Focus on the main points discussed and the flow of the conversation, but keep it brief (max 150 words):\n\n${lastSection.content}`;
+            // Enhanced prompt for structured summarization
+            const prompt = `Analyze the following podcast conversation section and create a structured summary:
+
+1. GENERAL SUMMARY: Brief overview of the conversation (max 50 words)
+
+2. KEY TOPICS COVERED: 
+   - List the specific topics, concepts, terminology, and facts discussed
+   - Use precise language that matches how they were discussed
+   - Include 5-8 key topics/facts maximum
+
+3. TOPIC CONTEXT: 
+   - For each topic, note HOW it was discussed (e.g., introduced, explained in depth, briefly mentioned)
+
+Format your response exactly as:
+
+SUMMARY: [General summary text]
+
+TOPICS COVERED:
+- [Topic 1]: [Brief context]
+- [Topic 2]: [Brief context]
+- [Topic 3]: [Brief context]
+...
+
+This summary will be used to maintain continuity in an ongoing podcast, so be specific.
+
+Conversation Section:
+${lastSection.content}`;
             
             // Call OpenAI API for summarization
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -993,10 +1071,10 @@ This is part of an ongoing podcast conversation:
                 body: JSON.stringify({
                     model: apiData.models.outline, // Using outline model for summarization
                     messages: [
-                        { role: 'system', content: 'You are a concise summarizer of podcast conversations.' },
+                        { role: 'system', content: 'You are a structured analyzer of podcast conversations, creating detailed topic summaries to prevent redundancy in future sections.' },
                         { role: 'user', content: prompt }
                     ],
-                    max_tokens: 200,
+                    max_tokens: 300,
                     temperature: 0.5
                 })
             });
@@ -1010,23 +1088,69 @@ This is part of an ongoing podcast conversation:
             const responseData = await response.json();
             const summary = responseData.choices[0]?.message?.content?.trim();
             
+            // Track token usage if available
+            if (responseData.usage) {
+                const modelName = apiData.models.outline;
+                const promptTokens = responseData.usage.prompt_tokens || 0;
+                const completionTokens = responseData.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
             if (summary) {
-                // Update conversation tracking
-                if (!this.conversationSummary) {
-                    this.conversationSummary = summary;
-                } else {
-                    // For brevity, only keep summary of all but last section
-                    this.conversationSummary = `The host and guest have discussed: ${this.conversationSummary.split('.')[0]}. ${summary.split('.')[0]}.`;
-                }
+                // Parse the structured summary
+                const summaryMatch = summary.match(/SUMMARY:\s*(.*?)(?=\n\n|\n?TOPICS COVERED:)/s);
+                const topicsMatch = summary.match(/TOPICS COVERED:\s*([\s\S]*?)(?=\n\n|$)/s);
+                
+                const generalSummary = summaryMatch ? summaryMatch[1].trim() : summary;
+                const topicsText = topicsMatch ? topicsMatch[1].trim() : '';
+                
+                // Store both general summary and structured topics
+                this.conversationSummary = generalSummary;
+                this.topicsSummary = topicsText; // New property to store topics
                 
                 // Store the last section summary
-                this.lastSectionSummary = summary;
+                this.lastSectionSummary = generalSummary;
             }
             
         } catch (error) {
             // Just log the error but don't fail the whole process
             console.error('Error generating conversation summary:', error);
         }
+    }
+    
+    /**
+     * Extract key facts from outline section content
+     * @param {string} sectionContent - Section content from outline
+     * @returns {string} - Extracted key facts
+     */
+    extractKeyFacts(sectionContent) {
+    
+        const keyFactsMatch = sectionContent.match(/KEY FACTS:\s*([\s\S]*?)(?=\n\nUNIQUE FOCUS:|\n\nCARRYOVER:|$)/s);
+        return keyFactsMatch ? keyFactsMatch[1].trim() : 'No specific key facts provided';
+    }
+    
+    /**
+     * Extract unique focus from outline section content
+     * @param {string} sectionContent - Section content from outline
+     * @returns {string} - Extracted unique focus
+     */
+    extractUniqueFocus(sectionContent) {
+    
+        const uniqueFocusMatch = sectionContent.match(/UNIQUE FOCUS:\s*(.*?)(?=\n\nCARRYOVER:|\n\n|$)/s);
+        return uniqueFocusMatch ? uniqueFocusMatch[1].trim() : 'No unique focus specified';
+    }
+    
+    /**
+     * Extract carryover topics from outline section content
+     * @param {string} sectionContent - Section content from outline
+     * @returns {string} - Extracted carryover topics
+     */
+    extractCarryover(sectionContent) {
+    
+        const carryoverMatch = sectionContent.match(/CARRYOVER:\s*(.*?)(?=\n\n|$)/s);
+        return carryoverMatch ? carryoverMatch[1].trim() : 'No carryover topics';
     }
     
     /**
@@ -1131,15 +1255,22 @@ This is part of an ongoing podcast conversation:
 1. FACTUAL ACCURACY: Ensure all claims and information in the script are supported by the original document
 2. OUTLINE ADHERENCE: Ensure the script follows the structure and topics in the outline
 3. DURATION ACCURACY: Check if the script's length is appropriate for the target podcast duration
-4. REDUNDANCY CHECK: Identify any redundant content or repetitive dialogue
+4. REDUNDANCY CHECK (HIGH PRIORITY): Identify any redundant content or repetitive dialogue, particularly:
+   - Host saying "I've heard that..." about topics already discussed
+   - Topics covered in multiple sections without acknowledgment
+   - Same facts or examples repeated in different parts of the script
+   - Topics introduced as new when they've been discussed before
 5. CONVERSATIONAL FLOW: Verify that the dialogue feels natural and flows well between speakers
 6. CHARACTER CONSISTENCY: Ensure host and guest voices maintain consistent personalities
+
+For redundancy issues, provide specific examples of the redundant content and how it should be fixed.
 
 Respond with a JSON object containing:
 - "isValid": true if the script meets quality criteria, false otherwise
 - "feedback": specific issues found (if isValid is false) or confirmation (if isValid is true)
+- "redundancyIssues": array of specific redundancy problems (empty if none found)
 
-If the script is high quality and follows the outline well, respond with {"isValid": true, "feedback": "Script is well-structured and follows the outline appropriately."}`;
+If the script is high quality and follows the outline well, respond with {"isValid": true, "feedback": "Script is well-structured and follows the outline appropriately.", "redundancyIssues": []}`;
             
             // Parse outline to get duration and structure
             const parsedOutline = this.parseOutlineSections(outlineText);
