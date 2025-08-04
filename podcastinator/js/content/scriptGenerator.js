@@ -192,8 +192,12 @@ class ScriptGenerator {
      */
     parseOutlineSections(outlineText) {
     
-        // Split by horizontal rule separators
-        const sectionStrings = outlineText.split(/^---$/m).filter(section => section.trim());
+        console.log('Parsing outline sections, length:', outlineText.length);
+        
+        // Split by horizontal rule separators - more forgiving of whitespace
+        const sectionStrings = outlineText.split(/^\s*---\s*$/m).filter(section => section.trim());
+        
+        console.log('Found', sectionStrings.length, 'sections');
         
         // Track total duration for validation
         let totalDuration = 0;
@@ -212,7 +216,7 @@ class ScriptGenerator {
             // Add to total duration
             totalDuration += durationMinutes;
             
-            return {
+            const section = {
                 id: index + 1,
                 number: titleMatch ? titleMatch[1] : `${index + 1}`,
                 title: titleMatch ? titleMatch[2] : `Section ${index + 1}`,
@@ -220,6 +224,10 @@ class ScriptGenerator {
                 overview: overviewMatch ? overviewMatch[1] : 'No overview provided',
                 content: sectionStr.trim()
             };
+            
+            console.log(`Section ${index + 1}:`, section.title, '(', section.durationMinutes, 'min)');
+            
+            return section;
         });
         
         // Store the total duration for use in prompts
