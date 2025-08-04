@@ -2,6 +2,7 @@
 import NotificationsManager from '../ui/notifications.js';
 import ProgressManager from '../ui/progressManager.js';
 import Mp3Encoder from '../utils/mp3Encoder.js';
+import RetryManager from '../utils/retryManager.js';
 
 /**
  * Handles the generation of podcast audio using OpenAI TTS
@@ -19,6 +20,16 @@ class AudioGenerator {
         this.cancelGeneration = false;
         this.currentSegment = 0;
         this.totalSegments = 0;
+        
+        // Initialize retry manager with default settings
+        this.retryManager = new RetryManager({
+            maxRetries: 3,
+            baseDelay: 1000,
+            maxDelay: 10000,
+            jitter: 0.25,
+            onRetry: this.handleRetryNotification.bind(this),
+            shouldCancel: this.checkCancelStatus.bind(this)
+        });
         
         // Audio context and nodes
         this.audioContext = null;
@@ -275,6 +286,7 @@ class AudioGenerator {
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
             
+            // Check for section separator
             if (line === '---') {
                 // Found separator, check next line for speaker
                 if (i + 1 < lines.length) {
@@ -298,7 +310,28 @@ class AudioGenerator {
                         i++; // Skip the speaker line
                     }
                 }
-            } else if (currentSpeaker) {
+            } 
+            // Check for inline speaker labels (HOST: or GUEST: at the beginning of a line)
+            else if (line.startsWith('HOST:') || line.startsWith('GUEST:')) {
+                // If current segment is in progress, save it
+                if (currentSpeaker && currentText.trim()) {
+                    segments.push({
+                        speaker: currentSpeaker,
+                        text: currentText.trim()
+                    });
+                    currentText = '';
+                }
+                
+                // Update speaker and extract text content after the label
+                if (line.startsWith('HOST:')) {
+                    currentSpeaker = 'HOST';
+                    currentText = line.substring(5).trim() + '\n'; // Remove 'HOST:' and add newline
+                } else if (line.startsWith('GUEST:')) {
+                    currentSpeaker = 'GUEST';
+                    currentText = line.substring(6).trim() + '\n'; // Remove 'GUEST:' and add newline
+                }
+            } 
+            else if (currentSpeaker) {
                 // Add to current segment
                 currentText += line + '\n';
             }
@@ -431,62 +464,68 @@ class AudioGenerator {
         }
         
         try {
-            // Determine if we're using the GPT-4o-mini-TTS model
-            const isGpt4oMiniTts = apiData.models.tts === 'gpt-4o-mini-tts';
-            
-            // Get character data for voice instructions if using GPT-4o-mini-TTS
-            let voiceInstructions = null;
-            if (isGpt4oMiniTts) {
-                // Determine if this is host or guest based on voice
-                const characters = this.storageManager.load('data', {});
-                let characterType = null;
-                
-                if (characters.host && characters.host.voice === voice) {
-                    characterType = 'host';
-                } else if (characters.guest && characters.guest.voice === voice) {
-                    characterType = 'guest';
-                }
-                
-                // Get voice instructions if available
-                if (characterType && characters[characterType].voiceInstructions) {
-                    voiceInstructions = characters[characterType].voiceInstructions;
-                }
-            }
-            
-            // Prepare API request body
-            const requestBody = {
-                model: apiData.models.tts,
-                voice: voice,
-                input: text,
-                response_format: 'wav', // Use uncompressed WAV instead of MP3
-                language: apiData.models.scriptLanguage || 'english'
-            };
-            
-            // Add voice instructions if available for GPT-4o-mini-TTS
-            if (isGpt4oMiniTts && voiceInstructions) {
-                requestBody.voice_instructions = voiceInstructions;
-            }
-            
-            // Call OpenAI TTS API - get uncompressed wav format
-            // This is more efficient for processing than mp3
-            const response = await fetch('https://api.openai.com/v1/audio/speech', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
+            // Use RetryManager to handle retries with exponential backoff
+            const audioBuffer = await this.retryManager.execute(
+                async () => {
+                    // Determine if we're using the GPT-4o-mini-TTS model
+                    const isGpt4oMiniTts = apiData.models.tts === 'gpt-4o-mini-tts';
+                    
+                    // Get character data for voice instructions if using GPT-4o-mini-TTS
+                    let voiceInstructions = null;
+                    if (isGpt4oMiniTts) {
+                        // Determine if this is host or guest based on voice
+                        const characters = this.storageManager.load('data', {});
+                        let characterType = null;
+                        
+                        if (characters.host && characters.host.voice === voice) {
+                            characterType = 'host';
+                        } else if (characters.guest && characters.guest.voice === voice) {
+                            characterType = 'guest';
+                        }
+                        
+                        // Get voice instructions if available
+                        if (characterType && characters[characterType].voiceInstructions) {
+                            voiceInstructions = characters[characterType].voiceInstructions;
+                        }
+                    }
+                    
+                    // Prepare API request body
+                    const requestBody = {
+                        model: apiData.models.tts,
+                        voice: voice,
+                        input: text,
+                        response_format: 'wav', // Use uncompressed WAV instead of MP3
+                        language: apiData.models.scriptLanguage || 'english'
+                    };
+                    
+                    // Add voice instructions if available for GPT-4o-mini-TTS
+                    if (isGpt4oMiniTts && voiceInstructions) {
+                        requestBody.voice_instructions = voiceInstructions;
+                    }
+                    
+                    // Call OpenAI TTS API - get uncompressed wav format
+                    // This is more efficient for processing than mp3
+                    const response = await fetch('https://api.openai.com/v1/audio/speech', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiData.apiKey}`
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+                    
+                    if (!response.ok) {
+                        await this.handleApiError(response);
+                    }
+                    
+                    // Get audio data as ArrayBuffer
+                    const audioData = await response.arrayBuffer();
+                    
+                    // Decode audio data
+                    return await this.audioContext.decodeAudioData(audioData);
                 },
-                body: JSON.stringify(requestBody)
-            });
-            
-            if (!response.ok) {
-                await this.handleApiError(response);
-            }
-            
-            // Get audio data as ArrayBuffer
-            const audioData = await response.arrayBuffer();
-            
-            // Decode audio data
-            const audioBuffer = await this.audioContext.decodeAudioData(audioData);
+                this.isRetryableError.bind(this)
+            );
             
             // Track TTS character usage
             const modelName = apiData.models.tts;
@@ -498,6 +537,11 @@ class AudioGenerator {
             
             return audioBuffer;
         } catch (error) {
+            // If the error is from cancellation, propagate it
+            if (error.message === 'Operation cancelled during retry') {
+                throw new Error('Audio generation cancelled');
+            }
+            
             console.error('TTS API error:', error);
             throw new Error(`Failed to generate audio: ${error.message}`);
         }
@@ -609,6 +653,77 @@ class AudioGenerator {
         } else {
             throw new Error(`OpenAI API Error: ${errorMsg}`);
         }
+    }
+    
+    /**
+     * Check if an error is retryable (network or server error)
+     * @param {Error} error - The error to check
+     * @returns {boolean} - True if the error is retryable
+     */
+    isRetryableError(error) {
+        // Don't retry authentication errors
+        if (error.message && error.message.includes('API key')) {
+            return false;
+        }
+        
+        // Don't retry rate limit errors
+        if (error.message && error.message.includes('rate limit')) {
+            return false;
+        }
+        
+        // Check if it's a server error (5xx)
+        const serverErrorMatch = error.message && error.message.match(/\(5\d\d\)/);
+        if (serverErrorMatch) {
+            return true;
+        }
+        
+        // Check for network connectivity issues
+        const networkErrorPatterns = [
+            'network error',
+            'failed to fetch',
+            'connection',
+            'timeout',
+            'socket',
+            'internet'
+        ];
+        
+        const errorString = String(error).toLowerCase();
+        return networkErrorPatterns.some(pattern => errorString.includes(pattern));
+    }
+    
+    /**
+     * Handle retry notification
+     * @param {Object} retryInfo - Information about the retry
+     */
+    handleRetryNotification(retryInfo) {
+        const { attempt, delay, maxRetries, error } = retryInfo;
+        
+        // Show notification about retry
+        const delaySeconds = Math.round(delay / 100) / 10;
+        this.notifications.showInfo(
+            `Connection issue detected. Retrying in ${delaySeconds}s... (Attempt ${attempt}/${maxRetries})`
+        );
+        
+        console.log(`Retry attempt ${attempt}/${maxRetries} after ${delaySeconds}s delay:`, error);
+        
+        // Update progress bar to indicate retry
+        const progressElement = document.querySelector('#audio-progress .progress-fill');
+        if (progressElement) {
+            progressElement.style.backgroundColor = '#ffaa33'; // Amber color for retry state
+            
+            // Reset to normal color after delay
+            setTimeout(function() {
+                progressElement.style.backgroundColor = '';
+            }, delay);
+        }
+    }
+    
+    /**
+     * Check if the operation should be cancelled
+     * @returns {boolean} - True if the operation should be cancelled
+     */
+    checkCancelStatus() {
+        return this.cancelGeneration;
     }
     
     /**

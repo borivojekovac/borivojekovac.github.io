@@ -12,18 +12,11 @@ class OpenAIManager {
         const savedData = this.storageManager.load('data', {});
         this.languageSupport = new LanguageSupport();
         
+        // Use empty object for models if not in storage
+        // We'll initialize from the DOM selected attributes during init()
         this.data = {
             apiKey: savedData.apiKey || '',
-            models: savedData.models || {
-                // Default model selections based on recommendations from memory
-                outline: 'gpt-4o',          // GPT-4o recommended for outline generation
-                outlineVerify: 'o4-mini',    // o4-mini recommended for outline verification
-                script: 'gpt-4o',           // GPT-4o recommended for script generation
-                scriptVerify: 'o4-mini',     // o4-mini recommended for script verification
-                backstory: 'gpt-4o-mini',   // GPT-4o Mini recommended for character backstories
-                tts: 'tts-1',               // TTS-1 standard for text-to-speech
-                scriptLanguage: 'english'    // Default script language
-            }
+            models: savedData.models || {}
         };
     }
 
@@ -32,8 +25,62 @@ class OpenAIManager {
      */
     init() {
     
+        // Initialize models from DOM if no stored values exist
+        this.initializeModelsFromDOM();
         this.setupModelSelectionListeners();
         this.setupApiKeyValidation();
+    }
+    
+    /**
+     * Initialize models from DOM elements with selected attributes
+     */
+    initializeModelsFromDOM() {
+    
+        // Only initialize from DOM if we don't have stored models
+        if (Object.keys(this.data.models).length > 0) {
+            return;
+        }
+        
+        // Default values in case elements aren't found
+        this.data.models = {
+            outline: this.getSelectedValue('outline-model', 'gpt-4o'),
+            outlineVerify: this.getSelectedValue('outline-verify-model', 'o4-mini'),
+            script: this.getSelectedValue('script-model', 'gpt-4o'),
+            scriptVerify: this.getSelectedValue('script-verify-model', 'o4-mini'),
+            backstory: this.getSelectedValue('backstory-model', 'gpt-4o-mini'),
+            tts: this.getSelectedValue('tts-model', 'tts-1'),
+            scriptLanguage: this.getSelectedValue('script-language', 'english')
+        };
+        
+        // Persist these initial values to storage
+        this.saveToStorage();
+    }
+    
+    /**
+     * Get the selected value from a select element in the DOM
+     * @param {string} elementId - ID of the select element
+     * @param {string} defaultValue - Default value if element not found
+     * @returns {string} - Selected value or default
+     */
+    getSelectedValue(elementId, defaultValue) {
+    
+        const element = document.getElementById(elementId);
+        if (!element) {
+            return defaultValue;
+        }
+        
+        // Check for options with selected attribute
+        const selectedOption = element.querySelector('option[selected]');
+        if (selectedOption) {
+            return selectedOption.value;
+        }
+        
+        // If no option has selected attribute, use the first option
+        if (element.options.length > 0) {
+            return element.options[0].value;
+        }
+        
+        return defaultValue;
     }
 
     /**
@@ -84,21 +131,13 @@ class OpenAIManager {
 
         // Populate the model selections if available
         if (this.data.models) {
-            document.getElementById('outline-model').value = this.data.models.outline;
-            document.getElementById('script-model').value = this.data.models.script;
-            document.getElementById('backstory-model').value = this.data.models.backstory;
-            document.getElementById('tts-model').value = this.data.models.tts;
-            
-            // Set verification model selections if available
-            const outlineVerifyElement = document.getElementById('outline-verify-model');
-            if (outlineVerifyElement && this.data.models.outlineVerify) {
-                outlineVerifyElement.value = this.data.models.outlineVerify;
-            }
-            
-            const scriptVerifyElement = document.getElementById('script-verify-model');
-            if (scriptVerifyElement && this.data.models.scriptVerify) {
-                scriptVerifyElement.value = this.data.models.scriptVerify;
-            }
+            // Set values if both the element and model value exist
+            this.setSelectValueIfExists('outline-model', this.data.models.outline);
+            this.setSelectValueIfExists('script-model', this.data.models.script);
+            this.setSelectValueIfExists('backstory-model', this.data.models.backstory);
+            this.setSelectValueIfExists('tts-model', this.data.models.tts);
+            this.setSelectValueIfExists('outline-verify-model', this.data.models.outlineVerify);
+            this.setSelectValueIfExists('script-verify-model', this.data.models.scriptVerify);
             
             // Set up language selector if it exists
             const languageSelector = document.getElementById('script-language');
@@ -307,6 +346,44 @@ class OpenAIManager {
                 selectElement.value = 'english';
                 this.data.models.scriptLanguage = 'english';
                 this.saveToStorage();
+            }
+        }
+    }
+    
+    /**
+     * Set value of a select element if it exists
+     * @param {string} elementId - ID of select element
+     * @param {string} value - Value to set
+     */
+    setSelectValueIfExists(elementId, value) {
+    
+        const element = document.getElementById(elementId);
+        if (element && value) {
+            // Check if this value exists as an option
+            const optionExists = Array.from(element.options).some(option => option.value === value);
+            
+            if (optionExists) {
+                element.value = value;
+            } else {
+                // If the value doesn't exist, find and use the selected option
+                const selectedOption = element.querySelector('option[selected]');
+                if (selectedOption) {
+                    element.value = selectedOption.value;
+                    // Update the model value to match
+                    const modelKey = {
+                        'outline-model': 'outline',
+                        'outline-verify-model': 'outlineVerify',
+                        'script-model': 'script',
+                        'script-verify-model': 'scriptVerify',
+                        'backstory-model': 'backstory',
+                        'tts-model': 'tts',
+                        'script-language': 'scriptLanguage'
+                    }[elementId];
+                    
+                    if (modelKey) {
+                        this.data.models[modelKey] = selectedOption.value;
+                    }
+                }
             }
         }
     }

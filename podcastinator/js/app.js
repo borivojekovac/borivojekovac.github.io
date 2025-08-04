@@ -10,6 +10,7 @@ import OutlineGenerator from './content/outlineGenerator.js';
 import ScriptGenerator from './content/scriptGenerator.js';
 import AudioGenerator from './content/audioGenerator.js';
 import UsageCounter from './usage/usageCounter.js';
+import FullscreenTextControl from './ui/fullscreenTextControl.js';
 
 class PodcastinatorApp {
     constructor() {
@@ -31,6 +32,9 @@ class PodcastinatorApp {
         
         // Initialize usage counter
         this.usageCounter = new UsageCounter(this.storageManager, this.apiManager);
+        
+        // Initialize UI enhancements
+        this.fullscreenTextControl = null;
         
         // Initialize app
         this.init();
@@ -62,6 +66,9 @@ class PodcastinatorApp {
         this.audioGenerator.init();
         this.usageCounter.init();
         
+        // Initialize UI enhancements after all components are ready
+        this.initUIEnhancements();
+        
         console.log('🎙️ Podcastinator App initialized');
     }
 
@@ -78,6 +85,15 @@ class PodcastinatorApp {
             contentState: this.contentStateManager.getState(),
             activeSection: this.sectionManager.getActiveSection()
         };
+    }
+    
+    /**
+     * Initialize UI enhancement features
+     */
+    initUIEnhancements() {
+    
+        // Initialize fullscreen text controls for textareas
+        this.fullscreenTextControl = FullscreenTextControl.initializeAll();
     }
 }
 

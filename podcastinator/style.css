@@ -2,6 +2,7 @@
 @import url('css/components/character-builder.css');
 @import url('css/components/content-generator.css');
 @import url('css/components/usage-counter.css');
+@import url('css/components/fullscreen-text.css');
 
 /* Reset and Base Styles */
 * {
@@ -133,8 +134,27 @@ header p {
     align-items: start;
 }
 
-/* Explicitly place content generation on the left */
-.model-group.content-generation {
+/* Responsive behavior for narrow screens */
+@media (max-width: 600px) {
+    .model-selection-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .model-group.left-column,
+    .model-group.right-column,
+    .model-group.content-generation,
+    .model-group.audio-generation {
+        grid-column: 1;
+    }
+    
+    .vertical-divider {
+        display: none;
+    }
+}
+
+/* Left column */
+.model-group.left-column {
     grid-column: 1;
 }
 
@@ -147,16 +167,18 @@ header p {
     justify-self: center;
 }
 
-/* Explicitly place audio generation on the right */
-.model-group.audio-generation {
+/* Right column */
+.model-group.right-column {
     grid-column: 3;
 }
 
-.model-group h3 {
-    color: var(--primary-dark);
-    margin-bottom: 24px;
-    font-size: 1.1rem;
-    font-weight: 600;
+/* For backwards compatibility */
+.model-group.content-generation {
+    grid-column: 1;
+}
+
+.model-group.audio-generation {
+    grid-column: 3;
 }
 
 .form-actions {
@@ -562,13 +584,7 @@ input[type="file"] {
     border-radius: 2px;
 }
 
-/* Audio Generator */
-.audio-generator {
-    /*background: var(--light-gray);
-    padding: 24px;
-    border-radius: var(--border-radius);
-    border: 1px solid #e9ecef;*/
-}
+/* Audio Generator Styles */
 
 .audio-result {
     margin-top: 16px;

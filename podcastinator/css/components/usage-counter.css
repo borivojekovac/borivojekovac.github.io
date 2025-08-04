@@ -39,14 +39,6 @@
     z-index: 1001;
 }
 
-/* Media query to align gripper to the left on wider screens */
-@media (min-width: 840px) {
-    .usage-gripper {
-        left: calc(50% - 400px + 24px); /* Half of container width (800px/2) plus section padding (24px) */
-        transform: none;
-    }
-}
-
 .usage-gripper:hover {
     background-color: var(--light-gray);
 }
