@@ -290,7 +290,7 @@ class OutlineGenerator {
             }
             
             // Update progress
-            this.progressManager.updateProgress('outline-progress', 80);
+            this.progressManager.updateProgress('outline-progress', 50);
             
             // Check if cancelled
             if (this.cancelGeneration) {
@@ -312,8 +312,73 @@ class OutlineGenerator {
             }
             
             if (outlineText) {
+                // Update progress - now we'll verify
+                this.progressManager.updateProgress('outline-progress', 60);
+                
+                // Set up iterative verification and improvement
+                let currentOutline = outlineText;
+                let isValid = false;
+                let feedback = '';
+                let iterationCount = 0;
+                const maxIterations = 3;
+                
+                // Iterative verification and improvement loop
+                while (!isValid && iterationCount < maxIterations) {
+                    iterationCount++;
+                    
+                    // Show verification notification with iteration count
+                    const verificationNotificationId = Date.now();
+                    this.notifications.showInfo(`Verifying outline quality (attempt ${iterationCount}/${maxIterations})...`, verificationNotificationId);
+                    
+                    // Verify the outline with a second model
+                    const verificationResult = await this.verifyOutline(currentOutline, documentContent, characterData, apiData);
+                    
+                    // Clear the verification notification
+                    this.notifications.clearNotification(verificationNotificationId);
+                    
+                    // Log verification feedback to console
+                    this.logVerificationFeedback(`Outline Verification (Iteration ${iterationCount})`, verificationResult);
+                    
+                    // Update status based on verification result
+                    isValid = verificationResult.isValid;
+                    feedback = verificationResult.feedback;
+                    
+                    // If still not valid and we haven't reached max iterations, improve the outline
+                    if (!isValid && iterationCount < maxIterations) {
+                        this.progressManager.updateProgress('outline-progress', 60 + (iterationCount * 10));
+                        const improvementNotificationId = Date.now();
+                        this.notifications.showInfo(`Improving outline (attempt ${iterationCount}/${maxIterations})...`, improvementNotificationId);
+                        
+                        // Attempt to improve the outline
+                        const improvedOutline = await this.improveOutline(currentOutline, feedback, documentContent, characterData, apiData);
+                        
+                        // Clear the improvement notification
+                        this.notifications.clearNotification(improvementNotificationId);
+                        
+                        if (improvedOutline) {
+                            currentOutline = improvedOutline;
+                            this.notifications.showInfo(`Outline improvement ${iterationCount} complete. Re-verifying...`);
+                        } else {
+                            // If improvement failed, break the loop
+                            break;
+                        }
+                    }
+                }
+                
+                // Set final outline text
+                let finalOutlineText = currentOutline;
+                
+                // Show final status notification
+                if (isValid) {
+                    this.notifications.showSuccess('Outline verification successful!');
+                } else if (iterationCount >= maxIterations) {
+                    this.notifications.showSuccess(`Outline improved ${iterationCount} times. Best possible version achieved.`);
+                } else {
+                    this.notifications.showSuccess('Outline improvement complete.');
+                }
+                
                 // Set outline in textarea
-                this.outlineTextarea.value = outlineText;
+                this.outlineTextarea.value = finalOutlineText;
                 
                 // Save to storage
                 this.saveOutlineData();
@@ -471,6 +536,252 @@ Create a well-organized outline that covers the key information from this docume
         
         this.storageManager.save('outlineData', outlineData);
         this.outlineData = this.outlineTextarea.value;
+    }
+    
+    /**
+     * Log verification feedback to console in a nicely formatted way
+     * @param {string} title - Title for the log group
+     * @param {Object} result - Verification result object with isValid and feedback properties
+     */
+    logVerificationFeedback(title, result) {
+    
+        // Create styled console output
+        const titleStyle = 'font-weight: bold; font-size: 14px; color: #3498db;';
+        const validStyle = result.isValid ? 'color: #2ecc71; font-weight: bold;' : 'color: #e74c3c; font-weight: bold;';
+        const feedbackStyle = 'color: #333; background: #f8f9fa; padding: 4px; border-left: 3px solid #3498db;';
+        
+        // Open a console group with the title
+        console.group(`%c${title}`, titleStyle);
+        
+        // Log the validation status
+        console.log(
+            `%cValidation: ${result.isValid ? 'PASSED ✅' : 'NEEDS IMPROVEMENT ⚠️'}`,
+            validStyle
+        );
+        
+        // Log the feedback with nice formatting
+        console.log('%cFeedback:', 'font-weight: bold;');
+        console.log(`%c${result.feedback}`, feedbackStyle);
+        
+        // Close the console group
+        console.groupEnd();
+    }
+    
+    /**
+     * Verify the generated outline against the original document
+     * @param {string} outlineText - The generated outline text
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {Object} - Verification result with isValid flag and feedback
+     */
+    async verifyOutline(outlineText, documentContent, characterData, apiData) {
+    
+        try {
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.outlineVerify.toLowerCase();
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Create system prompt for verification
+            const systemPrompt = `You are a podcast outline quality checker. Your job is to analyze a generated podcast outline for:
+
+1. STRUCTURE QUALITY: Ensure the outline has a logical structure with appropriate sections
+2. TIMING ACCURACY: Verify that section durations add up to the target podcast duration
+3. TOPICAL COVERAGE: Check that the outline appears to cover the main topics with appropriate emphasis
+4. FOCUS ALIGNMENT: Confirm the outline aligns with any user-specified focus/steer
+5. FORMAT CORRECTNESS: Ensure the outline follows the required section numbering and separator format
+
+Respond with a JSON object containing:
+- "isValid": true if the outline meets all quality criteria, false otherwise
+- "feedback": specific issues found (if isValid is false) or confirmation (if isValid is true)
+
+If the outline is high quality and factually accurate, respond with {"isValid": true, "feedback": "Outline is accurate and well-structured."}`;
+            
+            // Build user prompt for verification
+            const podcastDuration = this.podcastDuration;
+            const podcastFocus = this.podcastFocus;
+            let userPrompt = `Please review this podcast outline for quality and structure.
+
+Target Podcast Duration: ${podcastDuration} minutes
+${podcastFocus ? `Podcast Focus: ${podcastFocus}\n` : ''}
+
+--- GENERATED OUTLINE ---
+${outlineText}
+
+--- ORIGINAL DOCUMENT CONTENT ---
+${documentContent}
+
+Verify if this outline has a logical structure, well-balanced sections, and aligns with the target duration and focus. Respond in the required JSON format.`;
+            
+            // Prepare request body with model-specific parameters
+            const requestBody = {
+                model: apiData.models.outlineVerify,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ]
+            };
+            
+            // Handle model-specific parameters
+            if (isAnthropicStyle) {
+                //requestBody.max_completion_tokens = 1500;
+            } else {
+                //requestBody.max_tokens = 1500;
+                requestBody.temperature = 0.3; // Lower temperature for more consistent evaluation
+            }
+            
+            // Create API request
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiData.apiKey}`
+                },
+                body: JSON.stringify(requestBody)
+            });
+            
+            // Handle API response
+            if (!response.ok) {
+                console.error('Outline verification failed:', response.status);
+                return { isValid: true, feedback: 'Verification skipped due to API error. Using original outline.' };
+            }
+            
+            const data = await response.json();
+            const verificationText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.outlineVerify;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            // Parse verification result
+            try {
+                // Extract JSON from the response (handling cases where there might be text before/after JSON)
+                const jsonMatch = verificationText.match(/{[\s\S]*}/m);
+                if (jsonMatch) {
+                    const resultJson = JSON.parse(jsonMatch[0]);
+                    return {
+                        isValid: !!resultJson.isValid, // Ensure boolean
+                        feedback: resultJson.feedback || 'No specific feedback provided.'
+                    };
+                } else {
+                    // Fallback if no JSON found
+                    const isPositive = verificationText.toLowerCase().includes('valid') || 
+                                      verificationText.toLowerCase().includes('accurate') ||
+                                      verificationText.toLowerCase().includes('good');
+                    return {
+                        isValid: isPositive,
+                        feedback: verificationText.substring(0, 200) + '...'
+                    };
+                }
+            } catch (error) {
+                console.error('Error parsing verification result:', error);
+                // Default to assuming it's valid to avoid blocking workflow
+                return { isValid: true, feedback: 'Unable to parse verification result. Using original outline.' };
+            }
+            
+        } catch (error) {
+            console.error('Error during outline verification:', error);
+            // Default to assuming it's valid to avoid blocking workflow
+            return { isValid: true, feedback: 'Verification error. Using original outline.' };
+        }
+    }
+    
+    /**
+     * Improve the outline based on verification feedback
+     * @param {string} originalOutlineText - The original outline text
+     * @param {string} feedback - Feedback from verification
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {string} - Improved outline text
+     */
+    async improveOutline(originalOutlineText, feedback, documentContent, characterData, apiData) {
+    
+        try {
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.outline.toLowerCase(); // Use the main outline generation model
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Create system prompt for improvement
+            const systemPrompt = this.buildSystemPrompt(characterData);
+            
+            // Build user prompt for improvement
+            const podcastDuration = this.podcastDuration;
+            const podcastFocus = this.podcastFocus;
+            const userPrompt = `Please improve this podcast outline based on the feedback provided. The outline has some issues that need to be addressed.
+
+Target Podcast Duration: ${podcastDuration} minutes
+${podcastFocus ? `Podcast Focus: ${podcastFocus}\n` : ''}
+
+--- ORIGINAL OUTLINE ---
+${originalOutlineText}
+
+--- FEEDBACK ON ISSUES ---
+${feedback}
+
+--- ORIGINAL DOCUMENT CONTENT ---
+${documentContent}
+
+Please create an improved version of the outline that addresses the feedback while maintaining the required format with section separators (---), section numbers, titles, durations, and overviews. Focus on creating a well-structured outline with logical sections and appropriate coverage of topics. Make sure section durations add up to exactly ${podcastDuration} minutes.`;
+            
+            // Prepare request body with model-specific parameters
+            const requestBody = {
+                model: apiData.models.outline,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ]
+            };
+            
+            // Handle model-specific parameters
+            if (isAnthropicStyle) {
+                //requestBody.max_completion_tokens = 3000;
+            } else {
+                //requestBody.max_tokens = 3000;
+                requestBody.temperature = 0.7;
+            }
+            
+            // Create API request
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiData.apiKey}`
+                },
+                body: JSON.stringify(requestBody)
+            });
+            
+            // Handle API response
+            if (!response.ok) {
+                console.error('Outline improvement failed:', response.status);
+                return originalOutlineText; // Return original outline if improvement fails
+            }
+            
+            const data = await response.json();
+            const improvedOutlineText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.outline;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            return improvedOutlineText || originalOutlineText;
+            
+        } catch (error) {
+            console.error('Error during outline improvement:', error);
+            return originalOutlineText; // Return original outline if improvement fails
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-# 🎙️ Podcastor
+# Podcastinator ▶️
 
 **Transform your documents into engaging audio podcasts using AI-powered characters**
 
@@ -11,6 +11,8 @@ Podcastor is a single-page web application that converts text and markdown docum
 - **⏱️ Duration Control**: Specify target podcast length and section timing
 - **🔍 Content Focus**: Tailor podcast content to specific topics or themes
 - **📝 Smart Script Generation**: AI-powered outline and script creation
+- **🤔 Self-Improving Content**: Automated verification and iterative refinement of outlines and scripts
+- **🌐 Multi-Language Support**: Generate scripts in multiple languages based on TTS compatibility
 - **🎵 Audio Generation**: Convert scripts to high-quality audio podcasts
 - **💰 Usage Tracking**: Monitor API token usage and estimate costs
 - **💾 Auto-Save**: All progress saved locally in browser storage
@@ -43,11 +45,16 @@ npm run dev
 1. **Set up OpenAI API**: Enter your API key
 2. **Upload Document**: Drag & drop or browse for text/markdown files
 3. **Create Characters**: Define host and guest personalities and voices
-4. **Generate Podcast Outline**:
+4. **Generate Outline**:
    - Set target podcast duration in minutes
    - Optionally specify a content focus
    - Generate structured outline with section durations
-5. **Generate Script**: Create detailed script based on outline timing
+   - Automatic iterative verification and refinement of outline (up to 3 improvement cycles)
+5. **Generate Script**: 
+   - Select your preferred language from supported options
+   - Create detailed script based on outline timing
+   - Automatic iterative verification and improvement of script quality (up to 3 improvement cycles)
+   - Factual accuracy verification against original document
 6. **Generate Audio**: Convert script to podcast audio
 7. **Download**: Save your finished podcast
 8. **Monitor Usage**: Access the usage counter by clicking the hamburger icon at the top of the screen to track token usage and estimate costs
@@ -65,6 +72,8 @@ npm run dev
 ✅ **Completed**: Audio generation with OpenAI TTS and speaker voice matching  
 ✅ **Completed**: Audio processing with configurable silence between segments  
 ✅ **Completed**: API usage tracking with cost estimation and editable pricing
+✅ **Completed**: Multi-language script generation with dynamic language options based on selected TTS model
+✅ **Completed**: Self-improving content generation with automatic verification and refinement
 
 See `doc/progress.md` for detailed development status.
 

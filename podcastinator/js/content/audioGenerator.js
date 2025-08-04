@@ -443,7 +443,8 @@ class AudioGenerator {
                     model: apiData.models.tts,
                     voice: voice,
                     input: text,
-                    response_format: 'wav' // Use uncompressed WAV instead of MP3
+                    response_format: 'wav', // Use uncompressed WAV instead of MP3
+                    language: apiData.models.scriptLanguage || 'english'
                 })
             });
             

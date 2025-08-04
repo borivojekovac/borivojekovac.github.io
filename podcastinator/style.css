@@ -496,6 +496,10 @@ input[type="file"] {
     background: var(--primary-dark);
 }
 
+.notification-info {
+    background: #3498db;
+}
+
 .notification-content {
     display: flex;
     align-items: center;

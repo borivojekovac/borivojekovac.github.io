@@ -1,5 +1,6 @@
 // Podcastor App - OpenAI API Manager
 import NotificationsManager from '../ui/notifications.js';
+import LanguageSupport from '../utils/languageSupport.js';
 
 class OpenAIManager {
     constructor(storageManager, contentStateManager) {
@@ -9,15 +10,20 @@ class OpenAIManager {
         
         // Load models data from storage
         const savedData = this.storageManager.load('data', {});
+        this.languageSupport = new LanguageSupport();
+        
         this.data = {
             apiKey: savedData.apiKey || '',
             models: savedData.models || {
                 // Default model selections based on recommendations from memory
                 outline: 'gpt-4o',          // GPT-4o recommended for outline generation
+                outlineVerify: 'o4-mini',    // o4-mini recommended for outline verification
                 script: 'gpt-4o',           // GPT-4o recommended for script generation
+                scriptVerify: 'o4-mini',     // o4-mini recommended for script verification
                 backstory: 'gpt-4o-mini',   // GPT-4o Mini recommended for character backstories
                 tts: 'tts-1',               // TTS-1 standard for text-to-speech
-                audioQuality: 'standard'     // Standard audio quality
+                audioQuality: 'standard',    // Standard audio quality
+                scriptLanguage: 'english'    // Default script language
             }
         };
     }
@@ -59,10 +65,13 @@ class OpenAIManager {
         const self = this;
         const modelSelectors = [
             'outline-model',
+            'outline-verify-model',
             'script-model', 
+            'script-verify-model',
             'backstory-model',
             'tts-model',
-            'audio-quality'
+            'audio-quality',
+            'script-language'
         ];
 
         modelSelectors.forEach(function(selectorId) {
@@ -82,6 +91,35 @@ class OpenAIManager {
             document.getElementById('backstory-model').value = this.data.models.backstory;
             document.getElementById('tts-model').value = this.data.models.tts;
             document.getElementById('audio-quality').value = this.data.models.audioQuality;
+            
+            // Set verification model selections if available
+            const outlineVerifyElement = document.getElementById('outline-verify-model');
+            if (outlineVerifyElement && this.data.models.outlineVerify) {
+                outlineVerifyElement.value = this.data.models.outlineVerify;
+            }
+            
+            const scriptVerifyElement = document.getElementById('script-verify-model');
+            if (scriptVerifyElement && this.data.models.scriptVerify) {
+                scriptVerifyElement.value = this.data.models.scriptVerify;
+            }
+            
+            // Set up language selector if it exists
+            const languageSelector = document.getElementById('script-language');
+            if (languageSelector) {
+                this.populateLanguageOptions(languageSelector);
+                languageSelector.value = this.data.models.scriptLanguage || 'english';
+            }
+        }
+        
+        // Add listener for TTS model changes to update language options
+        const ttsModelSelector = document.getElementById('tts-model');
+        if (ttsModelSelector) {
+            ttsModelSelector.addEventListener('change', function() {
+                const languageSelector = document.getElementById('script-language');
+                if (languageSelector) {
+                    self.populateLanguageOptions(languageSelector);
+                }
+            });
         }
     }
 
@@ -94,10 +132,13 @@ class OpenAIManager {
     
         const modelMap = {
             'outline-model': 'outline',
+            'outline-verify-model': 'outlineVerify',
             'script-model': 'script',
+            'script-verify-model': 'scriptVerify',
             'backstory-model': 'backstory', 
             'tts-model': 'tts',
-            'audio-quality': 'audioQuality'
+            'audio-quality': 'audioQuality',
+            'script-language': 'scriptLanguage'
         };
 
         const modelKey = modelMap[selectorId];
@@ -116,10 +157,13 @@ class OpenAIManager {
     
         const selectors = {
             'outline-model': 'outline',
+            'outline-verify-model': 'outlineVerify',
             'script-model': 'script',
+            'script-verify-model': 'scriptVerify',
             'backstory-model': 'backstory',
             'tts-model': 'tts',
-            'audio-quality': 'audioQuality'
+            'audio-quality': 'audioQuality',
+            'script-language': 'scriptLanguage'
         };
 
         Object.entries(selectors).forEach(([elementId, modelKey]) => {
@@ -227,6 +271,49 @@ class OpenAIManager {
             apiKey: this.data.apiKey,
             models: this.data.models
         };
+    }
+    
+    /**
+     * Populate language options in a select element based on current TTS model
+     * @param {HTMLSelectElement} selectElement - The select element to populate
+     */
+    populateLanguageOptions(selectElement) {
+    
+        if (!selectElement) {
+            return;
+        }
+        
+        // Clear existing options
+        selectElement.innerHTML = '';
+        
+        // Get current TTS model
+        const ttsModel = this.data.models.tts;
+        
+        // Get language options for this model
+        const languageOptions = this.languageSupport.getLanguageOptions(ttsModel);
+        
+        // Add options to select element
+        languageOptions.forEach(function addOption(option) {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.value;
+            optionElement.textContent = option.text;
+            selectElement.appendChild(optionElement);
+        });
+        
+        // Set current value if available
+        if (this.data.models.scriptLanguage) {
+            // Check if the current language is supported by the model
+            const isSupported = languageOptions.some(option => option.value === this.data.models.scriptLanguage);
+            
+            if (isSupported) {
+                selectElement.value = this.data.models.scriptLanguage;
+            } else {
+                // Default to English if current language not supported
+                selectElement.value = 'english';
+                this.data.models.scriptLanguage = 'english';
+                this.saveToStorage();
+            }
+        }
     }
     
     /**

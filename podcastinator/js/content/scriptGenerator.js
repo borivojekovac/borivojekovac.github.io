@@ -278,6 +278,90 @@ class ScriptGenerator {
                 await this.generateScriptOutro(characterData, apiData);
             }
             
+            // Update progress for script verification
+            this.progressManager.updateProgress('script-progress', 85);
+            
+            // Get document and outline data
+            const documentData = this.storageManager.load('data', {});
+            const outlineData = this.storageManager.load('outlineData', {});
+            const documentContent = documentData.document?.content || '';
+            
+            // Set up iterative verification and improvement
+            let currentScript = this.scriptData;
+            let isValid = false;
+            let feedback = '';
+            let iterationCount = 0;
+            const maxIterations = 3;
+            
+            // Iterative verification and improvement loop
+            while (!isValid && iterationCount < maxIterations) {
+                iterationCount++;
+                
+                // Show verification notification with iteration count
+                const verificationNotificationId = Date.now();
+                this.notifications.showInfo(`Verifying script quality (attempt ${iterationCount}/${maxIterations})...`, verificationNotificationId);
+                
+                // Verify the script
+                const verificationResult = await this.verifyScript(
+                    currentScript,
+                    outlineData.outline,
+                    documentContent,
+                    characterData,
+                    apiData
+                );
+                
+                // Clear the verification notification
+                this.notifications.clearNotification(verificationNotificationId);
+                
+                // Log verification feedback to console
+                this.logVerificationFeedback(`Script Verification (Iteration ${iterationCount})`, verificationResult);
+                
+                // Update status based on verification result
+                isValid = verificationResult.isValid;
+                feedback = verificationResult.feedback;
+                
+                // If still not valid and we haven't reached max iterations, improve the script
+                if (!isValid && iterationCount < maxIterations) {
+                    this.progressManager.updateProgress('script-progress', 85 + (iterationCount * 5));
+                    const improvementNotificationId = Date.now();
+                    this.notifications.showInfo(`Improving script (attempt ${iterationCount}/${maxIterations})...`, improvementNotificationId);
+                    
+                    // Attempt to improve the script
+                    const improvedScript = await this.improveScript(
+                        currentScript,
+                        feedback,
+                        outlineData.outline,
+                        documentContent,
+                        characterData,
+                        apiData
+                    );
+                    
+                    // Clear the improvement notification
+                    this.notifications.clearNotification(improvementNotificationId);
+                    
+                    if (improvedScript) {
+                        currentScript = improvedScript;
+                        this.notifications.showInfo(`Script improvement ${iterationCount} complete. Re-verifying...`);
+                    } else {
+                        // If improvement failed, break the loop
+                        break;
+                    }
+                }
+            }
+            
+            // Update the textarea with the final script
+            this.scriptTextarea.value = currentScript;
+            this.saveScriptData();
+            
+            // Show final status notification
+            if (isValid) {
+                this.notifications.showSuccess('Script verification successful!');
+            } else if (iterationCount >= maxIterations) {
+                this.notifications.showSuccess(`Script improved ${iterationCount} times. Best possible version achieved.`);
+            } else {
+                this.notifications.showSuccess('Script improvement complete.');
+            }
+            
             // Update state
             this.contentStateManager.updateState('hasScript', true);
             
@@ -310,11 +394,17 @@ class ScriptGenerator {
             const data = this.storageManager.load('data', {});
             const documentName = data.document?.name || 'this topic';
             
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
             // Build user prompt for introduction
             const userPrompt = `Generate a podcast introduction where the host welcomes the listeners and introduces the guest. 
 The topic of the podcast is "${documentName}".
 
 Remember this is the FIRST section of the podcast, so the host should be welcoming the listeners and introducing the guest for the first time.`;
+            
+            // Add language instruction to system prompt
+            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
             
             // Call OpenAI API
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -326,7 +416,7 @@ Remember this is the FIRST section of the podcast, so the host should be welcomi
                 body: JSON.stringify({
                     model: apiData.models.script,
                     messages: [
-                        { role: 'system', content: systemPrompt },
+                        { role: 'system', content: languageSystemPrompt },
                         { role: 'user', content: userPrompt }
                     ],
                     max_tokens: 1000,
@@ -390,6 +480,9 @@ Remember this is the FIRST section of the podcast, so the host should be welcomi
             // Build system prompt for section with document content
             const systemPrompt = this.buildSystemPrompt(characterData, isLastSection ? 'lastSection' : 'section', documentContent);
             
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
             // Build user prompt with conversation context
             let userPrompt = `Generate the podcast script for the topic: "${section.title}".
 
@@ -445,6 +538,9 @@ IMPORTANT: This is the FINAL section of the podcast. The host should begin wrapp
 This is NOT the final section. The conversation should feel ongoing and not conclude completely, as there are more sections to follow.`;
             }
             
+            // Add language instruction to system prompt
+            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            
             // Call OpenAI API
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
@@ -455,7 +551,7 @@ This is NOT the final section. The conversation should feel ongoing and not conc
                 body: JSON.stringify({
                     model: apiData.models.script,
                     messages: [
-                        { role: 'system', content: systemPrompt },
+                        { role: 'system', content: languageSystemPrompt },
                         { role: 'user', content: userPrompt }
                     ],
                     max_tokens: 2000,
@@ -519,6 +615,9 @@ This is NOT the final section. The conversation should feel ongoing and not conc
             // Build system prompt for outro
             const systemPrompt = this.buildSystemPrompt(characterData, 'outro');
             
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
             // Build user prompt for outro with previous dialogue for continuity
             let userPrompt = `Generate a podcast conclusion where the host thanks the guest and says goodbye to the listeners.`;
             
@@ -536,6 +635,9 @@ ${this.lastDialogueExchanges}
 4. Maintain the same speaking style and tone established above`;  
             }
             
+            // Add language instruction to system prompt
+            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            
             // Call OpenAI API
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
@@ -546,7 +648,7 @@ ${this.lastDialogueExchanges}
                 body: JSON.stringify({
                     model: apiData.models.script,
                     messages: [
-                        { role: 'system', content: systemPrompt },
+                        { role: 'system', content: languageSystemPrompt },
                         { role: 'user', content: userPrompt }
                     ],
                     max_tokens: 1000,
@@ -724,6 +826,21 @@ This concludes the podcast conversation:
 - Host provides closing remarks to the audience
 - Include a final sign-off line
 - Keep it concise and natural`;
+        } else if (partType === 'improvement') {
+            return `${basePrompt}
+            
+## Conversation Flow: Script Improvement
+
+You are improving an existing podcast script based on feedback:
+
+- Fix any issues mentioned in the feedback while maintaining the conversation flow
+- Keep the same characters and their personalities
+- Maintain the proper HOST: and GUEST: format for speakers
+- Ensure the dialogue sounds natural and engaging
+- Remove any redundancy or repetitiveness
+- Make sure the script follows the provided outline structure
+- Do NOT add any stage directions or descriptions in [brackets]
+- Produce a complete, improved version of the script that can be used as a drop-in replacement`;  
         } else if (partType === 'section') {
             return `${basePrompt}
             
@@ -962,6 +1079,273 @@ This is part of an ongoing podcast conversation:
         
         throw new Error(errorMessage);
     }
+    
+    /**
+     * Log verification feedback to console in a nicely formatted way
+     * @param {string} title - Title for the log group
+     * @param {Object} result - Verification result object with isValid and feedback properties
+     */
+    logVerificationFeedback(title, result) {
+    
+        // Create styled console output
+        const titleStyle = 'font-weight: bold; font-size: 14px; color: #3498db;';
+        const validStyle = result.isValid ? 'color: #2ecc71; font-weight: bold;' : 'color: #e74c3c; font-weight: bold;';
+        const feedbackStyle = 'color: #333; background: #f8f9fa; padding: 4px; border-left: 3px solid #3498db;';
+        
+        // Open a console group with the title
+        console.group(`%c${title}`, titleStyle);
+        
+        // Log the validation status
+        console.log(
+            `%cValidation: ${result.isValid ? 'PASSED ✅' : 'NEEDS IMPROVEMENT ⚠️'}`,
+            validStyle
+        );
+        
+        // Log the feedback with nice formatting
+        console.log('%cFeedback:', 'font-weight: bold;');
+        console.log(`%c${result.feedback}`, feedbackStyle);
+        
+        // Close the console group
+        console.groupEnd();
+    }
+    
+    /**
+     * Verify the generated script against the outline and target duration
+     * @param {string} scriptText - The generated script text
+     * @param {string} outlineText - Original outline content
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {Object} - Verification result with isValid flag and feedback
+     */
+    async verifyScript(scriptText, outlineText, documentContent, characterData, apiData) {
+    
+        try {
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.scriptVerify.toLowerCase();
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Create system prompt for verification
+            const systemPrompt = `You are a podcast script quality checker and fact verifier. Your job is to analyze a generated podcast script against the outline and original document content for:
+
+1. FACTUAL ACCURACY: Ensure all claims and information in the script are supported by the original document
+2. OUTLINE ADHERENCE: Ensure the script follows the structure and topics in the outline
+3. DURATION ACCURACY: Check if the script's length is appropriate for the target podcast duration
+4. REDUNDANCY CHECK: Identify any redundant content or repetitive dialogue
+5. CONVERSATIONAL FLOW: Verify that the dialogue feels natural and flows well between speakers
+6. CHARACTER CONSISTENCY: Ensure host and guest voices maintain consistent personalities
+
+Respond with a JSON object containing:
+- "isValid": true if the script meets quality criteria, false otherwise
+- "feedback": specific issues found (if isValid is false) or confirmation (if isValid is true)
+
+If the script is high quality and follows the outline well, respond with {"isValid": true, "feedback": "Script is well-structured and follows the outline appropriately."}`;
+            
+            // Parse outline to get duration and structure
+            const parsedOutline = this.parseOutlineSections(outlineText);
+            const targetDuration = this.totalPodcastDuration;
+            
+            // Build user prompt for verification
+            const userPrompt = `Please review this podcast script for quality and coherence against the outline and original document.
+
+Target Podcast Duration: ${targetDuration} minutes
+
+--- OUTLINE STRUCTURE ---
+${outlineText}
+
+--- GENERATED SCRIPT ---
+${scriptText}
+
+--- ORIGINAL DOCUMENT CONTENT ---
+${documentContent}
+
+Verify if this script is factually accurate (comparing to the document), follows the outline structure, maintains appropriate pacing for the target duration, avoids redundancy, and maintains good conversational flow. Respond in the required JSON format.`;
+            
+            // Prepare request body with model-specific parameters
+            const requestBody = {
+                model: apiData.models.scriptVerify,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ]
+            };
+            
+            // Handle model-specific parameters
+            if (isAnthropicStyle) {
+                //requestBody.max_completion_tokens = 1500;
+            } else {
+                //requestBody.max_tokens = 1500;
+                requestBody.temperature = 0.3; // Lower temperature for more consistent evaluation
+            }
+            
+            // Create API request
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiData.apiKey}`
+                },
+                body: JSON.stringify(requestBody)
+            });
+            
+            // Handle API response
+            if (!response.ok) {
+                console.error('Script verification failed:', response.status);
+                return { isValid: true, feedback: 'Verification skipped due to API error. Using original script.' };
+            }
+            
+            const data = await response.json();
+            const verificationText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.scriptVerify;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            // Parse verification result
+            try {
+                // Extract JSON from the response (handling cases where there might be text before/after JSON)
+                const jsonMatch = verificationText.match(/{[\s\S]*}/m);
+                if (jsonMatch) {
+                    const resultJson = JSON.parse(jsonMatch[0]);
+                    return {
+                        isValid: !!resultJson.isValid, // Ensure boolean
+                        feedback: resultJson.feedback || 'No specific feedback provided.'
+                    };
+                } else {
+                    // Fallback if no JSON found
+                    const isPositive = verificationText.toLowerCase().includes('valid') || 
+                                      verificationText.toLowerCase().includes('coherent') ||
+                                      verificationText.toLowerCase().includes('good');
+                    return {
+                        isValid: isPositive,
+                        feedback: verificationText.substring(0, 200) + '...'
+                    };
+                }
+            } catch (error) {
+                console.error('Error parsing verification result:', error);
+                // Default to assuming it's valid to avoid blocking workflow
+                return { isValid: true, feedback: 'Unable to parse verification result. Using original script.' };
+            }
+            
+        } catch (error) {
+            console.error('Error during script verification:', error);
+            // Default to assuming it's valid to avoid blocking workflow
+            return { isValid: true, feedback: 'Verification error. Using original script.' };
+        }
+    }
+    
+    /**
+     * Improve the script based on verification feedback
+     * @param {string} originalScriptText - The original script text
+     * @param {string} feedback - Feedback from verification
+     * @param {string} outlineText - Original outline content
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {string} - Improved script text
+     */
+    async improveScript(originalScriptText, feedback, outlineText, documentContent, characterData, apiData) {
+    
+        try {
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.script.toLowerCase(); // Use the main script generation model
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Create system prompt for improvement
+            const systemPrompt = this.buildSystemPrompt(characterData, 'improvement');
+            
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
+            // Build user prompt for improvement
+            const targetDuration = this.totalPodcastDuration;
+            const userPrompt = `Please improve this podcast script based on the feedback provided. The script has some issues that need to be addressed.
+
+Target Podcast Duration: ${targetDuration} minutes
+
+--- ORIGINAL SCRIPT ---
+${originalScriptText}
+
+--- FEEDBACK ON ISSUES ---
+${feedback}
+
+--- OUTLINE STRUCTURE ---
+${outlineText}
+
+--- ORIGINAL DOCUMENT CONTENT ---
+${documentContent}
+
+Please create an improved version of the script that addresses the feedback while maintaining the required format with proper HOST and GUEST speaker indicators. If the feedback mentions factual inaccuracies, PLEASE ENSURE the improved script contains ONLY information that is factually supported by the original document. Ensure the improved script follows the outline structure, avoids redundancy, and maintains appropriate length for the target duration.`;
+            
+            // Add language instruction to system prompt
+            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            
+            // Prepare request body with model-specific parameters
+            const requestBody = {
+                model: apiData.models.script,
+                messages: [
+                    { role: 'system', content: languageSystemPrompt },
+                    { role: 'user', content: userPrompt }
+                ]
+            };
+            
+            // Handle model-specific parameters
+            if (isAnthropicStyle) {
+                //requestBody.max_completion_tokens = 4000;
+            } else {
+                //requestBody.max_tokens = 4000;
+                requestBody.temperature = 0.7;
+            }
+            
+            // Create API request
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiData.apiKey}`
+                },
+                body: JSON.stringify(requestBody)
+            });
+            
+            // Handle API response
+            if (!response.ok) {
+                console.error('Script improvement failed:', response.status);
+                return originalScriptText; // Return original script if improvement fails
+            }
+            
+            const data = await response.json();
+            let improvedScriptText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.script;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            if (improvedScriptText) {
+                // Process the text to remove stage directions and ensure proper formatting
+                improvedScriptText = this.processScriptText(improvedScriptText);
+                return improvedScriptText;
+            } else {
+                return originalScriptText; // Return original script if improvement fails
+            }
+            
+        } catch (error) {
+            console.error('Error during script improvement:', error);
+            return originalScriptText; // Return original script if improvement fails
+        }
+    }
+
 }
 
 export default ScriptGenerator;

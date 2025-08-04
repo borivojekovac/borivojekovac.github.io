@@ -51,6 +51,22 @@
                                     <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k (16kt context)</option>
                                 </select>
                             </div>
+                            
+                            <div class="form-group">
+                                <label for="outline-verify-model">Outline Verification:</label>
+                                <select id="outline-verify-model">
+                                    <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
+                                    <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
+                                    <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
+                                    <option value="o3">OpenAI o3 (200kt context)</option>
+                                    <option value="o4-mini" selected>OpenAI o4-mini (200kt context)</option>
+                                    <option value="gpt-4o">GPT-4o (128kt context)</option>
+                                    <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
+                                    <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
+                                    <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k (16kt context)</option>
+                                </select>
+                                <small class="form-text">Used for fact checking and improving outlines</small>
+                            </div>
 
                             <div class="form-group">
                                 <label for="script-model">Script Generation:</label>
@@ -65,6 +81,22 @@
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
                                     <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k (16kt context)</option>
                                 </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="script-verify-model">Script Verification:</label>
+                                <select id="script-verify-model">
+                                    <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
+                                    <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
+                                    <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
+                                    <option value="o3">OpenAI o3 (200kt context)</option>
+                                    <option value="o4-mini" selected>OpenAI o4-mini (200kt context)</option>
+                                    <option value="gpt-4o">GPT-4o (128kt context)</option>
+                                    <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
+                                    <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
+                                    <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16k (16kt context)</option>
+                                </select>
+                                <small class="form-text">Used for checking and improving scripts</small>
                             </div>
 
                             <div class="form-group">
@@ -347,6 +379,13 @@
                 </h2>
                 <div class="section-content">
                     <div class="content-generator">
+                        <div class="form-group full-width">
+                            <label for="script-language">Script Language:</label>
+                            <select id="script-language" class="form-control">
+                                <!-- Options will be populated dynamically based on selected TTS model -->
+                            </select>
+                            <small class="form-text">Select the language for script generation. Only languages supported by the selected TTS model are shown.</small>
+                        </div>
                         <div class="form-group full-width">
                             <label for="script-text">Podcast Script:</label>
                             <div class="progress-container" id="script-progress" style="display: none;">
