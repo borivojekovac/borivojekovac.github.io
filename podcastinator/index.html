@@ -42,8 +42,8 @@
                                     <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
                                     <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
-                                    <option value="o3">OpenAI o3 (200kt context)</option>
-                                    <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
+                                    <option value="o3">o3 (200kt context)</option>
+                                    <option value="o4-mini">o4-mini (200kt context)</option>
                                     <option value="gpt-4o">GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini" selected>GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt contextxt)</option>
@@ -57,8 +57,8 @@
                                     <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
                                     <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
-                                    <option value="o3">OpenAI o3 (200kt context)</option>
-                                    <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
+                                    <option value="o3">o3 (200kt context)</option>
+                                    <option value="o4-mini">o4-mini (200kt context)</option>
                                     <option value="gpt-4o">GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini" selected>GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
@@ -72,8 +72,8 @@
                                     <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
                                     <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
-                                    <option value="o3">OpenAI o3 (200kt context)</option>
-                                    <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
+                                    <option value="o3">o3 (200kt context)</option>
+                                    <option value="o4-mini">o4-mini (200kt context)</option>
                                     <option value="gpt-4o" selected>GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
@@ -95,8 +95,8 @@
                                     <option value="gpt-4.1">GPT-4.1 (1Mt context)</option>
                                     <option value="gpt-4.1-mini" selected>GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
-                                    <option value="o3">OpenAI o3 (200kt context)</option>
-                                    <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
+                                    <option value="o3">o3 (200kt context)</option>
+                                    <option value="o4-mini">o4-mini (200kt context)</option>
                                     <option value="gpt-4o">GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
@@ -110,8 +110,8 @@
                                     <option value="gpt-4.1" selected>GPT-4.1 (1Mt context)</option>
                                     <option value="gpt-4.1-mini">GPT-4.1 mini (1Mt context)</option>
                                     <option value="gpt-4.1-nano">GPT-4.1 nano (1Mt context)</option>
-                                    <option value="o3">OpenAI o3 (200kt context)</option>
-                                    <option value="o4-mini">OpenAI o4-mini (200kt context)</option>
+                                    <option value="o3">o3 (200kt context)</option>
+                                    <option value="o4-mini">o4-mini (200kt context)</option>
                                     <option value="gpt-4o">GPT-4o (128kt context)</option>
                                     <option value="gpt-4o-mini">GPT-4o mini (128kt context)</option>
                                     <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4kt context)</option>
@@ -145,10 +145,10 @@
             <section id="upload-section" class="workflow-section disabled">
                 <h2>
                     <span class="step-number">2</span>
-                    Document Upload
+                    Podcast Contents
                 </h2>
                 <div class="section-content">
-                    <p>Upload your document (Plain Text or Markdown only)</p>
+                    <p>Upload your document and configure podcast settings</p>
                     <div class="upload-area" id="upload-area">
                         <!-- Upload placeholder - shown by default -->
                         <div class="upload-placeholder" id="upload-placeholder">
@@ -178,11 +178,18 @@
                         </div>
                     </div>
                     
+                    
+                    <!-- Podcast Configuration -->
+                    <div class="form-group full-width" style="margin-top: 20px;">
+                        <label for="podcast-focus">Podcast Focus / Steer (optional)</label>
+                        <textarea id="podcast-focus" rows="3" placeholder="Leave empty to focus on full document"></textarea>
+                    </div>
+                    
                     <!-- Action Buttons -->
                     <div class="form-actions">
                         <div class="spacer"></div>
                         <button id="browse-file" class="btn-primary hidden">Browse</button>
-                        <button id="change-document" class="btn-primary hidden">Change</button>
+                        <button id="change-document" class="btn-primary hidden">Clear Document</button>
                     </div>
                 </div>
             </section>
@@ -377,10 +384,6 @@
                         <div class="form-group full-width">
                             <label for="podcast-duration">Target Duration (minutes)</label>
                             <input type="number" id="podcast-duration" value="30" min="5" max="180" step="5" />
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="podcast-focus">Podcast Focus / Steer (optional)</label>
-                            <input type="text" id="podcast-focus" placeholder="Leave empty to focus on full document" />
                         </div>
                         
                         <div class="form-group full-width">

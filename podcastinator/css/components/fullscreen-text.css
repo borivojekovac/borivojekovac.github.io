@@ -5,11 +5,17 @@
   position: relative;
 }
 
+/* Apply consistent positioning to textareas in the container */
+.fullscreen-control-container textarea {
+  display: block;
+  width: 100%;
+}
+
 /* Fullscreen toggle button styling */
 .fullscreen-toggle {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 8px; /* Fixed distance from top of textarea */
+  right: 8px; /* Fixed distance from right of textarea */
   width: 24px;
   height: 24px;
   background: var(--primary-dark);
@@ -22,6 +28,8 @@
   justify-content: center;
   transition: var(--transition);
   opacity: 0.6;
+  margin: 0;
+  padding: 0;
 }
 
 .fullscreen-toggle:hover {

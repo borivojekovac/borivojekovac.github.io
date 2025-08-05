@@ -288,7 +288,7 @@ class ScriptGenerator {
                 await this.generateScriptOutro(characterData, apiData);
             }
             
-            // Update progress for script verification
+            // Update progress for final script verification
             this.progressManager.updateProgress('script-progress', 85);
             
             // Get document and outline data
@@ -296,81 +296,61 @@ class ScriptGenerator {
             const outlineData = this.storageManager.load('outlineData', {});
             const documentContent = documentData.document?.content || '';
             
-            // Set up iterative verification and improvement
-            let currentScript = this.scriptData;
-            let isValid = false;
-            let feedback = '';
-            let iterationCount = 0;
-            const maxIterations = 3;
+            // Perform lightweight final review focusing on cross-section issues
+            const finalReviewNotificationId = Date.now();
+            this.notifications.showInfo('Performing final cross-section review...', finalReviewNotificationId);
             
-            // Iterative verification and improvement loop
-            while (!isValid && iterationCount < maxIterations) {
-                iterationCount++;
+            // Call a modified version of verifyScript that focuses on cross-section issues
+            const finalVerificationResult = await this.verifyScriptForCrossSectionIssues(
+                this.scriptData,
+                outlineData.outline,
+                documentContent,
+                characterData,
+                apiData
+            );
+            
+            // Clear the verification notification
+            this.notifications.clearNotification(finalReviewNotificationId);
+            
+            // Log verification feedback
+            this.logVerificationFeedback('Final Cross-Section Review', finalVerificationResult);
+            
+            // If issues found, do one final improvement focused on cross-section fixes
+            let finalScript = this.scriptData;
+            if (!finalVerificationResult.isValid) {
+                this.progressManager.updateProgress('script-progress', 90);
+                const improvementNotificationId = Date.now();
+                this.notifications.showInfo('Applying final cross-section improvements...', improvementNotificationId);
                 
-                // Show verification notification with iteration count
-                const verificationNotificationId = Date.now();
-                this.notifications.showInfo(`Verifying script quality (attempt ${iterationCount}/${maxIterations})...`, verificationNotificationId);
-                
-                // Verify the script
-                const verificationResult = await this.verifyScript(
-                    currentScript,
+                // Attempt to improve the script with focus on cross-section issues
+                const improvedScript = await this.improveCrossSectionIssues(
+                    finalScript,
+                    finalVerificationResult.feedback,
                     outlineData.outline,
                     documentContent,
                     characterData,
                     apiData
                 );
                 
-                // Clear the verification notification
-                this.notifications.clearNotification(verificationNotificationId);
+                // Clear the improvement notification
+                this.notifications.clearNotification(improvementNotificationId);
                 
-                // Log verification feedback to console
-                this.logVerificationFeedback(`Script Verification (Iteration ${iterationCount})`, verificationResult);
-                
-                // Update status based on verification result
-                isValid = verificationResult.isValid;
-                feedback = verificationResult.feedback;
-                
-                // If still not valid and we haven't reached max iterations, improve the script
-                if (!isValid && iterationCount < maxIterations) {
-                    this.progressManager.updateProgress('script-progress', 85 + (iterationCount * 5));
-                    const improvementNotificationId = Date.now();
-                    this.notifications.showInfo(`Improving script (attempt ${iterationCount}/${maxIterations})...`, improvementNotificationId);
-                    
-                    // Attempt to improve the script
-                    const improvedScript = await this.improveScript(
-                        currentScript,
-                        feedback,
-                        outlineData.outline,
-                        documentContent,
-                        characterData,
-                        apiData
-                    );
-                    
-                    // Clear the improvement notification
-                    this.notifications.clearNotification(improvementNotificationId);
-                    
-                    if (improvedScript) {
-                        currentScript = improvedScript;
-                        this.notifications.showInfo(`Script improvement ${iterationCount} complete. Re-verifying...`);
-                    } else {
-                        // If improvement failed, break the loop
-                        break;
-                    }
+                if (improvedScript) {
+                    finalScript = improvedScript;
+                    this.notifications.showInfo('Cross-section improvements applied successfully.');
                 }
+            } else {
+                this.notifications.showInfo('Final review passed with no cross-section issues found.');
             }
             
             // Update the textarea with the final script
-            this.scriptTextarea.value = currentScript;
+            this.scriptTextarea.value = finalScript;
             this.saveScriptData();
             
             // Show final status notification
-            if (isValid) {
-                this.notifications.showSuccess('Script verification successful!');
-            } else if (iterationCount >= maxIterations) {
-                this.notifications.showSuccess(`Script improved ${iterationCount} times. Best possible version achieved.`);
-            } else {
-                this.notifications.showSuccess('Script improvement complete.');
-            }
+            this.notifications.showSuccess('Script generation and verification complete!');
+            
+            this.progressManager.updateProgress('script-progress', 95);
             
             // Update state
             this.contentStateManager.updateState('hasScript', true);
@@ -394,6 +374,33 @@ class ScriptGenerator {
      * @param {Object} characterData - Host and guest character data
      * @param {Object} apiData - API credentials and model data
      */
+    /**
+     * Build user prompt for script introduction
+     * @param {Object} data - Document data
+     * @param {Object} outlineData - Outline data
+     * @returns {string} - User prompt for introduction
+     */
+    buildIntroUserPrompt(data, outlineData) {
+    
+        const documentName = data.document?.name || 'this topic';
+        
+        return `Generate a podcast introduction where the host welcomes the listeners and introduces the guest. 
+The topic of the podcast is "${documentName}".
+
+Remember this is the FIRST section of the podcast, so the host should be welcoming the listeners and introducing the guest for the first time.`;
+    }
+    
+    /**
+     * Add language instruction to system prompt
+     * @param {string} systemPrompt - Base system prompt
+     * @param {string} language - Script language
+     * @returns {string} - System prompt with language instruction
+     */
+    addLanguageInstruction(systemPrompt, language) {
+    
+        return `${systemPrompt}\n\nGenerate the script in ${language} language.`;
+    }
+    
     async generateScriptIntro(characterData, apiData) {
     
         try {
@@ -403,44 +410,37 @@ class ScriptGenerator {
             // Get document data
             const data = this.storageManager.load('data', {});
             const outlineData = this.storageManager.load('outlineData', {});
-            const documentName = data.document?.name || 'this topic';
-            const podcastFocus = outlineData.podcastFocus || '';
             
             // Get language setting
             const scriptLanguage = apiData.models.scriptLanguage || 'english';
             
             // Build user prompt for introduction
-            const userPrompt = `Generate a podcast introduction where the host welcomes the listeners and introduces the guest. 
-The topic of the podcast is "${documentName}".
-
-Remember this is the FIRST section of the podcast, so the host should be welcoming the listeners and introducing the guest for the first time.`;
+            const userPrompt = this.buildIntroUserPrompt(data, outlineData);
             
             // Add language instruction to system prompt
-            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            const languageSystemPrompt = this.addLanguageInstruction(systemPrompt, scriptLanguage);
             
-            // Call OpenAI API
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify({
-                    model: apiData.models.script,
-                    messages: [
-                        { role: 'system', content: languageSystemPrompt },
-                        { role: 'user', content: userPrompt }
-                    ],
-                    max_tokens: 1000,
-                    temperature: 0.7
-                })
-            });
+            // Create message array
+            const messages = [
+                { role: 'system', content: languageSystemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
             
-            if (!response.ok) {
-                this.handleApiError(response);
-            }
+            // Configure options
+            const options = {
+                maxTokens: 1000,
+                temperature: 0.7
+            };
             
-            const responseData = await response.json();
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.script,
+                messages,
+                options
+            );
+            
+            // generateScriptIntro: Call OpenAI API with retry logic
+            const responseData = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
             const introText = responseData.choices[0]?.message?.content?.trim();
             
             // Track token usage if available
@@ -481,24 +481,16 @@ Remember this is the FIRST section of the podcast, so the host should be welcomi
      * @param {Object} apiData - API credentials and model data
      * @param {boolean} isLastSection - Whether this is the final section
      */
-    async generateScriptSection(section, characterData, apiData, isLastSection = false) {
+    /**
+     * Build user prompt for script section
+     * @param {Object} section - Section data from outline
+     * @param {Object} data - Document data
+     * @param {boolean} isLastSection - Whether this is the last section
+     * @returns {string} - User prompt for section
+     */
+    buildScriptSectionUserPrompt(section, data, isLastSection) {
     
-        try {
-            // Get the full document content first
-            const data = this.storageManager.load('data', {});
-            const outlineData = this.storageManager.load('outlineData', {});
-            const documentContent = data.document?.content || '';
-            const documentName = data.document?.name || 'this document';
-            const podcastFocus = outlineData.podcastFocus || '';
-            
-            // Build system prompt for section with document content
-            const systemPrompt = this.buildSystemPrompt(characterData, isLastSection ? 'lastSection' : 'section', documentContent);
-            
-            // Get language setting
-            const scriptLanguage = apiData.models.scriptLanguage || 'english';
-            
-            // Build user prompt with conversation context
-            let userPrompt = `Generate the podcast script for the topic: "${section.title}".
+        let userPrompt = `Generate the podcast script for the topic: "${section.title}".
 
 Overview: ${section.overview}
 
@@ -507,17 +499,17 @@ Target Duration: ${section.durationMinutes} minutes
 Full outline section:
 ${section.content}
 `;
-            
-            // Add information about total podcast duration for context
-            if (this.totalPodcastDuration) {
-                userPrompt += `
+        
+        // Add information about total podcast duration for context
+        if (this.totalPodcastDuration) {
+            userPrompt += `
 This section should be approximately ${section.durationMinutes} minutes long out of the total ${this.totalPodcastDuration} minute podcast. Adjust the depth and detail accordingly.
 `;
-            }
-            
-            // Add conversation context for continuity if we have previous dialogue
-            if (this.lastDialogueExchanges) {
-                userPrompt += `
+        }
+        
+        // Add conversation context for continuity if we have previous dialogue
+        if (this.lastDialogueExchanges) {
+            userPrompt += `
 
 ## Previous Dialogue (Continue DIRECTLY from here)
 ${this.lastDialogueExchanges}
@@ -529,15 +521,15 @@ ${this.lastDialogueExchanges}
 4. NEVER have the guest thank the host for introducing them
 5. Maintain the same speaking style and tone established above
 6. This is NOT a new podcast - it's the SAME ongoing conversation`;
-            } else {
-                userPrompt += `
+        } else {
+            userPrompt += `
 
 This is the first content section of the podcast. The host should transition naturally from the introduction to this topic without restarting the conversation.`;
-            }
-            
-            // Add enhanced continuity instructions with topic-specific guidance
-            if (this.topicsSummary) {
-                userPrompt += `
+        }
+        
+        // Add enhanced continuity instructions with topic-specific guidance
+        if (this.topicsSummary) {
+            userPrompt += `
 
 ## PREVIOUS TOPICS COVERED:
 ${this.topicsSummary}
@@ -554,10 +546,10 @@ ${this.topicsSummary}
    - "We touched on [topic] earlier, but there's another aspect worth exploring..."
    - "Building on our discussion of [topic], another interesting consideration is..."
 5. For any topics listed in CARRYOVER for this section, explicitly connect to previous discussion`;
-            }
-            
-            // Enhance the section-specific content guidance
-            userPrompt += `
+        }
+        
+        // Enhance the section-specific content guidance
+        userPrompt += `
 
 ## FOCUS FOR THIS SECTION:
 Title: ${section.title}
@@ -571,44 +563,62 @@ ${this.extractUniqueFocus(section.content)}
 
 CARRYOVER:
 ${this.extractCarryover(section.content)}`;
-            
-            if (isLastSection) {
-                userPrompt += `
+        
+        if (isLastSection) {
+            userPrompt += `
 
 IMPORTANT: This is the FINAL section of the podcast. The host should begin wrapping up the conversation and provide a sense of closure. Include some concluding thoughts, but the actual formal goodbye will be in a separate outro.`;
-            } else {
-                userPrompt += `
+        } else {
+            userPrompt += `
 
 This is NOT the final section. The conversation should feel ongoing and not conclude completely, as there are more sections to follow.`;
-            }
+        }
+        
+        return userPrompt;
+    }
+    
+    async generateScriptSection(section, characterData, apiData, isLastSection = false) {
+    
+        try {
+            // Get the full document content first
+            const data = this.storageManager.load('data', {});
+            const outlineData = this.storageManager.load('outlineData', {});
+            const documentContent = data.document?.content || '';
+            
+            // Build system prompt for section with document content
+            const systemPrompt = this.buildSystemPrompt(characterData, isLastSection ? 'lastSection' : 'section', documentContent);
+            
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
+            // Build user prompt with conversation context
+            const userPrompt = this.buildScriptSectionUserPrompt(section, data, isLastSection);
             
             // Add language instruction to system prompt
-            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            const languageSystemPrompt = this.addLanguageInstruction(systemPrompt, scriptLanguage);
             
-            // Call OpenAI API
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify({
-                    model: apiData.models.script,
-                    messages: [
-                        { role: 'system', content: languageSystemPrompt },
-                        { role: 'user', content: userPrompt }
-                    ],
-                    max_tokens: 2000,
-                    temperature: 0.7
-                })
-            });
+            // Create message array
+            const messages = [
+                { role: 'system', content: languageSystemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
             
-            if (!response.ok) {
-                this.handleApiError(response);
-            }
+            // Configure options
+            const options = {
+                maxTokens: 2000,
+                temperature: 0.7
+            };
             
-            const responseData = await response.json();
-            const sectionText = responseData.choices[0]?.message?.content?.trim();
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.script,
+                messages,
+                options
+            );
+            
+            // generateScriptSection: Call OpenAI API with retry logic
+            const responseData = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            let sectionText = responseData.choices[0]?.message?.content?.trim();
             
             // Track token usage if available
             if (responseData.usage) {
@@ -622,20 +632,74 @@ This is NOT the final section. The conversation should feel ongoing and not conc
             
             if (sectionText) {
                 // Process the text to remove stage directions and ensure proper formatting
-                const processedText = this.processScriptText(sectionText);
+                sectionText = this.processScriptText(sectionText);
+                
+                // Previous sections for context in verification
+                const previousSections = [...this.generatedSections]; // Copy current sections before adding this one
+                
+                // Perform section verification
+                const verificationNotificationId = Date.now();
+                this.notifications.showInfo(`Verifying section ${section.number} quality...`, verificationNotificationId);
+                
+                const verificationResult = await this.verifyScriptSection(
+                    sectionText,
+                    section,
+                    previousSections,
+                    documentContent,
+                    characterData,
+                    apiData
+                );
+                
+                // Clear the verification notification
+                this.notifications.clearNotification(verificationNotificationId);
+                
+                // Log verification feedback to console
+                this.logVerificationFeedback(`Section ${section.number} Verification`, verificationResult);
+                
+                // If section needs improvement, try to improve it
+                let finalSectionText = sectionText;
+                if (!verificationResult.isValid) {
+                    // Show improvement notification
+                    const improvementNotificationId = Date.now();
+                    this.notifications.showInfo(`Improving section ${section.number}...`, improvementNotificationId);
+                    
+                    // Attempt to improve the section
+                    const improvedSection = await this.improveScriptSection(
+                        sectionText,
+                        verificationResult.feedback,
+                        section,
+                        previousSections,
+                        documentContent,
+                        characterData,
+                        apiData
+                    );
+                    
+                    // Clear the improvement notification
+                    this.notifications.clearNotification(improvementNotificationId);
+                    
+                    if (improvedSection) {
+                        finalSectionText = improvedSection;
+                        this.notifications.showInfo(`Section ${section.number} improved based on feedback.`);
+                    } else {
+                        this.notifications.showInfo(`Section ${section.number} could not be improved, using original.`);
+                    }
+                } else {
+                    this.notifications.showInfo(`Section ${section.number} verification passed.`);
+                }
                 
                 // Store this section for summary generation
                 this.generatedSections.push({
                     number: section.number,
                     title: section.title,
-                    content: processedText
+                    content: finalSectionText,
+                    verificationResult: verificationResult
                 });
                 
                 // Store the last dialogue exchanges for continuity
-                this.lastDialogueExchanges = this.extractLastExchanges(processedText, 2); // Get last 2 exchanges
+                this.lastDialogueExchanges = this.extractLastExchanges(finalSectionText, 2); // Get last 2 exchanges
                 
                 // Add section content (no separators needed for TTS processing)
-                this.appendToScript(processedText);
+                this.appendToScript(finalSectionText);
                 
                 // Save to storage
                 this.saveScriptData();
@@ -653,25 +717,17 @@ This is NOT the final section. The conversation should feel ongoing and not conc
      * @param {Object} characterData - Host and guest character data
      * @param {Object} apiData - API credentials and model data
      */
-    async generateScriptOutro(characterData, apiData) {
+    /**
+     * Build user prompt for script outro
+     * @returns {string} - User prompt for outro
+     */
+    buildOutroUserPrompt() {
     
-        try {
-            // Build system prompt for outro
-            const systemPrompt = this.buildSystemPrompt(characterData, 'outro');
-            
-            // Get document and outline data
-            const outlineData = this.storageManager.load('outlineData', {});
-            const podcastFocus = outlineData.podcastFocus || '';
-            
-            // Get language setting
-            const scriptLanguage = apiData.models.scriptLanguage || 'english';
-            
-            // Build user prompt for outro with previous dialogue for continuity
-            let userPrompt = `Generate a podcast conclusion where the host thanks the guest and says goodbye to the listeners.`;
-            
-            // Add previous dialogue exchanges if available to maintain continuity
-            if (this.lastDialogueExchanges) {
-                userPrompt = `Continue the podcast conversation to a natural conclusion where the host thanks the guest and says goodbye to the listeners.
+        let userPrompt = `Generate a podcast conclusion where the host thanks the guest and says goodbye to the listeners.`;
+        
+        // Add previous dialogue exchanges if available to maintain continuity
+        if (this.lastDialogueExchanges) {
+            userPrompt = `Continue the podcast conversation to a natural conclusion where the host thanks the guest and says goodbye to the listeners.
 
 ## Previous Dialogue (Continue DIRECTLY from here)
 ${this.lastDialogueExchanges}
@@ -681,34 +737,47 @@ ${this.lastDialogueExchanges}
 2. This is the END of the same ongoing conversation - NOT a new segment
 3. Naturally transition to closing remarks and goodbyes
 4. Maintain the same speaking style and tone established above`;  
-            }
+        }
+        
+        return userPrompt;
+    }
+    
+    async generateScriptOutro(characterData, apiData) {
+    
+        try {
+            // Build system prompt for outro
+            const systemPrompt = this.buildSystemPrompt(characterData, 'outro');
+            
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
+            // Build user prompt for outro with previous dialogue for continuity
+            const userPrompt = this.buildOutroUserPrompt();
             
             // Add language instruction to system prompt
-            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            const languageSystemPrompt = this.addLanguageInstruction(systemPrompt, scriptLanguage);
             
-            // Call OpenAI API
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify({
-                    model: apiData.models.script,
-                    messages: [
-                        { role: 'system', content: languageSystemPrompt },
-                        { role: 'user', content: userPrompt }
-                    ],
-                    max_tokens: 1000,
-                    temperature: 0.7
-                })
-            });
+            // Create message array
+            const messages = [
+                { role: 'system', content: languageSystemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
             
-            if (!response.ok) {
-                this.handleApiError(response);
-            }
+            // Configure options
+            const options = {
+                maxTokens: 1000,
+                temperature: 0.7
+            };
             
-            const responseData = await response.json();
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.script,
+                messages,
+                options
+            );
+            
+            // generateScriptOutro: Call OpenAI API with retry logic
+            const responseData = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
             const outroText = responseData.choices[0]?.message?.content?.trim();
             
             if (outroText) {
@@ -753,7 +822,7 @@ ${this.lastDialogueExchanges}
 ${host.personality ? `- **Personality**: ${host.personality}` : ''}
 ${host.backstory ? `- **Backstory**: 
 
-\`\`\`
+\`\`\`markdown
 ${host.backstory}
 \`\`\`` : ''}
 
@@ -761,7 +830,7 @@ ${host.backstory}
 ${guest.personality ? `- **Personality**: ${guest.personality}` : ''}
 ${guest.backstory ? `- **Backstory**: 
 
-\`\`\`
+\`\`\`markdown
 ${guest.backstory}
 \`\`\`` : ''}
 
@@ -789,7 +858,7 @@ ${podcastFocus}
 
 ## Document Content (Only the GUEST has knowledge of this information)
 
-\`\`\`
+\`\`\`markdown
 ${truncatedDoc}
 \`\`\``;
         }
@@ -825,7 +894,7 @@ ${this.getPersonalityDescription(guest.personality)}
 
 ## Example Mid-Conversation Output Format
 
-\`\`\`
+\`\`\`markdown
 ---
 HOST:
 I find that perspective on the data really insightful. It makes me wonder about the implications for future development in this area.
@@ -1030,19 +1099,14 @@ This is part of an ongoing podcast conversation:
      * Update conversation summary for context in next section
      * @param {Object} apiData - API credentials and model data
      */
-    async updateConversationSummary(apiData) {
+    /**
+     * Build conversation summary prompt
+     * @param {Object} lastSection - Last generated section
+     * @returns {string} - Prompt for conversation summarization
+     */
+    buildConversationSummaryPrompt(lastSection) {
     
-        try {
-            // If we don't have any generated sections yet, skip
-            if (this.generatedSections.length === 0) {
-                return;
-            }
-            
-            // Get the most recent section
-            const lastSection = this.generatedSections[this.generatedSections.length - 1];
-            
-            // Enhanced prompt for structured summarization
-            const prompt = `Analyze the following podcast conversation section and create a structured summary:
+        return `Analyze the following podcast conversation section and create a structured summary:
 
 1. GENERAL SUMMARY: Brief overview of the conversation (max 50 words)
 
@@ -1068,32 +1132,44 @@ This summary will be used to maintain continuity in an ongoing podcast, so be sp
 
 Conversation Section:
 ${lastSection.content}`;
-            
-            // Call OpenAI API for summarization
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify({
-                    model: apiData.models.outline, // Using outline model for summarization
-                    messages: [
-                        { role: 'system', content: 'You are a structured analyzer of podcast conversations, creating detailed topic summaries to prevent redundancy in future sections.' },
-                        { role: 'user', content: prompt }
-                    ],
-                    max_tokens: 300,
-                    temperature: 0.5
-                })
-            });
-            
-            if (!response.ok) {
-                // Just log the error but don't fail the whole process
-                console.error('Failed to generate section summary');
+    }
+    
+    async updateConversationSummary(apiData) {
+    
+        try {
+            // If we don't have any generated sections yet, skip
+            if (this.generatedSections.length === 0) {
                 return;
             }
             
-            const responseData = await response.json();
+            // Get the most recent section
+            const lastSection = this.generatedSections[this.generatedSections.length - 1];
+            
+            // Enhanced prompt for structured summarization
+            const prompt = this.buildConversationSummaryPrompt(lastSection);
+            
+            // Create message array
+            const messages = [
+                { role: 'system', content: 'You are a structured analyzer of podcast conversations, creating detailed topic summaries to prevent redundancy in future sections.' },
+                { role: 'user', content: prompt }
+            ];
+            
+            // Configure options
+            const options = {
+                maxTokens: 300,
+                temperature: 0.5
+            };
+            
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.outline, // Using outline model for summarization
+                messages,
+                options
+            );
+            
+            // updateConversationSummary: Call OpenAI API for summarization with retry logic
+            const responseData = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            
             const summary = responseData.choices[0]?.message?.content?.trim();
             
             // Track token usage if available
@@ -1242,6 +1318,275 @@ ${lastSection.content}`;
     }
     
     /**
+     * Verify a single script section against its outline section and requirements
+     * @param {string} sectionText - The generated section text
+     * @param {Object} section - The outline section data
+     * @param {Array} previousSections - Array of previously generated sections
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {Object} - Verification result with isValid flag and feedback
+     */
+    async verifyScriptSection(sectionText, section, previousSections, documentContent, characterData, apiData) {
+    
+        try {
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.scriptVerify.toLowerCase();
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Create system prompt for section verification
+            const systemPrompt = `You are a podcast script section quality checker. Your job is to analyze a generated podcast script section against its outline section and requirements for:
+
+1. FACTUAL ACCURACY: Ensure all claims and information in this section are supported by the original document
+2. SECTION FOCUS: Verify the section covers the specific topics outlined for it
+3. CONTINUITY: Check that references to previous sections are appropriate and acknowledge prior discussion
+4. REDUNDANCY CHECK: Identify any redundant content within this section
+5. CONVERSATIONAL FLOW: Verify that the dialogue feels natural and flows well between speakers
+6. CHARACTER CONSISTENCY: Ensure host and guest voices maintain consistent personalities
+
+Respond with a JSON object containing:
+- "isValid": true if the section meets quality criteria, false otherwise
+- "feedback": specific issues found (if isValid is false) or confirmation (if isValid is true)
+- "redundancyIssues": array of specific redundancy problems (empty if none found)`;            
+            
+            // Format previously covered topics for continuity checking
+            let previousTopics = '';
+            if (previousSections && previousSections.length > 0) {
+                previousTopics = previousSections.map(prevSection => 
+                    `Section ${prevSection.number}: ${prevSection.title}`
+                ).join('\n');
+            }
+            
+            // Build user prompt for verification
+            const userPrompt = `Please review this podcast script section for quality and coherence.
+
+--- SECTION INFORMATION ---
+Section Number: ${section.number}
+Section Title: ${section.title}
+Section Focus: ${section.overview || 'Not specified'}
+
+--- SECTION CONTENT FROM OUTLINE ---
+${section.content || 'Not specified'}
+
+${previousSections.length > 0 ? '--- PREVIOUSLY COVERED TOPICS ---\n' + previousTopics + '\n\n' : ''}
+--- GENERATED SECTION SCRIPT ---
+${sectionText}
+
+--- RELEVANT DOCUMENT CONTENT ---
+${documentContent}
+
+Verify if this section is factually accurate (comparing to the document), follows the outline structure for this specific section, maintains good conversational flow, and properly references previous sections when appropriate. Respond in the required JSON format.`;
+            
+            // Create messages array
+            const messages = [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
+            
+            // Configure options with lower temperature for consistent evaluation
+            const options = {
+                temperature: 0.3
+            };
+            
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.scriptVerify,
+                messages,
+                options
+            );
+            
+            // verifyScriptSection: Create API request
+            let data;
+            try {
+                data = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Section verification failed:', error);
+                return { isValid: true, feedback: 'Verification skipped due to API error. Using original section.' };
+            }
+            const verificationText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.scriptVerify;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            // Parse verification result
+            try {
+                // Extract JSON from the response (handling cases where there might be text before/after JSON)
+                const jsonMatch = verificationText.match(/{[\s\S]*}/m);
+                if (jsonMatch) {
+                    const resultJson = JSON.parse(jsonMatch[0]);
+                    return {
+                        isValid: !!resultJson.isValid, // Ensure boolean
+                        feedback: resultJson.feedback || 'No specific feedback provided.'
+                    };
+                } else {
+                    // Fallback if no JSON found
+                    const isPositive = verificationText.toLowerCase().includes('valid') || 
+                                      verificationText.toLowerCase().includes('coherent') ||
+                                      verificationText.toLowerCase().includes('good');
+                    return {
+                        isValid: isPositive,
+                        feedback: verificationText.substring(0, 200) + '...'
+                    };
+                }
+            } catch (error) {
+                console.error('Error parsing section verification result:', error);
+                // Default to assuming it's valid to avoid blocking workflow
+                return { isValid: true, feedback: 'Unable to parse verification result. Using original section.' };
+            }
+            
+        } catch (error) {
+            console.error('Error during section verification:', error);
+            // Default to assuming it's valid to avoid blocking workflow
+            return { isValid: true, feedback: 'Verification error. Using original section.' };
+        }
+    }
+    
+    /**
+     * Improve a single script section based on verification feedback
+     * @param {string} sectionText - The original section text
+     * @param {string} feedback - Feedback from verification
+     * @param {Object} section - The outline section data
+     * @param {Array} previousSections - Array of previously generated sections
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {string} - Improved section text
+     */
+    async improveScriptSection(sectionText, feedback, section, previousSections, documentContent, characterData, apiData) {
+    
+        try {
+            // Calculate original section length to ensure we maintain comparable size
+            const originalSectionLength = sectionText.length;
+            console.log(`Original section length: ${originalSectionLength} characters`);
+            
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.script.toLowerCase(); // Use the main script generation model
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Format previously covered topics for continuity checking
+            let previousTopics = '';
+            if (previousSections && previousSections.length > 0) {
+                previousTopics = previousSections.map(prevSection => 
+                    `Section ${prevSection.number}: ${prevSection.title}`
+                ).join('\n');
+            }
+            
+            // Create enhanced system prompt for improvement with clear preservation instructions
+            const systemPrompt = `You are a podcast script section editor. Your task is to improve a specific section of a podcast script based on feedback, while maintaining the section's character voices and natural flow.
+
+IMPORTANT INSTRUCTIONS FOR SECTION IMPROVEMENT:
+
+1. MAKE TARGETED CHANGES ONLY - Address the specific issues mentioned in the feedback.
+
+2. PRESERVE ORIGINAL STYLE - Keep the conversational tone and character voices consistent.
+
+3. MAINTAIN EQUIVALENT LENGTH - Your response MUST be approximately the same length as the original section.
+
+4. PRESERVE DETAILED DIALOGUE - Keep the same level of conversational detail and depth.
+
+5. PRESERVE FORMAT - Maintain HOST/GUEST speaker identifiers and dialogue structure.`;
+            
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
+            // Build user prompt for targeted improvement
+            const userPrompt = `I have a section of a podcast script that needs targeted improvements based on specific feedback.
+
+--- SECTION INFORMATION ---
+Section Number: ${section.number}
+Section Title: ${section.title}
+Section Focus: ${section.overview || 'Not specified'}
+
+--- SECTION CONTENT FROM OUTLINE ---
+${section.content || 'Not specified'}
+
+${previousSections.length > 0 ? '--- PREVIOUSLY COVERED TOPICS ---\n' + previousTopics + '\n\n' : ''}
+--- ORIGINAL SECTION SCRIPT ---
+${sectionText}
+
+--- FEEDBACK ON ISSUES ---
+${feedback}
+
+--- RELEVANT DOCUMENT CONTENT ---
+${documentContent}
+
+IMPORTANT INSTRUCTIONS:
+
+1. Make surgical changes ONLY to address the specific feedback while keeping everything else intact.
+
+2. MAINTAIN ORIGINAL LENGTH - Your improved section should be approximately ${originalSectionLength} characters.
+
+3. PRESERVE all dialogue exchanges and conversational depth from the original script.
+
+4. Ensure proper HOST and GUEST speaker formatting is preserved.
+
+5. If addressing factual inaccuracies, ensure corrections are supported by the original document.
+
+Return the COMPLETE section with your targeted improvements incorporated.`;
+            
+            // Add language instruction to system prompt
+            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            
+            // Create messages array
+            const messages = [
+                { role: 'system', content: languageSystemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
+            
+            // Configure options with moderate temperature for edits
+            const options = {
+                temperature: 0.4
+            };
+            
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.script,
+                messages,
+                options
+            );
+            
+            // improveScriptSection: Create API request
+            let data;
+            try {
+                data = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Section improvement failed:', error);
+                return sectionText; // Return original section if improvement fails
+            }
+            let improvedSectionText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.script;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            if (improvedSectionText) {
+                // Process the text to remove stage directions and ensure proper formatting
+                improvedSectionText = this.processScriptText(improvedSectionText);
+                return improvedSectionText;
+            } else {
+                return sectionText; // Return original section if improvement fails
+            }
+            
+        } catch (error) {
+            console.error('Error during section improvement:', error);
+            return sectionText; // Return original section if improvement fails
+        }
+    }
+    
+    /**
      * Verify the generated script against the outline and target duration
      * @param {string} scriptText - The generated script text
      * @param {string} outlineText - Original outline content
@@ -1300,40 +1645,32 @@ ${documentContent}
 
 Verify if this script is factually accurate (comparing to the document), follows the outline structure, maintains appropriate pacing for the target duration, avoids redundancy, and maintains good conversational flow. Respond in the required JSON format.`;
             
-            // Prepare request body with model-specific parameters
-            const requestBody = {
-                model: apiData.models.scriptVerify,
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: userPrompt }
-                ]
+            // Create messages array
+            const messages = [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
+            
+            // Configure options with lower temperature for consistent evaluation
+            const options = {
+                temperature: 0.3
             };
             
-            // Handle model-specific parameters
-            if (isAnthropicStyle) {
-                //requestBody.max_completion_tokens = 1500;
-            } else {
-                //requestBody.max_tokens = 1500;
-                requestBody.temperature = 0.3; // Lower temperature for more consistent evaluation
-            }
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.scriptVerify,
+                messages,
+                options
+            );
             
-            // Create API request
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify(requestBody)
-            });
-            
-            // Handle API response
-            if (!response.ok) {
-                console.error('Script verification failed:', response.status);
+            // verifyScript: Create API request with retry logic
+            let data;
+            try {
+                data = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Script verification failed:', error);
                 return { isValid: true, feedback: 'Verification skipped due to API error. Using original script.' };
             }
-            
-            const data = await response.json();
             const verificationText = data.choices[0]?.message?.content?.trim();
             
             // Track token usage if available
@@ -1376,6 +1713,253 @@ Verify if this script is factually accurate (comparing to the document), follows
             console.error('Error during script verification:', error);
             // Default to assuming it's valid to avoid blocking workflow
             return { isValid: true, feedback: 'Verification error. Using original script.' };
+        }
+    }
+    
+    /**
+     * Verify the script specifically focusing on cross-section issues
+     * @param {string} scriptText - The generated script text
+     * @param {string} outlineText - Original outline content
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {Object} - Verification result with isValid flag and feedback
+     */
+    async verifyScriptForCrossSectionIssues(scriptText, outlineText, documentContent, characterData, apiData) {
+    
+        try {
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.scriptVerify.toLowerCase();
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Create specialized system prompt focusing only on cross-section issues
+            const systemPrompt = `You are a podcast script cross-section quality checker. Your ONLY job is to analyze the script for issues that span across different sections of the podcast:
+
+1. GLOBAL REDUNDANCY: Identify content repeated across different sections
+2. NARRATIVE COHERENCE: Verify the podcast flows logically from beginning to end
+3. TOPIC TRANSITIONS: Check that transitions between sections are smooth and natural
+4. DISTRIBUTION BALANCE: Ensure key topics aren't concentrated too heavily in some sections
+5. OVERALL PACING: Verify the podcast maintains appropriate pacing across sections
+
+IMPORTANT: DO NOT focus on section-specific issues like factual accuracy or character consistency, as these have already been addressed. ONLY look for issues that span across multiple sections.
+
+Respond with a JSON object containing:
+- "isValid": true if there are no cross-section issues, false otherwise
+- "feedback": specific cross-section issues found (if isValid is false) or confirmation (if isValid is true)`;
+            
+            // Build focused user prompt
+            const parsedOutline = this.parseOutlineSections(outlineText);
+            const targetDuration = this.totalPodcastDuration;
+            
+            const userPrompt = `Please review this podcast script ONLY for cross-section issues - problems that occur across multiple sections of the podcast.
+
+Target Podcast Duration: ${targetDuration} minutes
+
+--- OUTLINE STRUCTURE ---
+${outlineText}
+
+--- GENERATED SCRIPT ---
+${scriptText}
+
+Focus EXCLUSIVELY on these cross-section issues:
+1. Redundancy across sections (same topics or facts repeated in different sections)
+2. Narrative flow between sections (awkward transitions)
+3. Content distribution (important topics being unevenly distributed)
+4. Overall structure and pacing
+
+DO NOT evaluate individual section quality, factual accuracy, or other issues already addressed in per-section verification.
+
+Respond in the required JSON format.`;
+            
+            // Create messages array
+            const messages = [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
+            
+            // Configure options with lower temperature for consistent evaluation
+            const options = {
+                temperature: 0.3
+            };
+            
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.scriptVerify,
+                messages,
+                options
+            );
+            
+            // Create API request with retry logic
+            let data;
+            try {
+                data = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Cross-section verification failed:', error);
+                return { isValid: true, feedback: 'Cross-section verification skipped due to API error.' };
+            }
+            const verificationText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.scriptVerify;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            // Parse verification result
+            try {
+                // Extract JSON from the response (handling cases where there might be text before/after JSON)
+                const jsonMatch = verificationText.match(/{[\s\S]*}/m);
+                if (jsonMatch) {
+                    const resultJson = JSON.parse(jsonMatch[0]);
+                    return {
+                        isValid: !!resultJson.isValid, // Ensure boolean
+                        feedback: resultJson.feedback || 'No specific cross-section issues found.'
+                    };
+                } else {
+                    // Fallback if no JSON found
+                    const isPositive = verificationText.toLowerCase().includes('valid') || 
+                                      verificationText.toLowerCase().includes('coherent') ||
+                                      verificationText.toLowerCase().includes('good');
+                    return {
+                        isValid: isPositive,
+                        feedback: verificationText.substring(0, 200) + '...'
+                    };
+                }
+            } catch (error) {
+                console.error('Error parsing cross-section verification result:', error);
+                return { isValid: true, feedback: 'Unable to parse verification result.' };
+            }
+            
+        } catch (error) {
+            console.error('Error during cross-section verification:', error);
+            return { isValid: true, feedback: 'Verification error.' };
+        }
+    }
+    
+    /**
+     * Improve cross-section issues in the script based on verification feedback
+     * @param {string} originalScriptText - The original script text
+     * @param {string} feedback - Feedback from cross-section verification
+     * @param {string} outlineText - Original outline content
+     * @param {string} documentContent - Original document content
+     * @param {Object} characterData - Host and guest character data
+     * @param {Object} apiData - API credentials and model data
+     * @returns {string} - Improved script text
+     */
+    async improveCrossSectionIssues(originalScriptText, feedback, outlineText, documentContent, characterData, apiData) {
+    
+        try {
+            // Calculate original script length to ensure we maintain comparable size
+            const originalScriptLength = originalScriptText.length;
+            console.log(`Original script length: ${originalScriptLength} characters`);
+            
+            // Get model name in lowercase for easier comparison
+            const modelName = apiData.models.script.toLowerCase();
+            const isAnthropicStyle = modelName.includes('o3') || modelName.includes('o4');
+            
+            // Create system prompt for cross-section improvements
+            const systemPrompt = `You are a podcast script editor specializing in fixing cross-section issues - problems that occur across multiple sections of a script.
+
+IMPORTANT INSTRUCTIONS FOR CROSS-SECTION IMPROVEMENTS:
+
+1. FOCUS ONLY ON CROSS-SECTION ISSUES - Address only the specific issues mentioned in the feedback that span multiple sections
+
+2. MAKE MINIMAL TARGETED CHANGES - Only modify content necessary to fix cross-section issues
+
+3. PRESERVE ORIGINAL CONTENT - Keep all dialogue and content that isn't directly related to cross-section issues
+
+4. MAINTAIN OVERALL LENGTH - Your response must be approximately the same length as the original script
+
+5. PRESERVE FORMAT AND STRUCTURE - Maintain section headers and speaker identifiers (HOST/GUEST)`;
+            
+            // Get language setting
+            const scriptLanguage = apiData.models.scriptLanguage || 'english';
+            
+            // Build user prompt for cross-section improvement
+            const targetDuration = this.totalPodcastDuration;
+            const userPrompt = `I have a podcast script that needs improvements specifically for cross-section issues - problems that span across multiple sections.
+
+Target Podcast Duration: ${targetDuration} minutes
+
+--- ORIGINAL SCRIPT ---
+${originalScriptText}
+
+--- CROSS-SECTION ISSUES FEEDBACK ---
+${feedback}
+
+--- OUTLINE STRUCTURE ---
+${outlineText}
+
+IMPORTANT INSTRUCTIONS:
+
+1. ONLY FIX CROSS-SECTION ISSUES - Only address problems that span across multiple sections (redundancy, narrative flow, topic transitions)
+
+2. PRESERVE EVERYTHING ELSE - Do not change content unrelated to the cross-section issues
+
+3. MAINTAIN ORIGINAL LENGTH - Your improved script should be approximately ${originalScriptLength} characters
+
+4. PRESERVE all speaker identifiers (HOST/GUEST) and section structure
+
+5. If addressing redundancy, choose the best version to keep and modify or remove other instances
+
+Return the COMPLETE script with your cross-section improvements incorporated.`;
+            
+            // Add language instruction to system prompt
+            const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
+            
+            // Create messages array
+            const messages = [
+                { role: 'system', content: languageSystemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
+            
+            // Configure options with lower temperature for more conservative editing
+            const options = {
+                temperature: 0.4 // Lower temperature for more conservative edits
+            };
+            
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.script,
+                messages,
+                options
+            );
+            
+            // Create API request
+            let data;
+            try {
+                data = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Cross-section improvement failed:', error);
+                return originalScriptText; // Return original script if improvement fails
+            }
+            let improvedScriptText = data.choices[0]?.message?.content?.trim();
+            
+            // Track token usage if available
+            if (data.usage) {
+                const modelName = apiData.models.script;
+                const promptTokens = data.usage.prompt_tokens || 0;
+                const completionTokens = data.usage.completion_tokens || 0;
+                
+                // Track usage via API manager
+                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
+            }
+            
+            if (improvedScriptText) {
+                // Process the text to remove stage directions and ensure proper formatting
+                improvedScriptText = this.processScriptText(improvedScriptText);
+                return improvedScriptText;
+            } else {
+                return originalScriptText; // Return original script if improvement fails
+            }
+            
+        } catch (error) {
+            console.error('Error during cross-section improvement:', error);
+            return originalScriptText; // Return original script if improvement fails
         }
     }
     
@@ -1457,40 +2041,32 @@ IMPORTANT INSTRUCTIONS:
             // Add language instruction to system prompt
             const languageSystemPrompt = `${systemPrompt}\n\nGenerate the script in ${scriptLanguage} language.`;
             
-            // Prepare request body with model-specific parameters
-            const requestBody = {
-                model: apiData.models.script,
-                messages: [
-                    { role: 'system', content: languageSystemPrompt },
-                    { role: 'user', content: userPrompt }
-                ]
+            // Create messages array
+            const messages = [
+                { role: 'system', content: languageSystemPrompt },
+                { role: 'user', content: userPrompt }
+            ];
+            
+            // Configure options with lower temperature for more conservative editing
+            const options = {
+                temperature: 0.4 // Lower temperature for more conservative edits
             };
             
-            // Handle model-specific parameters with lower temperature for more conservative editing
-            if (isAnthropicStyle) {
-                //requestBody.max_completion_tokens = 4000;
-            } else {
-                //requestBody.max_tokens = 4000;
-                requestBody.temperature = 0.4; // Lower temperature for more conservative edits
-            }
+            // Get request body using the OpenAIManager helper
+            const requestBody = this.apiManager.createRequestBody(
+                apiData.models.script,
+                messages,
+                options
+            );
             
-            // Create API request
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify(requestBody)
-            });
-            
-            // Handle API response
-            if (!response.ok) {
-                console.error('Script improvement failed:', response.status);
+            // improveScript: Create API request with retry logic
+            let data;
+            try {
+                data = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Script improvement failed:', error);
                 return originalScriptText; // Return original script if improvement fails
             }
-            
-            const data = await response.json();
             let improvedScriptText = data.choices[0]?.message?.content?.trim();
             
             // Track token usage if available

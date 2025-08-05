@@ -276,22 +276,54 @@ class AudioGenerator {
             return [];
         }
         
-        // Split by speaker marker
+        // Split by lines
         const segments = [];
         const lines = scriptText.split('\n');
         
         let currentSpeaker = null;
         let currentText = '';
         
+        // Regex pattern for speaker identification
+        // This matches:
+        // - Optional whitespace at the beginning of the line
+        // - HOST: or GUEST: (case-insensitive)
+        // - Captures any text after the colon
+        const speakerPattern = /^\s*(HOST|GUEST)\s*:\s*(.*)/i;
+        
+        // Section separator pattern
+        const separatorPattern = /^\s*---\s*$/;
+        
         for (let i = 0; i < lines.length; i++) {
-            const line = lines[i].trim();
+            const line = lines[i];
             
             // Check for section separator
-            if (line === '---') {
+            if (separatorPattern.test(line)) {
                 // Found separator, check next line for speaker
                 if (i + 1 < lines.length) {
-                    const nextLine = lines[i + 1].trim();
+                    const nextLine = lines[i + 1];
+                    const speakerMatch = nextLine.match(speakerPattern);
                     
+                    // Save current segment if exists
+                    if (currentSpeaker && currentText.trim()) {
+                        segments.push({
+                            speaker: currentSpeaker,
+                            text: currentText.trim()
+                        });
+                        currentText = '';
+                    }
+                    
+                    // Update speaker if the next line is a speaker marker
+                    if (speakerMatch) {
+                        currentSpeaker = speakerMatch[1].toUpperCase();
+                        i++; // Skip the speaker line
+                    }
+                }
+            }
+            // Check for inline speaker labels
+            else {
+                const speakerMatch = line.match(speakerPattern);
+                
+                if (speakerMatch) {
                     // If current segment is in progress, save it
                     if (currentSpeaker && currentText.trim()) {
                         segments.push({
@@ -301,39 +333,14 @@ class AudioGenerator {
                         currentText = '';
                     }
                     
-                    // Update speaker
-                    if (nextLine === 'HOST:') {
-                        currentSpeaker = 'HOST';
-                        i++; // Skip the speaker line
-                    } else if (nextLine === 'GUEST:') {
-                        currentSpeaker = 'GUEST';
-                        i++; // Skip the speaker line
-                    }
+                    // Update speaker and capture text content
+                    currentSpeaker = speakerMatch[1].toUpperCase();
+                    currentText = speakerMatch[2] + '\n';
                 }
-            } 
-            // Check for inline speaker labels (HOST: or GUEST: at the beginning of a line)
-            else if (line.startsWith('HOST:') || line.startsWith('GUEST:')) {
-                // If current segment is in progress, save it
-                if (currentSpeaker && currentText.trim()) {
-                    segments.push({
-                        speaker: currentSpeaker,
-                        text: currentText.trim()
-                    });
-                    currentText = '';
+                else if (currentSpeaker) {
+                    // Add to current segment
+                    currentText += line + '\n';
                 }
-                
-                // Update speaker and extract text content after the label
-                if (line.startsWith('HOST:')) {
-                    currentSpeaker = 'HOST';
-                    currentText = line.substring(5).trim() + '\n'; // Remove 'HOST:' and add newline
-                } else if (line.startsWith('GUEST:')) {
-                    currentSpeaker = 'GUEST';
-                    currentText = line.substring(6).trim() + '\n'; // Remove 'GUEST:' and add newline
-                }
-            } 
-            else if (currentSpeaker) {
-                // Add to current segment
-                currentText += line + '\n';
             }
         }
         

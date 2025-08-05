@@ -13,7 +13,6 @@
 
 :root {
     --primary-accent: #b1c959;
-    --primary-accent-filter: invert(83%) sepia(24%) saturate(1406%) hue-rotate(36deg) brightness(90%) contrast(88%);
     --primary-dark: #192b37;
     --white: #ffffff;
     --light-gray: #f0f0f5;
@@ -61,7 +60,6 @@ header h1 {
 .header-icon {
     width: 0.66em;
     height: 0.66em;
-    filter: var(--primary-accent-filter);
 }
 
 header p {

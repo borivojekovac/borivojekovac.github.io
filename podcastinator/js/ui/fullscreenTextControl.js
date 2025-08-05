@@ -51,10 +51,11 @@ export default class FullscreenTextControl {
         container.appendChild(toggleButton);
         
         // Set up click handler
-        toggleButton.addEventListener('click', (e) => {
+        const clickHandler = this;
+        toggleButton.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            this.toggleFullscreen(textarea, toggleButton);
+            clickHandler.toggleFullscreen(textarea, toggleButton);
         });
         
         // Escape key handler to exit fullscreen
@@ -86,13 +87,16 @@ export default class FullscreenTextControl {
      * @param {HTMLTextAreaElement} textarea - The textarea element
      */
     setupEscapeKeyHandler(textarea) {
-        textarea.addEventListener('keydown', (e) => {
+        const escapeHandler = this;
+        textarea.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && textarea.classList.contains('textarea-fullscreen-mode')) {
                 const button = textarea.nextElementSibling;
-                this.toggleFullscreen(textarea, button);
+                escapeHandler.toggleFullscreen(textarea, button);
             }
         });
     }
+    
+    // positionToggleButton method removed as positioning is now handled by CSS
 
     /**
      * Toggle the fullscreen state of a textarea
@@ -158,7 +162,9 @@ export default class FullscreenTextControl {
             document.getElementById('guest-backstory'),
             // Content generators
             document.getElementById('outline-text'),
-            document.getElementById('script-text')
+            document.getElementById('script-text'),
+            // Podcast focus
+            document.getElementById('podcast-focus')
         ];
         
         // Apply controls to each textarea if it exists

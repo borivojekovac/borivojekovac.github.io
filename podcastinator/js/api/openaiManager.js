@@ -1,6 +1,7 @@
 // Podcastinator App - OpenAI API Manager
 import NotificationsManager from '../ui/notifications.js';
 import LanguageSupport from '../utils/languageSupport.js';
+import RetryManager from '../utils/retryManager.js';
 
 class OpenAIManager {
     constructor(storageManager, contentStateManager) {
@@ -11,6 +12,15 @@ class OpenAIManager {
         // Load models data from storage
         const savedData = this.storageManager.load('data', {});
         this.languageSupport = new LanguageSupport();
+        
+        // Initialize retry manager for API calls
+        this.retryManager = new RetryManager({
+            maxRetries: 3,
+            baseDelay: 1000,
+            maxDelay: 10000,
+            jitter: 0.25,
+            onRetry: this.handleRetryNotification.bind(this)
+        });
         
         // Use empty object for models if not in storage
         // We'll initialize from the DOM selected attributes during init()
@@ -421,6 +431,259 @@ class OpenAIManager {
             this.usageCounter.trackTTSUsage(model, characters);
         }
     }
+    
+    /**
+     * Check if a model is Anthropic-style (Claude/o3/o4)
+     * @param {string} modelName - Name of the model
+     * @returns {boolean} - True if model is Anthropic-style
+     */
+    isAnthropicStyleModel(modelName) {
+    
+        return modelName.toLowerCase().includes('o3') || modelName.toLowerCase().includes('o4');
+    }
+    
+    /**
+     * Create a request body for OpenAI API calls with model-specific parameters
+     * @param {string} modelName - Name of the model to use
+     * @param {Array} messages - Array of message objects with role and content
+     * @param {Object} options - Additional options like temperature, max_tokens, etc.
+     * @returns {Object} - Request body object ready to be stringified
+     */
+    createRequestBody(modelName, messages, options = {}) {
+    
+        // Check if this is an Anthropic-style model
+        const isAnthropicStyle = this.isAnthropicStyleModel(modelName);
+        
+        // Start with basic request body that works for all models
+        const requestBody = {
+            model: modelName,
+            messages: messages
+        };
+        
+        // Add temperature if specified in options
+        if (!isAnthropicStyle && options.temperature !== undefined) {
+            requestBody.temperature = options.temperature;
+        }
+        
+        // Handle token limits differently based on model type
+        if (options.maxTokens !== undefined) {
+            if (isAnthropicStyle) {
+                requestBody.max_completion_tokens = options.maxTokens;
+            } else {
+                requestBody.max_tokens = options.maxTokens;
+            }
+        }
+        
+        // Add any other options that are model-agnostic
+        const otherOptions = ['stream', 'top_p', 'frequency_penalty', 'presence_penalty'];
+        otherOptions.forEach(option => {
+            const camelOption = option.replace(/_([a-z])/g, g => g[1].toUpperCase());
+            if (options[camelOption] !== undefined) {
+                requestBody[option] = options[camelOption];
+            }
+        });
+        
+        return requestBody;
+    }
+    
+    /**
+     * Handle retry notification
+     * @param {Object} retryInfo - Information about the retry
+     */
+    handleRetryNotification(retryInfo) {
+    
+        const { error, attempt, delay, maxRetries } = retryInfo;
+        const delaySeconds = Math.ceil(delay / 1000);
+        
+        // Log detailed error information
+        const errorDetails = {
+            status: error.status || 'Network Error',
+            message: error.message || 'Unknown error',
+            body: error.body || '',
+            endpoint: error.endpoint || '',
+            attempt: attempt,
+            maxRetries: maxRetries
+        };
+        
+        console.warn(`OpenAI API call failed, retrying (${attempt}/${maxRetries}) in ${delaySeconds}s...`, errorDetails);
+        
+        // Only show notification for first retry to avoid spamming
+        if (attempt === 1) {
+            this.notifications.showWarning(`API call failed (${errorDetails.status}). Retrying automatically...`);
+        }
+    }
+    
+    /**
+     * Make a fetch request to the OpenAI API with retry logic
+     * @param {string} endpoint - API endpoint (e.g., '/v1/chat/completions')
+     * @param {Object} options - Fetch options including method, headers, and body
+     * @returns {Promise<Response>} - API response
+     */
+    async fetchWithRetry(endpoint, options) {
+    
+        const apiUrl = `https://api.openai.com${endpoint}`;
+        const requestId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        
+        // Log request attempt
+        console.log(`[API:${requestId}] Making request to ${endpoint}`);
+        
+        try {
+            return await this.retryManager.execute(
+                async () => {
+                    // Start time for performance logging
+                    const startTime = performance.now();
+                    
+                    try {
+                        const response = await fetch(apiUrl, options);
+                        const endTime = performance.now();
+                        const duration = Math.round(endTime - startTime);
+                        
+                        // Log successful response time
+                        console.log(`[API:${requestId}] Response received in ${duration}ms with status ${response.status}`);
+                        
+                        // Handle non-2xx responses by throwing an error
+                        if (!response.ok) {
+                            const errorBody = await response.text();
+                            let parsedError = errorBody;
+                            
+                            // Try to parse JSON error response
+                            try {
+                                parsedError = JSON.parse(errorBody);
+                            } catch (e) {
+                                // Keep as text if not JSON
+                            }
+                            
+                            // Create detailed error
+                            const error = new Error(`API request failed with status ${response.status}`);
+                            error.status = response.status;
+                            error.body = parsedError;
+                            error.endpoint = endpoint;
+                            error.requestId = requestId;
+                            
+                            // Log the error details
+                            console.error(`[API:${requestId}] Request failed with status ${response.status}:`, {
+                                endpoint: endpoint,
+                                status: response.status,
+                                error: parsedError,
+                                duration: duration
+                            });
+                            
+                            throw error;
+                        }
+                        
+                        return response;
+                    } catch (error) {
+                        // Enhance error with endpoint info if it's a network error
+                        if (!error.status) {
+                            error.endpoint = endpoint;
+                            error.requestId = requestId;
+                            console.error(`[API:${requestId}] Network error:`, {
+                                endpoint: endpoint,
+                                error: error.message
+                            });
+                        }
+                        throw error;
+                    }
+                },
+                // Custom function to determine if error is retryable
+                (error) => {
+                    // Retry on network errors (handled by RetryManager.isNetworkError)
+                    if (!error.status) {
+                        console.log(`[API:${requestId}] Network error detected, will retry`);
+                        return true;
+                    }
+                    
+                    // Retry on rate limits (429) and server errors (5xx)
+                    const isRetryable = error.status === 429 || (error.status >= 500 && error.status < 600);
+                    
+                    console.log(
+                        `[API:${requestId}] Status ${error.status} ${isRetryable ? 'is' : 'is not'} retryable`
+                    );
+                    
+                    return isRetryable;
+                }
+            );
+        } catch (finalError) {
+            // Final error after all retries
+            console.error(`[API:${requestId}] All retry attempts failed for ${endpoint}:`, {
+                error: finalError.message,
+                status: finalError.status || 'Network Error',
+                body: finalError.body || ''
+            });
+            throw finalError;
+        }
+    }
+    
+    /**
+     * Make a chat completions API call with retry logic
+     * @param {Object} requestBody - Request body for the API call
+     * @param {string} apiKey - OpenAI API key
+     * @returns {Promise<Object>} - API response data
+     */
+    async createChatCompletion(requestBody, apiKey) {
+    
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify(requestBody)
+        };
+        
+        try {
+            const response = await this.fetchWithRetry('/v1/chat/completions', options);
+            const responseData = await response.json();
+            
+            // Track usage if available
+            if (responseData.usage && this.usageCounter) {
+                this.trackCompletionUsage(
+                    requestBody.model,
+                    responseData.usage.prompt_tokens,
+                    responseData.usage.completion_tokens
+                );
+            }
+            
+            return responseData;
+        } catch (error) {
+            console.error('Chat completion error:', error);
+            throw error;
+        }
+    }
+    
+    /**
+     * Make a text-to-speech API call with retry logic
+     * @param {Object} requestBody - Request body for the API call
+     * @param {string} apiKey - OpenAI API key
+     * @returns {Promise<ArrayBuffer>} - Audio data as ArrayBuffer
+     */
+    async createSpeech(requestBody, apiKey) {
+    
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify(requestBody)
+        };
+        
+        try {
+            const response = await this.fetchWithRetry('/v1/audio/speech', options);
+            const audioData = await response.arrayBuffer();
+            
+            // Track TTS usage if available
+            if (this.usageCounter && requestBody.input) {
+                this.trackTTSUsage(requestBody.model, requestBody.input.length);
+            }
+            
+            return audioData;
+        } catch (error) {
+            console.error('Speech generation error:', error);
+            throw error;
+        }
+    }
 }
+
 
 export default OpenAIManager;

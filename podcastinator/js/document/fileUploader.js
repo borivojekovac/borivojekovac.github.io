@@ -17,9 +17,50 @@ class FileUploader {
     init() {
     
         this.attachUploadAreaEventListeners();
+        this.initPodcastFocusListener();
         if (this.data.document) {
             this.updateDocumentPreview();
         }
+    }
+    
+    /**
+     * Initialize podcast focus listener
+     */
+    initPodcastFocusListener() {
+    
+        const podcastFocusInput = document.getElementById('podcast-focus');
+        
+        // Load saved podcast focus from storage if available
+        const outlineData = this.storageManager.load('outlineData', {});
+        if (podcastFocusInput && outlineData && outlineData.podcastFocus) {
+            podcastFocusInput.value = outlineData.podcastFocus;
+        }
+        
+        // Add listener for podcast focus changes
+        if (podcastFocusInput) {
+            // Use input event for real-time updates
+            podcastFocusInput.addEventListener('input', this.handlePodcastFocusChange.bind(this));
+            
+            // Also listen for blur event to ensure we capture all changes
+            podcastFocusInput.addEventListener('blur', this.handlePodcastFocusChange.bind(this));
+        }
+    }
+    
+    /**
+     * Handle podcast focus input changes
+     */
+    handlePodcastFocusChange() {
+    
+        const podcastFocusInput = document.getElementById('podcast-focus');
+        if (!podcastFocusInput) return;
+        
+        // Get current focus value
+        const podcastFocus = podcastFocusInput.value.trim();
+        
+        // Save to outlineData storage
+        const outlineData = this.storageManager.load('outlineData', {});
+        outlineData.podcastFocus = podcastFocus;
+        this.storageManager.save('outlineData', outlineData);
     }
 
     /**
@@ -126,10 +167,30 @@ class FileUploader {
         existingData.document = this.data.document;
         this.storageManager.save('data', existingData);
         
+        // Save podcast focus if available
+        this.savePodcastFocus();
+        
         // Update content state to indicate we have a document
         this.contentStateManager.updateState('hasDocument', true);
         
         this.notifications.showSuccess('Document uploaded successfully!');
+    }
+    
+    /**
+     * Save podcast focus with document
+     */
+    savePodcastFocus() {
+    
+        const podcastFocusInput = document.getElementById('podcast-focus');
+        if (!podcastFocusInput) return;
+        
+        // Get current focus value
+        const podcastFocus = podcastFocusInput.value.trim();
+        
+        // Save to outlineData storage
+        const outlineData = this.storageManager.load('outlineData', {});
+        outlineData.podcastFocus = podcastFocus;
+        this.storageManager.save('outlineData', outlineData);
     }
 
     /**

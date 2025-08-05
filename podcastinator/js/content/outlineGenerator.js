@@ -53,9 +53,9 @@ class OutlineGenerator {
         this.progressBar = this.progressContainer.querySelector('.progress-bar .progress-fill');
         this.cancelButton = document.getElementById('cancel-outline');
         
-        // Get new podcast configuration elements
+        // Get podcast configuration elements
         this.podcastDurationInput = document.getElementById('podcast-duration');
-        this.podcastFocusInput = document.getElementById('podcast-focus');
+        this.podcastFocusInput = document.getElementById('podcast-focus'); // Now in document upload section
         
         // Set initial values if we have saved data
         if (this.podcastDurationInput) {
@@ -253,41 +253,12 @@ class OutlineGenerator {
             };
             
             // Handle model-specific parameters
-            if (isAnthropicStyle) {
-                // Anthropic-style models use max_completion_tokens and only support default temperature (1.0)
-                requestBody.max_completion_tokens = 3000;
-                // Don't set temperature for Anthropic models as they only support default (1.0)
-            } else {
-                // OpenAI models use max_tokens and support custom temperature
-                requestBody.max_tokens = 3000;
+            if (!isAnthropicStyle) {
                 requestBody.temperature = 0.7; // Only set for non-Anthropic models
             }
             
-            // Create API request
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify(requestBody)
-            });
-            
-            // Handle API response
-            if (!response.ok) {
-                let errorMessage = 'Failed to generate outline';
-                
-                if (response.status === 401) {
-                    errorMessage = 'Invalid API key. Please check your credentials.';
-                } else if (response.status === 429) {
-                    errorMessage = 'API rate limit exceeded. Please try again later.';
-                } else {
-                    const errorData = await response.json().catch(() => ({}));
-                    errorMessage = errorData.error?.message || errorMessage;
-                }
-                
-                throw new Error(errorMessage);
-            }
+            // generateOutline: Call OpenAI API with retry logic
+            const responseData = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
             
             // Update progress
             this.progressManager.updateProgress('outline-progress', 50);
@@ -298,18 +269,7 @@ class OutlineGenerator {
                 throw new Error('Outline generation cancelled');
             }
             
-            const data = await response.json();
-            const outlineText = data.choices[0]?.message?.content?.trim();
-            
-            // Track token usage if available
-            if (data.usage) {
-                const modelName = apiData.models.outline;
-                const promptTokens = data.usage.prompt_tokens || 0;
-                const completionTokens = data.usage.completion_tokens || 0;
-                
-                // Track usage via API manager
-                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
-            }
+            const outlineText = responseData.choices[0]?.message?.content?.trim();
             
             if (outlineText) {
                 // Update progress - now we'll verify
@@ -635,41 +595,20 @@ Verify if this outline has a logical structure, well-balanced sections, and alig
             };
             
             // Handle model-specific parameters
-            if (isAnthropicStyle) {
-                //requestBody.max_completion_tokens = 1500;
-            } else {
-                //requestBody.max_tokens = 1500;
+            if (!isAnthropicStyle) {
                 requestBody.temperature = 0.3; // Lower temperature for more consistent evaluation
             }
             
-            // Create API request
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify(requestBody)
-            });
-            
-            // Handle API response
-            if (!response.ok) {
-                console.error('Outline verification failed:', response.status);
+            // verifyOutline: Call OpenAI API with retry logic
+            let responseData;
+            try {
+                responseData = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Outline verification failed:', error);
                 return { isValid: true, feedback: 'Verification skipped due to API error. Using original outline.' };
             }
             
-            const data = await response.json();
-            const verificationText = data.choices[0]?.message?.content?.trim();
-            
-            // Track token usage if available
-            if (data.usage) {
-                const modelName = apiData.models.outlineVerify;
-                const promptTokens = data.usage.prompt_tokens || 0;
-                const completionTokens = data.usage.completion_tokens || 0;
-                
-                // Track usage via API manager
-                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
-            }
+            const verificationText = responseData.choices[0]?.message?.content?.trim();
             
             // Parse verification result
             try {
@@ -785,41 +724,20 @@ IMPORTANT INSTRUCTIONS:
             };
             
             // Handle model-specific parameters with lower temperature for more conservative editing
-            if (isAnthropicStyle) {
-                //requestBody.max_completion_tokens = 3000;
-            } else {
-                //requestBody.max_tokens = 3000;
+            if (!isAnthropicStyle) {
                 requestBody.temperature = 0.4; // Lower temperature for more conservative edits
             }
             
-            // Create API request
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiData.apiKey}`
-                },
-                body: JSON.stringify(requestBody)
-            });
-            
-            // Handle API response
-            if (!response.ok) {
-                console.error('Outline improvement failed:', response.status);
+            // improveOutline: Call OpenAI API with retry logic
+            let responseData;
+            try {
+                responseData = await this.apiManager.createChatCompletion(requestBody, apiData.apiKey);
+            } catch (error) {
+                console.error('Outline improvement failed:', error);
                 return originalOutlineText; // Return original outline if improvement fails
             }
             
-            const data = await response.json();
-            const improvedOutlineText = data.choices[0]?.message?.content?.trim();
-            
-            // Track token usage if available
-            if (data.usage) {
-                const modelName = apiData.models.outline;
-                const promptTokens = data.usage.prompt_tokens || 0;
-                const completionTokens = data.usage.completion_tokens || 0;
-                
-                // Track usage via API manager
-                this.apiManager.trackCompletionUsage(modelName, promptTokens, completionTokens);
-            }
+            const improvedOutlineText = responseData.choices[0]?.message?.content?.trim();
             
             return improvedOutlineText || originalOutlineText;
             

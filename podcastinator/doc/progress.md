@@ -318,6 +318,15 @@
 - Implemented intelligent language selection persistence with fallback to English
 - Maintained proper compatibility with existing TTS-1 models
 
+### ✅ Improved Workflow Organization (2025-08-05)
+- Renamed "Document Upload" section to "Podcast Contents" for better clarity
+- Moved "Podcast Focus" controls from outline section to document upload section
+- Enhanced FileUploader class to handle podcast focus persistence
+- Updated event listeners to maintain proper data flow between components
+- Improved user experience by grouping related content controls together
+- Reorganized UI to better match the natural workflow progression
+- Maintained full backward compatibility with existing data structures
+
 ### Current State
 - **Working**: UI layout, navigation, form interactions, local storage, OpenAI credentials & model selection, text document upload, character builder with backstory generation, outline generation with structured format and duration targets, script generation with dialogue formatting and timing guidance, multi-language script generation, audio generation with TTS, audio download functionality, optimized MP3 audio encoding with correct playback speed, usage tracking and cost estimation, iterative content verification and self-improvement with multiple refinement cycles, voice instructions for GPT-4o-mini-TTS, targeted script improvement with content preservation
 - **Production Ready**: API key validation, model selection, settings persistence, document handling, character creation, backstory generation, outline generation with timing control, script generation with language selection, audio generation and download, MP3 encoding and storage optimization, dynamic sample rate handling, token usage tracking, content quality verification and improvement, GPT-4o-mini-TTS voice instructions, robust script improvement system
