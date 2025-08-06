@@ -138,6 +138,13 @@ class SectionManager {
         if (newSection) {
             newSection.classList.add('active');
             newSection.classList.remove('disabled');
+            
+            // Dispatch custom event for section activation
+            const activationEvent = new CustomEvent('sectionActivated', {
+                detail: { sectionId: sectionId, elementId: newElementId },
+                bubbles: true
+            });
+            document.dispatchEvent(activationEvent);
         }
         
         this.activeSection = sectionId;

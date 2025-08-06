@@ -3,6 +3,7 @@
 @import url('css/components/content-generator.css');
 @import url('css/components/usage-counter.css');
 @import url('css/components/fullscreen-text.css');
+@import url('css/components/section-toggle.css');
 
 /* Reset and Base Styles */
 * {

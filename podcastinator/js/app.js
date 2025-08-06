@@ -1,6 +1,7 @@
 // Podcastinator App - Main Application
 import StorageManager from './utils/storage.js';
 import SectionManager from './ui/sectionManager.js';
+import SectionToggleManager from './ui/sectionToggleManager.js';
 import NotificationsManager from './ui/notifications.js';
 import FileUploader from './document/fileUploader.js';
 import OpenAIManager from './api/openaiManager.js';
@@ -17,6 +18,7 @@ class PodcastinatorApp {
         // Initialize managers
         this.storageManager = new StorageManager();
         this.sectionManager = new SectionManager(this.storageManager);
+        this.sectionToggleManager = new SectionToggleManager(this.storageManager, this.sectionManager);
         this.notifications = new NotificationsManager();
         
         // Initialize content state manager - central point for section management
@@ -47,6 +49,9 @@ class PodcastinatorApp {
     
         // Initialize section manager
         this.sectionManager.init();
+        
+        // Initialize section toggle manager
+        this.sectionToggleManager.init();
         
         // Check for debug mode
         this.sectionManager.checkDebugMode();

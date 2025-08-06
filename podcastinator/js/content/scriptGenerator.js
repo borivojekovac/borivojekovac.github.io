@@ -908,7 +908,6 @@ ${this.getPersonalityDescription(guest.personality)}
 
 ## Example Mid-Conversation Output Format
 
-\`\`\` markdown
 ---
 HOST:
 I find that perspective on the data really insightful. It makes me wonder about the implications for future development in this area.
@@ -924,7 +923,7 @@ Could you elaborate on which of those factors you think will have the biggest im
 ---
 GUEST:
 I'd say the most significant one is probably the shift in how we're approaching the fundamental challenge of...
-\`\`\``;
+`;
 
         if (partType === 'intro') {
             return `${basePrompt}

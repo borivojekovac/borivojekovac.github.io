@@ -385,10 +385,20 @@ The outline MUST follow this EXACT format with section separators and duration f
 1. [Section Title]
 Duration: [Target duration in minutes]
 Overview: [Brief summary of the discussion points and topics for this section]
+KEY FACTS:
+- [3-5 specific facts, concepts, or points to cover]
+- [3-5 specific topics to cover]
+UNIQUE FOCUS: [Brief description of what makes this section distinct from others]
+CARRYOVER: [Brief description of topics that build on previous sections]
 ---
 1.1. [Subsection Title]
 Duration: [Target duration in minutes]
 Overview: [Brief summary of the discussion points for this subsection]
+KEY FACTS:
+- [3-5 specific facts, concepts, or points to cover]
+- [3-5 specific topics to cover]
+UNIQUE FOCUS: [Brief description of what makes this section distinct from others]
+CARRYOVER: [Brief description of topics that build on previous sections]
 ---
 
 1. Create a clear, hierarchical structure with main sections and subsections
@@ -406,7 +416,7 @@ Overview: [Brief summary of the discussion points for this subsection]
 6. Balance depth vs. breadth based on available time
 7. Distribute topics strategically to minimize redundancy across sections
 
-## Enhanced Format:
+## Example Format:
 
 ---
 1. Introduction
