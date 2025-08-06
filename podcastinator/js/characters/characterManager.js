@@ -161,8 +161,16 @@ class CharacterManager {
                 });
             }
             
+            // Speech rate slider
+            const speechRateSlider = document.getElementById(`${type}-speech-rate`);
+            if (speechRateSlider) {
+                speechRateSlider.addEventListener('input', function() {
+                    self.handleSpeechRateChange(type);
+                });
+            }
+            
             // Real-time updates for form fields
-            const formFields = [`${type}-name`, `${type}-personality`, `${type}-voice`, `${type}-backstory`, `${type}-voice-instructions`];
+            const formFields = [`${type}-name`, `${type}-personality`, `${type}-voice`, `${type}-backstory`, `${type}-voice-instructions`, `${type}-speech-rate`];
             formFields.forEach(function(fieldId) {
             
                 const field = document.getElementById(fieldId);
@@ -180,15 +188,17 @@ class CharacterManager {
             });
         });
         
-        // Set up listener for TTS model change to show/hide voice instructions
+        // Set up listener for TTS model change to show/hide voice instructions and speech rate
         const ttsModelSelect = document.getElementById('tts-model');
         if (ttsModelSelect) {
             ttsModelSelect.addEventListener('change', function() {
                 self.updateVoiceInstructionsVisibility();
+                self.updateSpeechRateVisibility();
             });
             
             // Initialize visibility on page load
             this.updateVoiceInstructionsVisibility();
+            this.updateSpeechRateVisibility();
         }
     }
 
@@ -395,6 +405,7 @@ class CharacterManager {
         const backstory = document.getElementById(`${type}-backstory`).value.trim();
         const voiceInstructions = document.getElementById(`${type}-voice-instructions`).value.trim();
         const voiceInstructionsPreset = document.getElementById(`${type}-voice-instructions-preset`).value;
+        const speechRate = document.getElementById(`${type}-speech-rate`).value;
         
         // Validate required fields
         if (!name || !personality || !voice) {
@@ -409,7 +420,8 @@ class CharacterManager {
             voice,
             backstory,
             voiceInstructions,
-            voiceInstructionsPreset
+            voiceInstructionsPreset,
+            speechRate
         };
         
         // Save to storage
@@ -676,22 +688,84 @@ class CharacterManager {
     }
     
     /**
-     * Update voice instructions visibility based on selected TTS model
+     * Update voice instructions visibility based on TTS model
      */
     updateVoiceInstructionsVisibility() {
     
-        const ttsModelSelect = document.getElementById('tts-model');
-        const isGpt4oMiniTts = ttsModelSelect && ttsModelSelect.value === 'gpt-4o-mini-tts';
+        const ttsModel = document.getElementById('tts-model');
+        if (!ttsModel) return;
         
-        // Update visibility for each character type
+        // Show voice instructions only for GPT-4o-mini-TTS
+        const showVoiceInstructions = ttsModel.value === 'gpt-4o-mini-tts';
+        
         this.types.forEach(function(type) {
         
             const container = document.getElementById(`${type}-voice-instructions-container`);
             if (container) {
-                container.style.display = isGpt4oMiniTts ? 'block' : 'none';
+                container.style.display = showVoiceInstructions ? 'block' : 'none';
             }
-        }.bind(this));
+        });
     }
+
+    /**
+     * Update speech rate visibility based on TTS model
+     */
+    updateSpeechRateVisibility() {
+    
+        const ttsModel = document.getElementById('tts-model');
+        if (!ttsModel) return;
+        
+        // Show speech rate only for TTS-1 and TTS-1-HD
+        const showSpeechRate = ttsModel.value === 'tts-1' || ttsModel.value === 'tts-1-hd';
+        
+        this.types.forEach(function(type) {
+        
+            const container = document.getElementById(`${type}-speech-rate-container`);
+            if (container) {
+                container.style.display = showSpeechRate ? 'block' : 'none';
+            }
+        });
+    }
+    
+    /**
+     * Handle speech rate change
+     * @param {string} type - Character type ('host' or 'guest')
+     */
+    handleSpeechRateChange(type) {
+    
+        const slider = document.getElementById(`${type}-speech-rate`);
+        const valueDisplay = document.getElementById(`${type}-speech-rate-value`);
+        
+        if (slider && valueDisplay) {
+            // Get the raw slider value (-4 to +4)
+            const rawValue = parseFloat(slider.value);
+            
+            // Convert to actual speech rate using formula
+            let actualRate;
+            
+            if (rawValue < 0) {
+                // Negative values (slower): 1/|value|
+                actualRate = 1 / (Math.abs(rawValue) + 1);
+            } else if (rawValue > 0) {
+                // Positive values (faster): value
+                actualRate = 1 * (rawValue + 1);
+            } else {
+                // Zero (normal): 1.0
+                actualRate = 1.0;
+            }
+            
+            // Round to 2 decimal places for display
+            const rateValue = actualRate.toFixed(2);
+            valueDisplay.textContent = rateValue;
+            
+            // Save the actual rate value, not the raw slider value
+            this.data[type].speechRate = actualRate;
+            
+            // Update form status
+            this.updateFormStatus(type);
+        }
+    }
+
 }
 
 export default CharacterManager;

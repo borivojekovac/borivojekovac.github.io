@@ -509,7 +509,7 @@ class OpenAIManager {
         
         // Only show notification for first retry to avoid spamming
         if (attempt === 1) {
-            this.notifications.showWarning(`API call failed (${errorDetails.status}). Retrying automatically...`);
+            this.notifications.showInfo(`API call failed (${errorDetails.status}). Retrying automatically...`);
         }
     }
     
@@ -517,9 +517,10 @@ class OpenAIManager {
      * Make a fetch request to the OpenAI API with retry logic
      * @param {string} endpoint - API endpoint (e.g., '/v1/chat/completions')
      * @param {Object} options - Fetch options including method, headers, and body
-     * @returns {Promise<Response>} - API response
+     * @param {Function} [responseValidator] - Optional function to validate response content
+     * @returns {Promise<Object>} - API response data (already JSON parsed)
      */
-    async fetchWithRetry(endpoint, options) {
+    async fetchWithRetry(endpoint, options, responseValidator) {
     
         const apiUrl = `https://api.openai.com${endpoint}`;
         const requestId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
@@ -528,6 +529,7 @@ class OpenAIManager {
         console.log(`[API:${requestId}] Making request to ${endpoint}`);
         
         try {
+            // Use retryManager for the actual retry mechanism
             return await this.retryManager.execute(
                 async () => {
                     // Start time for performance logging
@@ -571,7 +573,21 @@ class OpenAIManager {
                             throw error;
                         }
                         
-                        return response;
+                        // Parse the JSON response
+                        const responseData = await response.json();
+                        
+                        // If a response validator is provided, use it to check the response
+                        if (responseValidator && !responseValidator(responseData)) {
+                            console.warn(`[API:${requestId}] Response validation failed:`, responseData);
+                            const error = new Error('Response validation failed');
+                            error.status = 'VALIDATION_FAILED';
+                            error.body = responseData;
+                            error.endpoint = endpoint;
+                            error.requestId = requestId;
+                            throw error;
+                        }
+                        
+                        return responseData;
                     } catch (error) {
                         // Enhance error with endpoint info if it's a network error
                         if (!error.status) {
@@ -587,6 +603,12 @@ class OpenAIManager {
                 },
                 // Custom function to determine if error is retryable
                 (error) => {
+                    // Retry on validation failures (our custom status)
+                    if (error.status === 'VALIDATION_FAILED') {
+                        console.log(`[API:${requestId}] Content validation failed, will retry`);
+                        return true;
+                    }
+                    
                     // Retry on network errors (handled by RetryManager.isNetworkError)
                     if (!error.status) {
                         console.log(`[API:${requestId}] Network error detected, will retry`);
@@ -631,9 +653,35 @@ class OpenAIManager {
             body: JSON.stringify(requestBody)
         };
         
+        // Define a content validator function to check for valid content in the response
+        const chatContentValidator = (responseData) => {
+            const hasValidContent = responseData.choices && 
+                                    responseData.choices[0] && 
+                                    responseData.choices[0].message && 
+                                    responseData.choices[0].message.content && 
+                                    responseData.choices[0].message.content.trim().length > 0;
+            
+            // If validation fails, show a notification on first validation failure only
+            if (!hasValidContent && !this._hasShownEmptyContentWarning) {
+                this._hasShownEmptyContentWarning = true;
+                this.notifications.showInfo(`Empty response received from API. Retrying automatically...`);
+                
+                // Reset the flag after a delay so we don't spam the user with notifications
+                setTimeout(() => {
+                    this._hasShownEmptyContentWarning = false;
+                }, 30000); // Reset after 30 seconds
+            }
+            
+            return hasValidContent;
+        };
+        
         try {
-            const response = await this.fetchWithRetry('/v1/chat/completions', options);
-            const responseData = await response.json();
+            // Use fetchWithRetry with our content validator
+            const responseData = await this.fetchWithRetry(
+                '/v1/chat/completions', 
+                options, 
+                chatContentValidator
+            );
             
             // Track usage if available
             if (responseData.usage && this.usageCounter) {
@@ -646,7 +694,13 @@ class OpenAIManager {
             
             return responseData;
         } catch (error) {
-            console.error('Chat completion error:', error);
+            console.error('Chat completion failed after all retries:', error);
+            
+            // Add more context to the error if it was a validation failure
+            if (error.status === 'VALIDATION_FAILED') {
+                throw new Error('No valid content received from API after maximum retries');
+            }
+            
             throw error;
         }
     }

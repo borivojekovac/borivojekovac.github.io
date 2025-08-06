@@ -458,14 +458,17 @@ DO NOT include actual dialogue or script. This is only an outline with clear sec
             prompt += ` focus & overall instructions: "${this.podcastFocus.trim()}"
 
 Document content:
-
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
 Create a well-organized outline that focuses specifically on the requested topic in a conversational podcast format. Remember that the entire podcast must be exactly ${this.podcastDuration} minutes long, and each section should have an appropriate duration specified.`;
         } else {
             prompt += ` document content:
 
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
 Create a well-organized outline that covers the key information from this document in a conversational podcast format. Remember that the entire podcast must be exactly ${this.podcastDuration} minutes long, and each section should have an appropriate duration specified.`;
         }
@@ -578,10 +581,14 @@ Target Podcast Duration: ${podcastDuration} minutes
 ${podcastFocus ? `Podcast Focus: ${podcastFocus}\n` : ''}
 
 --- GENERATED OUTLINE ---
+\`\`\` markdown
 ${outlineText}
+\`\`\`
 
 --- ORIGINAL DOCUMENT CONTENT ---
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
 Verify if this outline has a logical structure, well-balanced sections, and aligns with the target duration and focus. Respond in the required JSON format.`;
             
@@ -670,13 +677,9 @@ Verify if this outline has a logical structure, well-balanced sections, and alig
 IMPORTANT INSTRUCTIONS FOR OUTLINE EDITING:
 
 1. MAKE TARGETED CHANGES ONLY - Only modify specific sections mentioned in the feedback. Do not rewrite or restructure unaffected sections.
-
 2. PRESERVE ORIGINAL STRUCTURE - Keep the same section numbering scheme and overall organization unless specific issues were identified.
-
 3. MAINTAIN FORMAT INTEGRITY - Your response MUST follow the exact format with section separators (---), section numbers, titles, durations, and overviews.
-
 4. PRESERVE SECTION DETAILS - Keep the same level of detail in section overviews as the original outline.
-
 5. MAINTAIN APPROPRIATE DURATIONS - Ensure all section durations still add up to the target podcast length.
 
 Warning: If your response significantly restructures or simplifies the outline beyond addressing the specific feedback, it will be rejected.`;
@@ -690,28 +693,28 @@ Target Podcast Duration: ${podcastDuration} minutes
 ${podcastFocus ? `Podcast Focus: ${podcastFocus}\n` : ''}
 
 --- ORIGINAL OUTLINE ---
+\`\`\` markdown
 ${originalOutlineText}
+\`\`\`
 
 --- FEEDBACK ON ISSUES ---
+\`\`\` markdown
 ${feedback}
+\`\`\`
 
 --- ORIGINAL DOCUMENT CONTENT ---
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
 IMPORTANT INSTRUCTIONS:
 
 1. DO NOT REWRITE the entire outline. Make surgical changes ONLY to the specific parts mentioned in the feedback.
-
 2. If the feedback points to issues in specific sections, ONLY modify those sections.
-
 3. MAINTAIN ORIGINAL STRUCTURE - Your edited outline should have approximately the same number of sections and subsections as the original (${originalOutlineText.split('---').length - 1} sections).
-
 4. PRESERVE all section separators (---), numbering, and format from the original outline.
-
 5. KEEP DETAILED OVERVIEWS - Do not shorten or oversimplify section overviews.
-
 6. ENSURE DURATION ACCURACY - Make sure all section durations add up to exactly ${podcastDuration} minutes.
-
 7. Return the COMPLETE outline with your targeted edits incorporated.`;
             
             // Prepare request body with model-specific parameters

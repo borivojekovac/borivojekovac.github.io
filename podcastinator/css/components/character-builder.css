@@ -99,6 +99,93 @@
     transition: all 0.3s ease;
 }
 
+/* Speech Rate Slider Container */
+.speech-rate-container {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Slider container styles */
+.slider-container {
+    width: 100%;
+    margin-top: 0.5rem;
+    position: relative;
+}
+
+/* Slider input styling */
+.slider-container input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: var(--light-gray);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.2s ease;
+    margin: 1rem 0;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-accent);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider-container input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--primary-accent);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Slider labels */
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--primary-dark);
+    position: absolute;
+    width: 100%;
+    top: 0;
+    pointer-events: none;
+}
+
+.slider-labels span {
+    position: relative;
+    text-align: center;
+    width: 33.33%;
+}
+
+.slider-labels span:first-child { text-align: left; }
+.slider-labels span:last-child { text-align: right; }
+.slider-labels span:nth-child(2) { 
+    text-align: center;
+    font-weight: bold;
+}
+
+.slider-legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: -0.5rem;
+}
+
+.slider-legend span {
+    flex: 1;
+    text-align: center;
+}
+
+.slider-legend span:first-child { text-align: left; }
+.slider-legend span:last-child { text-align: right; }
+
 /* Voice instructions textarea */
 .character-builder textarea#host-voice-instructions,
 .character-builder textarea#guest-voice-instructions {

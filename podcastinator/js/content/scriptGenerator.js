@@ -496,9 +496,16 @@ Overview: ${section.overview}
 
 Target Duration: ${section.durationMinutes} minutes
 
-Full outline section:
+Full outline section (REFERENCE ONLY - DO NOT COPY ANY TEXT VERBATIM):
+\`\`\` markdown
 ${section.content}
-`;
+\`\`\`
+
+## IMPORTANT INSTRUCTIONS:
+1. NEVER include any verbatim text from the outline in your script
+2. Completely rephrase all content into natural conversational dialogue
+3. Use the outline only as a reference for topics and structure, not for wording
+4. The outline is a planning document that should NOT appear in the final script`;
         
         // Add information about total podcast duration for context
         if (this.totalPodcastDuration) {
@@ -512,7 +519,9 @@ This section should be approximately ${section.durationMinutes} minutes long out
             userPrompt += `
 
 ## Previous Dialogue (Continue DIRECTLY from here)
+\`\`\` markdown
 ${this.lastDialogueExchanges}
+\`\`\`
 
 ## CRITICAL: Conversation Continuity Instructions
 1. Continue the dialogue EXACTLY from where it left off above
@@ -532,7 +541,9 @@ This is the first content section of the podcast. The host should transition nat
             userPrompt += `
 
 ## PREVIOUS TOPICS COVERED:
+\`\`\` markdown
 ${this.topicsSummary}
+\`\`\`
 
 ## CRITICAL: Topic Continuity Instructions
 1. When referencing previously covered topics, ALWAYS acknowledge they were discussed earlier
@@ -556,13 +567,14 @@ Title: ${section.title}
 Overview: ${section.overview}
 
 KEY FACTS TO COVER:
+\`\`\` markdown
 ${this.extractKeyFacts(section.content)}
-
-UNIQUE FOCUS:
-${this.extractUniqueFocus(section.content)}
+\`\`\`
 
 CARRYOVER:
-${this.extractCarryover(section.content)}`;
+\`\`\` markdown
+${this.extractCarryover(section.content)}
+\`\`\``;
         
         if (isLastSection) {
             userPrompt += `
@@ -730,7 +742,9 @@ This is NOT the final section. The conversation should feel ongoing and not conc
             userPrompt = `Continue the podcast conversation to a natural conclusion where the host thanks the guest and says goodbye to the listeners.
 
 ## Previous Dialogue (Continue DIRECTLY from here)
+\`\`\` markdown
 ${this.lastDialogueExchanges}
+\`\`\`
 
 ## CRITICAL: Conversation Continuity Instructions
 1. Continue the dialogue EXACTLY from where it left off above
@@ -822,7 +836,7 @@ ${this.lastDialogueExchanges}
 ${host.personality ? `- **Personality**: ${host.personality}` : ''}
 ${host.backstory ? `- **Backstory**: 
 
-\`\`\`markdown
+\`\`\` markdown
 ${host.backstory}
 \`\`\`` : ''}
 
@@ -830,7 +844,7 @@ ${host.backstory}
 ${guest.personality ? `- **Personality**: ${guest.personality}` : ''}
 ${guest.backstory ? `- **Backstory**: 
 
-\`\`\`markdown
+\`\`\` markdown
 ${guest.backstory}
 \`\`\`` : ''}
 
@@ -842,24 +856,20 @@ ${guest.backstory}
 - The **GUEST** should share expertise from the document without mentioning that it comes from "the document" - it should sound like their own knowledge
 
 ${podcastFocus ? `## Podcast Focus/Steer
-
+\`\`\` markdown
 ${podcastFocus}
+\`\`\`
 ` : ''}`;
         
         // Add document content if provided
         if (documentContent) {
-            // Truncate very long documents if needed (to help with context limits)
-            const maxDocLength = 40000; // Adjust based on model capabilities
-            const truncatedDoc = documentContent.length > maxDocLength ? 
-                documentContent.substring(0, maxDocLength) + '\n[Document truncated due to length...]' : 
-                documentContent;
                 
             basePrompt += `
 
 ## Document Content (Only the GUEST has knowledge of this information)
 
-\`\`\`markdown
-${truncatedDoc}
+\`\`\` markdown
+${documentContent}
 \`\`\``;
         }
         
@@ -867,6 +877,10 @@ ${truncatedDoc}
 
 ## Formatting Requirements (CRITICAL)
 
+- NEVER include any verbatim text from the outline in the script
+- DO NOT copy-paste phrases, sentences or paragraphs from the outline into the script
+- Completely rephrase all content from the outline into natural conversational dialogue
+- Use the outline only as a reference for topics and structure, not for wording
 - Begin each speaker's dialogue with "---" followed by either "HOST:" or "GUEST:" on its own line
 - DO NOT include character names, descriptions, or any other text after HOST: or GUEST:
 - DO NOT include ANY stage directions, action descriptions, or non-verbal cues [like this]
@@ -894,7 +908,7 @@ ${this.getPersonalityDescription(guest.personality)}
 
 ## Example Mid-Conversation Output Format
 
-\`\`\`markdown
+\`\`\` markdown
 ---
 HOST:
 I find that perspective on the data really insightful. It makes me wonder about the implications for future development in this area.
@@ -1337,15 +1351,18 @@ ${lastSection.content}`;
             // Create system prompt for section verification
             const systemPrompt = `You are a podcast script section quality checker. Your job is to analyze a generated podcast script section against its outline section and requirements for:
 
-1. FACTUAL ACCURACY: Ensure all claims and information in this section are supported by the original document
-2. SECTION FOCUS: Verify the section covers the specific topics outlined for it
-3. CONTINUITY: Check that references to previous sections are appropriate and acknowledge prior discussion
-4. REDUNDANCY CHECK: Identify any redundant content within this section
-5. CONVERSATIONAL FLOW: Verify that the dialogue feels natural and flows well between speakers
-6. CHARACTER CONSISTENCY: Ensure host and guest voices maintain consistent personalities
+1. VERBATIM TEXT CHECK: CRITICALLY IMPORTANT - Check if any text from the outline appears verbatim in the script dialogue. The script should NEVER contain direct copies of outline text.
+2. FACTUAL ACCURACY: Ensure all claims and information in this section are supported by the original document
+3. SECTION FOCUS: Verify the section covers the specific topics outlined for it
+4. CONTINUITY: Check that references to previous sections are appropriate and acknowledge prior discussion
+5. REDUNDANCY CHECK: Identify any redundant content within this section
+6. CONVERSATIONAL FLOW: Verify that the dialogue feels natural and flows well between speakers
+7. CHARACTER CONSISTENCY: Ensure host and guest voices maintain consistent personalities
 
 Respond with a JSON object containing:
-- "isValid": true if the section meets quality criteria, false otherwise
+- "isValid": false if ANY verbatim outline text appears in the script or other issues exist, true otherwise
+- "verbatimTextIssue": true if verbatim outline text is found in the script, false otherwise
+- "verbatimExamples": array of text fragments that appear both in the outline and script (empty if none found)
 - "feedback": specific issues found (if isValid is false) or confirmation (if isValid is true)
 - "redundancyIssues": array of specific redundancy problems (empty if none found)`;            
             
@@ -1366,16 +1383,22 @@ Section Title: ${section.title}
 Section Focus: ${section.overview || 'Not specified'}
 
 --- SECTION CONTENT FROM OUTLINE ---
+\`\`\` markdown
 ${section.content || 'Not specified'}
+\`\`\`
 
 ${previousSections.length > 0 ? '--- PREVIOUSLY COVERED TOPICS ---\n' + previousTopics + '\n\n' : ''}
 --- GENERATED SECTION SCRIPT ---
+\`\`\` markdown
 ${sectionText}
+\`\`\`
 
 --- RELEVANT DOCUMENT CONTENT ---
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
-Verify if this section is factually accurate (comparing to the document), follows the outline structure for this specific section, maintains good conversational flow, and properly references previous sections when appropriate. Respond in the required JSON format.`;
+Verify if this section is factually accurate (comparing to the document), follows the outline structure for this specific section, maintains good conversational flow, and properly references previous sections when appropriate. MOST IMPORTANTLY, check that no text from the outline appears verbatim in the script dialogue. Respond in the required JSON format.`;
             
             // Create messages array
             const messages = [
@@ -1484,13 +1507,9 @@ Verify if this section is factually accurate (comparing to the document), follow
 IMPORTANT INSTRUCTIONS FOR SECTION IMPROVEMENT:
 
 1. MAKE TARGETED CHANGES ONLY - Address the specific issues mentioned in the feedback.
-
 2. PRESERVE ORIGINAL STYLE - Keep the conversational tone and character voices consistent.
-
 3. MAINTAIN EQUIVALENT LENGTH - Your response MUST be approximately the same length as the original section.
-
 4. PRESERVE DETAILED DIALOGUE - Keep the same level of conversational detail and depth.
-
 5. PRESERVE FORMAT - Maintain HOST/GUEST speaker identifiers and dialogue structure.`;
             
             // Get language setting
@@ -1505,28 +1524,30 @@ Section Title: ${section.title}
 Section Focus: ${section.overview || 'Not specified'}
 
 --- SECTION CONTENT FROM OUTLINE ---
-${section.content || 'Not specified'}
+${"```markdown\n" + section.content + "\n```\n"|| 'Not specified'}
 
 ${previousSections.length > 0 ? '--- PREVIOUSLY COVERED TOPICS ---\n' + previousTopics + '\n\n' : ''}
 --- ORIGINAL SECTION SCRIPT ---
+\`\`\` markdown
 ${sectionText}
+\`\`\`
 
 --- FEEDBACK ON ISSUES ---
+\`\`\` markdown
 ${feedback}
+\`\`\`
 
 --- RELEVANT DOCUMENT CONTENT ---
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
 IMPORTANT INSTRUCTIONS:
 
 1. Make surgical changes ONLY to address the specific feedback while keeping everything else intact.
-
 2. MAINTAIN ORIGINAL LENGTH - Your improved section should be approximately ${originalSectionLength} characters.
-
 3. PRESERVE all dialogue exchanges and conversational depth from the original script.
-
 4. Ensure proper HOST and GUEST speaker formatting is preserved.
-
 5. If addressing factual inaccuracies, ensure corrections are supported by the original document.
 
 Return the COMPLETE section with your targeted improvements incorporated.`;
@@ -1635,13 +1656,19 @@ If the script is high quality and follows the outline well, respond with {"isVal
 Target Podcast Duration: ${targetDuration} minutes
 
 --- OUTLINE STRUCTURE ---
+\`\`\` markdown
 ${outlineText}
+\`\`\`
 
 --- GENERATED SCRIPT ---
+\`\`\` markdown
 ${scriptText}
+\`\`\`
 
 --- ORIGINAL DOCUMENT CONTENT ---
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
 Verify if this script is factually accurate (comparing to the document), follows the outline structure, maintains appropriate pacing for the target duration, avoids redundancy, and maintains good conversational flow. Respond in the required JSON format.`;
             
@@ -1756,10 +1783,14 @@ Respond with a JSON object containing:
 Target Podcast Duration: ${targetDuration} minutes
 
 --- OUTLINE STRUCTURE ---
+\`\`\` markdown
 ${outlineText}
+\`\`\`
 
 --- GENERATED SCRIPT ---
+\`\`\` markdown
 ${scriptText}
+\`\`\`
 
 Focus EXCLUSIVELY on these cross-section issues:
 1. Redundancy across sections (same topics or facts repeated in different sections)
@@ -1867,13 +1898,9 @@ Respond in the required JSON format.`;
 IMPORTANT INSTRUCTIONS FOR CROSS-SECTION IMPROVEMENTS:
 
 1. FOCUS ONLY ON CROSS-SECTION ISSUES - Address only the specific issues mentioned in the feedback that span multiple sections
-
 2. MAKE MINIMAL TARGETED CHANGES - Only modify content necessary to fix cross-section issues
-
 3. PRESERVE ORIGINAL CONTENT - Keep all dialogue and content that isn't directly related to cross-section issues
-
 4. MAINTAIN OVERALL LENGTH - Your response must be approximately the same length as the original script
-
 5. PRESERVE FORMAT AND STRUCTURE - Maintain section headers and speaker identifiers (HOST/GUEST)`;
             
             // Get language setting
@@ -1886,24 +1913,26 @@ IMPORTANT INSTRUCTIONS FOR CROSS-SECTION IMPROVEMENTS:
 Target Podcast Duration: ${targetDuration} minutes
 
 --- ORIGINAL SCRIPT ---
+\`\`\` markdown
 ${originalScriptText}
+\`\`\`
 
 --- CROSS-SECTION ISSUES FEEDBACK ---
+\`\`\` markdown
 ${feedback}
+\`\`\`
 
 --- OUTLINE STRUCTURE ---
+\`\`\` markdown
 ${outlineText}
+\`\`\`
 
 IMPORTANT INSTRUCTIONS:
 
 1. ONLY FIX CROSS-SECTION ISSUES - Only address problems that span across multiple sections (redundancy, narrative flow, topic transitions)
-
 2. PRESERVE EVERYTHING ELSE - Do not change content unrelated to the cross-section issues
-
 3. MAINTAIN ORIGINAL LENGTH - Your improved script should be approximately ${originalScriptLength} characters
-
 4. PRESERVE all speaker identifiers (HOST/GUEST) and section structure
-
 5. If addressing redundancy, choose the best version to keep and modify or remove other instances
 
 Return the COMPLETE script with your cross-section improvements incorporated.`;
@@ -1990,13 +2019,9 @@ Return the COMPLETE script with your cross-section improvements incorporated.`;
 IMPORTANT INSTRUCTIONS FOR SCRIPT IMPROVEMENT:
 
 1. MAKE TARGETED CHANGES ONLY - Only modify specific sections mentioned in the feedback. Do not rewrite or summarize unaffected sections.
-
 2. PRESERVE ORIGINAL CONTENT - Keep all dialogue that isn't directly mentioned in the feedback exactly as it is.
-
 3. MAINTAIN EQUIVALENT LENGTH - Your response MUST be approximately the same length as the original script (within 10%). Do not shorten or summarize the content.
-
 4. PRESERVE DETAILED DIALOGUE - Keep the same level of conversational detail and depth as the original script.
-
 5. PRESERVE FORMAT - Maintain section headers, speaker identifiers (HOST/GUEST), and overall structure.
 
 Warning: If your response is significantly shorter than the original script, it will be rejected. Your task is precise editing, not summarization.`;
@@ -2011,31 +2036,33 @@ Warning: If your response is significantly shorter than the original script, it 
 Target Podcast Duration: ${targetDuration} minutes
 
 --- ORIGINAL SCRIPT ---
+\`\`\` markdown
 ${originalScriptText}
+\`\`\`
 
 --- FEEDBACK ON ISSUES ---
+\`\`\` markdown
 ${feedback}
+\`\`\`
 
 --- OUTLINE STRUCTURE ---
+\`\`\` markdown
 ${outlineText}
+\`\`\`
 
 --- ORIGINAL DOCUMENT CONTENT ---
+\`\`\` markdown
 ${documentContent}
+\`\`\`
 
 IMPORTANT INSTRUCTIONS:
 
 1. DO NOT REWRITE the entire script. Make surgical changes ONLY to the specific parts mentioned in the feedback.
-
 2. If the feedback points to issues in specific sections, ONLY modify those sections.
-
 3. MAINTAIN ORIGINAL LENGTH - Your improved script should be approximately ${originalScriptLength} characters (within 10%). Scripts that are significantly shorter will be rejected.
-
 4. PRESERVE all dialogue exchanges, conversational depth, and detail level from the original script. DO NOT summarize or condense content.
-
 5. Ensure proper HOST and GUEST speaker formatting is preserved.
-
 6. If addressing factual inaccuracies, ensure corrections are supported by the original document.
-
 7. Return the COMPLETE script with your targeted improvements incorporated.`;
             
             // Add language instruction to system prompt

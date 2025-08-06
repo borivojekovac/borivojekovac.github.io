@@ -226,6 +226,19 @@
                             </select>
                         </div>
                         
+                        <!-- Speech Rate (visible only when TTS-1/TTS-1-HD is selected) -->
+                        <div class="form-group speech-rate-container" id="host-speech-rate-container" style="display: none;">
+                            <label for="host-speech-rate">Speech Rate: <span id="host-speech-rate-value">1.0</span>x</label>
+                            <div class="slider-container">
+                                <input type="range" id="host-speech-rate" min="-3" max="3" step="0.1" value="0" />
+                                <div class="slider-legend">
+                                    <span>Slower</span>
+                                    <span>Normal</span>
+                                    <span>Faster</span>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <!-- Voice Instructions (visible only when GPT-4o-mini-TTS is selected) -->
                         <div class="form-group voice-instructions-container" id="host-voice-instructions-container" style="display: none;">
                             <label for="host-voice-instructions-preset">Voice Instructions:</label>
@@ -313,6 +326,19 @@
                                 <option value="">Select voice...</option>
                                 <!-- Options will be populated from JS -->
                             </select>
+                        </div>
+                        
+                        <!-- Speech Rate (visible only when TTS-1/TTS-1-HD is selected) -->
+                        <div class="form-group speech-rate-container" id="guest-speech-rate-container" style="display: none;">
+                            <label for="guest-speech-rate">Speech Rate: <span id="guest-speech-rate-value">1.0</span>x</label>
+                            <div class="slider-container">
+                                <input type="range" id="guest-speech-rate" min="-3" max="3" step="0.1" value="0" />
+                                <div class="slider-legend">
+                                    <span>Slower</span>
+                                    <span>Normal</span>
+                                    <span>Faster</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Voice Instructions (visible only when GPT-4o-mini-TTS is selected) -->
