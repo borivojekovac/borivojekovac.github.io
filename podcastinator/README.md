@@ -128,20 +128,6 @@ The application supports keyboard navigation for improved accessibility:
 - Modern web browser
 - OpenAI API key
 
-### Building and Running
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Start the development server:
-   ```bash
-   npm start
-   ```
-
-3. Open http://localhost:8080 in your browser
-
 ### Testing
 
 - Use `?debug` parameter to enable all sections for testing
