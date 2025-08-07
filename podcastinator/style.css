@@ -633,13 +633,15 @@ footer {
     }
     
     .workflow-section h2 {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding-right: 40px; /* Make space for the toggle button */
     }
     
     .step-number {
-        margin-right: 0;
+        margin-right: 8px; /* Reduced from 16px */
     }
     
     /* Add a horizontal divider between sections on mobile */

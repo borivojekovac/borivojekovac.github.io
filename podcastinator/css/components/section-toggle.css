@@ -45,6 +45,10 @@
     display: none;
 }
 
+.workflow-section.collapsed h2 {
+    margin-bottom: 0;
+}
+
 /* Disable collapse functionality for disabled sections */
 .workflow-section.disabled .section-toggle {
     opacity: 0.5;
