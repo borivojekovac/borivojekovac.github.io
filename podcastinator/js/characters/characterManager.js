@@ -292,6 +292,22 @@ class CharacterManager {
                     voiceInstructionsPresetField.value = characterData.voiceInstructionsPreset;
                 }
                 
+                // Set speech rate slider and display value if it exists
+                const speechRateSlider = document.getElementById(`${type}-speech-rate`);
+                const speechRateValue = document.getElementById(`${type}-speech-rate-value`);
+                if (speechRateSlider && speechRateValue && characterData.speechRate) {
+                    const actualRate = parseFloat(characterData.speechRate);
+                    
+                    // Convert actual rate to raw slider value
+                    const rawValue = this.speechRateToRaw(actualRate);
+                    
+                    // Update slider position
+                    speechRateSlider.value = rawValue;
+                    
+                    // Update display value
+                    speechRateValue.textContent = actualRate.toFixed(2);
+                }
+                
                 // Force character preview update
                 this.updateCharacterPreview(type);
             }
@@ -405,7 +421,12 @@ class CharacterManager {
         const backstory = document.getElementById(`${type}-backstory`).value.trim();
         const voiceInstructions = document.getElementById(`${type}-voice-instructions`).value.trim();
         const voiceInstructionsPreset = document.getElementById(`${type}-voice-instructions-preset`).value;
-        const speechRate = document.getElementById(`${type}-speech-rate`).value;
+        
+        // Get the raw slider value
+        const rawSliderValue = document.getElementById(`${type}-speech-rate`).value;
+        
+        // Convert to actual speech rate - this is what we should store
+        const speechRate = this.rawToSpeechRate(parseFloat(rawSliderValue));
         
         // Validate required fields
         if (!name || !personality || !voice) {
@@ -728,6 +749,55 @@ class CharacterManager {
     }
     
     /**
+     * Convert raw slider value to actual speech rate
+     * @param {number} rawValue - Slider value (-3 to +3)
+     * @returns {number} - Actual speech rate value
+     */
+    rawToSpeechRate(rawValue) {
+    
+        let actualRate;
+        
+        if (rawValue < 0) {
+            // Negative values (slower): 1/(|value|+1)
+            actualRate = 1 / (Math.abs(rawValue) + 1);
+        } else if (rawValue > 0) {
+            // Positive values (faster): rawValue+1
+            actualRate = rawValue + 1;
+        } else {
+            // Zero (normal): 1.0
+            actualRate = 1.0;
+        }
+        
+        return actualRate;
+    }
+    
+    /**
+     * Convert actual speech rate to raw slider value
+     * @param {number} speechRate - Actual speech rate value
+     * @returns {number} - Raw slider value (-3 to +3)
+     */
+    speechRateToRaw(speechRate) {
+    
+        // Handle standard case
+        if (speechRate === 1.0) {
+            return 0;
+        }
+        
+        // Handle slower than normal (rate < 1.0)
+        if (speechRate < 1.0) {
+            // Invert the formula: 1 / (|value| + 1)
+            // If speechRate = 1/(|value|+1), then |value| = (1/speechRate) - 1
+            const absValue = (1 / speechRate) - 1;
+            return -absValue; // Negative for slower speeds
+        }
+        
+        // Handle faster than normal (rate > 1.0)
+        // Invert the formula: rawValue + 1 = speechRate
+        // Therefore: rawValue = speechRate - 1
+        return speechRate - 1;
+    }
+    
+    /**
      * Handle speech rate change
      * @param {string} type - Character type ('host' or 'guest')
      */
@@ -740,19 +810,8 @@ class CharacterManager {
             // Get the raw slider value (-4 to +4)
             const rawValue = parseFloat(slider.value);
             
-            // Convert to actual speech rate using formula
-            let actualRate;
-            
-            if (rawValue < 0) {
-                // Negative values (slower): 1/|value|
-                actualRate = 1 / (Math.abs(rawValue) + 1);
-            } else if (rawValue > 0) {
-                // Positive values (faster): value
-                actualRate = 1 * (rawValue + 1);
-            } else {
-                // Zero (normal): 1.0
-                actualRate = 1.0;
-            }
+            // Convert to actual speech rate using helper method
+            const actualRate = this.rawToSpeechRate(rawValue);
             
             // Round to 2 decimal places for display
             const rateValue = actualRate.toFixed(2);

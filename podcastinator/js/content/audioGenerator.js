@@ -477,22 +477,30 @@ class AudioGenerator {
                     // Determine if we're using the GPT-4o-mini-TTS model
                     const isGpt4oMiniTts = apiData.models.tts === 'gpt-4o-mini-tts';
                     
-                    // Get character data for voice instructions if using GPT-4o-mini-TTS
+                    // Get character data for voice instructions and speech rate
                     let voiceInstructions = null;
-                    if (isGpt4oMiniTts) {
-                        // Determine if this is host or guest based on voice
-                        const characters = this.storageManager.load('data', {});
-                        let characterType = null;
-                        
-                        if (characters.host && characters.host.voice === voice) {
-                            characterType = 'host';
-                        } else if (characters.guest && characters.guest.voice === voice) {
-                            characterType = 'guest';
+                    let speechRate = null;
+                    
+                    // Load character data
+                    const characters = this.storageManager.load('data', {});
+                    let characterType = null;
+                    
+                    // Determine if this is host or guest based on voice
+                    if (characters.host && characters.host.voice === voice) {
+                        characterType = 'host';
+                    } else if (characters.guest && characters.guest.voice === voice) {
+                        characterType = 'guest';
+                    }
+                    
+                    if (characterType) {
+                        // Get voice instructions if available for GPT-4o-mini-TTS
+                        if (isGpt4oMiniTts && characters[characterType].voiceInstructions) {
+                            voiceInstructions = characters[characterType].voiceInstructions;
                         }
                         
-                        // Get voice instructions if available
-                        if (characterType && characters[characterType].voiceInstructions) {
-                            voiceInstructions = characters[characterType].voiceInstructions;
+                        // Get speech rate if available
+                        if (characters[characterType].speechRate) {
+                            speechRate = parseFloat(characters[characterType].speechRate);
                         }
                     }
                     
@@ -508,6 +516,11 @@ class AudioGenerator {
                     // Add voice instructions if available for GPT-4o-mini-TTS
                     if (isGpt4oMiniTts && voiceInstructions) {
                         requestBody.instructions = voiceInstructions;
+                    }
+                    
+                    // Add speech rate if available (only for TTS-1 and TTS-1-HD models)
+                    if (speechRate && (apiData.models.tts === 'tts-1' || apiData.models.tts === 'tts-1-hd')) {
+                        requestBody.speed = speechRate;
                     }
                     
                     // Call OpenAI TTS API - get uncompressed wav format
