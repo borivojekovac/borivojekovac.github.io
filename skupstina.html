@@ -15,29 +15,29 @@
     }
     html, body { height: 100%; }
     body {
-      margin: 0; padding: 16px; background: var(--bg); color: var(--text);
+      margin: 0; padding: 8px; background: var(--bg); color: var(--text);
       font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     }
     .toolbar {
-      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
-      background: var(--panel); border: 1px solid #222838; border-radius: 10px; padding: 10px 12px; margin-top: 14px;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+      background: var(--panel); border: 1px solid #222838; border-radius: 10px; padding: 8px 10px; margin-top: 8px;
     }
     .toolbar label { color: var(--muted); margin-right: 6px; }
     .toolbar select {
       background: #0e1220; color: var(--text); border: 1px solid #293047; border-radius: 8px; padding: 6px 8px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 8px; }
     .cam {
       background: var(--panel); border: 1px solid #222838; border-radius: 12px; overflow: hidden; position: relative;
     }
-    .cam .frame { display: block; width: 100%; height: auto; border-radius: 6px; box-sizing: border-box; }
+    .cam .frame { display: block; width: 100%; height: auto; aspect-ratio: 704/576; object-fit: contain; border-radius: 6px; box-sizing: border-box; }
     .cam .meta {
       display: flex; justify-content: space-between; align-items: center; gap: 8px;
-      padding: 8px 10px; color: var(--muted);
+      padding: 6px 8px; color: var(--muted); font-size: 13px;
     }
     .meta .stamp { font-variant-numeric: tabular-nums; }
     .timeline {
-      margin-top: 16px; background: var(--panel); border: 1px solid #222838; border-radius: 10px; padding: 10px 12px;
+      margin-top: 8px; background: var(--panel); border: 1px solid #222838; border-radius: 10px; padding: 8px 10px;
     }
     .timeline .labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-top: 6px; }
 
@@ -76,7 +76,7 @@
   <div class="timeline">
     <input id="scrubber" type="range" min="0" max="0" value="0" step="1" aria-label="Image history scrubber" />
     <div class="labels">
-      <span>Najstarija</span>
+      <span>Ranije</span>
       <span id="scrubberStatus" class="live">Uživo</span>
     </div>
   </div>
@@ -88,17 +88,17 @@
       <select id="historyDuration" aria-label="History duration">
         <option value="300000">5 minuta</option>
         <option value="900000">15 minuta</option>
-        <option value="1800000" selected>30 minuta</option>
+        <option value="1800000">30 minuta</option>
         <option value="3600000">1 sat</option>
-        <option value="7200000">2 sata</option>
+        <option value="7200000" selected>2 sata</option>
         <option value="21600000">6 sati</option>
       </select>
     </div>
     <div>
       <label for="historySampling">Rezolucija istorije</label>
       <select id="historySampling" aria-label="History sampling interval">
-        <option value="1000">Svake 1 sekunde</option>
-        <option value="10000" selected>Svakih 10 sekundi</option>
+        <option value="1000" selected>Svake 1 sekunde</option>
+        <option value="10000">Svakih 10 sekundi</option>
         <option value="30000">Svakih 30 sekundi</option>
         <option value="60000">Svaki 1 minut</option>
         <option value="600000">Svakih 10 minuta</option>
@@ -142,9 +142,9 @@
       timeLabels.set(def.id, $(`time-${def.id}`));
     }
 
-    // Initial settings
-    let RETENTION_MS = Number(durSelect.value);           // how long to keep history entries
-    let SAMPLE_MS = Number(resSelect.value);              // how often to store into history
+    // Initial settings (will be set in init after loading from localStorage)
+    let RETENTION_MS;                                     // how long to keep history entries
+    let SAMPLE_MS;                                        // how often to store into history
     let lastSampleAt = 0;                                 // last timestamp we saved a snapshot
 
     // ---- Utilities ----
@@ -154,7 +154,7 @@
       return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
     }
 
-    function randomUniq() { return Math.random().toString().slice(2); }
+    function randomUniq() { return Math.random().toString(); }
 
     function isRightmost() { return Number(scrubber.value) === Number(scrubber.max); }
 
@@ -279,16 +279,36 @@
     durSelect.addEventListener('change', () => {
       RETENTION_MS = Number(durSelect.value);
       pruneHistory();
+      // Save to localStorage
+      localStorage.setItem('skupstina-historyDuration', durSelect.value);
     });
 
     resSelect.addEventListener('change', () => {
       SAMPLE_MS = Number(resSelect.value);
       // Align next save to the new cadence
       lastSampleAt = 0;
+      // Save to localStorage
+      localStorage.setItem('skupstina-historySampling', resSelect.value);
     });
 
     // ---- Bootstrap ----
     (function init() {
+      // Load saved settings from localStorage
+      const savedDuration = localStorage.getItem('skupstina-historyDuration');
+      const savedSampling = localStorage.getItem('skupstina-historySampling');
+      
+      if (savedDuration !== null) {
+        durSelect.value = savedDuration;
+      }
+      
+      if (savedSampling !== null) {
+        resSelect.value = savedSampling;
+      }
+      
+      // Initialize settings (either from localStorage or defaults)
+      RETENTION_MS = Number(durSelect.value);
+      SAMPLE_MS = Number(resSelect.value);
+      
       // Prime buffers with a first fetch
       const now = Date.now();
       for (const cam of cameras) {
