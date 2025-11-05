@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skupština i Takovska uživo</title>
+  <style>
+    :root {
+      --brand: #ffdd00;
+      --bg: #0f1115;
+      --panel: #151922;
+      --text: #e6e6e6;
+      --muted: #a0a6b0;
+      --accent: #2f81f7;
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; padding: 16px; background: var(--bg); color: var(--text);
+      font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    .toolbar {
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+      background: var(--panel); border: 1px solid #222838; border-radius: 10px; padding: 10px 12px; margin-top: 14px;
+    }
+    .toolbar label { color: var(--muted); margin-right: 6px; }
+    .toolbar select {
+      background: #0e1220; color: var(--text); border: 1px solid #293047; border-radius: 8px; padding: 6px 8px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+    .cam {
+      background: var(--panel); border: 1px solid #222838; border-radius: 12px; overflow: hidden; position: relative;
+    }
+    .cam .frame { display: block; width: 100%; height: auto; border-radius: 6px; box-sizing: border-box; }
+    .cam .meta {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 8px 10px; color: var(--muted);
+    }
+    .meta .stamp { font-variant-numeric: tabular-nums; }
+    .timeline {
+      margin-top: 16px; background: var(--panel); border: 1px solid #222838; border-radius: 10px; padding: 10px 12px;
+    }
+    .timeline .labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-top: 6px; }
+
+    /* Range input styling */
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 999px; background: #1b2132; outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+    input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; }
+    input[type="range"]:disabled { opacity: 0.6; }
+    .live { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Cameras -->
+  <div class="grid" id="cams">
+    <figure class="cam" data-id="trg-nikole-pasica">
+      <img class="frame" id="display-trg-nikole-pasica" alt="Trg Nikole Pašića" />
+      <figcaption class="meta">
+        <span>Trg Nikole Pašića</span>
+        <span class="stamp" id="time-trg-nikole-pasica">--:--:--</span>
+      </figcaption>
+    </figure>
+
+    <figure class="cam" data-id="takovska">
+      <img class="frame" id="display-takovska" alt="Takovska" />
+      <figcaption class="meta">
+        <span>Takovska</span>
+        <span class="stamp" id="time-takovska">--:--:--</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- Timeline scrubber (scroll bar below images) -->
+  <div class="timeline">
+    <input id="scrubber" type="range" min="0" max="0" value="0" step="1" aria-label="Image history scrubber" />
+    <div class="labels">
+      <span>Najstarija</span>
+      <span id="scrubberStatus" class="live">Uživo</span>
+    </div>
+  </div>
+
+<!-- Controls -->
+  <div class="toolbar">
+    <div>
+      <label for="historyDuration">Trajanje istorije</label>
+      <select id="historyDuration" aria-label="History duration">
+        <option value="300000">5 minuta</option>
+        <option value="900000">15 minuta</option>
+        <option value="1800000" selected>30 minuta</option>
+        <option value="3600000">1 sat</option>
+        <option value="7200000">2 sata</option>
+        <option value="21600000">6 sati</option>
+      </select>
+    </div>
+    <div>
+      <label for="historySampling">Rezolucija istorije</label>
+      <select id="historySampling" aria-label="History sampling interval">
+        <option value="1000">Svake 1 sekunde</option>
+        <option value="10000" selected>Svakih 10 sekundi</option>
+        <option value="30000">Svakih 30 sekundi</option>
+        <option value="60000">Svaki 1 minut</option>
+        <option value="600000">Svakih 10 minuta</option>
+      </select>
+    </div>
+  </div>
+
+  <script>
+    // ---- Configuration & state ----
+    const CAM_DEFS = [
+      { id: 'trg-nikole-pasica', title: 'Trg Nikole Pašića', url: 'https://stream.uzivobeograd.rs/live/cam_20.jpg' },
+      { id: 'takovska', title: 'Takovska', url: 'https://stream.uzivobeograd.rs/live/cam_13.jpg' }
+    ];
+
+    const displayImgs = new Map();
+    const timeLabels = new Map();
+
+    // For each camera, keep a hidden buffer image that always tracks the live feed
+    // and a history of snapshots [{ ts:number, src:string }].
+    const cameras = CAM_DEFS.map(def => ({
+      id: def.id,
+      url: def.url,
+      buffer: new Image(), // not shown; we just keep its src for the latest live image
+      lastLiveSrc: '',
+      lastLiveTs: 0,
+      history: []
+    }));
+
+    // Shared timeline index; value == history.length means "rightmost (live)"
+    const scrubber = document.getElementById('scrubber');
+    const scrubberStatus = document.getElementById('scrubberStatus');
+
+    const durSelect = document.getElementById('historyDuration');
+    const resSelect = document.getElementById('historySampling');
+
+    function $(id) { return document.getElementById(id); }
+
+    // Wire display elements
+    for (const def of CAM_DEFS) {
+      displayImgs.set(def.id, $(`display-${def.id}`));
+      timeLabels.set(def.id, $(`time-${def.id}`));
+    }
+
+    // Initial settings
+    let RETENTION_MS = Number(durSelect.value);           // how long to keep history entries
+    let SAMPLE_MS = Number(resSelect.value);              // how often to store into history
+    let lastSampleAt = 0;                                 // last timestamp we saved a snapshot
+
+    // ---- Utilities ----
+    const pad = n => String(n).padStart(2, '0');
+    function fmtTime(ts) {
+      const d = new Date(ts);
+      return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    }
+
+    function randomUniq() { return Math.random().toString().slice(2); }
+
+    function isRightmost() { return Number(scrubber.value) === Number(scrubber.max); }
+
+    function setRightmost() { scrubber.value = scrubber.max; updateScrubberStatus(); }
+
+    function updateScrubberStatus() {
+      if (isRightmost()) { scrubberStatus.textContent = 'Live'; scrubberStatus.classList.add('live'); }
+      else { scrubberStatus.textContent = fmtTime(getSnapshotAt(Number(scrubber.value))?.ts || Date.now()); scrubberStatus.classList.remove('live'); }
+    }
+
+    function getCommonHistoryLength() {
+      // Histories are appended together, but guard just in case
+      return Math.min(...cameras.map(c => c.history.length));
+    }
+
+    function getSnapshotAt(idx) {
+      // We assume cameras are aligned by index; return the stamp from cam[0]
+      const len = getCommonHistoryLength();
+      if (len === 0 || idx <= 0) return null;
+      const safeIdx = Math.min(idx, len) - 1; // convert 1..len -> 0..len-1
+      return cameras[0].history[safeIdx] || null;
+    }
+
+    function pruneHistory() {
+      const cutoff = Date.now() - RETENTION_MS;
+      for (const cam of cameras) {
+        // Find first index >= cutoff
+        let keepFrom = 0;
+        while (keepFrom < cam.history.length && cam.history[keepFrom].ts < cutoff) keepFrom++;
+        if (keepFrom > 0) cam.history.splice(0, keepFrom);
+      }
+      // Align lengths after pruning
+      const len = getCommonHistoryLength();
+      scrubber.min = 0;
+      scrubber.max = String(len + 1); // +1 for the Live position at the rightmost end
+      // If we were not at rightmost, keep the same historical moment if possible
+      if (!isRightmost()) {
+        const currentIdx = Number(scrubber.value);
+        scrubber.value = String(Math.min(currentIdx, len));
+      }
+      updateScrubberStatus();
+    }
+
+    function pushSnapshot(ts) {
+      // Save the current live image URLs into history for each camera
+      for (const cam of cameras) {
+        if (!cam.lastLiveSrc) continue; // skip until we have a frame
+        cam.history.push({ ts, src: cam.lastLiveSrc });
+      }
+      // Extend scrubber range; if user was at rightmost keep them there
+      const wasRight = isRightmost();
+      const len = getCommonHistoryLength();
+      scrubber.max = String(len + 1);
+      if (wasRight) setRightmost();
+      updateScrubberStatus();
+    }
+
+    function showLive() {
+      for (const cam of cameras) {
+        const img = displayImgs.get(cam.id);
+        if (!img) continue;
+        img.src = cam.lastLiveSrc;
+        timeLabels.get(cam.id).textContent = cam.lastLiveTs ? fmtTime(cam.lastLiveTs) : '--:--:--';
+      }
+    }
+
+    function showHistorical(idx /* 1..len */) {
+      const len = getCommonHistoryLength();
+      const safe = Math.min(Math.max(1, idx), len) - 1;
+      for (const cam of cameras) {
+        const snap = cam.history[safe];
+        if (!snap) continue;
+        const img = displayImgs.get(cam.id);
+        img.src = snap.src;
+        timeLabels.get(cam.id).textContent = fmtTime(snap.ts);
+      }
+    }
+
+    // ---- Live refresh loop ----
+    function refreshBuffers() {
+      const now = Date.now();
+
+      // 1) If due, save snapshots BEFORE refreshing the live images (requirement #1)
+      if (now - lastSampleAt >= SAMPLE_MS) {
+        // Capture current live frame URLs into history arrays
+        const stamp = now; // single shared timestamp across cams
+        pushSnapshot(stamp);
+        lastSampleAt = now;
+        pruneHistory(); // enforce retention window (requirement #7)
+      }
+
+      // 2) Refresh hidden buffers to newest images every second
+      for (const cam of cameras) {
+        const url = `${cam.url}?uniq=${randomUniq()}`;
+        cam.buffer.src = url; // triggers network fetch
+        cam.lastLiveSrc = url;
+        cam.lastLiveTs = now;
+      }
+
+      // 3) If user is at rightmost, update the on-screen images immediately (requirements #3, #5, #9)
+      if (isRightmost()) {
+        showLive();
+      }
+    }
+
+    // ---- Scrubber behavior ----
+    scrubber.addEventListener('input', () => {
+      const idx = Number(scrubber.value);
+      if (idx === Number(scrubber.max)) {
+        // rightmost -> live
+        showLive();
+      } else if (idx === 0) {
+        // Treat 0 as the oldest snapshot (if any)
+        if (getCommonHistoryLength() > 0) showHistorical(1);
+      } else {
+        showHistorical(idx);
+      }
+      updateScrubberStatus();
+    });
+
+    // ---- Settings ----
+    durSelect.addEventListener('change', () => {
+      RETENTION_MS = Number(durSelect.value);
+      pruneHistory();
+    });
+
+    resSelect.addEventListener('change', () => {
+      SAMPLE_MS = Number(resSelect.value);
+      // Align next save to the new cadence
+      lastSampleAt = 0;
+    });
+
+    // ---- Bootstrap ----
+    (function init() {
+      // Prime buffers with a first fetch
+      const now = Date.now();
+      for (const cam of cameras) {
+        cam.buffer.referrerPolicy = 'no-referrer';
+        cam.buffer.decoding = 'async';
+        cam.lastLiveTs = now;
+        cam.lastLiveSrc = `${cam.url}?uniq=${randomUniq()}`;
+        cam.buffer.src = cam.lastLiveSrc;
+      }
+      // Start with live images shown
+      setRightmost();
+      showLive();
+      // Refresh loop – images are refreshed each second (requirement #8 base cadence)
+      setInterval(refreshBuffers, 1000);
+    })();
+  </script>
+</body>
+</html>
