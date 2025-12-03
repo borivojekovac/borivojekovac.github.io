@@ -1,0 +1,209 @@
+/**
+ * Main Stylesheet
+ * Imports all CSS modules and defines base styles
+ */
+
+@import './variables.css';
+@import './components.css';
+@import './markdown.css';
+@import './responsive.css';
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--md-font-family);
+  font-size: var(--md-body-large);
+  line-height: 1.5;
+  color: var(--md-on-background);
+  background-color: var(--md-background);
+  min-height: 100vh;
+}
+
+/* App container */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* App main content */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px; /* Space for bottom nav */
+  min-height: 0; /* Allow flex children to shrink below content size */
+  overflow: hidden;
+}
+
+/* Loading screen */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: var(--spacing-md);
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--md-outline-variant);
+  border-top-color: var(--md-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h1 { font-size: var(--md-headline-large); }
+h2 { font-size: var(--md-headline-medium); }
+h3 { font-size: var(--md-headline-small); }
+h4 { font-size: var(--md-title-large); }
+h5 { font-size: var(--md-title-medium); }
+h6 { font-size: var(--md-title-small); }
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: var(--md-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--md-primary);
+  color: var(--md-on-primary);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--md-surface-variant);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--md-outline);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--md-on-surface-variant);
+}
+
+/* Utility classes */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+
+/* ========================================
+   UNIFIED VIEW LAYOUT - Using CSS Grid
+   ======================================== */
+
+/* App main in unified mode - fills entire viewport */
+.app-main.unified-layout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Container fills app-main */
+#unified-view-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Panel containers pass through */
+#prompt-panel-container,
+#conversation-area-container,
+#input-panel-container {
+  display: contents;
+}
+
+/* App title bar - always visible */
+.app-header {
+  flex-shrink: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-md);
+  background-color: var(--md-primary);
+  color: var(--md-on-primary);
+  z-index: var(--z-sticky);
+}
+
+.app-header__title {
+  font-size: var(--md-title-large);
+  font-weight: 500;
+}
+
+.app-header__actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}

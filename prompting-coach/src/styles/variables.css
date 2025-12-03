@@ -1,0 +1,198 @@
+/**
+ * CSS Custom Properties - Material Design Tokens
+ * Based on Material Design 3 color system
+ */
+
+:root {
+  /* Primary colors */
+  --md-primary: #1976d2;
+  --md-primary-light: #63a4ff;
+  --md-primary-dark: #004ba0;
+  --md-on-primary: #ffffff;
+
+  /* Secondary colors */
+  --md-secondary: #26a69a;
+  --md-secondary-light: #64d8cb;
+  --md-secondary-dark: #00766c;
+  --md-on-secondary: #ffffff;
+
+  /* Error colors */
+  --md-error: #d32f2f;
+  --md-error-light: #ff6659;
+  --md-error-dark: #9a0007;
+  --md-on-error: #ffffff;
+
+  /* Surface colors */
+  --md-surface: #ffffff;
+  --md-surface-variant: #f5f5f5;
+  --md-on-surface: #1c1b1f;
+  --md-on-surface-variant: #49454f;
+
+  /* Background */
+  --md-background: #fafafa;
+  --md-on-background: #1c1b1f;
+
+  /* Outline */
+  --md-outline: #79747e;
+  --md-outline-variant: #cac4d0;
+
+  /* Typography scale */
+  --md-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  --md-display-large: 3.5625rem;   /* 57px */
+  --md-display-medium: 2.8125rem;  /* 45px */
+  --md-display-small: 2.25rem;     /* 36px */
+  
+  --md-headline-large: 2rem;       /* 32px */
+  --md-headline-medium: 1.75rem;   /* 28px */
+  --md-headline-small: 1.5rem;     /* 24px */
+  
+  --md-title-large: 1.375rem;      /* 22px */
+  --md-title-medium: 1rem;         /* 16px */
+  --md-title-small: 0.875rem;      /* 14px */
+  
+  --md-body-large: 1rem;           /* 16px */
+  --md-body-medium: 0.875rem;      /* 14px */
+  --md-body-small: 0.75rem;        /* 12px */
+  
+  --md-label-large: 0.875rem;      /* 14px */
+  --md-label-medium: 0.75rem;      /* 12px */
+  --md-label-small: 0.6875rem;     /* 11px */
+
+  /* Spacing scale */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Elevation (box-shadow) */
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.3);
+  --elevation-5: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-index scale */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-primary: #90caf9;
+    --md-primary-light: #c3fdff;
+    --md-primary-dark: #5d99c6;
+    --md-on-primary: #003258;
+
+    --md-secondary: #80cbc4;
+    --md-secondary-light: #b2fef7;
+    --md-secondary-dark: #4f9a94;
+    --md-on-secondary: #003731;
+
+    --md-error: #f44336;
+    --md-error-light: #ff7961;
+    --md-error-dark: #ba000d;
+    --md-on-error: #601410;
+
+    --md-surface: #1e1e1e;
+    --md-surface-variant: #2d2d2d;
+    --md-on-surface: #e6e1e5;
+    --md-on-surface-variant: #cac4d0;
+
+    --md-background: #121212;
+    --md-on-background: #e6e1e5;
+
+    --md-outline: #938f99;
+    --md-outline-variant: #49454f;
+  }
+}
+
+/* Manual theme override classes */
+.theme-light {
+  --md-primary: #1976d2;
+  --md-primary-light: #63a4ff;
+  --md-primary-dark: #004ba0;
+  --md-on-primary: #ffffff;
+  --md-secondary: #26a69a;
+  --md-on-secondary: #ffffff;
+  --md-error: #d32f2f;
+  --md-on-error: #ffffff;
+  --md-error-container: #fce4ec;
+  --md-on-error-container: #b71c1c;
+  --md-surface: #ffffff;
+  --md-surface-variant: #f5f5f5;
+  --md-background: #fafafa;
+  --md-on-surface: #1c1b1f;
+  --md-on-surface-variant: #49454f;
+  --md-on-background: #1c1b1f;
+  --md-outline: #79747e;
+  --md-outline-variant: #cac4d0;
+}
+
+.theme-dark {
+  --md-primary: #90caf9;
+  --md-primary-light: #c3fdff;
+  --md-primary-dark: #5d99c6;
+  --md-on-primary: #003258;
+  --md-secondary: #80cbc4;
+  --md-on-secondary: #003731;
+  --md-error: #f44336;
+  --md-on-error: #601410;
+  --md-error-container: #93000a;
+  --md-on-error-container: #ffdad6;
+  --md-surface: #1e1e1e;
+  --md-surface-variant: #2d2d2d;
+  --md-background: #121212;
+  --md-on-surface: #e6e1e5;
+  --md-on-surface-variant: #cac4d0;
+  --md-on-background: #e6e1e5;
+  --md-outline: #938f99;
+  --md-outline-variant: #49454f;
+}
+
+/* ============================================
+   Unified Layout Variables
+   ============================================ */
+
+:root {
+  /* Panel heights */
+  --prompt-panel-height: 180px;
+  --prompt-panel-max-height: 30vh;
+  --input-panel-height: 120px;
+  --input-panel-min-height: 80px;
+  
+  /* Panel spacing - edge-to-edge design */
+  --panel-padding: var(--spacing-md);
+  --panel-gap: 0;
+  
+  /* Maximize z-index */
+  --z-maximized: 1000;
+  
+  /* LLM response styling */
+  --llm-response-bg: var(--md-surface-variant);
+  --llm-response-border: var(--md-outline-variant);
+  
+  /* Conversation area */
+  --message-gap: var(--spacing-sm);
+  --message-max-width: 85%;
+}
