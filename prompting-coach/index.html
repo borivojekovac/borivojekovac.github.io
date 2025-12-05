@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A coaching tool for writing effective prompts using AIM/MAP/OCEAN methodology">
-  <meta name="theme-color" content="#1976d2">
-  
-  <title>Prompting Coach</title>
-  
-  <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16.png">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  
-  <script type="module" crossorigin src="./assets/index-Dx_vCWZY.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CQgInJqO.css">
-<script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
-<body>
-  <div id="app">
-    <noscript>
-      <p>This application requires JavaScript to run. Please enable JavaScript in your browser settings.</p>
-    </noscript>
-    <div class="loading-screen" aria-label="Loading application">
-      <div class="loading-spinner"></div>
-      <p>Loading Prompting Coach...</p>
-    </div>
-  </div>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#6750A4" />
+    <meta name="description" content="AI-powered coaching for better prompts" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Prompt Coach" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <title>Prompt Coach</title>
+    
+    <!-- Styles -->
+    <script type="module" crossorigin src="/assets/index-1WjV0bZy.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BA-qqmd-.css">
+  <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
+  <body>
+    <!-- Loading screen - shows immediately, reveals with animated radial gradient + blur -->
+    <div id="loader" style="
+      position: fixed;
+      inset: 0;
+      background: #1C1B1F;
+      z-index: 9999;
+      pointer-events: none;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    "></div>
+    
+    <div id="app"></div>
+  </body>
 </html>
