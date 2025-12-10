@@ -1,5 +1,5 @@
 {"name":"Prompt Coach","short_name":"PromptCoach","start_url":"./",
-"display": "standalone",       // <- instead of "fullscreen"
+"display": "standalone",
   "display_override": [
     "standalone",
     "minimal-ui",
