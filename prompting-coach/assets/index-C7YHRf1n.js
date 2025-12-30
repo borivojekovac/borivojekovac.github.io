@@ -219,7 +219,7 @@ ${k.feedback}`),$(Le,k),He(y,E,k.feedback),w=this.generateDescription(v,k.summar
       opacity: 0;
       pointer-events: none;
       transition: opacity 200ms ease;
-      z-index: 999;
+      z-index: calc(var(--pc-z-overlay, 300) - 2);
     `,this.backdrop.addEventListener("click",()=>this.hide()),this.element=document.createElement("div"),this.element.className="feedback-panel",this.element.style.cssText=`
       position: fixed;
       top: 0;
@@ -231,7 +231,7 @@ ${k.feedback}`),$(Le,k),He(y,E,k.feedback),w=this.generateDescription(v,k.summar
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       transform: translateY(-100%);
       transition: transform 300ms ease-out;
-      z-index: 1000;
+      z-index: calc(var(--pc-z-overlay, 300) - 1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
