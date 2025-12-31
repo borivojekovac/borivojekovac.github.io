@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 92.2 65;" width="0px" height="0px" xmlns:bx="https://boxy-svg.com">
+  <style type="text/css">
+  .st0{fill:#181818;}
+ </style>
+  <path class="st0" d="M 16.425 4 L 13.365 4 L 18.943 18 L 22 18 L 16.425 4 Z M 7.575 4 L 2 18 L 5.123 18 L 6.274 15.071 L 12.106 15.071 L 13.237 18 L 16.36 18 L 10.784 4 C 10.784 4 7.575 4 7.575 4 Z M 7.272 12.464 L 9.18 7.553 L 11.088 12.464 L 7.272 12.464 Z" style=""/>
+  <defs>
+    <bx:grid x="0" y="0" width="1" height="1"/>
+  </defs>
+</svg>

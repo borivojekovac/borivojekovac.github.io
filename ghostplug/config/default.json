@@ -1,0 +1,82 @@
+{
+  "App": {
+    "Name": "Ghostplug",
+    "Version": "0.1.0",
+    "Environment": "development"
+  },
+  "Logging": {
+    "MinimumLevel": "Information",
+    "EnableDebug": false,
+    "MaxPayloadLength": 4096
+  },
+  "Storage": {
+    "Keys": {
+      "Settings": "Ghostplug.Settings",
+      "Conversations": "Ghostplug.Conversations"
+    }
+  },
+  "Providers": {
+    "DefaultProvider": "OpenAI",
+    "DefaultModel": "gpt-4o-mini",
+    "Enabled": [
+      "OpenAI"
+    ]
+  },
+  "Chat": {
+    "Requests": {
+      "TimeoutMs": 60000,
+      "MaxRetries": 0,
+      "BackoffMs": 0,
+      "MaxOutputTokens": 1024
+    },
+    "ProviderOverrides": {}
+  },
+  "Ui": {
+    "Title": "Ghostplug",
+    "Theme": {
+      "Mode": "light"
+    },
+    "IconsPath": "/assets/icons",
+    "Chat": {
+      "WaitForResponseToastText": "Waiting for a response. Please wait or abort before switching chats.",
+      "AbortedToastText": "Response aborted.",
+      "AbortedMessageText": "Response aborted."
+    },
+    "ChatSaving": {
+      "PinActionLabel": "Pin chat",
+      "UnpinActionLabel": "Unpin chat",
+      "PinnedListTitle": "Pinned chats",
+      "PinDialogTitle": "Pin chat",
+      "PinDialogPlaceholder": "Chat name",
+      "PinDialogOk": "Pin",
+      "PinDialogCancel": "Cancel",
+      "PinDialogEmptyError": "Name is required.",
+      "PinDialogDuplicateError": "A pinned chat with that name already exists.",
+      "PinnedToastText": "Chat pinned.",
+      "UnpinnedToastText": "Chat unpinned. It will no longer be saved.",
+      "DiscardPromptText": "If you continue, you'll lose this current chat.",
+      "DiscardOk": "OK",
+      "DiscardCancel": "Cancel",
+      "StorageErrorText": "Couldn't save chats due to a local storage error."
+    },
+    "ChatSearch": {
+      "Title": "Search chats",
+      "Placeholder": "Search pinned chats",
+      "EmptyStateText": "Type to search your pinned chats.",
+      "NoResultsText": "No matches found.",
+      "ErrorText": "Couldn't load pinned chats.",
+      "CloseAriaLabel": "Close search",
+      "DebounceMs": 75,
+      "MaxResults": 50,
+      "ExcerptContextChars": 48,
+      "ExcerptMaxLength": 180,
+      "TitleMatchMultiplier": 2,
+      "BodyMatchMultiplier": 1,
+      "PositionMinMultiplier": 0.5
+    }
+  },
+  "Pwa": {
+    "EnableCache": true,
+    "RegisterType": "autoUpdate"
+  }
+}
