@@ -36,11 +36,23 @@
     "Theme": {
       "Mode": "light"
     },
-    "IconsPath": "/assets/icons",
+    "IconsPath": "assets/icons",
     "Chat": {
       "WaitForResponseToastText": "Waiting for a response. Please wait or abort before switching chats.",
       "AbortedToastText": "Response aborted.",
-      "AbortedMessageText": "Response aborted."
+      "AbortedMessageText": "Response aborted.",
+      "ReasoningToggleLabel": "Reasoning",
+      "ReasoningSectionLabel": "Reasoning",
+      "ReasoningActiveLabel": "Active",
+      "ReasoningOffLabel": "Off",
+      "ReasoningOnLabel": "On",
+      "ReasoningEffortLabel": "Reasoning",
+      "ReasoningBudgetLabel": "Reasoning",
+      "ReasoningToggleOnLabel": "Thinking on",
+      "ReasoningToggleOffLabel": "Thinking off",
+      "ThinkingIndicatorText": "Thinking...",
+      "InternalMessageLabel": "Thought",
+      "InternalMessagesSummaryLabel": "internal messages"
     },
     "ChatSaving": {
       "PinActionLabel": "Pin chat",
