@@ -5,9 +5,11 @@
     "Environment": "development"
   },
   "Logging": {
-    "MinimumLevel": "Information",
-    "EnableDebug": false,
-    "MaxPayloadLength": 4096
+    "MinimumLevel": "Debug",
+    "EnableDebug": true,
+    "MaxPayloadLength": 4096,
+    "ObjectLogging": false,
+    "TextLogging": "simple"
   },
   "Storage": {
     "Keys": {
@@ -27,9 +29,21 @@
       "TimeoutMs": 60000,
       "MaxRetries": 0,
       "BackoffMs": 0,
-      "MaxOutputTokens": 1024
+      "MaxOutputTokens": null
     },
     "ProviderOverrides": {}
+  },
+  "Attachments": {
+    "SupportsAttachments": true,
+    "MaxAttachments": 5,
+    "MaxFileSizeMb": 10,
+    "AllowedMimeTypes": [
+      "image/png",
+      "image/jpeg",
+      "application/pdf",
+      "text/plain"
+    ],
+    "RetentionDays": 7
   },
   "Ui": {
     "Title": "Ghostplug",
@@ -53,6 +67,15 @@
       "ThinkingIndicatorText": "Thinking...",
       "InternalMessageLabel": "Thought",
       "InternalMessagesSummaryLabel": "internal messages"
+    },
+    "Attachments": {
+      "AttachFiles": "Attach files",
+      "UnsupportedError": "Attachments are not supported for this model.",
+      "MaxCountError": "Attachment limit reached.",
+      "MaxSizeError": "File exceeds size limit.",
+      "InvalidTypeError": "Unsupported file type.",
+      "GenericError": "Attachment error.",
+      "ExpiredError": "An attachment expired and was removed."
     },
     "ChatSaving": {
       "PinActionLabel": "Pin chat",
