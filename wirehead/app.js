@@ -1,3 +1,10 @@
+const APP_CONFIG = {
+    preloadRecentMonths: 12,
+    initialAutoExpandCount: 0,
+    unloadedHintText: 'Click to load',
+    searchHighlightClass: 'search-highlight'
+};
+
 class WireheadBlog {
     constructor() {
         this.posts = [];
@@ -7,22 +14,25 @@ class WireheadBlog {
         this.currentArticleSlug = null;
         this.expandedStateKey = 'wireheadExpandedPosts';
         this.postContainer = null;
+        this.isSearchActive = false;
+        this.searchTerms = [];
         this.init();
     }
 
     async init() {
         try {
             await this.initDatabase();
-                    await this.loadPosts();
-                    await this.loadCachedContent();
-                    this.renderPosts();
-                    this.setupPostHandlers();
-                    this.setupHeroObserver();
-                    this.setupRouting();
-                    await this.handleInitialRoute();
-                    this.setupSearchHandlers();
-                } catch (error) {
-                    this.showError('Failed to load blog posts: ' + error.message);
+            await this.loadPosts();
+            await this.loadCachedContent();
+            await this.preloadRecentPosts();
+            this.renderPosts();
+            this.setupPostHandlers();
+            this.setupHeroObserver();
+            this.setupRouting();
+            await this.handleInitialRoute();
+            this.setupSearchHandlers();
+        } catch (error) {
+            this.showError('Failed to load blog posts: ' + error.message);
         } finally {
             this.hideLoading();
         }
@@ -94,6 +104,35 @@ class WireheadBlog {
         }
     }
 
+    async preloadRecentPosts() {
+        if (!this.posts.length || APP_CONFIG.preloadRecentMonths <= 0) return;
+
+        const cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - APP_CONFIG.preloadRecentMonths);
+
+        for (const post of this.posts) {
+            if (!post.date) continue;
+            const postDate = new Date(post.date);
+            if (Number.isNaN(postDate.getTime()) || postDate < cutoff) continue;
+            if (post.content) continue;
+
+            try {
+                const response = await fetch(`posts/${post.file}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${post.file}`);
+                }
+                post.content = await response.text();
+                const { title } = this.extractTitleFromMarkdown(post.content);
+                if (title) {
+                    post.title = title;
+                }
+                await this.cacheArticle(post);
+            } catch (error) {
+                console.warn(`Failed to preload ${post.file}:`, error);
+            }
+        }
+    }
+
     setupRouting() {
         // Handle browser back/forward buttons
         window.addEventListener('popstate', (e) => {
@@ -115,7 +154,7 @@ class WireheadBlog {
         } else {
             const restoredCount = await this.restoreExpandedState();
             if (!restoredCount) {
-                // Default behavior - expand first two posts
+                // Default behavior - expand initial posts
                 this.autoExpandFirstTwo();
             }
         }
@@ -313,6 +352,7 @@ class WireheadBlog {
         postDiv.className = 'post-card';
         postDiv.id = `post-${slug}`;
         postDiv.dataset.index = index;
+        const loadHint = post.content ? '' : `<div class="post-load-hint">${APP_CONFIG.unloadedHintText}</div>`;
         postDiv.innerHTML = `
             <div class="post-header" data-index="${index}">
                 <div class="post-info">
@@ -321,6 +361,7 @@ class WireheadBlog {
                         <span class="material-icons expand-icon" id="icon-${index}">expand_more</span>
                     </div>
                     <div class="post-meta">${this.formatDate(post.date)}</div>
+                    ${loadHint}
                 </div>
             </div>
             <div class="post-content" id="content-${index}">
@@ -341,8 +382,8 @@ class WireheadBlog {
     }
 
     autoExpandFirstTwo() {
-        const firstThree = Math.min(2, this.posts.length);
-        for (let i = 0; i < firstThree; i++) {
+        const initialCount = Math.min(APP_CONFIG.initialAutoExpandCount, this.posts.length);
+        for (let i = 0; i < initialCount; i++) {
             setTimeout(() => this.expandPost(i, { updateUrl: false, persist: true, force: false }), i * 100);
         }
     }
@@ -395,6 +436,10 @@ class WireheadBlog {
             const htmlContent = marked.parse(content);
             markdownElement.innerHTML = htmlContent;
 
+            if (this.isSearchActive && this.searchTerms.length) {
+                this.highlightSearchTerms(markdownElement, this.searchTerms);
+            }
+
             // Update URL and metadata if this is a user-initiated action
             if (updateUrl) {
                 this.updateRouteForPost(post, true);
@@ -402,6 +447,11 @@ class WireheadBlog {
 
             if (persist) {
                 this.persistExpandedState();
+            }
+
+            const loadHint = document.querySelector(`#post-${this.getArticleSlug(post.file)} .post-load-hint`);
+            if (loadHint) {
+                loadHint.remove();
             }
         } catch (error) {
             markdownElement.innerHTML = `<div class="error">Error loading post: ${error.message}</div>`;
@@ -475,6 +525,71 @@ class WireheadBlog {
         });
     }
 
+    getSearchableText(post) {
+        if (!post.content) return '';
+        if (post.searchText && post.searchTextSource === post.content) {
+            return post.searchText;
+        }
+        const { content } = this.extractTitleFromMarkdown(post.content);
+        const htmlContent = marked.parse(content);
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, 'text/html');
+        const textContent = (doc.body.textContent || '').toLowerCase();
+        post.searchText = textContent;
+        post.searchTextSource = post.content;
+        return textContent;
+    }
+
+    highlightSearchTerms(container, terms) {
+        if (!container || !terms.length) return;
+        this.clearHighlights(container);
+        const escapedTerms = terms.map((term) => this.escapeRegExp(term)).filter(Boolean);
+        if (!escapedTerms.length) return;
+
+        const splitRegex = new RegExp(`(${escapedTerms.join('|')})`, 'gi');
+        const testRegex = new RegExp(`(${escapedTerms.join('|')})`, 'i');
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
+        const nodes = [];
+
+        while (walker.nextNode()) {
+            const node = walker.currentNode;
+            if (!node.nodeValue || !testRegex.test(node.nodeValue)) continue;
+            if (node.parentNode && node.parentNode.closest(`.${APP_CONFIG.searchHighlightClass}`)) {
+                continue;
+            }
+            nodes.push(node);
+        }
+
+        nodes.forEach((node) => {
+            const fragment = document.createDocumentFragment();
+            const parts = node.nodeValue.split(splitRegex);
+            parts.forEach((part) => {
+                if (!part) return;
+                if (testRegex.test(part)) {
+                    const span = document.createElement('span');
+                    span.className = APP_CONFIG.searchHighlightClass;
+                    span.textContent = part;
+                    fragment.appendChild(span);
+                } else {
+                    fragment.appendChild(document.createTextNode(part));
+                }
+            });
+            node.parentNode.replaceChild(fragment, node);
+        });
+    }
+
+    clearHighlights(container) {
+        const highlights = container.querySelectorAll(`.${APP_CONFIG.searchHighlightClass}`);
+        highlights.forEach((node) => {
+            const text = document.createTextNode(node.textContent);
+            node.parentNode.replaceChild(text, node);
+        });
+    }
+
+    escapeRegExp(value) {
+        return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
     async cacheArticle(post) {
         if (!this.db || !post.content) return;
         
@@ -512,7 +627,12 @@ class WireheadBlog {
         // Update dialog counts
         const loadedCount = this.posts.filter(p => p.content).length;
         const totalCount = this.posts.length;
-        
+
+        if (loadedCount === totalCount) {
+            this.performSearch(query, 'loaded');
+            return;
+        }
+
         document.getElementById('loaded-count').textContent = 
             `Search through ${loadedCount} articles you've already viewed (faster)`;
         document.getElementById('all-count').textContent = 
@@ -576,6 +696,8 @@ class WireheadBlog {
 
     performSearch(query, scope) {
         const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 0);
+        this.isSearchActive = true;
+        this.searchTerms = searchTerms;
         
         const results = [];
         
@@ -590,8 +712,9 @@ class WireheadBlog {
             
             let contentMatch = false;
             if (post.content) {
+                const searchableText = this.getSearchableText(post);
                 contentMatch = searchTerms.some(term => 
-                    post.content.toLowerCase().includes(term)
+                    searchableText.includes(term)
                 );
             }
             
@@ -645,6 +768,8 @@ class WireheadBlog {
 
     clearSearch() {
         // Restore full list without touching expanded state
+        this.isSearchActive = false;
+        this.searchTerms = [];
         this.renderPosts();
         
         // Clear search input
