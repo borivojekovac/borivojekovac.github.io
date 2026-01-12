@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wirehead-v9';
+const CACHE_NAME = 'wirehead-v10';
 const IS_DEV = ['localhost', '127.0.0.1', '0.0.0.0'].includes(self.location.hostname);
 const urlsToCache = [
   '/',
@@ -12,7 +12,7 @@ const urlsToCache = [
   '/sitemap.xml',
   '/robots.txt',
   '/lib/marked.min.js',
-  '/lib/inspiration-regular.ttf',
+  '/lib/WaterBrush-Regular.ttf',
   '/lib/material-icons.woff2',
   '/lib/roboto-regular.woff2',
   '/lib/roboto-300.woff2',

@@ -352,16 +352,16 @@ class WireheadBlog {
         postDiv.className = 'post-card';
         postDiv.id = `post-${slug}`;
         postDiv.dataset.index = index;
-        const loadHint = post.content ? '' : `<div class="post-load-hint">${APP_CONFIG.unloadedHintText}</div>`;
+        const loadHint = post.content ? '' : `<span class="post-load-hint">${APP_CONFIG.unloadedHintText}</span>`;
         postDiv.innerHTML = `
             <div class="post-header" data-index="${index}">
                 <div class="post-info">
                     <div class="post-title-row">
-                        <h1 class="post-title">${this.escapeHtml(post.title)}</h1>
                         <span class="material-icons expand-icon" id="icon-${index}">expand_more</span>
+                        <h1 class="post-title">${this.escapeHtml(post.title)}</h1>
+                        ${loadHint}
                     </div>
                     <div class="post-meta">${this.formatDate(post.date)}</div>
-                    ${loadHint}
                 </div>
             </div>
             <div class="post-content" id="content-${index}">
@@ -546,34 +546,44 @@ class WireheadBlog {
         const escapedTerms = terms.map((term) => this.escapeRegExp(term)).filter(Boolean);
         if (!escapedTerms.length) return;
 
-        const splitRegex = new RegExp(`(${escapedTerms.join('|')})`, 'gi');
-        const testRegex = new RegExp(`(${escapedTerms.join('|')})`, 'i');
+        const wordMatchRegex = new RegExp(`\\b\\w*(?:${escapedTerms.join('|')})\\w*\\b`, 'gi');
         const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
         const nodes = [];
 
         while (walker.nextNode()) {
             const node = walker.currentNode;
-            if (!node.nodeValue || !testRegex.test(node.nodeValue)) continue;
+            if (!node.nodeValue || !wordMatchRegex.test(node.nodeValue)) continue;
             if (node.parentNode && node.parentNode.closest(`.${APP_CONFIG.searchHighlightClass}`)) {
                 continue;
             }
+            wordMatchRegex.lastIndex = 0;
             nodes.push(node);
         }
 
         nodes.forEach((node) => {
+            const text = node.nodeValue;
             const fragment = document.createDocumentFragment();
-            const parts = node.nodeValue.split(splitRegex);
-            parts.forEach((part) => {
-                if (!part) return;
-                if (testRegex.test(part)) {
-                    const span = document.createElement('span');
-                    span.className = APP_CONFIG.searchHighlightClass;
-                    span.textContent = part;
-                    fragment.appendChild(span);
-                } else {
-                    fragment.appendChild(document.createTextNode(part));
+            let lastIndex = 0;
+            let match;
+            
+            wordMatchRegex.lastIndex = 0;
+            while ((match = wordMatchRegex.exec(text)) !== null) {
+                if (match.index > lastIndex) {
+                    fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
                 }
-            });
+                
+                const span = document.createElement('span');
+                span.className = APP_CONFIG.searchHighlightClass;
+                span.textContent = match[0];
+                fragment.appendChild(span);
+                
+                lastIndex = match.index + match[0].length;
+            }
+            
+            if (lastIndex < text.length) {
+                fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+            }
+            
             node.parentNode.replaceChild(fragment, node);
         });
     }
