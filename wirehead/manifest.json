@@ -2,7 +2,7 @@
   "name": "Wirehead - Cutting through the AI static",
   "short_name": "Wirehead",
   "description": "A blog about cutting through the AI static",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#f8f9fa",
   "theme_color": "#84cc16",
