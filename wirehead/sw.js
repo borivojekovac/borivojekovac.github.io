@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wirehead-v11';
+const CACHE_NAME = 'wirehead-v13';
 const IS_DEV = ['localhost', '127.0.0.1', '0.0.0.0'].includes(self.location.hostname);
 const urlsToCache = [
   '/',
@@ -18,7 +18,9 @@ const urlsToCache = [
   '/lib/roboto-300.woff2',
   '/lib/roboto-500.woff2',
   '/lib/roboto-700.woff2',
-  '/lib/roboto-condensed-regular.woff2'
+  '/lib/roboto-condensed-regular.woff2',
+  '/icon-192.png',
+  '/icon.svg'
 ];
 
 self.addEventListener('install', event => {
@@ -29,6 +31,8 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting())
+      .catch(err => console.error('Cache install failed:', err))
   );
 });
 
@@ -38,16 +42,34 @@ self.addEventListener('fetch', event => {
     event.respondWith(fetch(event.request));
     return;
   }
+
+  // Network-first for posts.json to get fresh content list
+  if (event.request.url.endsWith('/posts.json')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache-first for other requests
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Return cached version or fetch from network
         if (response) {
           return response;
         }
         return fetch(event.request);
-      }
-    )
+      })
+      .catch(err => {
+        console.error('Fetch failed:', err);
+        return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
+      })
   );
 });
 
@@ -57,12 +79,14 @@ self.addEventListener('activate', event => {
     return;
   }
   event.waitUntil(
-    caches.keys().then(cacheNames => Promise.all(
-      cacheNames.map(cacheName => {
-        if (cacheName !== CACHE_NAME) {
-          return caches.delete(cacheName);
-        }
-      })
-    ))
+    caches.keys()
+      .then(cacheNames => Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      ))
+      .then(() => self.clients.claim())
   );
 });

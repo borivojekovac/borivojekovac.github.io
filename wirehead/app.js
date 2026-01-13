@@ -905,3 +905,52 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
+// PWA Install Prompt
+let deferredPrompt = null;
+const installBanner = document.getElementById('install-banner');
+const installDismissBtn = document.getElementById('install-dismiss');
+const installAcceptBtn = document.getElementById('install-accept');
+const INSTALL_DISMISSED_KEY = 'wireheadInstallDismissed';
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    const dismissed = localStorage.getItem(INSTALL_DISMISSED_KEY);
+    if (dismissed) {
+        const dismissedTime = parseInt(dismissed, 10);
+        const daysSinceDismissed = (Date.now() - dismissedTime) / (1000 * 60 * 60 * 24);
+        if (daysSinceDismissed < 7) {
+            return;
+        }
+    }
+    
+    setTimeout(() => {
+        installBanner.classList.add('show');
+    }, 3000);
+});
+
+installDismissBtn?.addEventListener('click', () => {
+    installBanner.classList.remove('show');
+    localStorage.setItem(INSTALL_DISMISSED_KEY, Date.now().toString());
+    deferredPrompt = null;
+});
+
+installAcceptBtn?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    
+    installBanner.classList.remove('show');
+    deferredPrompt.prompt();
+    
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log('Install prompt outcome:', outcome);
+    deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+    installBanner.classList.remove('show');
+    deferredPrompt = null;
+    localStorage.removeItem(INSTALL_DISMISSED_KEY);
+    console.log('PWA installed');
+});
