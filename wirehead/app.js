@@ -357,11 +357,9 @@ class WireheadBlog {
             <div class="post-header" data-index="${index}">
                 <div class="post-info">
                     <div class="post-title-row">
-                        <span class="material-icons expand-icon" id="icon-${index}">expand_more</span>
-                        <h1 class="post-title">${this.escapeHtml(post.title)}</h1>
-                        ${loadHint}
+                        <h1 class="post-title"><span class="post-title-text" id="title-text-${index}">${this.escapeHtml(post.title)}</span> <span class="material-icons expand-icon" id="icon-${index}">expand_more</span></h1>
                     </div>
-                    <div class="post-meta">${this.formatDate(post.date)}</div>
+                    <div class="post-meta">${loadHint}${loadHint ? ' ' : ''}${this.formatDate(post.date)}</div>
                 </div>
             </div>
             <div class="post-content" id="content-${index}">
@@ -422,10 +420,10 @@ class WireheadBlog {
             // Update post title if we found one in the markdown
             if (title) {
                 post.title = title;
-                // Update the title in the UI
-                const titleElement = document.querySelector(`#posts-container .post-card[data-index="${index}"] .post-title`);
-                if (titleElement) {
-                    titleElement.textContent = title;
+                // Update the title text in the UI
+                const titleTextElement = document.getElementById(`title-text-${index}`);
+                if (titleTextElement) {
+                    titleTextElement.textContent = title;
                 }
             }
 
@@ -435,6 +433,13 @@ class WireheadBlog {
             // Render markdown to HTML (with first heading removed)
             const htmlContent = marked.parse(content);
             markdownElement.innerHTML = htmlContent;
+
+            // Make all links open in new windows
+            const links = markdownElement.querySelectorAll('a');
+            links.forEach(link => {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
 
             if (this.isSearchActive && this.searchTerms.length) {
                 this.highlightSearchTerms(markdownElement, this.searchTerms);
@@ -455,6 +460,12 @@ class WireheadBlog {
             }
         } catch (error) {
             markdownElement.innerHTML = `<div class="error">Error loading post: ${error.message}</div>`;
+            const errorElement = markdownElement.querySelector('.error');
+            if (errorElement) {
+                errorElement.addEventListener('animationend', () => {
+                    errorElement.remove();
+                });
+            }
         }
     }
 
