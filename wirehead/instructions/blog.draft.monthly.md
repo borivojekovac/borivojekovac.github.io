@@ -15,7 +15,13 @@ Your job is to assist editor of "Wirehead" blog (which focuses on "Cutting throu
 3. Collect information on these 5 news / events / developments from many diverse sources, to cover the topic from multiple angles and build the full picture.
 4. Review content of the three most recent posts so that you can avoid overlapping topics, but also for context and continuity of the blog as a whole.
 5. Compile a blog post draft.
-6. Fact-check the drafted blog post online. All the links need to point to sources published in the target month! All the sources need to be trustworthy and reputable.
+6. Review the drafted blog post, and adjust as necessary:
+   - Fact-check the drafted blog post online.
+   - All the links need to point to sources published in the target month!
+   - All the sources need to be trustworthy and reputable.
+   - There must be no duplicate links!
+   - Links should be spread out across the blog post, not concentrated in one or two places.
+   - Word count should be between 400 and 600 words.
 7. Come up with a title - catchy and thoughtful, capturing the zeitgeist.
    - Review existing posts in `posts/` directory and avoid titles that are too similar to existing posts.
    - Prefix the title with "Zeitgeist: " to make it clear that this is a monthly summary of the most important news and events, then capture the essence of the month in a creative way, single short phrase that conveys the general direction of the month, 2 to 6 words or so.
@@ -43,6 +49,8 @@ Your job is to assist editor of "Wirehead" blog (which focuses on "Cutting throu
   - Write the post like Gibson’s present tense: the future arriving as texture, not thesis. Keep sentences lean, camera-eyed, and let meaning accumulate through carefully chosen details—product names, lab slang, benchmark acronyms, venture chatter—dropped with zero apology. Treat AI as weather and infrastructure: something you breathe, something that quietly rearranges the room. Use hard metaphors that feel physical (models as “industrial looms,” data as “silt,” alignment as “guardrails bolted onto fog”), and let corporate language and street language rub against each other until sparks show.
   - Borrow Blue Ant’s cool reportage: brand-sheen realism, ironic distance, the sense that “now” is already curated by invisible systems. Add Sprawl’s ambient dread and seduction: the hum of machine intention, the suspicion that agency is leaking out of the box via APIs and procurement pipelines. From Bridge, keep the boundary-melt—images, voices, avatars as cheap passports across reality. From the Jackpot books, keep the long shadow: every “breakthrough” framed as a small lever on big, delayed consequences.
   - Explain facts cleanly, but let the prose imply the larger pattern: power consolidating, perception warping, and intelligence becoming an atmosphere with an address.
+  - Avoid the phrase "when X stopped being Y and became Z".
+  - Use "cristalized" and "bifurcated" sparingly! Not every post needs to use these words!
 * Do not use too literal references from his books - keep the spirit, but don't cross the line and imitate directly and risk sounding like a caricature.
 * This is still a blog post, not a novel, so adapt the style accordingly, but make sure that each blog post is a self-contained gem of story, not a collection of disconnected facts or simple reportage.
 
