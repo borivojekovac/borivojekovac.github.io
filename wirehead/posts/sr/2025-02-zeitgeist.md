@@ -1,0 +1,21 @@
+# Zeitgeist: Kaskada rezonovanja
+
+## Februar 2025. obeležio je trenutak kada je veštačko rezonovanje pobeglo iz laboratorije i postalo ambijentalna infrastruktura - mesec kada su mašine koje misle prestale da budu ekskluzivne i počele da budu svuda.
+
+Potres je počeo u januaru. [DeepSeek-ov R1 model](https://time.com/7341939/ai-developments-2025-trump-china/) pao je kao kamen kroz pretpostavke Silicijumske doline, postižući paritet u rezonovanju uz delić zapadnih troškova i brišući pola triliona dolara Nvidijine tržišne kapitalizacije. Kineska laboratorija je dešifrovala kod jeftine kognicije, a zatim ga poklonila. Open-source je značio da svako može preuzeti i secirati ono što je bila vlasnička magija. Poruka je bila jasna: inteligencija više nije američki monopol.
+
+Februar je postao mesec naknadnih potresa, kada su implikacije kaskadno prošle kroz svaki sloj AI steka. [OpenAI je objavio o3-mini za besplatne korisnike](https://en.wikipedia.org/wiki/OpenAI_o3) 31. januara, demokratizujući ono što laboratorije nazivaju "razmišljanjem" - one skrivene lance rezonovanja koji omogućavaju modelima da zastanu, preispitaju, iteriraju. Više ne ekskluzivni domen platežnih korisnika, sposobnost posmatranja mašina kako razmišljaju postala je uobičajena kao autocomplete. Kognitivni jaz između ljudskog i veštačkog rezonovanja suzio se ne kroz proboj, već kroz demokratizaciju.
+
+Revolucija rezonovanja materijalizovala se kao proizvod. OpenAI-jev Deep Research lansiran je 2. februara, agent koji je mogao da generiše sveobuhvatne izveštaje za nekoliko minuta, ne sati. Veb pretrage su postale lanci rezonovanja, postale strukturno znanje. Istraživački asistent se materijalizovao kao infrastruktura, još jedan sloj u steku između ljudske radoznalosti i sintetizovanog razumevanja. Informacioni rad započeo je svoju sledeću fazu automatizacije.
+
+Do 6. februara, pritisak transparentnosti primorao je OpenAI da izloži više procesa razmišljanja. Crna kutija je napukla, otkrivajući mehaničku poeziju veštačkog razmišljanja. Korisnici su mogli da zavire u lance rezonovanja, gledaju modele kako se raspravljaju sami sa sobom, vide kognitivnu skelu koja podržava svaki zaključak. Ono što je bilo neprozirno postalo je vidljivo, iako ne nužno i razumljivo.
+
+Infrastruktura ispod ove revolucije rezonovanja napregla se pod neviđenom potražnjom. [AI kompanije su se približile cifri od 1 trilion dolara u infrastrukturnim obavezama](https://news.crunchbase.com/ai/big-funding-trends-charts-eoy-2025/), sa 58% finansiranja koncentrisanog u mega-rundama od 500 miliona dolara ili više. Kružna ekonomija AI investicija - startapi finansirani od strane proizvođača čipova, koji zatim kupuju čipove od tih istih finansijera - stvorila je ono što posmatrači nazivaju "prvim mehurom koji kombinuje sve komponente svih prethodnih mehura."
+
+Ipak, novac je pratio momenat. Prihod od Enterprise AI dostigao je 37 milijardi dolara, utrostručivši se u odnosu na prethodnu godinu kako su modeli za rezonovanje pronašli uporište u poslovnim tokovima. Tehnologija se pomerila od demonstracije do primene, od dokaza koncepta do profitnog centra. Inteligencija je postala uslužni sloj, rezonovanje roba.
+
+Kineska open-source strategija predstavljala je više od tehničke konkurencije. To je bilo kulturno ratovanje kroz distribuciju koda, meka moć ispoljena kroz težine modela. Odgovor SAD uključivao je popuštanje izvoznih restrikcija i ubrzanje domaćeg razvoja, ali je vera u američku AI nadmoć već bila poljuljana. Geopolitički poredak se prepisivao u Python-u i CUDA-i.
+
+Lekcija februara se iskristalisala: rezonovanje nije revolucionarno kada je ekskluzivno, već samo kada je svuda. Mesec nije obeležio kognitivni proboj veštačke inteligencije, već njenu kognitivnu demokratizaciju. Mašine koje misle nisu stigle uz fanfare, već sa besplatnim nalozima i API endpointima. Inteligencija je postala ambijentalna, rezonovanje je postalo rutina, a budućnost je stigla noseći odelo softverskog ažuriranja.
+
+Kaskada je počela - od DeepSeek-ovog potresa do odgovora OpenAI-ja, do trke za infrastrukturom vrednom trilion dolara. Februar 2025. transformisao je veštačko rezonovanje od premium funkcije u osnovnu infrastrukturu. Doba razmišljanja kao usluge tiho je počelo.

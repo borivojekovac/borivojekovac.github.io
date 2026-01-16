@@ -89,6 +89,96 @@
       "sr": "alarm za buđenje",
       "rationale": "'Poziv za buđenje' zvuči kao doslovan prevod",
       "added": "2026-01-16"
+    },
+    {
+      "en": "reasoning cascade",
+      "sr": "kaskada rezonovanja",
+      "rationale": "'Kaskada' čuva metaforičko značenje procesa koji teče naniže.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "ambient infrastructure",
+      "sr": "ambijentalna infrastruktura",
+      "rationale": "'Ambijentalna' prenosi značenje nečega što je prisutno u pozadini/okruženju.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "cheap cognition",
+      "sr": "jeftina kognicija",
+      "rationale": "'Kognicija' je standardni akademski/tehnički termin.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "reasoning chains",
+      "sr": "lanci rezonovanja",
+      "rationale": "Direktan prevod, standardan u lokalnoj AI terminologiji.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "cognitive scaffolding",
+      "sr": "kognitivna skela",
+      "rationale": "'Skela' je standardni prevod za 'scaffolding' u razvojnoj psihologiji.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "megarounds",
+      "sr": "mega-runde",
+      "rationale": "Prilagođena pozajmljenica, uobičajena u vestima o startapima/finansijama.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "proof-of-concept",
+      "sr": "dokaz koncepta",
+      "rationale": "Standardni industrijski termin.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "model weights",
+      "sr": "težine modela",
+      "rationale": "Standardni tehnički prevod u ML kontekstu.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "API endpoints",
+      "sr": "API endpointi",
+      "rationale": "'Endpoint' se univerzalno koristi u srpskom žargonu programera.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "soft power",
+      "sr": "meka moć",
+      "rationale": "Standardni geopolitički termin.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "deployment",
+      "sr": "implementacija / produkcija",
+      "rationale": "Zavisno od konteksta.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "stack",
+      "sr": "stek",
+      "rationale": "Transkripcija, standardno u IT-u.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "autocomplete",
+      "sr": "autocomplete",
+      "rationale": "Zadržati u originalu.",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "disruption",
+      "sr": "potres / poremećaj",
+      "rationale": "Izbegavati 'disrupcija' (nakaradan izraz).",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "deliberation",
+      "sr": "razmišljanje",
+      "rationale": "'Većanje' je arhaično.",
+      "added": "2026-01-16"
     }
   ]
 }

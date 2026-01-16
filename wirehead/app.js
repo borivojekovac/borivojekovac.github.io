@@ -2,7 +2,9 @@ const APP_CONFIG = {
     preloadRecentMonths: 12,
     initialAutoExpandCount: 0,
     unloadedHintText: 'Click to load',
-    searchHighlightClass: 'search-highlight'
+    searchHighlightClass: 'search-highlight',
+    defaultLanguage: 'en',
+    supportedLanguages: ['en', 'sr']
 };
 
 class WireheadBlog {
@@ -13,14 +15,18 @@ class WireheadBlog {
         this.currentSearchQuery = '';
         this.currentArticleSlug = null;
         this.expandedStateKey = 'wireheadExpandedPosts';
+        this.languageKey = 'wireheadLanguage';
+        this.currentLanguage = APP_CONFIG.defaultLanguage;
         this.postContainer = null;
         this.isSearchActive = false;
         this.searchTerms = [];
+        this.availableTranslations = {};
         this.init();
     }
 
     async init() {
         try {
+            this.restoreLanguagePreference();
             await this.initDatabase();
             await this.loadPosts();
             await this.loadCachedContent();
@@ -29,16 +35,132 @@ class WireheadBlog {
             this.setupPostHandlers();
             this.setupHeroObserver();
             this.setupRouting();
+            this.setupLanguageSelector();
             await this.handleInitialRoute();
             this.setupSearchHandlers();
         } catch (error) {
+            console.error('Failed to initialize:', error);
             this.showError('Failed to load blog posts: ' + error.message);
         } finally {
             this.hideLoading();
         }
     }
 
+    restoreLanguagePreference() {
+        try {
+            const stored = localStorage.getItem(this.languageKey);
+            if (stored && APP_CONFIG.supportedLanguages.includes(stored)) {
+                this.currentLanguage = stored;
+            }
+        } catch (error) {
+            console.warn('Failed to restore language preference:', error);
+        }
+    }
+
+    persistLanguagePreference() {
+        try {
+            localStorage.setItem(this.languageKey, this.currentLanguage);
+        } catch (error) {
+            console.warn('Failed to persist language preference:', error);
+        }
+    }
+
+    setupLanguageSelector() {
+        const selector = document.getElementById('language-selector');
+        const toggle = document.getElementById('language-toggle');
+        const dropdown = document.getElementById('language-dropdown');
+        const currentLabel = document.getElementById('language-current');
+        
+        if (!selector || !toggle || !dropdown || !currentLabel) return;
+
+        // Set initial state
+        currentLabel.textContent = this.currentLanguage;
+        this.updateLanguageOptionStyles();
+
+        // Toggle dropdown
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selector.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', selector.classList.contains('open'));
+        });
+
+        // Handle option selection
+        dropdown.addEventListener('click', async (e) => {
+            const option = e.target.closest('.language-option');
+            if (!option) return;
+            
+            const newLanguage = option.dataset.lang;
+            if (newLanguage === this.currentLanguage) {
+                selector.classList.remove('open');
+                return;
+            }
+            
+            this.currentLanguage = newLanguage;
+            currentLabel.textContent = newLanguage;
+            this.persistLanguagePreference();
+            this.updateLanguageOptionStyles();
+            selector.classList.remove('open');
+            
+            await this.handleLanguageChange();
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!selector.contains(e.target)) {
+                selector.classList.remove('open');
+            }
+        });
+    }
+
+    updateLanguageOptionStyles() {
+        const options = document.querySelectorAll('.language-option');
+        options.forEach(option => {
+            if (option.dataset.lang === this.currentLanguage) {
+                option.classList.add('selected');
+            } else {
+                option.classList.remove('selected');
+            }
+        });
+    }
+
+    async handleLanguageChange() {
+        const slug = this.getRequestedSlug();
+        
+        if (slug) {
+            // Re-navigate to same article with new language
+            this.navigateToArticle(slug, true);
+        } else {
+            // Update URL to reflect language change
+            let url = window.location.pathname;
+            if (this.currentLanguage !== 'en') {
+                url = `?lang=${this.currentLanguage}`;
+            }
+            window.history.replaceState({}, '', url);
+            
+            // Reload all expanded posts with new language
+            await this.reloadExpandedPosts();
+        }
+    }
+
+    async reloadExpandedPosts() {
+        // Get currently expanded post indices
+        const expandedIndices = Array.from(this.expandedPosts);
+        
+        // Force reload each expanded post with new language
+        for (const index of expandedIndices) {
+            await this.expandPost(index, { updateUrl: false, persist: false, force: true });
+        }
+    }
+
     async initDatabase() {
+        // Delete old database to recover from stuck upgrade
+        await new Promise((resolve) => {
+            const deleteRequest = indexedDB.deleteDatabase('WireheadBlog');
+            deleteRequest.onsuccess = () => resolve();
+            deleteRequest.onerror = () => resolve();
+            deleteRequest.onblocked = () => resolve();
+        });
+        
         return new Promise((resolve, reject) => {
             const request = indexedDB.open('WireheadBlog', 1);
             
@@ -51,12 +173,15 @@ class WireheadBlog {
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
                 if (!db.objectStoreNames.contains('articles')) {
-                    const store = db.createObjectStore('articles', { keyPath: 'file' });
-                    store.createIndex('title', 'title', { unique: false });
-                    store.createIndex('date', 'date', { unique: false });
+                    const store = db.createObjectStore('articles', { keyPath: 'id' });
+                    store.createIndex('file', 'file', { unique: false });
                 }
             };
         });
+    }
+    
+    getArticleCacheId(filename, language) {
+        return `${filename}|${language}`;
     }
 
     async loadPosts() {
@@ -66,11 +191,15 @@ class WireheadBlog {
         }
         const data = await response.json();
         
+        // Store available translations
+        this.availableTranslations = data.translations || {};
+        
         // Convert filename array to post objects with extracted data
         this.posts = data.posts.map(filename => ({
             file: filename,
             title: this.extractTitleFromFilename(filename),
-            date: this.extractDateFromFilename(filename)
+            date: this.extractDateFromFilename(filename),
+            translations: {}
         }));
         
         // Sort posts by date (newest first)
@@ -85,17 +214,42 @@ class WireheadBlog {
         
         for (const post of this.posts) {
             try {
+                // Load content for current language
+                const cacheId = this.getArticleCacheId(post.file, this.currentLanguage);
                 const cached = await new Promise((resolve, reject) => {
-                    const request = store.get(post.file);
+                    const request = store.get(cacheId);
                     request.onsuccess = () => resolve(request.result);
                     request.onerror = () => reject(request.error);
                 });
                 
                 if (cached) {
-                    post.content = cached.content;
-                    // Update title from cached content if available
-                    if (cached.title && cached.title !== post.title) {
-                        post.title = cached.title;
+                    if (this.currentLanguage === 'en') {
+                        post.content = cached.content;
+                        if (cached.title && cached.title !== post.title) {
+                            post.title = cached.title;
+                        }
+                    } else {
+                        post.translations[this.currentLanguage] = {
+                            content: cached.content,
+                            title: cached.title
+                        };
+                    }
+                }
+                
+                // Also try to load English version if not current language
+                if (this.currentLanguage !== 'en') {
+                    const enCacheId = this.getArticleCacheId(post.file, 'en');
+                    const cachedEn = await new Promise((resolve, reject) => {
+                        const request = store.get(enCacheId);
+                        request.onsuccess = () => resolve(request.result);
+                        request.onerror = () => reject(request.error);
+                    });
+                    
+                    if (cachedEn) {
+                        post.content = cachedEn.content;
+                        if (cachedEn.title && cachedEn.title !== post.title) {
+                            post.title = cachedEn.title;
+                        }
                     }
                 }
             } catch (error) {
@@ -114,23 +268,63 @@ class WireheadBlog {
             if (!post.date) continue;
             const postDate = new Date(post.date);
             if (Number.isNaN(postDate.getTime()) || postDate < cutoff) continue;
-            if (post.content) continue;
 
-            try {
-                const response = await fetch(`posts/${post.file}`);
-                if (!response.ok) {
-                    throw new Error(`Failed to load ${post.file}`);
+            // Load content in current language
+            if (this.currentLanguage !== 'en') {
+                const hasTranslation = post.translations[this.currentLanguage];
+                if (!hasTranslation && this.isTranslationAvailable(post.file, this.currentLanguage)) {
+                    try {
+                        const translationPath = `posts/${this.currentLanguage}/${post.file}`;
+                        const response = await fetch(translationPath);
+                        if (response.ok) {
+                            const content = await response.text();
+                            const { title } = this.extractTitleFromMarkdown(content);
+                            post.translations[this.currentLanguage] = {
+                                content: content,
+                                title: title || post.title
+                            };
+                            await this.cacheArticle(post, this.currentLanguage);
+                        }
+                    } catch (error) {
+                        console.warn(`Failed to preload translation ${post.file} (${this.currentLanguage}):`, error);
+                    }
                 }
-                post.content = await response.text();
-                const { title } = this.extractTitleFromMarkdown(post.content);
-                if (title) {
-                    post.title = title;
+            }
+
+            // Load English version if not already loaded
+            if (!post.content) {
+                try {
+                    const response = await fetch(`posts/${post.file}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${post.file}`);
+                    }
+                    post.content = await response.text();
+                    const { title } = this.extractTitleFromMarkdown(post.content);
+                    if (title) {
+                        post.title = title;
+                    }
+                    await this.cacheArticle(post, 'en');
+                } catch (error) {
+                    console.warn(`Failed to preload ${post.file}:`, error);
                 }
-                await this.cacheArticle(post);
-            } catch (error) {
-                console.warn(`Failed to preload ${post.file}:`, error);
             }
         }
+    }
+
+    isTranslationAvailable(filename, language) {
+        if (language === 'en') return true;
+        const translations = this.availableTranslations[language];
+        return translations && translations.includes(filename);
+    }
+
+    getDisplayTitle(post) {
+        if (this.currentLanguage !== 'en') {
+            const translation = post.translations[this.currentLanguage];
+            if (translation && translation.title) {
+                return translation.title;
+            }
+        }
+        return post.title;
     }
 
     setupRouting() {
@@ -147,8 +341,30 @@ class WireheadBlog {
         return postParam.replace(/\.md$/i, '');
     }
 
+    getRequestedLanguage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        if (langParam && APP_CONFIG.supportedLanguages.includes(langParam)) {
+            return langParam;
+        }
+        return null;
+    }
+
     async handleInitialRoute() {
         const slug = this.getRequestedSlug();
+        const urlLang = this.getRequestedLanguage();
+        
+        // If URL has language parameter, update current language
+        if (urlLang && urlLang !== this.currentLanguage) {
+            this.currentLanguage = urlLang;
+            this.persistLanguagePreference();
+            const currentLabel = document.getElementById('language-current');
+            if (currentLabel) {
+                currentLabel.textContent = this.currentLanguage;
+            }
+            this.updateLanguageOptionStyles();
+        }
+        
         if (slug) {
             this.navigateToArticle(slug, false);
         } else {
@@ -195,8 +411,11 @@ class WireheadBlog {
         const slug = this.getArticleSlug(post.file);
         this.currentArticleSlug = slug;
         if (updateHistory) {
-            const url = `?post=${slug}`;
-            window.history.pushState({ slug }, '', url);
+            let url = `?post=${slug}`;
+            if (this.currentLanguage !== 'en') {
+                url += `&lang=${this.currentLanguage}`;
+            }
+            window.history.pushState({ slug, lang: this.currentLanguage }, '', url);
         }
         this.updatePageMeta(post);
         this.scrollToPost(slug);
@@ -352,12 +571,13 @@ class WireheadBlog {
         postDiv.className = 'post-card';
         postDiv.id = `post-${slug}`;
         postDiv.dataset.index = index;
+        const displayTitle = this.getDisplayTitle(post);
         const loadHint = post.content ? '' : `<span class="post-load-hint">${APP_CONFIG.unloadedHintText}</span>`;
         postDiv.innerHTML = `
             <div class="post-header" data-index="${index}">
                 <div class="post-info">
                     <div class="post-title-row">
-                        <h1 class="post-title"><span class="post-title-text" id="title-text-${index}">${this.escapeHtml(post.title)}</span> <span class="material-icons expand-icon" id="icon-${index}">expand_more</span></h1>
+                        <h1 class="post-title"><span class="post-title-text" id="title-text-${index}">${this.escapeHtml(displayTitle)}</span> <span class="material-icons expand-icon" id="icon-${index}">expand_more</span></h1>
                     </div>
                     <div class="post-meta">${loadHint}${loadHint ? ' ' : ''}${this.formatDate(post.date)}</div>
                 </div>
@@ -405,30 +625,68 @@ class WireheadBlog {
             iconElement.classList.add('expanded');
             this.expandedPosts.add(index);
 
-            // Load markdown content if not already loaded
-            if (!post.content) {
-                const response = await fetch(`posts/${post.file}`);
-                if (!response.ok) {
-                    throw new Error(`Failed to load ${post.file}`);
+            let contentToDisplay = null;
+            let titleToDisplay = null;
+            let languageUsed = this.currentLanguage;
+
+            // Try to load translation if not English
+            if (this.currentLanguage !== 'en') {
+                const translation = post.translations[this.currentLanguage];
+                
+                if (translation && translation.content) {
+                    contentToDisplay = translation.content;
+                    titleToDisplay = translation.title;
+                } else if (this.isTranslationAvailable(post.file, this.currentLanguage)) {
+                    // Try to fetch translation
+                    try {
+                        const translationPath = `posts/${this.currentLanguage}/${post.file}`;
+                        const response = await fetch(translationPath);
+                        if (response.ok) {
+                            const content = await response.text();
+                            const { title } = this.extractTitleFromMarkdown(content);
+                            post.translations[this.currentLanguage] = {
+                                content: content,
+                                title: title || post.title
+                            };
+                            contentToDisplay = content;
+                            titleToDisplay = title;
+                            await this.cacheArticle(post, this.currentLanguage);
+                        }
+                    } catch (error) {
+                        console.warn(`Failed to load translation for ${post.file} (${this.currentLanguage}):`, error);
+                    }
                 }
-                post.content = await response.text();
+            }
+
+            // Fallback to English if translation not available
+            if (!contentToDisplay) {
+                languageUsed = 'en';
+                if (!post.content) {
+                    const response = await fetch(`posts/${post.file}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${post.file}`);
+                    }
+                    post.content = await response.text();
+                    await this.cacheArticle(post, 'en');
+                }
+                contentToDisplay = post.content;
             }
 
             // Extract title from first heading and remove it from content
-            const { title, content } = this.extractTitleFromMarkdown(post.content);
+            const { title, content } = this.extractTitleFromMarkdown(contentToDisplay);
 
             // Update post title if we found one in the markdown
             if (title) {
-                post.title = title;
+                titleToDisplay = title;
+                if (languageUsed === 'en') {
+                    post.title = title;
+                }
                 // Update the title text in the UI
                 const titleTextElement = document.getElementById(`title-text-${index}`);
                 if (titleTextElement) {
-                    titleTextElement.textContent = title;
+                    titleTextElement.textContent = titleToDisplay || post.title;
                 }
             }
-
-            // Cache the article in IndexedDB
-            await this.cacheArticle(post);
 
             // Render markdown to HTML (with first heading removed)
             const htmlContent = marked.parse(content);
@@ -611,17 +869,31 @@ class WireheadBlog {
         return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    async cacheArticle(post) {
-        if (!this.db || !post.content) return;
+    async cacheArticle(post, language = 'en') {
+        if (!this.db) return;
         
         try {
             const transaction = this.db.transaction(['articles'], 'readwrite');
             const store = transaction.objectStore('articles');
             
+            let content, title;
+            if (language === 'en') {
+                if (!post.content) return;
+                content = post.content;
+                title = post.title;
+            } else {
+                const translation = post.translations[language];
+                if (!translation || !translation.content) return;
+                content = translation.content;
+                title = translation.title || post.title;
+            }
+            
             const articleData = {
+                id: this.getArticleCacheId(post.file, language),
                 file: post.file,
-                title: post.title,
-                content: post.content,
+                language: language,
+                title: title,
+                content: content,
                 date: post.date,
                 cachedAt: new Date().toISOString()
             };
@@ -632,7 +904,7 @@ class WireheadBlog {
                 request.onerror = () => reject(request.error);
             });
         } catch (error) {
-            console.warn(`Failed to cache article ${post.file}:`, error);
+            console.warn(`Failed to cache article ${post.file} (${language}):`, error);
         }
     }
 
@@ -866,7 +1138,8 @@ class WireheadBlog {
 
     formatDate(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
+        const locale = this.currentLanguage === 'sr' ? 'sr-RS' : 'en-US';
+        return date.toLocaleDateString(locale, {
             year: 'numeric',
             month: 'long',
             day: 'numeric'

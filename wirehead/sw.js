@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wirehead-v13';
+const CACHE_NAME = 'wirehead-v14';
 const IS_DEV = ['localhost', '127.0.0.1', '0.0.0.0'].includes(self.location.hostname);
 const urlsToCache = [
   '/',

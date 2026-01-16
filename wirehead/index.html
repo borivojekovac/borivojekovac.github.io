@@ -63,6 +63,16 @@
             <source srcset="banner/wirehead-art-01.webp" type="image/webp">
             <img src="banner/wirehead-art-01.png" alt="Wirehead banner artwork" class="hero-image glitch" loading="eager" decoding="async">
         </picture>
+        <div class="language-selector" id="language-selector">
+            <button class="language-toggle" id="language-toggle" aria-label="Select language" aria-expanded="false">
+                <span class="language-current" id="language-current">en</span>
+                <span class="material-icons language-icon">expand_more</span>
+            </button>
+            <div class="language-dropdown" id="language-dropdown">
+                <button class="language-option" data-lang="en">en</button>
+                <button class="language-option" data-lang="sr">sr</button>
+            </div>
+        </div>
         <div class="hero-overlay">
             <div class="hero-content">
                 <h1 class="hero-title">Wirehead</h1>
@@ -158,6 +168,5 @@
 
     <script src="./lib/marked.min.js"></script>
     <script src="app.js"></script>
-    <script src="hero-wave.js"></script>
 </body>
 </html>
