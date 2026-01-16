@@ -1,0 +1,94 @@
+{
+  "terms": [
+    {
+      "en": "compute",
+      "sr": "sirova snaga",
+      "rationale": "Direktan prevod 'računarska snaga' zvuči previše tehnički; 'sirova snaga' bolje prenosi metaforički smisao resursa koji se bacaju na problem",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "reasoning model",
+      "sr": "model za rezonovanje",
+      "rationale": "Ustaljeno u srpskoj AI zajednici",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "benchmarks",
+      "sr": "testovi / rezultati testiranja",
+      "rationale": "Izbegavati 'benčmarkovi' - zvuči loše. Koristiti kontekstualno 'testovi' ili 'rezultati testiranja'",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "moat (competitive)",
+      "sr": "tržišna prednost",
+      "rationale": "'Zaštitni rov' se ne koristi u srpskom. Prevoditi kao 'tržišna prednost' ili 'konkurentska prednost'",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "market cap",
+      "sr": "tržišna kapitalizacija",
+      "rationale": "Standardan finansijski termin",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "data centers",
+      "sr": "data centri",
+      "rationale": "Uobičajeno u srpskom IT-u",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "open-source",
+      "sr": "open-source",
+      "rationale": "Zadržati u originalu, standardno u srpskom IT žargonu",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "mixture-of-experts",
+      "sr": "mixture-of-experts",
+      "rationale": "Tehnički termin, zadržati u originalu",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "AGI",
+      "sr": "AGI",
+      "rationale": "Akronim zadržati u originalu",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "algorithmic efficiency",
+      "sr": "algoritamska efikasnost",
+      "rationale": "Direktan prevod, razumljiv",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "GPU-farm",
+      "sr": "GPU-farme",
+      "rationale": "Hibrid, uobičajen u srpskom",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "chokepoints",
+      "sr": "uska grla",
+      "rationale": "Metaforički prevod",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "circular flow",
+      "sr": "zatvoreni krug",
+      "rationale": "'Kružni tok' ne zvuči prirodno. 'Zatvoreni krug' je bolje",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "trading floors",
+      "sr": "berze",
+      "rationale": "'Trgovački saloni' se ne koristi u srpskom",
+      "added": "2026-01-16"
+    },
+    {
+      "en": "wake-up call",
+      "sr": "alarm za buđenje",
+      "rationale": "'Poziv za buđenje' zvuči kao doslovan prevod",
+      "added": "2026-01-16"
+    }
+  ]
+}
