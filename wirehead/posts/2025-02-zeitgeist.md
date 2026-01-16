@@ -12,7 +12,7 @@ By February 6, transparency pressure forced OpenAI to expose more of the thought
 
 The infrastructure beneath this reasoning revolution strained under unprecedented demand. [AI companies approached $1 trillion in infrastructure commitments](https://news.crunchbase.com/ai/big-funding-trends-charts-eoy-2025/), with 58% of funding concentrated in megarounds of $500 million or more. The circular economy of AI investment - startups funded by chip makers, then purchasing chips from those same funders - created what observers called "the first bubble that combines all the components of all prior bubbles."
 
-Yet the money followed the momentum. Enterprise AI revenue hit $37 billion, tripling year-over-year as reasoning models found purchase in business workflows. The technology moved from demonstration to deployment, from proof-of-concept to profit center. Intelligence became a service layer, reasoning a commodity.
+Yet the money followed the momentum. The technology moved from demonstration to deployment, from proof-of-concept to profit center. Intelligence became a service layer, reasoning a commodity.
 
 China's open-source strategy represented more than technical competition. It was cultural warfare through code distribution, soft power exercised through model weights. The U.S. response involved relaxing export restrictions and accelerating domestic development, but the damage to American AI supremacy assumptions had been done. The geopolitical order was rewriting itself in Python and CUDA.
 
