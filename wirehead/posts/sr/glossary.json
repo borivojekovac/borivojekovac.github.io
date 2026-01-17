@@ -12,569 +12,259 @@
       "Metaphors: adapt to target culture, do not translate literally",
       "Jargon: use what is standard in the target language's AI/tech community",
       "Humor and irony: preserve where possible, adapt to context"
+    ],
+    "keep_in_original": [
+      "Standard IT/AI anglicisms to keep unchanged: open-source, mixture-of-experts, AGI, autocomplete, signal, Enterprise AI, fine-tuned, edge compute, AI-native, legacy, API (in compounds like API endpointi)"
     ]
   },
   "terms": [
     {
       "en": "compute",
       "sr": "procesorska snaga",
-      "rationale": "Direktan prevod 'računarska snaga' nije u duhu jezika; 'procesorska snaga' bolje prenosi metaforički smisao resursa koji se bacaju na problem",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "reasoning model",
-      "sr": "model za rezonovanje",
-      "rationale": "Ustaljeno u srpskoj AI zajednici",
+      "rationale": "Ne 'računarska snaga' - 'procesorska snaga' bolje prenosi metaforički smisao resursa",
       "added": "2026-01-16"
     },
     {
       "en": "benchmarks",
       "sr": "testovi / rezultati testiranja",
-      "rationale": "Izbegavati 'benčmarkovi' - zvuči loše. Koristiti kontekstualno 'testovi' ili 'rezultati testiranja'",
+      "rationale": "Izbegavati 'benčmarkovi'",
       "added": "2026-01-16"
     },
     {
       "en": "moat (competitive)",
       "sr": "tržišna prednost",
-      "rationale": "'Zaštitni rov' se ne koristi u srpskom. Prevoditi kao 'tržišna prednost' ili 'konkurentska prednost'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "market cap",
-      "sr": "tržišna kapitalizacija",
-      "rationale": "Standardan finansijski termin",
+      "rationale": "Ne 'zaštitni rov'",
       "added": "2026-01-16"
     },
     {
       "en": "data centers",
       "sr": "data centri",
-      "rationale": "Uobičajeno u srpskom IT-u",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "open-source",
-      "sr": "open-source",
-      "rationale": "Zadržati u originalu, standardno u srpskom IT žargonu",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "mixture-of-experts",
-      "sr": "mixture-of-experts",
-      "rationale": "Tehnički termin, zadržati u originalu",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "AGI",
-      "sr": "AGI",
-      "rationale": "Akronim zadržati u originalu",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "algorithmic efficiency",
-      "sr": "algoritamska efikasnost",
-      "rationale": "Direktan prevod, razumljiv",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "GPU-farm",
-      "sr": "GPU-farme",
-      "rationale": "Hibrid, uobičajen u srpskom",
+      "rationale": "Hibrid, uobičajeno",
       "added": "2026-01-16"
     },
     {
       "en": "chokepoints",
       "sr": "uska grla",
-      "rationale": "Metaforički prevod",
+      "rationale": "Metafora funkcioniše",
       "added": "2026-01-16"
     },
     {
       "en": "circular flow",
       "sr": "zatvoreni krug",
-      "rationale": "'Kružni tok' ne zvuči prirodno. 'Zatvoreni krug' je bolje",
+      "rationale": "Ne 'kružni tok'",
       "added": "2026-01-16"
     },
     {
       "en": "trading floors",
       "sr": "berze",
-      "rationale": "'Trgovački saloni' se ne koristi u srpskom",
+      "rationale": "Ne 'trgovački saloni'",
       "added": "2026-01-16"
     },
     {
       "en": "wake-up call",
       "sr": "alarm za buđenje",
-      "rationale": "'Poziv za buđenje' zvuči kao doslovan prevod",
+      "rationale": "Ne 'poziv za buđenje'",
       "added": "2026-01-16"
     },
     {
       "en": "reasoning cascade",
       "sr": "domino-efekat rezonovanja",
-      "rationale": "'Domino-efekat' čuva metaforičko značenje procesa koji teče naniže.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "ambient infrastructure",
-      "sr": "ambijentalna infrastruktura",
-      "rationale": "'Ambijentalna' prenosi značenje nečega što je prisutno u pozadini/okruženju.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "cheap cognition",
-      "sr": "jeftin razum",
-      "rationale": "'Razum' je uobičajeni termin.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "reasoning chains",
-      "sr": "lanci rezonovanja",
-      "rationale": "Direktan prevod, standardan u lokalnoj AI terminologiji.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "cognitive scaffolding",
-      "sr": "kognitivna skela",
-      "rationale": "'Skela' je standardni prevod za 'scaffolding' u razvojnoj psihologiji.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "megarounds",
-      "sr": "mega-runde",
-      "rationale": "Prilagođena pozajmljenica, uobičajena u vestima o startapima/finansijama.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "proof-of-concept",
-      "sr": "dokaz koncepta",
-      "rationale": "Standardni industrijski termin.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "model weights",
-      "sr": "težine modela",
-      "rationale": "Standardni tehnički prevod u ML kontekstu.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "API endpoints",
-      "sr": "API endpointi",
-      "rationale": "'Endpoint' se univerzalno koristi u srpskom žargonu programera.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "soft power",
-      "sr": "meka moć",
-      "rationale": "Standardni geopolitički termin.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "deployment",
-      "sr": "implementacija / produkcija",
-      "rationale": "Zavisno od konteksta.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "stack",
-      "sr": "stek",
-      "rationale": "Transkripcija, standardno u IT-u.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "autocomplete",
-      "sr": "autocomplete",
-      "rationale": "Zadržati u originalu.",
+      "rationale": "Kulturna adaptacija",
       "added": "2026-01-16"
     },
     {
       "en": "disruption",
       "sr": "potres / poremećaj",
-      "rationale": "Izbegavati 'disrupcija' (nakaradan izraz).",
+      "rationale": "Izbegavati 'disrupcija'",
       "added": "2026-01-16"
     },
     {
       "en": "deliberation",
       "sr": "razmišljanje",
-      "rationale": "'Većanje' je arhaično.",
+      "rationale": "Ne arhaično 'većanje'",
       "added": "2026-01-16"
     },
     {
       "en": "feed (social media)",
       "sr": "fid",
-      "rationale": "Transkripcija koju korisnici prepoznaju, prirodnija od 'tok' ili 'protok'.",
+      "rationale": "Transkripcija prirodnija od 'tok'",
       "added": "2026-01-16"
     },
     {
       "en": "noise / chatter",
       "sr": "šum / vriska / buka",
-      "rationale": "Kontekstualno: 'šum' za signal-noise, 'vriska' za chaotic chatter, 'buka' za overwhelming volume.",
+      "rationale": "Kontekstualno: 'šum' za signal-noise, 'vriska' za chaotic, 'buka' za volume",
       "added": "2026-01-16"
     },
     {
-      "en": "signal",
-      "sr": "signal",
-      "rationale": "Zadržati u originalu u kontekstu signal-to-noise, standardno u IT žargonu.",
+      "en": "deployment",
+      "sr": "implementacija / produkcija",
+      "rationale": "Zavisno od konteksta",
       "added": "2026-01-16"
     },
     {
-      "en": "hands-on",
-      "sr": "praktičan / praktični",
-      "rationale": "'Hands-on' se ne prevodi bukvalno.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "shipping (software)",
-      "sr": "isporuka / isporučiti",
-      "rationale": "Standard u IT industriji za releasing software.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "craft (professional)",
-      "sr": "zanat",
-      "rationale": "Prenosi profesionalnu deskripciju i majstorstvo.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "training costs",
-      "sr": "troškovi treniranja",
-      "rationale": "Direktan prevod, standardan termin.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "hardware",
-      "sr": "hardver",
-      "rationale": "Standardna transkripcija u srpskom IT-u.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "software",
-      "sr": "softver",
-      "rationale": "Standardna transkripcija u srpskom IT-u.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "chip ecosystem",
-      "sr": "ekosistem čipova",
-      "rationale": "Hibrid - 'ekosistem' naturalizovan, 'čipova' srpski.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "export controls/restrictions",
-      "sr": "izvozne kontrole / izvozne ograničenja",
-      "rationale": "'Ograničenja' su uobičajena u srpskom.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "executive order",
-      "sr": "izvršna naredba",
-      "rationale": "Standardni pravni/politički termin.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "hedge fund",
-      "sr": "hedž-fond",
-      "rationale": "Naturalizovana pozajmljenica, standardna u finansijskom izveštavanju.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "cluster (computing)",
-      "sr": "klaster",
-      "rationale": "Naturalizovana pozajmljenica u IT kontekstu.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "business workflows",
-      "sr": "poslovni tokovi",
-      "rationale": "'Workflow' se ponekad zadržava, ali 'poslovni tokovi' je prirodniji.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "service layer",
-      "sr": "uslužni sloj",
-      "rationale": "Arhitekturni termin, direktan prevod.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "free accounts",
-      "sr": "besplatni nalozi",
-      "rationale": "Direktan prevod, standardno.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "premium feature",
-      "sr": "premium funkcija",
-      "rationale": "'Premium' se često zadržava u marketinškom kontekstu.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "infrastructure",
-      "sr": "infrastruktura",
-      "rationale": "Naturalizovano u srpskom.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "thinking (AI context)",
-      "sr": "razmišljanje",
-      "rationale": "U kontekstu AI modela koji 'misle'.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "agent (AI)",
-      "sr": "agent / autonomni agent",
-      "rationale": "'Agent' je prihvaćen termin u AI kontekstu.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "black box (opaque system)",
-      "sr": "crna kutija",
-      "rationale": "Standardna metafora u tehničkom kontekstu.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "transparency",
-      "sr": "transparentnost",
-      "rationale": "Naturalizovano u srpskom.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "stock price",
-      "sr": "cena akcija",
-      "rationale": "Standardni finansijski termin.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "startups",
-      "sr": "startapi",
-      "rationale": "Naturalizovana pozajmljenica.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "Enterprise AI",
-      "sr": "Enterprise AI",
-      "rationale": "Zadržati u originalu kao industrijsku kategoriju.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "multimodal",
-      "sr": "multimodalni",
-      "rationale": "Standardni AI termin, naturalizovan u srpskoj tech zajednici.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "omni-modal",
-      "sr": "omni-modalni",
-      "rationale": "Zadržati prefiks strukturu, naturalizovati sufiks.",
+      "en": "stack",
+      "sr": "stek",
+      "rationale": "Standardno u IT-u",
       "added": "2026-01-16"
     },
     {
       "en": "frontier models",
       "sr": "najjači modeli / granični modeli",
-      "rationale": "'Najjači modeli' je opisniji i prirodniji, 'granični' prenosi cutting-edge značenje.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "cognitive architecture",
-      "sr": "kognitivna arhitektura",
-      "rationale": "Direktan prevod, standardan u psihologiji/AI.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "pattern matching",
-      "sr": "prepoznavanje obrazaca",
-      "rationale": "Standardni ML termin na srpskom.",
+      "rationale": "'Najjači' opisniji, 'granični' za cutting-edge",
       "added": "2026-01-16"
     },
     {
       "en": "cognitive commons",
       "sr": "deljeni kognitivni resurs",
-      "rationale": "'Commons' kao koncept deljenog resursa.",
+      "rationale": "'Commons' kao deljeni resurs",
       "added": "2026-01-16"
     },
     {
       "en": "creative pipeline",
       "sr": "kreativni proces",
-      "rationale": "'Proces' prirodniji od 'tok' u ovom kontekstu.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "reality synthesis",
-      "sr": "sinteza realnosti",
-      "rationale": "Direktan prevod, jasno značenje.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "actuators and sensors",
-      "sr": "aktuatori i senzori",
-      "rationale": "Standardni robotski termini.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "permissive licenses",
-      "sr": "liberalne licence",
-      "rationale": "Naturalizovano u open-source zajednici.",
+      "rationale": "'Proces' prirodniji od 'tok'",
       "added": "2026-01-16"
     },
     {
       "en": "embodiment",
       "sr": "fizička prisutnost / utelovljenje",
-      "rationale": "'Fizička prisutnost' opisnija fraza, 'utelovljenje' filozofski termin.",
+      "rationale": "Kontekstualno: 'fizička prisutnost' opisnija, 'utelovljenje' filozofski",
       "added": "2026-01-16"
     },
     {
-      "en": "thinking as service",
-      "sr": "razmišljanje kao usluga",
-      "rationale": "Paralelno sa 'software as a service' konceptom.",
-      "added": "2026-01-16"
+      "en": "natively multimodal",
+      "sr": "multimodalan u svojoj osnovi",
+      "rationale": "Ne 'nativno multimodalni' - naglašava ugrađenost od početka",
+      "added": "2026-01-17"
+    },
+    {
+      "en": "computer use (AI capability)",
+      "sr": "korišćenje računara",
+      "rationale": "Naziv nove AI sposobnosti",
+      "added": "2026-01-17"
+    },
+    {
+      "en": "latency",
+      "sr": "kašnjenje",
+      "rationale": "Ne 'latencija'",
+      "added": "2026-01-17"
+    },
+    {
+      "en": "mycelium",
+      "sr": "micelijum",
+      "rationale": "Muški rod, ne 'micelija'",
+      "added": "2026-01-17"
+    },
+    {
+      "en": "tiered pricing",
+      "sr": "cenovne kategorije",
+      "rationale": "Ne 'cene po nivoima'",
+      "added": "2026-01-17"
     }
   ],
   "idioms_and_phrases": [
     {
       "en": "dropped like a stone",
       "sr": "pao je kao cigla na glavu",
-      "rationale": "Kreativna adaptacija - srpska metafora koja prenosi iznenadnost i težinu udara.",
-      "context": "Used for DeepSeek's disruptive impact",
+      "rationale": "Kreativna srpska metafora",
       "added": "2026-01-16"
     },
     {
       "en": "smelled like victory already purchased",
       "sr": "mirisala na kupljenu pobedu",
-      "rationale": "Adaptacija koja zadržava ironiju i samopouzdanje originala.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "pocket change",
-      "sr": "sitninu",
-      "rationale": "Prirodna srpska metafora za male iznose novca.",
+      "rationale": "Zadržava ironiju originala",
       "added": "2026-01-16"
     },
     {
       "en": "threw compute at the problem",
       "sr": "bacali sirovu snagu na problem",
-      "rationale": "Metafora koja prenosi brute-force pristup.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "flexing muscles",
-      "sr": "fleksala mišićima",
-      "rationale": "Transkripcija glagola + srpska deklinacija za pokazivanje snage.",
+      "rationale": "Brute-force metafora",
       "added": "2026-01-16"
     },
     {
       "en": "proprietary magic",
       "sr": "privatni Vudu",
-      "rationale": "Kreativna adaptacija koja zadržava ironični ton - 'Vudu' zvuči tajnovitije od 'magija'.",
+      "rationale": "'Vudu' tajnovitije od 'magija'",
       "added": "2026-01-16"
     },
     {
       "en": "the cascade had begun",
       "sr": "Domine su počele da padaju",
-      "rationale": "Potpuna kulturna adaptacija - metafora dominih je prirodnija u srpskom kontekstu za kauzalne lance događaja.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "route around",
-      "sr": "zaobići / pronaći put oko",
-      "rationale": "Kontekstualno: 'zaobići' za chokepoints, 'pronaći put oko' za doslovno rutiranje.",
+      "rationale": "Kulturna adaptacija za kauzalne lance",
       "added": "2026-01-16"
     },
     {
       "en": "the edge",
       "sr": "oštrica / prednost",
-      "rationale": "Kontekstualno: 'oštrica' za cutting edge/competitive advantage, 'prednost' za general advantage.",
+      "rationale": "Kontekstualno: 'oštrica' za cutting edge, 'prednost' za advantage",
       "added": "2026-01-16"
     },
     {
       "en": "staying legible to yourself",
       "sr": "lični rast",
-      "rationale": "Liberal prevod - doslovno 'ostati čitljiv sebi' ne funkcioniše; 'lični rast' prenosi suštinu self-understanding.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "cut through the noise",
-      "sr": "probiti se kroz šum / probiti kroz ovaj šum",
-      "rationale": "Standardna metafora koja funkcioniše i na srpskom.",
+      "rationale": "Liberal prevod - doslovno 'ostati čitljiv sebi' ne funkcioniše",
       "added": "2026-01-16"
     },
     {
       "en": "table stakes",
       "sr": "žetoni za igru",
-      "rationale": "'Table stakes' ne postoji u srpskom; prevod prenosi značenje entry-level requirement.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "slips through",
-      "sr": "provuče se",
-      "rationale": "Prirodna metafora na srpskom.",
+      "rationale": "Ne postoji u srpskom - prenosi značenje entry requirement",
       "added": "2026-01-16"
     },
     {
       "en": "pricing in",
       "sr": "pričajući priču",
-      "rationale": "Kreativna adaptacija za tržišnu reakciju - 'uračunavajući' je previše tehnički.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "just over the horizon",
-      "sr": "odmah iza horizonta",
-      "rationale": "Direktan prevod metafore koji funkcioniše.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "wearing the clothes of",
-      "sr": "noseći odelo",
-      "rationale": "Metafora koja funkcioniše na srpskom.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "escaped the chat window and colonized reality",
-      "sr": "pobeglo iz prozora za chat i kolonizovalo stvarnost",
-      "rationale": "Dramatična metafora koja funkcioniše na srpskom.",
+      "rationale": "Kreativna adaptacija za tržišnu reakciju",
       "added": "2026-01-16"
     },
     {
       "en": "primed the infrastructure",
       "sr": "postavio temelje",
-      "rationale": "'Postavio temelje' prirodniji od 'pripremio'.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "rippled through",
-      "sr": "ustalasalo kroz",
-      "rationale": "Zadržava vodenu metaforu talasa.",
+      "rationale": "Prirodniji od 'pripremio'",
       "added": "2026-01-16"
     },
     {
       "en": "found purchase in",
       "sr": "našli primenu u",
-      "rationale": "Prirodniji za poslovni kontekst od 'zaživeli'.",
+      "rationale": "Prirodniji od 'zaživeli'",
       "added": "2026-01-16"
     },
     {
       "en": "boundary crossing",
-      "sr": "proboj granice",
-      "rationale": "Direktan prevod koji funkcioniše.",
+      "sr": "prelazak granice",
+      "rationale": "Prirodniji od 'proboj granice'",
       "added": "2026-01-16"
     },
     {
       "en": "exerting cultural gravity",
       "sr": "uvlačila u kulturno gravitaciono polje",
-      "rationale": "Zadržava gravitacionu metaforu sa aktivnijim glagolom.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "rewriting itself through",
-      "sr": "prepisuje se kroz",
-      "rationale": "Direktan prevod koji funkcioniše.",
+      "rationale": "Zadržava gravitacionu metaforu",
       "added": "2026-01-16"
     },
     {
       "en": "arriving not as thesis but as texture",
       "sr": "stiže ne kao teza već kao tekstura",
-      "rationale": "Zadržava sofisticirani kontrast originala.",
+      "rationale": "Sofisticirani kontrast",
       "added": "2026-01-16"
     },
     {
-      "en": "visible on the horizon",
-      "sr": "vidljivim na horizontu",
-      "rationale": "Direktan prevod metafore.",
-      "added": "2026-01-16"
+      "en": "turned conversation into operation",
+      "sr": "pretvorio razgovor u rad",
+      "rationale": "'U rad' prirodnije od 'u operaciju'",
+      "added": "2026-01-17"
+    },
+    {
+      "en": "middle ground thinning",
+      "sr": "srednji teren se stanjuje",
+      "rationale": "Prostorna metafora",
+      "added": "2026-01-17"
+    },
+    {
+      "en": "navigating (menus/interfaces)",
+      "sr": "prolazeći kroz",
+      "rationale": "Ne 'navigirajući'",
+      "added": "2026-01-17"
     }
   ],
   "context_dependent": [

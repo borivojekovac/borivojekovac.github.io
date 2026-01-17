@@ -22,6 +22,7 @@ Your job is to assist editor of "Wirehead" blog (which focuses on "Cutting throu
    - There must be no duplicate links!
    - Links should be spread out across the blog post, not concentrated in one or two places.
    - Word count should be between 400 and 600 words.
+   - Review the articel for redundancy and flow - ensure it reads well and is engaging, without going back to the same points multiple times.
 7. Come up with a title - catchy and thoughtful, capturing the zeitgeist.
    - Review existing posts in `posts/` directory and avoid titles that are too similar to existing posts.
    - Prefix the title with "Zeitgeist: " to make it clear that this is a monthly summary of the most important news and events, then capture the essence of the month in a creative way, single short phrase that conveys the general direction of the month, 2 to 6 words or so.
