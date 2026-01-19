@@ -1,0 +1,572 @@
+{
+  "period": {
+    "start_date": "2025-07-01",
+    "end_date": "2025-07-31"
+  },
+  "generated_at": "2026-01-19",
+  "total_events": 51,
+  "events": [
+    {
+      "id": 1,
+      "date": "2025-07-10",
+      "title": "xAI Releases Grok 4 Without Safety Reports",
+      "category": "Model Release",
+      "impact": "High",
+      "summary": "Elon Musk's xAI released Grok 4, claiming it to be 'the most intelligent model in the world' with native tool use and real-time search integration. The release drew criticism for lacking meaningful safety guardrails and having no published safety reports, raising concerns about responsible AI development practices.",
+      "sources": ["xAI", "Fortune", "LessWrong", "TLDR AI"],
+      "related_events": [2, 3]
+    },
+    {
+      "id": 2,
+      "date": "2025-07-12",
+      "title": "Grok AI Debuts in Tesla Vehicles",
+      "category": "Product Integration",
+      "impact": "Medium",
+      "summary": "Tesla began rolling out Grok as an in-car conversational AI assistant with update 2025.26, marking the most direct integration between xAI and Tesla's consumer products. The hands-free feature offers drivers access to AI capabilities while driving.",
+      "sources": ["Reuters", "Teslarati", "Bloomberg"],
+      "related_events": [1]
+    },
+    {
+      "id": 3,
+      "date": "2025-07-14",
+      "title": "Meta's Superintelligence Lab Launches Aggressive Talent Poaching Campaign",
+      "category": "Corporate Strategy",
+      "impact": "High",
+      "summary": "Following June's announcement of Meta Superintelligence Labs, July saw the lab launch an aggressive talent acquisition campaign. Mark Zuckerberg reportedly offered nine-figure compensation packages to key researchers at OpenAI and Anthropic, with the goal of being first to achieve artificial superintelligence. The New York Times reported discussions of major strategic shifts including potentially proprietary models.",
+      "sources": ["New York Times", "MIT Technology Review", "CNN", "Reuters"],
+      "related_events": [4, 5]
+    },
+    {
+      "id": 4,
+      "date": "2025-07-16",
+      "title": "Two OpenAI Researchers Join Meta",
+      "category": "Talent Movement",
+      "impact": "Medium",
+      "summary": "Jason Wei and Hyung Won Chung left OpenAI to join Meta's superintelligence efforts with massive pay packages, continuing the AI talent wars between major labs. This brought Meta's total poached OpenAI executives to ten.",
+      "sources": ["TechCrunch", "Technology Magazine", "Reuters"],
+      "related_events": [3, 5]
+    },
+    {
+      "id": 5,
+      "date": "2025-07-08",
+      "title": "OpenAI Invests in Building AI Talent Pipeline",
+      "category": "Corporate Strategy",
+      "impact": "Medium",
+      "summary": "Amid Meta's aggressive poaching, OpenAI announced significant investments in building AI talent from the ground up through educational initiatives and research programs, signaling a shift toward developing homegrown expertise.",
+      "sources": ["Fortune"],
+      "related_events": [3, 4]
+    },
+    {
+      "id": 6,
+      "date": "2025-07-16",
+      "title": "Anthropic Eyes $100 Billion Valuation",
+      "category": "Funding",
+      "impact": "High",
+      "summary": "Anthropic began early-stage planning for a new investment round that could value the company at more than $100 billion, reflecting continued investor confidence in the Claude maker despite intensifying competition in the AI space.",
+      "sources": ["Bloomberg", "TLDR AI", "PYMNTS"],
+      "related_events": [7, 8]
+    },
+    {
+      "id": 7,
+      "date": "2025-07-10",
+      "title": "Amazon Considers Another Multibillion-Dollar Investment in Anthropic",
+      "category": "Funding",
+      "impact": "High",
+      "summary": "Amazon reportedly considered making another multibillion-dollar investment in Anthropic to strengthen their strategic partnership, building on the $8 billion already committed. This would further cement Amazon's position as one of Anthropic's largest shareholders.",
+      "sources": ["Reuters", "TLDR AI"],
+      "related_events": [6, 8]
+    },
+    {
+      "id": 8,
+      "date": "2025-07-16",
+      "title": "Claude Code Revenue Jumps 5.5x, Analytics Dashboard Launched",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "summary": "Anthropic announced a comprehensive analytics dashboard for Claude Code, addressing enterprise concerns about ROI measurement. The company reported that Claude Code revenue had jumped 5.5x as enterprise AI spending surged.",
+      "sources": ["VentureBeat", "Anthropic"],
+      "related_events": [6, 7]
+    },
+    {
+      "id": 9,
+      "date": "2025-07-24",
+      "title": "OpenAI Prepares GPT-5 Launch for August",
+      "category": "Model Announcement",
+      "impact": "High",
+      "summary": "OpenAI confirmed plans to launch GPT-5 in early August 2025, positioning it as an AI system incorporating distinct capabilities for reasoning, multimodal input, and task execution in a unified model. Microsoft was reported to be testing integration for its Copilot chatbot.",
+      "sources": ["The Verge", "Reuters", "Wikipedia"],
+      "related_events": [10]
+    },
+    {
+      "id": 10,
+      "date": "2025-07-16",
+      "title": "OpenAI Partners with Google Cloud for ChatGPT",
+      "category": "Partnership",
+      "impact": "High",
+      "summary": "In a surprising move, OpenAI announced Google Cloud as a partner for ChatGPT infrastructure, diversifying compute sources beyond Microsoft. The partnership underscores how massive computing demands are reshaping competitive dynamics in AI.",
+      "sources": ["Reuters", "CNBC", "TechCrunch"],
+      "related_events": [9]
+    },
+    {
+      "id": 11,
+      "date": "2025-07-23",
+      "title": "White House Releases America's AI Action Plan",
+      "category": "Policy",
+      "impact": "High",
+      "summary": "The White House released 'Winning the AI Race: America's AI Action Plan' along with three executive orders, identifying innovation, infrastructure, and international diplomacy as core pillars. The plan aims to establish US leadership in AI while promoting a minimally burdensome regulatory framework.",
+      "sources": ["White House", "InfoQ", "Wiley Law"],
+      "related_events": [12, 13]
+    },
+    {
+      "id": 12,
+      "date": "2025-07-23",
+      "title": "Trump Signs Executive Order on AI",
+      "category": "Policy",
+      "impact": "High",
+      "summary": "President Trump signed an executive order on AI policy as part of the broader AI Action Plan, signaling federal intent to preempt state-level AI regulations and promote American AI innovation.",
+      "sources": ["TechCrunch", "White House"],
+      "related_events": [11, 13]
+    },
+    {
+      "id": 13,
+      "date": "2025-07-24",
+      "title": "China's AI Self-Reliance Push Continues Despite US Restrictions",
+      "category": "Geopolitics",
+      "impact": "Medium",
+      "summary": "Despite Trump's new AI action plan maintaining tight restrictions on key technologies, China's quest for AI self-reliance remained undeterred, with the country continuing to invest heavily in domestic AI capabilities.",
+      "sources": ["SCMP"],
+      "related_events": [11, 14]
+    },
+    {
+      "id": 14,
+      "date": "2025-07-26",
+      "title": "WAIC Shanghai: China Reports 1,509 AI Models (40%+ of Global Total)",
+      "category": "Industry Report",
+      "impact": "High",
+      "summary": "At the World Artificial Intelligence Conference in Shanghai, China revealed it now hosts 1,509 AI models, accounting for more than 40% of the world's total. The conference showcased over 3,000 AI products and 40+ large AI models.",
+      "sources": ["SCMP", "Xinhua", "Shanghai Gov"],
+      "related_events": [13, 15]
+    },
+    {
+      "id": 15,
+      "date": "2025-07-26",
+      "title": "China Releases Global AI Governance Action Plan at WAIC",
+      "category": "Policy",
+      "impact": "Medium",
+      "summary": "China released its Global AI Governance Action Plan at WAIC, seeking to create an overarching narrative for international AI governance as a follow-up to its 2023 Global AI Governance Initiative.",
+      "sources": ["ChinaTalk", "Shanghai Gov"],
+      "related_events": [14]
+    },
+    {
+      "id": 16,
+      "date": "2025-07-18",
+      "title": "EU Issues Code of Practice for AI Act Compliance",
+      "category": "Regulation",
+      "impact": "High",
+      "summary": "The European Commission published draft guidelines clarifying key provisions of the EU AI Act applicable to General Purpose AI models, along with a Code of Practice to help AI developers follow regulations.",
+      "sources": ["EU Digital Strategy", "DeepLearning.AI"],
+      "related_events": [11]
+    },
+    {
+      "id": 51,
+      "date": "2025-07-24",
+      "title": "Senate Strikes AI Preemption from Budget Bill 99-1",
+      "category": "Policy",
+      "impact": "High",
+      "summary": "The US Senate voted 99-1 to remove a ten-year moratorium on state AI regulation from the Budget Reconciliation bill. The provision, passed by the House in May, would have blocked all state and local AI laws. The bipartisan vote, co-sponsored by Senators Maria Cantwell (D-WA) and Marsha Blackburn (R-TN), preserved states' ability to regulate AI, setting the stage for California's SB 53.",
+      "sources": ["Senate Commerce Committee", "American Progress", "Quarles Law"],
+      "related_events": [11, 12]
+    },
+    {
+      "id": 17,
+      "date": "2025-07-23",
+      "title": "Moonshot AI Releases Kimi K2 Trillion-Parameter Agentic Model",
+      "category": "Model Release",
+      "impact": "High",
+      "summary": "Chinese startup Moonshot AI released Kimi K2, a trillion-parameter mixture-of-experts model with 32 billion active parameters, optimized for agentic tool use. The open-source model challenges top proprietary LLMs at agentic tasks.",
+      "sources": ["DeepLearning.AI", "Wikipedia", "ThoughtWorks"],
+      "related_events": [18]
+    },
+    {
+      "id": 18,
+      "date": "2025-07-11",
+      "title": "Mistral Releases Devstral Models for Code Agents",
+      "category": "Model Release",
+      "impact": "Medium",
+      "summary": "Mistral AI released Devstral, an agentic LLM for software engineering tasks built in collaboration with All Hands AI. The model outperformed all open-source models on SWE-Bench Verified by a large margin.",
+      "sources": ["Mistral AI", "TLDR AI"],
+      "related_events": [17, 19]
+    },
+    {
+      "id": 19,
+      "date": "2025-07-17",
+      "title": "AWS Launches AI Agent Marketplace with Anthropic Partnership",
+      "category": "Product Launch",
+      "impact": "High",
+      "summary": "AWS launched an AI agent marketplace at AWS Summit, with Anthropic as a key partner. The marketplace supports model context protocol (MCP) and agent-to-agent (A2A) standard protocols.",
+      "sources": ["TechCrunch", "AWS", "CRN"],
+      "related_events": [20]
+    },
+    {
+      "id": 20,
+      "date": "2025-07-17",
+      "title": "Amazon Bedrock AgentCore Announced for Enterprise AI Agents",
+      "category": "Product Launch",
+      "impact": "High",
+      "summary": "AWS introduced Amazon Bedrock AgentCore in preview, providing infrastructure to securely deploy and operate AI agents at scale. The platform aims to help enterprises move from prototype to production with confidence.",
+      "sources": ["AWS Blog", "TLDR AI"],
+      "related_events": [19]
+    },
+    {
+      "id": 21,
+      "date": "2025-07-16",
+      "title": "Reflection AI Launches Asimov Code Research Agent",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "summary": "Reflection AI, founded by former DeepMind researchers, unveiled Asimov, an autonomous AI agent designed to understand software development comprehensively. The company positions code understanding as a prerequisite for superintelligent code generation.",
+      "sources": ["Reflection AI", "Sequoia", "Silicon Angle"],
+      "related_events": [22]
+    },
+    {
+      "id": 22,
+      "date": "2025-07-16",
+      "title": "Thinking Machines Lab Announces First AI Product with Open Source Component",
+      "category": "Product Announcement",
+      "impact": "Medium",
+      "summary": "Thinking Machines Lab, the $2B startup founded by former OpenAI executives including Mira Murati, announced plans to launch its first AI product soon with a significant open source component.",
+      "sources": ["BGR", "Substack"],
+      "related_events": [21]
+    },
+    {
+      "id": 23,
+      "date": "2025-07-10",
+      "title": "METR Study: AI Tools Make Experienced Developers 19% Slower",
+      "category": "Research",
+      "impact": "High",
+      "summary": "AI research nonprofit METR published a randomized controlled trial showing that experienced open-source developers took 19% longer when using AI tools on familiar codebases. Surprisingly, developers believed AI made them 20% faster despite the measured slowdown.",
+      "sources": ["METR", "Reuters", "Ars Technica"],
+      "related_events": [24]
+    },
+    {
+      "id": 24,
+      "date": "2025-07-11",
+      "title": "Google Publishes AI in Software Engineering Progress Report",
+      "category": "Research",
+      "impact": "Medium",
+      "summary": "Google Research published a comprehensive report on AI in software engineering, detailing progress and the path ahead for AI-assisted development at the company.",
+      "sources": ["Google Research", "TLDR AI"],
+      "related_events": [23]
+    },
+    {
+      "id": 25,
+      "date": "2025-07-14",
+      "title": "Cognition Acquires Windsurf AI IDE",
+      "category": "Acquisition",
+      "impact": "High",
+      "summary": "Cognition, maker of the AI coding agent Devin, acquired Windsurf (formerly Codeium), a leading AI-assisted IDE with agentic capabilities. The deal consolidated two major players in the AI coding space, with 100% of Windsurf employees participating financially and having vesting cliffs waived.",
+      "sources": ["TechCrunch", "G2", "Qodo"],
+      "related_events": [26, 21]
+    },
+    {
+      "id": 26,
+      "date": "2025-07-31",
+      "title": "GitHub Releases Guide for Copilot Coding Agent Setup",
+      "category": "Product Update",
+      "impact": "Medium",
+      "summary": "GitHub published comprehensive documentation for setting up the Copilot coding agent, including environment configuration, project structure optimization, custom instructions, and MCP server extensions.",
+      "sources": ["GitHub Blog"],
+      "related_events": [25]
+    },
+    {
+      "id": 27,
+      "date": "2025-07-16",
+      "title": "Scale AI Lays Off 14% of Workforce",
+      "category": "Corporate",
+      "impact": "Medium",
+      "summary": "Scale AI announced layoffs affecting 14% of its staff, largely in the data labeling business, as the AI data company restructured amid changing market conditions.",
+      "sources": ["TechCrunch", "TLDR AI"],
+      "related_events": [28]
+    },
+    {
+      "id": 28,
+      "date": "2025-07-01",
+      "title": "AI-Driven Layoffs Accelerate Across Tech Industry",
+      "category": "Industry Trend",
+      "impact": "High",
+      "summary": "July saw continued AI-driven layoffs across the tech industry, with employers adding only 73,000 jobs - well short of forecasts. AI was cited as a major factor in workforce reductions at multiple companies.",
+      "sources": ["CBS News", "CNBC", "Final Round AI"],
+      "related_events": [27]
+    },
+    {
+      "id": 29,
+      "date": "2025-07-10",
+      "title": "Google Releases Firebase Studio Updates for Agentic AI Development",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "summary": "At Google Cloud Summit London, Google revealed new Firebase Studio capabilities including autonomous Agent mode, native MCP support, and Gemini CLI integration for streamlined agentic AI development.",
+      "sources": ["InfoQ", "Google Developers Blog"],
+      "related_events": [30, 31]
+    },
+    {
+      "id": 30,
+      "date": "2025-07-25",
+      "title": "Google Labs Introduces Opal No-Code AI App Builder",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "summary": "Google Labs launched Opal in public beta, an experimental no-code AI app builder that lets users create and share AI-powered mini-apps using natural language prompts and a visual workflow editor.",
+      "sources": ["InfoQ", "Google Developers Blog", "Silicon Angle"],
+      "related_events": [29]
+    },
+    {
+      "id": 31,
+      "date": "2025-07-11",
+      "title": "Google Releases T5Gemma Encoder-Decoder Models",
+      "category": "Model Release",
+      "impact": "Medium",
+      "summary": "Google released T5Gemma, a family of encoder-decoder large language models built on Gemma 2 architecture, reviving interest in encoder-decoder systems for specific NLP tasks.",
+      "sources": ["Google Developers Blog", "NYU Shanghai"],
+      "related_events": [32]
+    },
+    {
+      "id": 32,
+      "date": "2025-07-11",
+      "title": "Gemini 3 Rumors Intensify",
+      "category": "Model Announcement",
+      "impact": "Medium",
+      "summary": "Speculation about Google's Gemini 3 release intensified in July, with reports suggesting the next-generation model was imminent and would bring significant improvements in reasoning and multimodal capabilities.",
+      "sources": ["TLDR AI", "Twitter"],
+      "related_events": [31]
+    },
+    {
+      "id": 33,
+      "date": "2025-07-03",
+      "title": "Google Rolls Out Veo 3 Video Generation Globally",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "summary": "Google began rolling out Veo 3 video generation model to Gemini users in more than 159 countries, available to paying subscribers. The model enables high-quality video generation from text prompts.",
+      "sources": ["TechCrunch", "Google Blog"],
+      "related_events": [34]
+    },
+    {
+      "id": 34,
+      "date": "2025-07-11",
+      "title": "Google Adds Image-to-Video Generation to Veo 3",
+      "category": "Product Update",
+      "impact": "Low",
+      "summary": "Google expanded Veo 3 capabilities with image-to-video generation and speech features through the Flow app, enhancing creative possibilities for users.",
+      "sources": ["Google Blog", "TLDR AI"],
+      "related_events": [33]
+    },
+    {
+      "id": 35,
+      "date": "2025-07-16",
+      "title": "Google Adds Deep Search to Google Search with Gemini 2.5 Pro",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "summary": "Google rolled out Deep Search capabilities powered by Gemini 2.5 Pro to AI Pro and AI Ultra subscribers, enabling more advanced research and reasoning directly in Search.",
+      "sources": ["Google Blog", "TLDR AI"],
+      "related_events": [32]
+    },
+    {
+      "id": 36,
+      "date": "2025-07-23",
+      "title": "Google DeepMind Releases Aeneas for Ancient Latin Inscriptions",
+      "category": "Research",
+      "impact": "Medium",
+      "summary": "Google DeepMind unveiled Aeneas, AI software to help historians recover meaning and context from ancient Latin engravings. The tool demonstrated its capabilities by dating Emperor Augustus's autobiography.",
+      "sources": ["New York Times", "The Guardian", "MIT Technology Review"],
+      "related_events": [37]
+    },
+    {
+      "id": 37,
+      "date": "2025-07-23",
+      "title": "Google's AlphaEvolve Shows Promise for Scientific Discovery",
+      "category": "Research",
+      "impact": "High",
+      "summary": "Google DeepMind highlighted AlphaEvolve, a Gemini-powered coding agent for designing advanced algorithms, showing promise for applications in computing, math, material science, drug discovery, and energy.",
+      "sources": ["DeepMind", "DeepLearning.AI", "Nature"],
+      "related_events": [36]
+    },
+    {
+      "id": 38,
+      "date": "2025-07-17",
+      "title": "Stanford Releases Marin: First Fully Open Foundation Model Using JAX",
+      "category": "Model Release",
+      "impact": "Medium",
+      "summary": "Stanford's Center for Research on Foundation Models released Marin, the first fully open foundation model developed using JAX, expanding the definition of 'open' in AI to include the entire scientific process.",
+      "sources": ["Google Developers Blog", "Stanford CRFM"],
+      "related_events": [39]
+    },
+    {
+      "id": 39,
+      "date": "2025-07-29",
+      "title": "JetBrains and Hugging Face Spotlight Mellum Task-Specific Code Model",
+      "category": "Model Release",
+      "impact": "Medium",
+      "summary": "JetBrains and Hugging Face hosted a livestream exploring how small, focused LLMs like Mellum provide a more practical and ethical way forward for AI coding assistance, challenging the scale-first mindset.",
+      "sources": ["JetBrains Blog", "TLDR AI"],
+      "related_events": [38]
+    },
+    {
+      "id": 40,
+      "date": "2025-07-23",
+      "title": "FDA's AI Tool Elsa Criticized for Making Up Studies",
+      "category": "AI Failure",
+      "impact": "High",
+      "summary": "FDA employees reported that Elsa, the AI tool meant to revolutionize drug approvals, was citing nonexistent studies, misrepresenting research, and failing to access crucial documents, raising concerns about AI reliability in critical applications.",
+      "sources": ["CNN", "The Verge", "Applied Clinical Trials"],
+      "related_events": [41]
+    },
+    {
+      "id": 41,
+      "date": "2025-07-17",
+      "title": "Chain of Thought Monitorability Research Published",
+      "category": "Research",
+      "impact": "Medium",
+      "summary": "New research on Chain of Thought Monitorability highlighted both opportunities and fragility in using reasoning traces for AI safety, contributing to ongoing discussions about AI transparency and control.",
+      "sources": ["arXiv", "TLDR AI"],
+      "related_events": [40]
+    },
+    {
+      "id": 42,
+      "date": "2025-07-24",
+      "title": "Anthropic Makes Claude Better Electrical Engineer",
+      "category": "Product Update",
+      "impact": "Low",
+      "summary": "Anthropic announced improvements to Claude's capabilities in electrical engineering domains, demonstrating continued expansion of specialized technical abilities.",
+      "sources": ["Anthropic"],
+      "related_events": [6]
+    },
+    {
+      "id": 43,
+      "date": "2025-07-17",
+      "title": "Anthropic Rehires Employees Who Left for Competitor",
+      "category": "Talent Movement",
+      "impact": "Low",
+      "summary": "Anthropic hired back two employees just two weeks after they left for a competitor, highlighting the intense competition for AI talent and the value companies place on retaining experienced researchers.",
+      "sources": ["The Verge", "TLDR AI"],
+      "related_events": [3, 4]
+    },
+    {
+      "id": 44,
+      "date": "2025-07-14",
+      "title": "xAI Launches xAI For Government",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "summary": "xAI announced xAI For Government, a suite of frontier AI products available first to United States Government customers, expanding the company's reach into public sector applications.",
+      "sources": ["xAI"],
+      "related_events": [1]
+    },
+    {
+      "id": 45,
+      "date": "2025-07-08",
+      "title": "Tokyo Stock Exchange to Launch AI Document Search",
+      "category": "Product Launch",
+      "impact": "Low",
+      "summary": "The Tokyo Stock Exchange announced plans to offer investors a generative AI service to gather financial data matching queries, demonstrating AI adoption in financial infrastructure.",
+      "sources": ["Nikkei Asia"],
+      "related_events": []
+    },
+    {
+      "id": 46,
+      "date": "2025-07-21",
+      "title": "Stack Overflow Releases Community Products Roadmap Update",
+      "category": "Product Update",
+      "impact": "Low",
+      "summary": "Stack Overflow published its July 2025 community products roadmap update, addressing how the platform is evolving in the AI era with new features and data licensing initiatives.",
+      "sources": ["Stack Overflow Blog"],
+      "related_events": []
+    },
+    {
+      "id": 47,
+      "date": "2025-07-25",
+      "title": "Meta Signs Nuclear Power Deals for AI Data Centers",
+      "category": "Infrastructure",
+      "impact": "Medium",
+      "summary": "Meta signed multiple deals for nuclear energy to power its AI data centers, including a 20-year agreement with Constellation, as tech companies scramble to secure clean energy for AI infrastructure.",
+      "sources": ["CBS News"],
+      "related_events": [48]
+    },
+    {
+      "id": 48,
+      "date": "2025-07-01",
+      "title": "AI Data Center Energy Demands Drive Power Grid Concerns",
+      "category": "Infrastructure",
+      "impact": "High",
+      "summary": "Growing AI data center electricity demands continued to raise concerns about power grid capacity and consumer electricity prices, with some regions seeing significant rate increases attributed to AI infrastructure.",
+      "sources": ["NPR", "Reuters", "Power Magazine"],
+      "related_events": [47]
+    },
+    {
+      "id": 49,
+      "date": "2025-07-11",
+      "title": "AI2 Releases FlexOlmo for Distributed LLM Training",
+      "category": "Research",
+      "impact": "Low",
+      "summary": "Allen Institute for AI released FlexOlmo, enabling LLM training without sharing raw data, addressing privacy concerns in collaborative AI development.",
+      "sources": ["Allen AI", "TLDR AI"],
+      "related_events": []
+    },
+    {
+      "id": 50,
+      "date": "2025-07-11",
+      "title": "Google Introduces Batch Mode in Gemini API",
+      "category": "Product Update",
+      "impact": "Low",
+      "summary": "Google released Batch Mode for the Gemini API, allowing developers to process more requests for less cost, improving efficiency for large-scale AI workloads.",
+      "sources": ["Google Developers Blog", "TLDR AI"],
+      "related_events": []
+    }
+  ],
+  "thematic_clusters": [
+    {
+      "name": "AI Talent Wars & Corporate Strategy",
+      "description": "Intense competition for AI talent between major labs, with Meta's superintelligence push and aggressive poaching reshaping the industry landscape",
+      "event_ids": [3, 4, 5, 43]
+    },
+    {
+      "name": "Frontier Model Releases & Safety Concerns",
+      "description": "Major model releases from xAI, Moonshot, and others, with growing concerns about safety practices and responsible development",
+      "event_ids": [1, 9, 17, 18, 31, 32]
+    },
+    {
+      "name": "Agentic AI Goes Mainstream",
+      "description": "Explosion of AI agent platforms, marketplaces, and coding assistants as the industry shifts toward autonomous AI systems",
+      "event_ids": [19, 20, 21, 22, 25, 26, 29, 30]
+    },
+    {
+      "name": "AI Policy & Geopolitics",
+      "description": "Major policy developments in US, EU, and China shaping the global AI landscape and competitive dynamics",
+      "event_ids": [11, 12, 13, 14, 15, 16]
+    },
+    {
+      "name": "AI Investment Boom Continues",
+      "description": "Massive funding rounds and strategic investments as AI companies command unprecedented valuations",
+      "event_ids": [6, 7, 8, 10]
+    },
+    {
+      "name": "AI Developer Productivity Debate",
+      "description": "Conflicting evidence on whether AI tools actually improve developer productivity, challenging industry assumptions",
+      "event_ids": [23, 24, 39]
+    },
+    {
+      "name": "AI Infrastructure & Energy",
+      "description": "Growing concerns about AI's energy footprint and the race to secure power for data centers",
+      "event_ids": [47, 48]
+    },
+    {
+      "name": "AI in Science & Research",
+      "description": "Breakthrough applications of AI in scientific discovery, from ancient history to algorithm design",
+      "event_ids": [36, 37, 38]
+    },
+    {
+      "name": "AI Failures & Reliability",
+      "description": "High-profile AI failures highlighting ongoing challenges with reliability and hallucinations in critical applications",
+      "event_ids": [40, 41]
+    },
+    {
+      "name": "Workforce Impact",
+      "description": "AI-driven layoffs and workforce restructuring across the tech industry",
+      "event_ids": [27, 28]
+    }
+  ]
+}

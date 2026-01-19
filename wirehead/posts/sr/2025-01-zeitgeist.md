@@ -1,4 +1,4 @@
-# Zeitgeist: Mašine počinju da se kreću
+# Zeitgeist: Mašina se pokreće
 
 ## Kineski startap preoblikuje ekonomiju inteligencije dok američki kapital uliva pola triliona u data centre, a AI uči da razmisli pre nego što progovori - januar 2025. označava trenutak kada je industrija prestala da gradi alate i počela da gradi infrastrukturu za nešto sasvim drugačije.
 

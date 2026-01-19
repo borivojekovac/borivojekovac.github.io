@@ -137,8 +137,11 @@ class WireheadBlog {
             }
             window.history.replaceState({}, '', url);
             
-            // Reload all expanded posts with new language
-            await this.reloadExpandedPosts();
+            // Load cached translations for the new language
+            await this.loadTranslationsForLanguage(this.currentLanguage);
+            
+            // Re-render all posts to update titles with new language
+            await this.renderPosts();
         }
     }
 
@@ -258,6 +261,34 @@ class WireheadBlog {
         }
     }
 
+    async loadTranslationsForLanguage(language) {
+        if (language === 'en') return;
+        
+        for (const post of this.posts) {
+            // Skip if translation already loaded in memory
+            if (post.translations[language]) continue;
+            
+            // Skip if no translation available for this post
+            if (!this.isTranslationAvailable(post.file, language)) continue;
+            
+            try {
+                const translationPath = `posts/${language}/${post.file}`;
+                const response = await fetch(translationPath);
+                if (response.ok) {
+                    const content = await response.text();
+                    const { title } = this.extractTitleFromMarkdown(content);
+                    post.translations[language] = {
+                        content: content,
+                        title: title || post.title
+                    };
+                    await this.cacheArticle(post, language);
+                }
+            } catch (error) {
+                console.warn(`Failed to load translation for ${post.file} (${language}):`, error);
+            }
+        }
+    }
+
     async preloadRecentPosts() {
         if (!this.posts.length || APP_CONFIG.preloadRecentMonths <= 0) return;
 
@@ -363,6 +394,10 @@ class WireheadBlog {
                 currentLabel.textContent = this.currentLanguage;
             }
             this.updateLanguageOptionStyles();
+            
+            // Load translations and re-render for URL language
+            await this.loadTranslationsForLanguage(this.currentLanguage);
+            await this.renderPosts();
         }
         
         if (slug) {
@@ -553,7 +588,7 @@ class WireheadBlog {
         });
     }
 
-    renderPosts() {
+    async renderPosts() {
         const container = document.getElementById('posts-container');
         container.innerHTML = '';
 
@@ -562,7 +597,7 @@ class WireheadBlog {
             container.appendChild(postElement);
         });
 
-        this.applyExpandedStateToDom();
+        await this.applyExpandedStateToDom();
     }
 
     createPostElement(post, index) {
@@ -788,10 +823,12 @@ class WireheadBlog {
         }
     }
 
-    applyExpandedStateToDom() {
+    async applyExpandedStateToDom() {
+        const expandPromises = [];
         this.expandedPosts.forEach((index) => {
-            this.expandPost(index, { updateUrl: false, persist: false, force: true });
+            expandPromises.push(this.expandPost(index, { updateUrl: false, persist: false, force: true }));
         });
+        await Promise.all(expandPromises);
     }
 
     getSearchableText(post) {

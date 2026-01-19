@@ -1,609 +1,200 @@
 {
-  "translation_philosophy": {
+  "philosophy": {
     "principles": [
-      "Avoid literal metaphor translations - adapt to target culture and language",
-      "Retain technical anglicisms that are standard in the target language's IT jargon",
-      "Prioritize natural flow and readability over literal accuracy",
-      "Creatively adapt idioms to sound natural in the target language",
-      "Liberal translation is acceptable when it serves clarity and naturalness"
+      "Adapt metaphors to target culture, never translate literally",
+      "Keep standard IT/AI anglicisms unchanged",
+      "Prioritize natural flow over literal accuracy",
+      "Liberal translation acceptable when it serves clarity"
     ],
-    "style_notes": [
-      "Tone: professional but approachable, without excessive formality",
-      "Metaphors: adapt to target culture, do not translate literally",
-      "Jargon: use what is standard in the target language's AI/tech community",
-      "Humor and irony: preserve where possible, adapt to context"
+    "anti_patterns": [
+      "NEVER 'ne X već Y' - restructure: 'bira drugačiju taktiku: umesto da...'",
+      "English passive fails: 'X se lansira' → 'lansiran je X'",
+      "Fake anglicisms: nativno→ugrađen, hostuju→gde se nalazi, grabežljiv→opasan",
+      "Abstract noun+verb fails: 'jaz zjapi', 'obećanje udara u zid' - use concrete phrasing",
+      "Month as subject needs genitive: 'Jul 2025. skida' → 'Jula 2025. padaju'",
+      "Brand names get hyphen before case endings: Claude-a, Google-a, Anthropic-ov"
     ],
-    "keep_in_original": [
-      "Standard IT/AI anglicisms to keep unchanged: open-source, mixture-of-experts, AGI, autocomplete, signal, Enterprise AI, fine-tuned, edge compute, AI-native, legacy, API (in compounds like API endpointi), (internet) browser, stack (stek), data centri, AI agenti, backend, AI-first",
-      "Neologisms and specialized AI terms: vibe coding (Karpathyjev neologizam), prompt injection, multi-model IDE, vision-language-action model, zero-shot"
+    "keep_original": [
+      "open-source, AGI, fine-tuned, edge compute, AI-native, legacy, API, backend, AI-first, stack, data centri, AI agenti",
+      "vibe coding, prompt injection, multi-model IDE, vision-language-action model, zero-shot"
     ]
   },
-  "terms": [
-    {
-      "en": "compute",
-      "sr": "procesorska snaga",
-      "rationale": "Ne 'računarska snaga' - 'procesorska snaga' bolje prenosi metaforički smisao resursa",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "benchmarks",
-      "sr": "testovi / rezultati testiranja",
-      "rationale": "Izbegavati 'benčmarkovi'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "moat (competitive)",
-      "sr": "tržišna prednost",
-      "rationale": "Ne 'zaštitni rov'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "chokepoints",
-      "sr": "uska grla",
-      "rationale": "Metafora funkcioniše",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "circular flow",
-      "sr": "zatvoreni krug",
-      "rationale": "Ne 'kružni tok'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "trading floors",
-      "sr": "berze",
-      "rationale": "Ne 'trgovački saloni'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "wake-up call",
-      "sr": "alarm za buđenje",
-      "rationale": "Ne 'poziv za buđenje'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "cascade",
-      "sr": "domino-efekat",
-      "rationale": "Kulturna adaptacija",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "disruption",
-      "sr": "potres / poremećaj",
-      "rationale": "Izbegavati 'disrupcija'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "deliberation",
-      "sr": "razmišljanje",
-      "rationale": "Ne arhaično 'većanje'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "feed (social media)",
-      "sr": "fid",
-      "rationale": "Transkripcija prirodnija od 'tok'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "noise / chatter",
-      "sr": "šum / buka",
-      "rationale": "Kontekstualno: 'šum' za signal-noise, 'vriska' za chaotic, 'buka' za volume",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "deployment",
-      "sr": "implementacija / produkcija",
-      "rationale": "Zavisno od konteksta",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "frontier models",
-      "sr": "najjači modeli / najnoviji modeli",
-      "rationale": "'Najjači' opisniji, 'najnoviji' za cutting-edge",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "cognitive commons",
-      "sr": "deljeni kognitivni resurs",
-      "rationale": "'Commons' kao deljeni resurs",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "creative pipeline",
-      "sr": "kreativni proces",
-      "rationale": "'Proces' prirodniji od 'tok'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "embodiment",
-      "sr": "fizička prisutnost / utelovljenje",
-      "rationale": "Kontekstualno: 'fizička prisutnost' opisnija, 'utelovljenje' filozofski",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "natively multimodal",
-      "sr": "multimodalan u svojoj osnovi",
-      "rationale": "Ne 'nativno multimodalni' - naglašava ugrađenost od početka",
-      "added": "2026-01-17"
-    },
-    {
-      "en": "computer use (AI capability)",
-      "sr": "korišćenje računara",
-      "rationale": "Naziv nove AI sposobnosti",
-      "added": "2026-01-17"
-    },
-    {
-      "en": "latency",
-      "sr": "kašnjenje",
-      "rationale": "Ne 'latencija'",
-      "added": "2026-01-17"
-    },
-    {
-      "en": "mycelium",
-      "sr": "micelijum",
-      "rationale": "Muški rod, ne 'micelija'",
-      "added": "2026-01-17"
-    },
-    {
-      "en": "tiered pricing",
-      "sr": "cenovne kategorije",
-      "rationale": "Ne 'cene po nivoima'",
-      "added": "2026-01-17"
-    },
-    {
-      "en": "reasoning model",
-      "sr": "model za rezonovanje",
-      "rationale": "Opisno, izbegava anglicizam 'reasoning model'",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "reinforcement learning",
-      "sr": "učenje potkrepljivanjem (reinforcement learning)",
-      "rationale": "Prvi put sa engleskim u zagradi, zatim samo 'učenje potkrepljivanjem'",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "guardrails",
-      "sr": "zaštitne mere",
-      "rationale": "Ne 'zaštitne ograde' - 'mere' prirodnije u regulatornom kontekstu",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "fair use",
-      "sr": "poštena upotreba",
-      "rationale": "Pravni termin",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "deregulation",
-      "sr": "deregulacija",
-      "rationale": "Uobičajeno",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "social scoring",
-      "sr": "socijalno bodovanje",
-      "rationale": "Opisno",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "biometric surveillance",
-      "sr": "biometrijski nadzor",
-      "rationale": "Standardni prevod",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "export controls",
-      "sr": "izvozne kontrole",
-      "rationale": "Standardni prevod",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "copyright lawsuits",
-      "sr": "tužbe za kršenje autorskih prava",
-      "rationale": "Opisno",
-      "added": "2026-01-18"
-    },
-    {
-      "en": "goes vertical",
-      "sr": "ide u nebesa",
-      "rationale": "Metafora za eksponencijalni rast, ekspresivnije od 'ide u vis'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "aftershock",
-      "sr": "odjek",
-      "rationale": "Seizmička metafora, prirodnije od 'naknadni udar'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "synchronized barrage",
-      "sr": "sinhronizovana rafalna paljba",
-      "rationale": "Vojna metafora, jača od 'salva'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "IDE wars",
-      "sr": "ratovi razvojnih okruženja",
-      "rationale": "Opisno, izbegava anglicizam",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "nation-state capital",
-      "sr": "kapital državnog nivoa",
-      "rationale": "Opisno",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "commoditizing",
-      "sr": "postaje roba",
-      "rationale": "Glagolski oblik, prirodnije od 'komodifikacija'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "hybrid reasoning model",
-      "sr": "hibridni model za rezonovanje",
-      "rationale": "Kombinacija sa postojećim 'model za rezonovanje'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "extended thinking",
-      "sr": "produženo razmišljanje",
-      "rationale": "Opisno, za AI reasoning mode",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "agentic tool",
-      "sr": "agentski alat",
-      "rationale": "Hibrid, konzistentno sa 'AI agenti'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "phase transition",
-      "sr": "fazni prelaz",
-      "rationale": "Fizički termin, standardno",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "context window",
-      "sr": "kontekstni prozor",
-      "rationale": "Opisno, standardno u AI zajednici",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "emotional intelligence",
-      "sr": "emocionalna inteligencija",
-      "rationale": "Standardni prevod",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "monoculture",
-      "sr": "monokultura",
-      "rationale": "Direktan prevod, funkcioniše metaforički",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "repository/repositories",
-      "sr": "repozitorijum/repozitorijumi",
-      "rationale": "Standardno u IT-u",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "commits",
-      "sr": "komitovi",
-      "rationale": "Transkripcija, uobičajeno u srpskom IT-u",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "autonomous research capabilities",
-      "sr": "autonomne istraživačke sposobnosti",
-      "rationale": "Opisno",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "valuation",
-      "sr": "vrednovanje kompanije",
-      "rationale": "Uobičajeno u poslovnom kontekstu",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "workforce reduction",
-      "sr": "smanjenje radne snage",
-      "rationale": "Opisno, neutralnije od 'otpuštanja'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "quarterly revenue",
-      "sr": "kvartalni prihod",
-      "rationale": "Standardni poslovni termin",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "site selection",
-      "sr": "izbor lokacija",
-      "rationale": "Opisno",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "power companies",
-      "sr": "elektroprivredne kompanije",
-      "rationale": "Prirodnije od 'energetske kompanije' u kontekstu struje",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "surveillance applications",
-      "sr": "nadzorne aplikacije",
-      "rationale": "Opisno",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "co-scientist",
-      "sr": "konaučnik",
-      "rationale": "Kovanica po uzoru na 'koautor', prirodnije od 'ko-naučnik'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "chip export bans",
-      "sr": "zabrane izvoza čipova",
-      "rationale": "Opisno, jasnije od 'restrikcije na čipove'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "factory floor",
-      "sr": "fabrički pogon",
-      "rationale": "Industrijska metafora za proizvodnju inteligencije",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "chain-of-thought",
-      "sr": "lanac razmišljanja",
-      "rationale": "Opisno, za AI reasoning tehniku",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "test-time compute",
-      "sr": "procesorska snaga u vreme izvršavanja",
-      "rationale": "Opisno, kombinuje sa postojećim 'procesorska snaga'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "liquid cooling",
-      "sr": "vodeno hlađenje",
-      "rationale": "Standardni tehnički prevod",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "thermal wall",
-      "sr": "termalni zid",
-      "rationale": "Direktan prevod, metafora funkcioniše",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "funding round",
-      "sr": "runda finansiranja",
-      "rationale": "Uobičajeno u poslovnom kontekstu",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "patchwork (regulatory)",
-      "sr": "mozaik",
-      "rationale": "Vizuelna metafora za fragmentiranu regulativu",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "provenance",
-      "sr": "poreklo",
-      "rationale": "U kontekstu podataka i treniranja",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "ARR (Annual Recurring Revenue)",
-      "sr": "godišnji prihod",
-      "rationale": "Opisno, izbegava anglicizam",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "inference (AI)",
-      "sr": "inferenca",
-      "rationale": "Standardni tehnički termin u AI zajednici",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "agentic economy",
-      "sr": "agentska ekonomija",
-      "rationale": "Konzistentno sa 'AI agenti' i 'agentski alat'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "attack surface",
-      "sr": "površina napada",
-      "rationale": "Standardni bezbednosni termin",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "ground control",
-      "sr": "kontrola leta",
-      "rationale": "Standardni prevod u kontekstu svemirskih misija",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "system card (AI safety)",
-      "sr": "sigurnosna dokumentacija",
-      "rationale": "Opisno, jasnije od 'sistemska kartica'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "blackmail (AI behavior)",
-      "sr": "ucenjivati / ucena",
-      "rationale": "Standardni prevod za AI safety kontekst",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "self-propagating worms",
-      "sr": "samoreplicirajući crvi",
-      "rationale": "Tehnički termin za malver koji se sam širi",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "risk level/scale",
-      "sr": "skala rizika / nivo rizika",
-      "rationale": "Standardni prevod za AI safety klasifikaciju",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "life-threatening capabilities",
-      "sr": "sposobnosti opasne po život",
-      "rationale": "Opisno, prirodnije od 'životno ugrožavajuće'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "greenhouse emissions",
-      "sr": "emisije gasova staklene bašte",
-      "rationale": "Standardni ekološki termin",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "Budget Reconciliation bill",
-      "sr": "zakon o usklađivanju budžeta",
-      "rationale": "Američki zakonodavni termin",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "regulatory vacuum",
-      "sr": "regulatorni vakuum",
-      "rationale": "Direktan prevod, funkcioniše",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "hiring bias audits",
-      "sr": "revizije pristrasnosti pri zapošljavanju",
-      "rationale": "Opisno",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "algorithmic discrimination",
-      "sr": "algoritamska diskriminacija",
-      "rationale": "Standardni pravni/tehnički termin",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "transformative fair use",
-      "sr": "transformativna poštena upotreba",
-      "rationale": "Pravni termin, kombinacija sa postojećim 'poštena upotreba'",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "legal terrain bifurcates",
-      "sr": "pravni teren se račva",
-      "rationale": "Metafora za fragmentaciju pravnog pejzaža",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "AI-first workflows",
-      "sr": "AI-first tokovi rada",
-      "rationale": "'AI-first' zadržati, 'tokovi rada' prevesti",
-      "added": "2026-01-19"
-    },
-    {
-      "en": "backend (systems)",
-      "sr": "backend sistem",
-      "rationale": "'backend' zadržati, 'sistem' prevesti",
-      "added": "2026-01-19"
-    }
-  ],
-  "idioms_and_phrases": [
-    {
-      "en": "dropped like a stone",
-      "sr": "pao je kao cigla na glavu",
-      "rationale": "Kreativna srpska metafora",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "smelled like victory already purchased",
-      "sr": "mirisala na plaćenu pobedu",
-      "rationale": "Zadržava ironiju originala",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "threw compute at the problem",
-      "sr": "bacati sirovu snagu na problem",
-      "rationale": "Brute-force metafora",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "proprietary magic",
-      "sr": "privatni Vudu",
-      "rationale": "'Vudu' tajnovitije od 'magija'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "the cascade had begun",
-      "sr": "Domine su počele da padaju",
-      "rationale": "Kulturna adaptacija za kauzalne lance",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "the edge",
-      "sr": "oštrica / prednost",
-      "rationale": "Kontekstualno: 'oštrica' za cutting edge, 'prednost' za advantage",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "staying legible to yourself",
-      "sr": "da ne zaboraviš kuda si pošao / pošla",
-      "rationale": "Liberal prevod - doslovno 'ostati čitljiv sebi' ne funkcioniše",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "table stakes",
-      "sr": "žetoni za igru",
-      "rationale": "Ne postoji u srpskom - prenosi značenje entry requirement",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "boundary crossing",
-      "sr": "prelazak granice",
-      "rationale": "Prirodniji od 'proboj granice'",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "exerting gravity",
-      "sr": "uvlačiti u gravitaciono polje",
-      "rationale": "Zadržava gravitacionu metaforu",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "middle ground thinning",
-      "sr": "sredina je sve tanja",
-      "rationale": "Prostorna metafora",
-      "added": "2026-01-17"
-    },
-    {
-      "en": "navigating (menus/interfaces)",
-      "sr": "prolazeći kroz",
-      "rationale": "Ne 'navigirajući'",
-      "added": "2026-01-17"
-    }
-  ],
-  "context_dependent": [
-    {
-      "en": "the implications",
-      "sr": "implikacije / posledice",
-      "rationale": "'Implikacije' za logičke/tehničke, 'posledice' za konkretne ishode.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "the narrative",
-      "sr": "narativ / priča",
-      "rationale": "'Narativ' za meta-diskusiju, 'priča' za konkretne storyline.",
-      "added": "2026-01-16"
-    },
-    {
-      "en": "shift/pivot",
-      "sr": "menjati / preusmeriti / prebaciti se",
-      "rationale": "Kontekstualno zavisno od formalnosti i konkretnosti.",
-      "added": "2026-01-16"
-    }
-  ]
+  "terms": {
+    "compute": "procesorska snaga | ne 'računarska snaga'",
+    "benchmarks": "testovi / rezultati testiranja | ne 'benčmarkovi'",
+    "moat (competitive)": "tržišna prednost | ne 'zaštitni rov'",
+    "chokepoints": "uska grla",
+    "circular flow": "zatvoreni krug | ne 'kružni tok'",
+    "trading floors": "berze | ne 'trgovački saloni'",
+    "wake-up call": "alarm za buđenje",
+    "cascade": "domino-efekat",
+    "disruption": "potres / poremećaj | ne 'disrupcija'",
+    "deliberation": "razmišljanje | ne 'većanje'",
+    "feed (social)": "fid | ne 'tok'",
+    "noise/chatter": "šum (signal-noise) / buka (volume) / vriska (chaotic)",
+    "deployment": "implementacija / produkcija",
+    "frontier models": "najjači modeli / najnoviji modeli",
+    "cognitive commons": "deljeni kognitivni resurs",
+    "creative pipeline": "kreativni proces | ne 'tok'",
+    "embodiment": "fizička prisutnost (opisno) / utelovljenje (filozofski)",
+    "natively multimodal": "multimodalan u svojoj osnovi | ne 'nativno'",
+    "computer use (AI)": "korišćenje računara",
+    "latency": "kašnjenje | ne 'latencija'",
+    "mycelium": "micelijum (m) | ne 'micelija'",
+    "tiered pricing": "cenovne kategorije",
+    "reasoning model": "model za rezonovanje",
+    "reinforcement learning": "učenje potkrepljivanjem (prvi put sa eng u zagradi)",
+    "guardrails": "zaštitna ograda / zaštitne mere | ne 'ograde'",
+    "fair use": "poštena upotreba",
+    "deregulation": "deregulacija",
+    "social scoring": "socijalno bodovanje",
+    "biometric surveillance": "biometrijski nadzor",
+    "export controls": "izvozne kontrole",
+    "copyright lawsuits": "tužbe za kršenje autorskih prava",
+    "goes vertical": "ide u nebesa | ne 'ide u vis'",
+    "aftershock": "odjek | ne 'naknadni udar'",
+    "synchronized barrage": "sinhronizovana rafalna paljba",
+    "IDE wars": "ratovi razvojnih okruženja",
+    "nation-state capital": "kapital državnog nivoa",
+    "commoditizing": "postaje roba | ne 'komodifikacija'",
+    "hybrid reasoning model": "hibridni model za rezonovanje",
+    "extended thinking": "produženo razmišljanje",
+    "agentic tool": "agentski alat",
+    "phase transition": "fazni prelaz",
+    "context window": "kontekstni prozor",
+    "emotional intelligence": "emocionalna inteligencija",
+    "monoculture": "monokultura",
+    "repository": "repozitorijum",
+    "commits": "komitovi",
+    "autonomous research capabilities": "autonomne istraživačke sposobnosti",
+    "valuation": "procenjena vrednost | ne 'valuacija'",
+    "targets valuation": "juri procenjenu vrednost | ne 'cilja valuaciju'",
+    "workforce reduction": "smanjenje radne snage",
+    "quarterly revenue": "kvartalni prihod",
+    "site selection": "izbor lokacija",
+    "power companies": "elektroprivredne kompanije",
+    "surveillance applications": "nadzorne aplikacije",
+    "co-scientist": "konaučnik | ne 'ko-naučnik'",
+    "chip export bans": "zabrane izvoza čipova",
+    "factory floor": "fabrički pogon",
+    "chain-of-thought": "lanac razmišljanja",
+    "test-time compute": "procesorska snaga u vreme izvršavanja",
+    "liquid cooling": "vodeno hlađenje",
+    "thermal wall": "termalni zid",
+    "funding round": "runda finansiranja",
+    "patchwork (regulatory)": "mozaik",
+    "provenance": "poreklo",
+    "ARR": "godišnji prihod",
+    "inference (AI)": "inferenca",
+    "agentic economy": "agentska ekonomija",
+    "attack surface": "površina napada",
+    "ground control": "kontrola leta",
+    "system card (AI safety)": "sigurnosna dokumentacija",
+    "blackmail (AI behavior)": "ucena / ucenjivati",
+    "self-propagating worms": "samoreplicirajući crvi",
+    "risk level/scale": "skala rizika / nivo rizika",
+    "life-threatening capabilities": "sposobnosti opasne po život",
+    "greenhouse emissions": "emisije gasova staklene bašte",
+    "Budget Reconciliation bill": "zakon o usklađivanju budžeta",
+    "regulatory vacuum": "regulatorni vakuum",
+    "hiring bias audits": "revizije pristrasnosti pri zapošljavanju",
+    "algorithmic discrimination": "algoritamska diskriminacija",
+    "transformative fair use": "transformativna poštena upotreba",
+    "legal terrain bifurcates": "pravni teren se račva",
+    "AI-first workflows": "AI-first tokovi rada",
+    "backend (systems)": "backend sistem",
+    "talent poaching/extraction": "operacija izvlačenja | ne 'ekstrakcija'",
+    "native (tech capability)": "ugrađen | NIKAD 'nativno'",
+    "liability/risk waiting to mature": "rizik koji čeka da eksplodira",
+    "grid groans/strains": "cvili / bruji / zuji | ne 'stenje'",
+    "predatory (market)": "opasan | ne 'grabežljiv'",
+    "the meter runs": "brojilo otkucava",
+    "moonshot division": "odeljenje za ambiciozne projekte",
+    "static typing": "statičko tipiziranje",
+    "discovery (legal)": "otkrivanje dokaza",
+    "penalty regime": "režim kazni",
+    "general-purpose model": "model opšte namene",
+    "capital expenditure": "kapitalna ulaganja",
+    "the frontier isn't lonely": "pionirski dani su prošli",
+    "contributors": "saradnici | ne 'kontributori'",
+    "settlement (legal)": "nagodba",
+    "class-action lawsuit": "kolektivna tužba",
+    "federal preemption": "federalna zabrana državne regulacije",
+    "whistleblower protections": "zaštita uzbunjivača",
+    "phishing": "fišing",
+    "uncanny valley": "zona sablasnog privida ljudskosti",
+    "AI crawlers": "AI pretraživači",
+    "deed transfers": "prenos tapija",
+    "consolidation": "konsolidacija",
+    "inference architecture": "arhitektura za inferencu",
+    "execution capability": "izvršne sposobnosti",
+    "execution layer": "izvršni sloj",
+    "sandboxed virtual environments": "izolovana virtuelna okruženja",
+    "multi-agent orchestration": "orkestracija više agenata",
+    "code review": "revizija koda",
+    "win rate": "stopa pobeda",
+    "rounding error": "greška zaokruživanja",
+    "expose their seams": "otkrivaju svoje šavove",
+    "red teaming campaign": "kampanja ljudskog testiranja",
+    "adversarial by design": "gradi se sa pretpostavkom napada | ne 'adversarijalan po dizajnu'",
+    "reference implementation": "referentna implementacija",
+    "incident reporting": "prijavljivanje incidenata",
+    "gridlocked": "u pat poziciji",
+    "omnibus lawsuit": "sveobuhvatna tužba",
+    "counterintuitive wins": "kontraintuitivno pobeđuje",
+    "failure modes": "režimi otkaza",
+    "own the consequences": "snositi posledice",
+    "orchestration (AI)": "orkestracija",
+    "switchboard (metaphor)": "centrala",
+    "command center": "komandni centar",
+    "granular oversight": "detaljan nadzor",
+    "skeleton key": "kalauz | ne 'univerzalni ključ'",
+    "secondary share sale": "sekundarna prodaja akcija",
+    "agent orchestration hub": "hab za orkestraciju agenata",
+    "megafactory": "megafabrika",
+    "predictive maintenance": "prediktivno održavanje",
+    "red-teaming": "red-teaming",
+    "tool misuse": "zloupotreba alata",
+    "agentic commerce": "agentska trgovina",
+    "entry-level (jobs)": "ulazne pozicije | ne 'početne pozicije'",
+    "agent evaluation frameworks": "okviri za evaluaciju agenata",
+    "groundedness (AI)": "zasnovanost na činjenicama",
+    "agentic OS": "agentski OS",
+    "agentic sprawl": "agentsko širenje",
+    "escape velocity": "kosmička brzina",
+    "wrongful death suits": "tužbe za protivpravnu smrt",
+    "companion chatbots": "chatbotovi saputnici",
+    "emotional infrastructure": "emocionalna infrastruktura",
+    "digital sovereignty": "digitalna suverenost",
+    "performance engineering": "inženjering performansi",
+    "enterprise-scale": "na nivou kompanija | ne 'na nivou preduzeća'",
+    "observability tools": "alati za vidljivost i nadzor",
+    "safety reckoning": "račun za bezbednost",
+    "adoption (tech)": "upotreba | ne 'usvajanje'",
+    "stock listing / IPO": "izlazak na berzu | ne 'listiranje'"
+  },
+  "idioms": {
+    "dropped like a stone": "pao je kao cigla na glavu",
+    "smelled like victory already purchased": "mirisala na plaćenu pobedu",
+    "threw compute at the problem": "bacati sirovu snagu na problem",
+    "proprietary magic": "privatni Vudu",
+    "the cascade had begun": "Domine su počele da padaju",
+    "the edge": "oštrica (cutting edge) / prednost (advantage)",
+    "staying legible to yourself": "da ne zaboraviš kuda si pošao",
+    "table stakes": "žetoni za igru | entry requirement",
+    "boundary crossing": "prelazak granice",
+    "exerting gravity": "uvlačiti u gravitaciono polje",
+    "middle ground thinning": "sredina je sve tanja",
+    "navigating (menus)": "prolazeći kroz | ne 'navigirajući'",
+    "races to (compete)": "trka se | ne 'utrkuje se'",
+    "outfit (fashion)": "stajling | ne 'outfit'",
+    "assumptions dissolve under measurement": "odlaze niz vetar pod jasnim metrikama",
+    "flows like meltwater": "teče kao prolećna bujica",
+    "arrive like weather systems": "pristižu poput olujnih frontova"
+  },
+  "context_dependent": {
+    "the implications": "implikacije (logičke) / posledice (konkretne)",
+    "the narrative": "narativ (meta) / priča (konkretna)",
+    "shift/pivot": "menjati / preusmeriti / prebaciti se"
+  }
 }

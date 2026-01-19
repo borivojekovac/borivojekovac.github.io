@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="192px" height="192px">
   <path d="M 19 3 C 20 8 21 7.03 21 12.001 C 21 16.972 16.971 21.001 12 21.001 C 7.029 21.001 3 16.972 3 12.001 C 3 7.03 4 8 3 3"
-    style="fill: rgb(255, 255, 255); stroke: rgb(0, 0, 0); stroke-width: 2px; stroke-linecap: round;"/>
+    style="fill: #f8f9fa; stroke: #1f2937; stroke-width: 2px; stroke-linecap: round;"/>
   <ellipse cx="8" cy="12" rx="2" ry="2"
-    style="fill: rgb(0, 0, 0); stroke: none;"/>
+    style="fill: #1f2937; stroke: none;"/>
   <ellipse cx="16" cy="12" rx="2" ry="2"
-    style="fill: rgb(0, 0, 0); stroke: none;"/>
+    style="fill: #1f2937; stroke: none;"/>
   <path d="M 7 3 C 7.5 5 7.5 5 7.5 6"
-    style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2px; stroke-linecap: round;"/>
+    style="fill: none; stroke: #1f2937; stroke-width: 2px; stroke-linecap: round;"/>
   <path d="M 11 3 C 11.5 5 11.5 5 11.5 6"
-    style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2px; stroke-linecap: round;"/>
+    style="fill: none; stroke: #1f2937; stroke-width: 2px; stroke-linecap: round;"/>
   <path d="M 15 3 C 15.5 5 15.5 5 15.5 6"
-    style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2px; stroke-linecap: round;"/>
+    style="fill: none; stroke: #1f2937; stroke-width: 2px; stroke-linecap: round;"/>
 </svg>

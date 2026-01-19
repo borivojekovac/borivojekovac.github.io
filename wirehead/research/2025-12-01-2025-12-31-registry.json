@@ -1,0 +1,520 @@
+{
+  "period": {
+    "start_date": "2025-12-01",
+    "end_date": "2025-12-31",
+    "description": "December 2025 AI news registry covering the most impactful developments in artificial intelligence, generative AI, large language models, and related technologies"
+  },
+  "generated_at": "2026-01-19",
+  "event_count": 50,
+  "events": [
+    {
+      "id": 1,
+      "title": "OpenAI Releases GPT-5.2: Most Advanced Model for Professional Work",
+      "date": "2025-12-11",
+      "category": "Model Release",
+      "impact": "critical",
+      "sources": ["https://openai.com/index/introducing-gpt-5-2/", "https://shellypalmer.com/2025/12/an-ai-december-to-remember/"],
+      "summary": "OpenAI launched GPT-5.2 achieving 70.9% win rate against human experts on professional knowledge work. Model excels at spreadsheets, presentations, coding with 55.6% on SWE-Bench Pro. Available in Instant, Thinking, and Pro variants.",
+      "key_points": ["70.9% expert-parity on GDPval benchmark", "55.6% SWE-Bench Pro, 80% SWE-bench Verified", "11x faster, <1% cost of experts", "100% on AIME 2025 math", "Enhanced agentic capabilities"]
+    },
+    {
+      "id": 2,
+      "title": "Gemini 3 Flash Released with Major Performance Boost",
+      "date": "2025-12-17",
+      "category": "Model Release",
+      "impact": "high",
+      "sources": ["https://shellypalmer.com/2025/12/an-ai-december-to-remember/", "https://blog.google/technology/ai/google-ai-updates-december-2025/"],
+      "summary": "Google released Gemini 3 Flash combining Pro-grade reasoning with Flash-level speed. 3x faster than previous generation at fraction of cost ($0.50/$3 per million tokens). Now default model in Gemini app globally.",
+      "key_points": ["Matches Gemini 3 Pro on many benchmarks", "3x faster generation", "30% fewer tokens than 2.5 Pro", "Default in Gemini app and Search", "Multi-model support"]
+    },
+    {
+      "id": 3,
+      "title": "Gemini 3 Deep Think Achieves Top ARC-AGI-2 Score",
+      "date": "2025-12-04",
+      "category": "Model Release",
+      "impact": "high",
+      "sources": ["https://shellypalmer.com/2025/12/an-ai-december-to-remember/"],
+      "summary": "Google launched Gemini 3 Deep Think achieving 45.1% on ARC-AGI-2 with code execution, highest performance on abstract reasoning benchmark. Uses iterative parallel hypothesis exploration for complex problems.",
+      "key_points": ["45.1% on ARC-AGI-2 (with code)", "41% on Humanity's Last Exam", "Enhanced reasoning mode", "Available to Ultra subscribers", "Takes minutes but delivers better results"]
+    },
+    {
+      "id": 4,
+      "title": "OpenAI Releases GPT-5.2-Codex for Agentic Coding",
+      "date": "2025-12-18",
+      "category": "Model Release",
+      "impact": "high",
+      "sources": ["https://shellypalmer.com/2025/12/an-ai-december-to-remember/"],
+      "summary": "OpenAI launched GPT-5.2-Codex achieving state-of-the-art on SWE-Bench Pro and Terminal-Bench 2.0. Features native context compaction, enhanced cybersecurity capabilities, and improved large-scale refactoring.",
+      "key_points": ["State-of-the-art coding benchmarks", "Native context compaction", "Enhanced cybersecurity capabilities", "Default in Codex CLI and IDE", "Trusted access for security researchers"]
+    },
+    {
+      "id": 5,
+      "title": "Z.AI Releases GLM-4.7: Open-Source Coding Model",
+      "date": "2025-12-22",
+      "category": "Model Release",
+      "impact": "high",
+      "sources": ["https://www.digitalapplied.com/blog/glm-4-7-zai-coding-model-guide", "https://tldr.tech/ai/2025-12-23"],
+      "summary": "Z.AI launched GLM-4.7 (358B MoE, 32B active) achieving 73.8% on SWE-bench with Preserved Thinking. First open-source model to approach proprietary performance on coding benchmarks. MIT licensed, $3/month pricing.",
+      "key_points": ["73.8% SWE-bench, 87.4% τ²-Bench", "Three-tier thinking architecture", "Preserved context across turns", "Improved vibe coding aesthetics", "Open-source alternative to Claude"]
+    },
+    {
+      "id": 6,
+      "title": "Cursor Acquires Graphite for Code Review",
+      "date": "2025-12-19",
+      "category": "M&A",
+      "impact": "high",
+      "sources": ["https://techcrunch.com/2025/12/19/cursor-continues-acquisition-spree-with-graphite-deal/"],
+      "summary": "Cursor acquired Graphite for 'way over' $290M valuation. Combines AI code writing with AI code review, enabling stacked pull requests for faster development cycles. Both backed by Accel and a16z.",
+      "key_points": ["Paid above $290M valuation", "Stacked pull request capability", "Speeds code-to-ship process", "Strategic sense for AI workflow", "Shared investors Accel, a16z"]
+    },
+    {
+      "id": 7,
+      "title": "Meta Acquires Manus AI for $2+ Billion",
+      "date": "2025-12-05",
+      "category": "M&A",
+      "impact": "critical",
+      "sources": ["https://almcorp.com/blog/meta-acquires-manus-ai-acquisition-analysis/", "https://tldr.tech/ai/2025-12-08"],
+      "summary": "Meta acquired Chinese AI agent startup Manus for over $2B. Manus achieved 86.5% on GAIA benchmark, outperforming OpenAI's Deep Research. Features sandboxed virtual computers and multi-agent architecture.",
+      "key_points": ["$2B+ acquisition price", "86.5% GAIA Level 1 vs OpenAI's 74.3%", "147 trillion tokens processed", "80M virtual computers created", "Shift from models to execution capability"]
+    },
+    {
+      "id": 8,
+      "title": "ChatGPT Adds Tone Personalization Controls",
+      "date": "2025-12-19",
+      "category": "Product Launch",
+      "impact": "medium",
+      "sources": ["https://www.webpronews.com/openais-chatgpt-update-adjustable-warmth-enthusiasm-and-emojis/", "https://tldr.tech/ai/2025-12-22"],
+      "summary": "OpenAI introduced adjustable warmth, enthusiasm, and emoji controls for ChatGPT. Users can dial up/down friendliness and energy levels. Addresses sycophancy complaints while enabling professional/casual tone switching.",
+      "key_points": ["Adjustable warmth and enthusiasm", "Emoji frequency control", "Addresses sycophancy feedback", "Professional/casual switching", "Available to subscribers"]
+    },
+    {
+      "id": 9,
+      "title": "OpenAI Admits Prompt Injection 'Here to Stay' for Atlas",
+      "date": "2025-12-22",
+      "category": "Security",
+      "impact": "critical",
+      "sources": ["https://openai.com/index/hardening-atlas-against-prompt-injection/", "https://techcrunch.com/2025/12/22/openai-says-ai-browsers-may-always-be-vulnerable-to-prompt-injection-attacks/"],
+      "summary": "OpenAI confirmed prompt injection is persistent security challenge for ChatGPT Atlas browser agent. Deployed LLM-based automated attacker using RL to discover exploits before they're weaponized. Agent mode 'expands attack surface.'",
+      "key_points": ["Prompt injection unlikely to be 'solved'", "RL-trained automated attacker", "Rapid response cycle for patches", "Agent mode expands threat surface", "Long-term security challenge"]
+    },
+    {
+      "id": 10,
+      "title": "New York Signs RAISE Act: AI Safety Legislation",
+      "date": "2025-12-20",
+      "category": "Regulation",
+      "impact": "high",
+      "sources": ["https://techcrunch.com/2025/12/20/new-york-governor-kathy-hochul-signs-raise-act-to-regulate-ai-safety/"],
+      "summary": "Governor Hochul signed RAISE Act making NY second state with major AI safety law after California. Requires safety protocols publication, 72-hour incident reporting, new DFS office. Fines up to $1M ($3M repeat).",
+      "key_points": ["Second state after California", "72-hour incident reporting", "New DFS oversight office", "$1M fines, $3M for repeats", "Unified benchmark among tech states"]
+    },
+    {
+      "id": 11,
+      "title": "Trump Executive Order Challenges State AI Regulation",
+      "date": "2025-12-11",
+      "category": "Policy",
+      "impact": "high",
+      "sources": ["https://www.crowell.com/en/insights/client-alerts/executive-order-tries-to-thwart-onerous-ai-state-regulation-calls-for-national-framework"],
+      "summary": "President Trump signed executive order threatening federal lawsuits and withholding funds to prevent 'onerous' state AI regulation. Calls for national policy framework. Creates taskforce to challenge state laws.",
+      "key_points": ["Threatens federal lawsuits", "Withholding federal funds", "National framework push", "Taskforce to challenge states", "Lacks force of law"]
+    },
+    {
+      "id": 12,
+      "title": "Authors File Major Copyright Lawsuit Against Six AI Companies",
+      "date": "2025-12-23",
+      "category": "Legal",
+      "impact": "high",
+      "sources": ["https://lastweekin.ai/p/last-week-in-ai-330-groq-nvidia-chatgpt"],
+      "summary": "John Carreyrou and other authors sued Anthropic, Google, OpenAI, Meta, xAI, and Perplexity for training on pirated books. Claims $1.5B Anthropic settlement inadequate. Argues training on stolen content is 'massive willful infringement.'",
+      "key_points": ["Targets 6 major AI companies", "Trained on Books3 pirated corpus", "Anthropic settlement rejected", "Billions in revenue at stake", "Separate from prior relief"]
+    },
+    {
+      "id": 13,
+      "title": "Adobe Faces Class Action Over AI Training Data",
+      "date": "2025-12-17",
+      "category": "Legal",
+      "impact": "medium",
+      "sources": ["https://lastweekin.ai/p/last-week-in-ai-330-groq-nvidia-chatgpt"],
+      "summary": "Adobe sued for training SlimLM on SlimPajama-627B containing Books3 corpus. Plaintiff's guidebooks appeared in processed subset. Alleges training on copyrighted works without consent or compensation.",
+      "key_points": ["SlimLM trained on SlimPajama", "Contains Books3 derivative", "Guidebooks in training data", "No consent or compensation", "Part of broader copyright battle"]
+    },
+    {
+      "id": 14,
+      "title": "Nvidia Licenses Groq Technology in $20B Deal",
+      "date": "2025-12-24",
+      "category": "M&A",
+      "impact": "critical",
+      "sources": ["https://techcrunch.com/2025/12/24/nvidia-acquires-ai-chip-challenger-groq-for-20b-report-says/"],
+      "summary": "Nvidia struck non-exclusive licensing agreement with Groq reportedly worth $20B. Will hire Groq founder Jonathan Ross. Groq's LPU claims 10x faster inference at 1/10th energy. Nvidia's largest deal ever.",
+      "key_points": ["$20B licensing deal", "Non-exclusive agreement", "Hiring Jonathan Ross (TPU inventor)", "LPU: 10x speed, 1/10th energy", "Groq powers 2M+ developers"]
+    },
+    {
+      "id": 15,
+      "title": "Nvidia Acquires SchedMD and Releases Nemotron 3",
+      "date": "2025-12-15",
+      "category": "M&A",
+      "impact": "high",
+      "sources": ["https://techcrunch.com/2025/12/15/nvidia-bulks-up-open-source-offerings-with-an-acquisition-and-new-open-ai-models/"],
+      "summary": "Nvidia acquired SchedMD (Slurm developer) and released Nemotron 3 model family. Slurm remains open source. Nemotron 3 includes Nano, Super, Ultra variants for AI agents.",
+      "key_points": ["Acquired SchedMD (Slurm)", "Slurm stays open source", "Nemotron 3: Nano, Super, Ultra", "Most efficient for AI agents", "Decade-long partnership"]
+    },
+    {
+      "id": 16,
+      "title": "Linux Foundation Launches Agentic AI Foundation",
+      "date": "2025-12-09",
+      "category": "Standards",
+      "impact": "critical",
+      "sources": ["https://techcrunch.com/2025/12/09/openai-anthropic-and-block-join-new-linux-foundation-effort-to-standardize-the-ai-agent-era/"],
+      "summary": "Linux Foundation launched AAIF with donations from Anthropic (MCP), Block (Goose), OpenAI (AGENTS.md). Members include AWS, Bloomberg, Cloudflare, Google. Aims to prevent proprietary fragmentation.",
+      "key_points": ["Anthropic donates MCP protocol", "Block contributes Goose framework", "OpenAI provides AGENTS.md", "Major members: AWS, Bloomberg, Google", "Prevent closed-wall stacks"]
+    },
+    {
+      "id": 17,
+      "title": "Anthropic Releases Agent Skills as Open Standard",
+      "date": "2025-12-18",
+      "category": "Standards",
+      "impact": "high",
+      "sources": ["https://venturebeat.com/ai/anthropic-launches-enterprise-agent-skills-and-opens-the-standard"],
+      "summary": "Anthropic released Agent Skills technology as open standard. Strategic bet that sharing approach will cement position in agent market. Makes Claude more capable for enterprise work.",
+      "key_points": ["Released as open standard", "Strategic market positioning", "Enhanced Claude enterprise capabilities", "Focus on practical utility", "Agent ecosystem play"]
+    },
+    {
+      "id": 18,
+      "title": "Anthropic Releases Bloom: AI Behavioral Evaluation Tool",
+      "date": "2025-12-20",
+      "category": "Research",
+      "impact": "medium",
+      "sources": ["https://www.anthropic.com/research/bloom", "https://tldr.tech/ai/2025-12-22"],
+      "summary": "Anthropic released Bloom open-source tool for automated behavioral evaluations of frontier LLMs. Generates configurable test suites to measure arbitrary traits without ground-truth labels.",
+      "key_points": ["Open-source evaluation pipeline", "Configurable test suites", "No ground-truth labels needed", "Measures behavioral traits", "Frontier LLM testing"]
+    },
+    {
+      "id": 19,
+      "title": "Vercel Removes 80% of Agent Tools, Improves Accuracy",
+      "date": "2025-12-23",
+      "category": "Developer Tools",
+      "impact": "medium",
+      "sources": ["https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools", "https://tldr.tech/ai/2025-12-23"],
+      "summary": "Vercel cut 80% of d0 agent's tools, improving success rate from 80% to 100%. Fewer steps, fewer tokens, faster responses. Demonstrates less is more for agent design.",
+      "key_points": ["80% tool reduction", "100% vs 80% success rate", "Fewer tokens, faster responses", "Simpler agent architecture", "Raw CSV access vs complex tools"]
+    },
+    {
+      "id": 20,
+      "title": "GitHub Copilot WRAP Methodology for Coding Agents",
+      "date": "2025-12-26",
+      "category": "Developer Tools",
+      "impact": "medium",
+      "sources": ["https://github.blog/ai-and-ml/github-copilot/wrap-up-your-backlog-with-github-copilot-coding-agent/"],
+      "summary": "GitHub introduced WRAP methodology (Write, Refine, Atomic, Pair) for effective Copilot agent use. Engineers using agent to clear backlogs with structured approach.",
+      "key_points": ["WRAP: Write, Refine, Atomic, Pair", "Internal GitHub engineering use", "Structured agent interaction", "Backlog clearing methodology", "Maximizing agent effectiveness"]
+    },
+    {
+      "id": 21,
+      "title": "Google Releases Disco Browser with GenTabs",
+      "date": "2025-12-15",
+      "category": "Product Launch",
+      "impact": "medium",
+      "sources": ["https://blog.google/technology/ai/google-ai-updates-december-2025/", "https://tech-now.io/en/blogs/google-disco-browser-the-future-of-ai-powered-web-browsing"],
+      "summary": "Google Labs released Disco browser experiment featuring GenTabs that synthesize open tabs and chat history into interactive web applications. AI-generated apps from browser context.",
+      "key_points": ["GenTabs synthesize open tabs", "Creates interactive web apps", "Google Labs experiment", "AI-generated applications", "Browser context utilization"]
+    },
+    {
+      "id": 22,
+      "title": "NotebookLM Integrates with Gemini",
+      "date": "2025-12-16",
+      "category": "Product Launch",
+      "impact": "medium",
+      "sources": ["https://blog.google/products/gemini/gemini-drop-december-2025/"],
+      "summary": "Google integrated NotebookLM with Gemini, allowing notebooks as sources. Combines notes and research for grounded responses. Deep Research reports now include visuals for Ultra users.",
+      "key_points": ["Notebooks as Gemini sources", "Grounded responses", "Visual Deep Research reports", "Ultra subscriber feature", "Research workflow integration"]
+    },
+    {
+      "id": 23,
+      "title": "Google Releases Nano Banana for Precise Image Editing",
+      "date": "2025-12-16",
+      "category": "Product Launch",
+      "impact": "medium",
+      "sources": ["https://blog.google/products/gemini/gemini-drop-december-2025/"],
+      "summary": "Google released Nano Banana enabling precise image editing by drawing, circling, or annotating directly on images. Tell Gemini where to make changes with finger or cursor.",
+      "key_points": ["Direct annotation editing", "Circle, draw, or annotate", "Precise change control", "Finger or cursor input", "Gemini image manipulation"]
+    },
+    {
+      "id": 24,
+      "title": "Xiaomi Releases MiMo-V2-Flash: 309B Open Model",
+      "date": "2025-12-16",
+      "category": "Model Release",
+      "impact": "high",
+      "sources": ["https://tldr.tech/ai/2025-12-22", "https://mimo-v2-flash.org/"],
+      "summary": "Xiaomi released MiMo-V2-Flash (309B total, 15B active) achieving 150 tokens/sec inference. #1 on SEAL leaderboard. Open-source MoE model challenging Gemini 3 Flash.",
+      "key_points": ["309B parameters, 15B active", "150 tok/sec inference speed", "#1 SEAL leaderboard", "Open-source MoE architecture", "Challenges Gemini 3 Flash"]
+    },
+    {
+      "id": 25,
+      "title": "Pentagon Partners with xAI to Deploy Grok",
+      "date": "2025-12-22",
+      "category": "Policy",
+      "impact": "high",
+      "sources": ["https://etcjournal.com/2025/12/28/musk-huang-whats-up-dec-2025/"],
+      "summary": "Pentagon announced partnership with Elon Musk's xAI to deploy Grok across government systems. Integrates into GenAI.mil alongside Google's Gemini. Major expansion of military AI use.",
+      "key_points": ["Grok deployed to Pentagon", "Integration with GenAI.mil", "Alongside Google Gemini", "Military AI expansion", "xAI government partnership"]
+    },
+    {
+      "id": 26,
+      "title": "Elon Musk: xAI Will Outpace Rivals with GPU Power",
+      "date": "2025-12-22",
+      "category": "Industry Analysis",
+      "impact": "medium",
+      "sources": ["https://www.digitimes.com/news/a20251222PD205/xai-elon-musk-ceo-tesla-openai.html"],
+      "summary": "Musk declared if xAI survives next 2-3 years, it will surpass OpenAI and Google by harnessing massive GPU computing power. Aggressive expansion plan for AI infrastructure with substantial financial backing.",
+      "key_points": ["2-3 year survival critical", "Massive GPU compute strategy", "Surpass OpenAI and Google goal", "Aggressive infrastructure expansion", "Substantial financial backing"]
+    },
+    {
+      "id": 27,
+      "title": "Meta Abandons Open-Source for Proprietary Avocado Model",
+      "date": "2025-12-18",
+      "category": "Strategy",
+      "impact": "high",
+      "sources": ["https://www.digitimes.com/news/a20251218PD204/meta-competition-openai-google-llama.html"],
+      "summary": "Meta departing Llama open-source lineage for proprietary 'Avocado' model. Strategic pivot surprises industry, triggers internal unrest. Mounting competition from OpenAI and Google drives change.",
+      "key_points": ["Abandoning Llama open-source", "New proprietary Avocado model", "Industry surprise", "Internal unrest reported", "Competition pressure from OpenAI/Google"]
+    },
+    {
+      "id": 28,
+      "title": "China's Zhipu and MiniMax Race to IPO",
+      "date": "2025-12-29",
+      "category": "Funding",
+      "impact": "high",
+      "sources": ["https://asia.nikkei.com/business/technology/artificial-intelligence/china-s-zhipu-and-minimax-race-to-go-public-ahead-of-openai-and-anthropic"],
+      "summary": "Zhipu AI and MiniMax filed for Hong Kong listings aiming to raise combined $1B. Racing to go public ahead of OpenAI and Anthropic. Offers glimpse into Chinese LLM sector burning cash under US chip restrictions.",
+      "key_points": ["Combined $1B IPO target", "Hong Kong listings", "Ahead of OpenAI/Anthropic", "Both dogged by losses", "US chip restrictions impact"]
+    },
+    {
+      "id": 29,
+      "title": "Tencent Restructures AI, Promotes OpenAI Recruit",
+      "date": "2025-12-17",
+      "category": "Corporate",
+      "impact": "medium",
+      "sources": ["https://www.scmp.com/tech/big-tech/article/3336811/tencent-restructures-ai-operations-promotes-high-profile-recruit-chief-ai-scientist"],
+      "summary": "Tencent promoted Vinces Yao Shunyu (ex-OpenAI) to chief AI scientist under CEO office. Major AI restructuring with new AI Infra and Data Computing Platform departments.",
+      "key_points": ["Yao from OpenAI to chief scientist", "Reports to president Martin Lau", "New AI Infra department", "Data Computing Platform team", "Major organizational restructuring"]
+    },
+    {
+      "id": 30,
+      "title": "China Narrows AI Gap with US After DeepSeek",
+      "date": "2025-12-13",
+      "category": "Industry Analysis",
+      "impact": "high",
+      "sources": ["https://www.scmp.com/tech/tech-trends/article/3336236/sea-change-china-narrows-ai-gap-us-three-years-after-initial-shock-chatgpt"],
+      "summary": "Three years after ChatGPT shock, China narrowed AI gap with US. DeepSeek V3 and R1 on par with OpenAI's GPT and Meta's Llama. Turning point in Chinese AI capabilities despite chip restrictions.",
+      "key_points": ["DeepSeek V3/R1 competitive", "Three-year progress since ChatGPT", "Despite US chip restrictions", "Walled garden strategy evolved", "Competitive parity achieved"]
+    },
+    {
+      "id": 31,
+      "title": "DeepSeek Publishes Manifold-Constrained Framework",
+      "date": "2025-12-31",
+      "category": "Research",
+      "impact": "medium",
+      "sources": ["https://www.scmp.com/tech/tech-war/article/3338528/tech-war-china-takes-confident-strides-develop-more-ai-innovation-2026"],
+      "summary": "DeepSeek published paper on 'manifold-constrained hyper-connections' framework for training AI systems at scale. CEO Liang Wenfeng among 19 co-authors. Suggests promising directions for evolution.",
+      "key_points": ["New training framework", "19 co-authors including CEO", "Scale training focus", "Promising evolution directions", "End-of-year technical release"]
+    },
+    {
+      "id": 32,
+      "title": "Stack Overflow Developer Survey: AI Trust Falling",
+      "date": "2025-12-29",
+      "category": "Research",
+      "impact": "high",
+      "sources": ["https://stackoverflow.blog/2025/12/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here"],
+      "summary": "Stack Overflow survey shows 80% developers using AI tools but trust in accuracy fell from 40% to 29%. Positive favorability dropped 72% to 60%. 66% spending more time fixing 'almost-right' AI code.",
+      "key_points": ["80% AI tool adoption", "Trust dropped 40% to 29%", "Favorability fell 72% to 60%", "66% more time fixing AI code", "75% still ask humans when uncertain"]
+    },
+    {
+      "id": 33,
+      "title": "Menlo Ventures: $37B Enterprise AI Spending in 2025",
+      "date": "2025-12-15",
+      "category": "Market Analysis",
+      "impact": "high",
+      "sources": ["https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/"],
+      "summary": "Menlo Ventures reports enterprises spent $37B on generative AI in 2025, up 3.2x from $11.5B in 2024. $19B went to applications. 76% of use cases now purchased vs built. 10+ products over $1B ARR.",
+      "key_points": ["$37B total spending (3.2x growth)", "$19B to application layer", "76% purchased vs 24% built", "10+ products over $1B ARR", "50+ products over $100M ARR"]
+    },
+    {
+      "id": 34,
+      "title": "VCs Predict AI Coming for Labor in 2026",
+      "date": "2025-12-31",
+      "category": "Industry Analysis",
+      "impact": "high",
+      "sources": ["https://techcrunch.com/2025/12/31/investors-predict-ai-is-coming-for-labor-in-2026/"],
+      "summary": "VCs predict 2026 will see AI significantly impact labor markets. MIT study: 11.7% of jobs could be automated. Companies citing AI for layoffs even without shifting budgets to AI projects.",
+      "key_points": ["2026 predicted labor impact year", "11.7% jobs could be automated", "AI cited for layoffs", "Unclear if productivity or replacement", "Big changes expected"]
+    },
+    {
+      "id": 35,
+      "title": "VCs: Enterprises Consolidating AI Vendor Spend",
+      "date": "2025-12-30",
+      "category": "Market Analysis",
+      "impact": "high",
+      "sources": ["https://techcrunch.com/2025/12/30/vcs-predict-enterprises-will-spend-more-on-ai-in-2026-through-fewer-vendors/"],
+      "summary": "VCs predict enterprises will increase AI budgets in 2026 but concentrate spending on fewer vendors. Experimentation period ending. Companies picking winners and rationalizing overlapping tools.",
+      "key_points": ["Higher budgets, fewer vendors", "Experimentation period ending", "Picking winners", "Rationalizing overlapping tools", "Proof points driving decisions"]
+    },
+    {
+      "id": 36,
+      "title": "Sketchfab Mandates AI Disclosure for All Models",
+      "date": "2025-12-11",
+      "category": "Policy",
+      "impact": "medium",
+      "sources": ["https://www.gamedeveloper.com/business/sketchfab-to-require-mandatory-ai-disclosure-epic-games-accounts-for-users"],
+      "summary": "Sketchfab (Epic Games) requires 'CreatedWithAI' label on all AI-generated models starting December 11. Previously only required for downloadable models. New search filters to find/exclude AI content.",
+      "key_points": ["Mandatory AI disclosure", "All models, not just downloadable", "New search filters", "Epic Games accounts required", "Transparency across community"]
+    },
+    {
+      "id": 37,
+      "title": "Game Industry: AI Faced First Market Test",
+      "date": "2025-12-16",
+      "category": "Industry Analysis",
+      "impact": "medium",
+      "sources": ["https://www.gamedeveloper.com/business/game-developer-s-2025-wrap-up-the-trends-that-made-and-plagued-this-year"],
+      "summary": "Games with AI disclosures grossed $660M on Steam in 2025. First hard data on AI performance in games. Costs rising, revenue not matching. AI bubble concerns mounting in game development.",
+      "key_points": ["$660M gross with AI disclosure", "First market test data", "Costs rising, revenue lagging", "Bubble concerns growing", "Mixed ethical implementations"]
+    },
+    {
+      "id": 38,
+      "title": "AI Supercharges Scientific Output While Quality Slips",
+      "date": "2025-12-24",
+      "category": "Research",
+      "impact": "high",
+      "sources": ["https://www.sciencedaily.com/releases/2025/12/251224032347.htm"],
+      "summary": "Cornell study published in Science shows AI supercharging scientific output but quality declining. More papers produced but citation impact and novelty decreasing. Quantity vs quality tradeoff.",
+      "key_points": ["Output volume increasing", "Quality metrics declining", "Citation impact down", "Novelty decreasing", "Quantity-quality tradeoff"]
+    },
+    {
+      "id": 39,
+      "title": "Google Antigravity: AI-First IDE Launch",
+      "date": "2025-12-01",
+      "category": "Developer Tools",
+      "impact": "high",
+      "sources": ["https://shellypalmer.com/2025/12/an-ai-december-to-remember/", "https://www.thepromptbuddy.com/prompts/best-ai-tools-for-coding-in-december-2025-complete-guide-to-ai-powered-development"],
+      "summary": "Google released Antigravity AI-first IDE (Windsurf acquisition). Features Editor View and Manager View for orchestrating multiple agents. Supports Gemini 3, Claude Sonnet 4.5, OpenAI models. Free with generous rate limits.",
+      "key_points": ["Built on Windsurf/VS Code fork", "Editor and Manager views", "Multi-agent orchestration", "Multi-model support", "Free with rate limits"]
+    },
+    {
+      "id": 40,
+      "title": "AI Coding Tools Reach 92% Developer Adoption",
+      "date": "2025-12-20",
+      "category": "Market Analysis",
+      "impact": "high",
+      "sources": ["https://www.digitalapplied.com/blog/ai-coding-tools-comparison-december-2025"],
+      "summary": "92% of developers now using AI coding assistants regularly. Market projected to reach $12.3B by 2027. Landscape consolidated around IDE-native agents, terminal assistants, and enterprise platforms.",
+      "key_points": ["92% regular adoption", "$12.3B market by 2027", "Four primary categories", "Strategic decision for teams", "Cursor, Windsurf, Copilot leading"]
+    },
+    {
+      "id": 41,
+      "title": "Anthropic Extends Claude Lead in Enterprise",
+      "date": "2025-12-15",
+      "category": "Market Analysis",
+      "impact": "high",
+      "sources": ["https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/"],
+      "summary": "Menlo Ventures data shows Anthropic extending lead in enterprise LLM market share. Claude preferred for enterprise deployments. OpenAI and Google following.",
+      "key_points": ["Anthropic leads enterprise", "Claude preferred choice", "OpenAI and Google following", "Enterprise vs consumer split", "Market share extending"]
+    },
+    {
+      "id": 42,
+      "title": "AI December to Remember: Ambient Intelligence",
+      "date": "2025-12-30",
+      "category": "Industry Analysis",
+      "impact": "medium",
+      "sources": ["https://shellypalmer.com/2025/12/an-ai-december-to-remember/"],
+      "summary": "December 2025 marked AI becoming ambient - operating inside browsers, spreadsheets, calendars, email everywhere. 'AI, everywhere, all at once' strategy reduced context-switching friction.",
+      "key_points": ["AI became ambient", "Everywhere, all at once", "Reduced context-switching", "Browser, spreadsheet, email integration", "Fundamental shift in deployment"]
+    },
+    {
+      "id": 43,
+      "title": "Investors Focus on AI Agents and Vertical Solutions",
+      "date": "2025-12-19",
+      "category": "Funding",
+      "impact": "medium",
+      "sources": ["https://techcrunch.com/2025/12/19/where-are-investors-placing-their-bets-next-year-ai-ai-ai/"],
+      "summary": "TechCrunch Disrupt VCs emphasize AI focus for 2026. Entrepreneurs must show passion, domain expertise, honest product-market fit. Unique data flywheels key differentiator. Resilience critical in fast-changing market.",
+      "key_points": ["AI primary focus for 2026", "Data flywheels as moat", "Resilience critical", "Domain expertise required", "Honest PMF assessment"]
+    },
+    {
+      "id": 44,
+      "title": "Enterprise AI: Custom Models Over Silver Bullets",
+      "date": "2025-12-29",
+      "category": "Industry Analysis",
+      "impact": "medium",
+      "sources": ["https://techcrunch.com/2025/12/29/vcs-predict-strong-enterprise-ai-adoption-next-year-again"],
+      "summary": "VCs note enterprises realizing LLMs not silver bullet. Focus shifting to custom models, fine-tuning, evals, observability, orchestration, data sovereignty. Specialized over general-purpose.",
+      "key_points": ["LLMs not silver bullet", "Custom models focus", "Fine-tuning and evals", "Observability critical", "Data sovereignty important"]
+    },
+    {
+      "id": 45,
+      "title": "AI Subset Converting to Consulting Businesses",
+      "date": "2025-12-29",
+      "category": "Industry Analysis",
+      "impact": "medium",
+      "sources": ["https://techcrunch.com/2025/12/29/vcs-predict-strong-enterprise-ai-adoption-next-year-again"],
+      "summary": "VCs predict subset of enterprise AI companies shifting from product to consulting. Starting with specific product, then replicating forward-deployed engineer model for additional customer use cases.",
+      "key_points": ["Product to consulting shift", "Forward-deployed model", "Specialized to generalist", "Customer workflow focus", "AI implementation services"]
+    },
+    {
+      "id": 46,
+      "title": "The Next Web: 2025 AI Recap",
+      "date": "2025-12-30",
+      "category": "Industry Analysis",
+      "impact": "medium",
+      "sources": ["https://thenextweb.com/news/a-2025-recap-for-tech-ai"],
+      "summary": "The Next Web analysis: 2025 was year technology stopped being tomorrow's promise and became today's anchor. GPT-5 and Gemini 3 pushed boundaries but received measured reception. Questions about revenue beyond demos.",
+      "key_points": ["Tech became today's anchor", "Measured reception to models", "Revenue questions persist", "Beyond impressive demos", "Maturation year"]
+    },
+    {
+      "id": 47,
+      "title": "Stack Overflow Launches AI Assist",
+      "date": "2025-12-02",
+      "category": "Product Launch",
+      "impact": "medium",
+      "sources": ["https://stackoverflow.blog/2025/12/02/introducing-stack-overflow-ai-assist-a-tool-for-the-modern-developer"],
+      "summary": "Stack Overflow launched AI Assist prioritizing trusted, community-verified knowledge. Conversational interface for problem solving. Citation, attribution, human-validated answers non-negotiable. Model-agnostic approach.",
+      "key_points": ["Community-verified knowledge priority", "Conversational interface", "Citation and attribution required", "Model-agnostic", "Pathway into community"]
+    },
+    {
+      "id": 48,
+      "title": "AI Bubble or Revolution: Software Survival Question",
+      "date": "2025-12-25",
+      "category": "Industry Analysis",
+      "impact": "high",
+      "sources": ["https://stackoverflow.blog/2025/12/25/whether-ai-is-a-bubble-or-revolution-how-does-software-survive"],
+      "summary": "Stack Overflow analysis: Money pouring into AI industry raises bubble vs revolution question. Consolidation natural in early market. 45 of 153 HumanX companies (29%) likely to be acquired. Boom-bust cycle feature not bug.",
+      "key_points": ["Bubble vs revolution debate", "29% likely acquisitions", "Consolidation natural", "Boom-bust cycle normal", "Installation vs commercialization phase"]
+    },
+    {
+      "id": 49,
+      "title": "AI Research Trends: Foundation Models and Agents",
+      "date": "2025-12-15",
+      "category": "Research",
+      "impact": "medium",
+      "sources": ["https://intuitionlabs.ai/articles/latest-ai-research-trends-2025"],
+      "summary": "December 2025 AI research shows GPT-5 improving lab protocols 79x, Gemini 3 pushing performance, DeepSeek V3.2 matching proprietary models. Agentic architectures and multimodal fusion gaining attention.",
+      "key_points": ["GPT-5 lab protocol 79x improvement", "DeepSeek V3.2 competitive", "Agentic architectures rising", "Multimodal fusion advances", "Data curation as important as size"]
+    },
+    {
+      "id": 50,
+      "title": "UK and US Warn Prompt Injection May Never Be Solved",
+      "date": "2025-12-22",
+      "category": "Security",
+      "impact": "high",
+      "sources": ["https://techcrunch.com/2025/12/22/openai-says-ai-browsers-may-always-be-vulnerable-to-prompt-injection-attacks/"],
+      "summary": "UK National Cyber Security Centre warns prompt injection 'may never be totally mitigated.' OpenAI, Anthropic, Google focusing on layered defenses and continuous stress-testing rather than complete solution.",
+      "key_points": ["May never be fully solved", "UK NCSC warning", "Layered defenses approach", "Continuous stress-testing", "Reduce risk vs stop attacks"]
+    }
+  ],
+  "sources_consulted": [
+    "TechCrunch AI", "VentureBeat AI", "MIT Technology Review", "The Verge AI", "Ars Technica AI", 
+    "GitHub Blog", "OpenAI Blog", "Anthropic Blog", "Google DeepMind Blog", "Google Blog",
+    "Stack Overflow Blog", "TLDR AI", "Last Week in AI", "Shelly Palmer", "The Next Web",
+    "South China Morning Post", "Nikkei Asia", "DigiTimes", "Game Developer", "ScienceDaily",
+    "Menlo Ventures", "IntuitionLabs", "Tech-Now", "Digital Applied", "The Prompt Buddy",
+    "WebProNews", "Crowell & Moring", "ETC Journal", "ALM Corp", "Gadgets360"
+  ],
+  "notes": "This registry captures December 2025 AI developments with emphasis on model releases (GPT-5.2, Gemini 3 Flash, GLM-4.7), major acquisitions (Meta-Manus $2B+, Cursor-Graphite, Nvidia-Groq $20B), security challenges (prompt injection persistence), regulatory actions (NY RAISE Act, Trump EO), enterprise adoption patterns ($37B spending), and the shift toward agentic AI with standards efforts (AAIF). Notable themes include AI becoming ambient, trust declining despite adoption rising, consolidation in enterprise spending, and China narrowing the AI gap."
+}
