@@ -1,0 +1,596 @@
+{
+  "period": {
+    "start": "2025-03-01",
+    "end": "2025-03-31"
+  },
+  "generated_at": "2025-03-31",
+  "total_events": 50,
+  "events": [
+    {
+      "id": 1,
+      "date": "2025-03-01",
+      "title": "OpenAI Launches GPT-4.5, Its Largest Model to Date",
+      "description": "OpenAI released GPT-4.5, described as their largest and best model for chat, representing a significant step forward in scaling up pre-training and post-training. The model outperformed GPT-4o across 15 languages on MMLU benchmarks.",
+      "category": "Model Release",
+      "impact": "High",
+      "sources": ["TechCrunch", "OpenAI Blog"],
+      "cluster": "frontier-models"
+    },
+    {
+      "id": 2,
+      "date": "2025-03-06",
+      "title": "China's Manus AI Agent Launches, Claiming First General AI Agent",
+      "description": "Chinese startup Monica launched Manus, described as the 'first general AI agent' capable of autonomously handling complex tasks including writing reports, data analysis, and debugging applications without human prompts.",
+      "category": "AI Agents",
+      "impact": "High",
+      "sources": ["Forbes", "VentureBeat", "MIT Technology Review"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 3,
+      "date": "2025-03-07",
+      "title": "US Lawmakers Introduce Hundreds of AI Bills in 2025",
+      "description": "By early March, US lawmakers had already introduced hundreds of AI-related bills across states, including Maryland's H.B. 1331 regulating high-risk AI, Texas' Responsible AI Governance Act, and Massachusetts' HD 3750 requiring healthcare AI disclosure.",
+      "category": "Regulation",
+      "impact": "High",
+      "sources": ["TechCrunch", "NCSL"],
+      "cluster": "regulation-policy"
+    },
+    {
+      "id": 4,
+      "date": "2025-03-11",
+      "title": "MIT Technology Review Tests Manus AI Agent",
+      "description": "MIT Technology Review conducted hands-on testing of China's Manus AI agent, reporting system crashes and server overload but noting it was 'highly intuitive and shows real promise for the future of AI helpers.'",
+      "category": "AI Agents",
+      "impact": "Medium",
+      "sources": ["MIT Technology Review"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 5,
+      "date": "2025-03-13",
+      "title": "Study Reveals AI Search Engines Cite Incorrect Sources 60% of Time",
+      "description": "Ars Technica reported on a study showing AI search engines provide incorrect news source citations at an alarming 60% rate, raising concerns about reliability of AI-powered search.",
+      "category": "Research",
+      "impact": "Medium",
+      "sources": ["Ars Technica"],
+      "cluster": "ai-limitations"
+    },
+    {
+      "id": 6,
+      "date": "2025-03-13",
+      "title": "Google March 2025 Core Algorithm Update Begins",
+      "description": "Google launched its March 2025 Core Algorithm Update, the first core update of 2025, which completed two weeks later. This update coincided with the expansion of AI Mode in Search.",
+      "category": "Industry",
+      "impact": "Medium",
+      "sources": ["DAC Group", "Search Engine Land"],
+      "cluster": "ai-search"
+    },
+    {
+      "id": 7,
+      "date": "2025-03-17",
+      "title": "Nvidia GTC 2025 Conference Opens in San Jose",
+      "description": "GTC 2025, the world's premier AI conference, opened with 25,000 in-person attendees and 300,000 virtual participants, featuring announcements on physical AI, agentic AI, and scientific discovery.",
+      "category": "Industry Event",
+      "impact": "High",
+      "sources": ["Nvidia News", "Tom's Guide", "TechRadar"],
+      "cluster": "infrastructure"
+    },
+    {
+      "id": 8,
+      "date": "2025-03-18",
+      "title": "Jensen Huang Unveils Blackwell Ultra at GTC 2025 Keynote",
+      "description": "Nvidia CEO Jensen Huang announced Blackwell Ultra GPU architecture, built specifically for AI reasoning models, claiming it can significantly improve inference performance for next-generation AI systems.",
+      "category": "Hardware",
+      "impact": "High",
+      "sources": ["Nvidia News", "Investopedia", "TechRadar"],
+      "cluster": "infrastructure"
+    },
+    {
+      "id": 9,
+      "date": "2025-03-18",
+      "title": "Nvidia Announces AI Factory Concept at GTC",
+      "description": "Jensen Huang popularized the 'AI factory' concept—data centers dedicated not just to moving and storing data but to 'manufacturing intelligence'—which became the blueprint for modern enterprise architecture.",
+      "category": "Infrastructure",
+      "impact": "High",
+      "sources": ["Nvidia News", "Network World"],
+      "cluster": "infrastructure"
+    },
+    {
+      "id": 10,
+      "date": "2025-03-24",
+      "title": "DeepSeek Releases V3-0324 Major Upgrade",
+      "description": "Chinese AI startup DeepSeek released DeepSeek-V3-0324, a major upgrade to its V3 large language model under MIT License, intensifying rivalry with OpenAI. The update enhanced reasoning and coding capabilities.",
+      "category": "Model Release",
+      "impact": "High",
+      "sources": ["Reuters", "Wikipedia"],
+      "cluster": "frontier-models"
+    },
+    {
+      "id": 11,
+      "date": "2025-03-25",
+      "title": "Google Releases Gemini 2.5 Pro Experimental",
+      "description": "Google released Gemini 2.5 Pro Experimental, described as its most intelligent AI model yet, featuring enhanced reasoning and coding capabilities as a 'thinking model' using chain-of-thought techniques.",
+      "category": "Model Release",
+      "impact": "High",
+      "sources": ["Google Blog", "Epoch AI"],
+      "cluster": "frontier-models"
+    },
+    {
+      "id": 12,
+      "date": "2025-03-26",
+      "title": "Claude 3.7 Sonnet Becomes Available on Databricks",
+      "description": "Anthropic's Claude 3.7 Sonnet became natively available in Databricks across AWS, Azure, and GCP, offering secure, governed access for enterprise AI applications.",
+      "category": "Enterprise AI",
+      "impact": "Medium",
+      "sources": ["Databricks Blog"],
+      "cluster": "enterprise-ai"
+    },
+    {
+      "id": 13,
+      "date": "2025-03-30",
+      "title": "TechCrunch Profiles 'Hottest AI Models' of the Moment",
+      "description": "TechCrunch published a comprehensive guide to the hottest AI models being released at a 'dizzying pace' by Big Tech companies and startups alike, reflecting the intense competition in the AI space.",
+      "category": "Industry Analysis",
+      "impact": "Medium",
+      "sources": ["TechCrunch"],
+      "cluster": "frontier-models"
+    },
+    {
+      "id": 14,
+      "date": "2025-03-31",
+      "title": "SoftBank Commits $40 Billion Investment in OpenAI",
+      "description": "SoftBank agreed to invest up to $40 billion into a for-profit subsidiary of OpenAI, structured as a combination of direct capital and syndicated co-investment, marking one of the largest private funding rounds ever.",
+      "category": "Investment",
+      "impact": "High",
+      "sources": ["Reuters", "CNBC"],
+      "cluster": "investment"
+    },
+    {
+      "id": 15,
+      "date": "2025-03-01",
+      "title": "Google Expands AI Overviews and Introduces AI Mode in Search",
+      "description": "Google introduced an experimental 'AI Mode' within its search platform, enabling users to input complex, multi-part queries and receive comprehensive AI-generated responses using Gemini 2.0.",
+      "category": "Product",
+      "impact": "High",
+      "sources": ["Google Blog", "Wikipedia"],
+      "cluster": "ai-search"
+    },
+    {
+      "id": 16,
+      "date": "2025-03-01",
+      "title": "Bolt.new Reaches $40M ARR in Record Time",
+      "description": "AI-powered web development platform Bolt.new hit $40M in annual recurring revenue, progressing from $4M ARR within four weeks of launch, demonstrating explosive growth in AI coding tools market.",
+      "category": "Startup",
+      "impact": "Medium",
+      "sources": ["Sacra"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 17,
+      "date": "2025-03-01",
+      "title": "Stanford HAI Releases 2025 AI Index Report",
+      "description": "Stanford's Human-Centered AI Institute released its seventh annual AI Index Report, providing comprehensive data-driven analysis of AI's global development, benchmarks, and societal impact.",
+      "category": "Research",
+      "impact": "High",
+      "sources": ["Stanford HAI", "IBM"],
+      "cluster": "research"
+    },
+    {
+      "id": 18,
+      "date": "2025-03-01",
+      "title": "EU AI Act Prohibited Practices Take Effect",
+      "description": "The EU AI Act's provisions on prohibited AI practices came into force, with enforcement beginning once market surveillance authorities are designated by August 2025.",
+      "category": "Regulation",
+      "impact": "High",
+      "sources": ["Inside Tech Law", "EU AI Act Portal"],
+      "cluster": "regulation-policy"
+    },
+    {
+      "id": 19,
+      "date": "2025-03-01",
+      "title": "Windsurf Wave 5 Adds Clipboard-as-Context Support",
+      "description": "AI IDE Windsurf released Wave 5 update adding clipboard-as-context support, allowing developers to paste pseudocode and have Cascade generate multi-file edits.",
+      "category": "Developer Tools",
+      "impact": "Medium",
+      "sources": ["Builder.io"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 20,
+      "date": "2025-03-01",
+      "title": "Apple Delays Major Siri AI Update",
+      "description": "Apple announced it was delaying a major Siri update that would have brought generative AI capabilities, pushing the release to later in the year.",
+      "category": "Product",
+      "impact": "Medium",
+      "sources": ["Engadget"],
+      "cluster": "big-tech"
+    },
+    {
+      "id": 21,
+      "date": "2025-03-01",
+      "title": "Perplexity AI Targets $18 Billion Valuation",
+      "description": "AI search startup Perplexity AI targeted an $18 billion valuation in funding discussions, reflecting rapid growth in the AI-powered search market.",
+      "category": "Investment",
+      "impact": "Medium",
+      "sources": ["PYMNTS"],
+      "cluster": "investment"
+    },
+    {
+      "id": 22,
+      "date": "2025-03-01",
+      "title": "Microsoft Copilot Studio March Updates Released",
+      "description": "Microsoft released major updates to Copilot Studio including autonomous agents, deep reasoning capabilities, and Model Context Protocol (MCP) support.",
+      "category": "Product",
+      "impact": "Medium",
+      "sources": ["Microsoft Copilot Blog"],
+      "cluster": "enterprise-ai"
+    },
+    {
+      "id": 23,
+      "date": "2025-03-01",
+      "title": "Microsoft 365 Copilot March Feature Rollout",
+      "description": "Microsoft rolled out new features and enhancements to Microsoft 365 Copilot, continuing to integrate AI capabilities across productivity applications.",
+      "category": "Product",
+      "impact": "Medium",
+      "sources": ["Microsoft Tech Community"],
+      "cluster": "enterprise-ai"
+    },
+    {
+      "id": 24,
+      "date": "2025-03-01",
+      "title": "Anthropic Economic Index Shows Claude Usage Patterns",
+      "description": "Anthropic released insights from Claude 3.7 Sonnet usage data showing shifts in how different occupational categories use AI, with changes in share of usage between February and March 2025.",
+      "category": "Research",
+      "impact": "Medium",
+      "sources": ["Anthropic News"],
+      "cluster": "research"
+    },
+    {
+      "id": 25,
+      "date": "2025-03-01",
+      "title": "AI Coding Assistants Reach 85% Developer Adoption",
+      "description": "Reports indicated roughly 85% of developers regularly use AI tools for coding by end of 2025, with AI coding assistants evolving beyond autocomplete to full agentic capabilities.",
+      "category": "Industry Trend",
+      "impact": "High",
+      "sources": ["Faros.ai"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 26,
+      "date": "2025-03-01",
+      "title": "Reasoning Models Emerge as Key AI Trend",
+      "description": "All frontier labs adopted chain-of-thought reasoning methods, giving AI systems additional 'time to think' at test-time, with Google, OpenAI, xAI, DeepSeek, and Anthropic all pursuing this approach.",
+      "category": "Technology",
+      "impact": "High",
+      "sources": ["ARC Prize", "Medium"],
+      "cluster": "frontier-models"
+    },
+    {
+      "id": 27,
+      "date": "2025-03-01",
+      "title": "AI Data Centers Hit 'Thermal Wall' at 1,400W",
+      "description": "The semiconductor industry hit what engineers called the 'Thermal Wall' as power density of next-generation chips like Nvidia's Blackwell Ultra and AMD's MI355X reached 1,400W, forcing industry-wide shift toward liquid cooling.",
+      "category": "Infrastructure",
+      "impact": "High",
+      "sources": ["Financial Content"],
+      "cluster": "infrastructure"
+    },
+    {
+      "id": 28,
+      "date": "2025-03-01",
+      "title": "Thomson Reuters vs Ross Intelligence Copyright Ruling",
+      "description": "A court ruled against Ross Intelligence's fair use defense in the Thomson Reuters copyright case, highlighting infringement risks of using third-party materials to train AI tools.",
+      "category": "Legal",
+      "impact": "High",
+      "sources": ["Reed Smith", "IP Watchdog"],
+      "cluster": "legal-copyright"
+    },
+    {
+      "id": 29,
+      "date": "2025-03-01",
+      "title": "AI Copyright Lawsuits Spike to Over 50 Active Cases",
+      "description": "Debevoise reported tracking more than 50 lawsuits between intellectual property holders and AI companies, with courts 'finally beginning to confront the substantive merits of plaintiffs' infringement claims.'",
+      "category": "Legal",
+      "impact": "High",
+      "sources": ["Best Law Firms", "Copyright Alliance"],
+      "cluster": "legal-copyright"
+    },
+    {
+      "id": 30,
+      "date": "2025-03-01",
+      "title": "Deepfake Voice Cloning Crosses 'Indistinguishable Threshold'",
+      "description": "Voice cloning technology crossed what experts called the 'indistinguishable threshold,' with a few seconds of audio now sufficient to create convincing deepfakes, driving $200M+ in fraud losses in Q1 2025.",
+      "category": "Security",
+      "impact": "High",
+      "sources": ["Fortune", "American Bar Association"],
+      "cluster": "ai-risks"
+    },
+    {
+      "id": 31,
+      "date": "2025-03-01",
+      "title": "AI Energy Consumption Debate Intensifies",
+      "description": "Research from IEA and academic institutions highlighted growing concerns about AI data center energy consumption, with debates over whether AI is driving up electricity costs for consumers.",
+      "category": "Environment",
+      "impact": "Medium",
+      "sources": ["IEA", "Pew Research", "Georgia Tech"],
+      "cluster": "infrastructure"
+    },
+    {
+      "id": 32,
+      "date": "2025-03-01",
+      "title": "Humanoid Robots Emerge as Next AI Breakthrough",
+      "description": "Bloomberg reported humanoid robots emerging as the next big AI breakthrough, with 'embodied AI' becoming the new industry buzz term as startups look to combine LLMs with physical robots.",
+      "category": "Robotics",
+      "impact": "Medium",
+      "sources": ["Bloomberg", "Automate.org"],
+      "cluster": "robotics"
+    },
+    {
+      "id": 33,
+      "date": "2025-03-01",
+      "title": "Qwen2.5-Omni Technical Report Released",
+      "description": "Alibaba's Qwen team released technical report for Qwen2.5-Omni, contributing to the growing ecosystem of capable open-weight models from China.",
+      "category": "Model Release",
+      "impact": "Medium",
+      "sources": ["DeepNet Group"],
+      "cluster": "frontier-models"
+    },
+    {
+      "id": 34,
+      "date": "2025-03-01",
+      "title": "AI Job Impact Studies Show Gains Outpacing Losses",
+      "description": "ITIF research indicated employment gains from AI and data center buildout dwarf displacement effects from automation, with AI reshaping rather than hollowing out the workforce.",
+      "category": "Economy",
+      "impact": "Medium",
+      "sources": ["ITIF", "Goldman Sachs"],
+      "cluster": "workforce"
+    },
+    {
+      "id": 35,
+      "date": "2025-03-01",
+      "title": "AI Healthcare Diagnosis Tools Show Promise",
+      "description": "Multiple reports highlighted AI's growing role in medical diagnosis, with McKinsey estimating AI could save up to $360 billion yearly in US healthcare costs.",
+      "category": "Healthcare",
+      "impact": "Medium",
+      "sources": ["Tech Times", "NCBI", "GlobalRPH"],
+      "cluster": "applications"
+    },
+    {
+      "id": 36,
+      "date": "2025-03-01",
+      "title": "Cursor vs Windsurf AI IDE Competition Heats Up",
+      "description": "Competition between AI-powered IDEs Cursor and Windsurf intensified, with developers debating which platform offers better context awareness, code generation, and agentic capabilities.",
+      "category": "Developer Tools",
+      "impact": "Medium",
+      "sources": ["Qodo", "Builder.io", "Medium"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 37,
+      "date": "2025-03-01",
+      "title": "GitHub Copilot Agent Mode Gains Traction",
+      "description": "GitHub Copilot's agent mode, introduced in February, gained significant traction with developers, enabling new agentic workflows and increased automation with enterprise-grade controls.",
+      "category": "Developer Tools",
+      "impact": "Medium",
+      "sources": ["GitHub Newsroom", "GitHub Blog"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 38,
+      "date": "2025-03-01",
+      "title": "AI Startup Funding Reaches Record Levels",
+      "description": "AI companies raised record amounts in 2025, with the San Francisco Bay Area alone raising $122 billion, representing more than three quarters of US AI funding.",
+      "category": "Investment",
+      "impact": "High",
+      "sources": ["Crunchbase", "LA Times"],
+      "cluster": "investment"
+    },
+    {
+      "id": 39,
+      "date": "2025-03-01",
+      "title": "MMLU-Pro Benchmark Shows Models Still Challenged",
+      "description": "Research showed MMLU-Pro benchmark is significantly more challenging than original MMLU, with models showing 16-33% drop in accuracy, indicating room for improvement in AI reasoning.",
+      "category": "Research",
+      "impact": "Medium",
+      "sources": ["Intuition Labs", "GraphLogic"],
+      "cluster": "research"
+    },
+    {
+      "id": 40,
+      "date": "2025-03-01",
+      "title": "AI Music Generation Faces Copyright Reckoning",
+      "description": "AI music platforms Suno and Udio faced ongoing copyright battles with major labels, with settlements and licensing deals reshaping the AI-generated music landscape.",
+      "category": "Legal",
+      "impact": "Medium",
+      "sources": ["Billboard", "The Atlantic"],
+      "cluster": "legal-copyright"
+    },
+    {
+      "id": 41,
+      "date": "2025-03-01",
+      "title": "Nvidia Partners with Mistral AI on Open Models",
+      "description": "Nvidia announced partnership with Mistral AI to accelerate new family of open frontier models, with Ministral 3 suite optimized for Nvidia's edge platforms.",
+      "category": "Partnership",
+      "impact": "Medium",
+      "sources": ["Nvidia Blog"],
+      "cluster": "infrastructure"
+    },
+    {
+      "id": 42,
+      "date": "2025-03-01",
+      "title": "AI Safety Research Directions Published by Anthropic",
+      "description": "Anthropic published recommendations for technical AI safety research directions, addressing the challenge of what research can be conducted today for ensuring safety of future systems.",
+      "category": "Safety",
+      "impact": "Medium",
+      "sources": ["Anthropic Alignment"],
+      "cluster": "safety"
+    },
+    {
+      "id": 43,
+      "date": "2025-03-01",
+      "title": "OpenAI and Anthropic Study AI Usage Patterns",
+      "description": "OpenAI and Anthropic released comprehensive studies on how people use ChatGPT and Claude, revealing diverging patterns: ChatGPT for augmentation, Claude skewing toward automation.",
+      "category": "Research",
+      "impact": "Medium",
+      "sources": ["Business Insider"],
+      "cluster": "research"
+    },
+    {
+      "id": 44,
+      "date": "2025-03-01",
+      "title": "AI Image Generators Found to Have 12 Generic Templates",
+      "description": "Research paper 'Autonomous language-image generation loops converge to generic visual motifs' found diffusion models converge to just 12 standard templates when run in autonomous loops.",
+      "category": "Research",
+      "impact": "Medium",
+      "sources": ["Cell", "Pivot to AI"],
+      "cluster": "ai-limitations"
+    },
+    {
+      "id": 45,
+      "date": "2025-03-01",
+      "title": "Pew Research Studies Google AI Overview Click Behavior",
+      "description": "Pew Research found Google users are less likely to click on links when an AI summary appears in results, analyzing actual search behavior data from March 2025.",
+      "category": "Research",
+      "impact": "Medium",
+      "sources": ["Pew Research"],
+      "cluster": "ai-search"
+    },
+    {
+      "id": 46,
+      "date": "2025-03-01",
+      "title": "xAI Raises $20 Billion in Series E Funding",
+      "description": "Elon Musk's xAI raised $20 billion in an upsized Series E funding round, despite Grok coming under scrutiny for various issues.",
+      "category": "Investment",
+      "impact": "High",
+      "sources": ["Mashable"],
+      "cluster": "investment"
+    },
+    {
+      "id": 47,
+      "date": "2025-03-01",
+      "title": "AI Agents Market Reaches $7.6 Billion",
+      "description": "The AI agent market reached $7.6 billion in 2025, projected to grow at 49.6% annually through 2033, reflecting rapid adoption of autonomous AI systems.",
+      "category": "Market",
+      "impact": "Medium",
+      "sources": ["DataCamp"],
+      "cluster": "agentic-ai"
+    },
+    {
+      "id": 48,
+      "date": "2025-03-01",
+      "title": "OpenAI and Anthropic Implement Teen Safety Measures",
+      "description": "OpenAI prepared age prediction model for ChatGPT to automatically apply teen safeguards, while Anthropic maintained policy of not allowing users under 18 to chat with Claude.",
+      "category": "Safety",
+      "impact": "Medium",
+      "sources": ["The Verge"],
+      "cluster": "safety"
+    },
+    {
+      "id": 49,
+      "date": "2025-03-01",
+      "title": "VentureBeat Analyzes Stanford AI Index Key Insights",
+      "description": "VentureBeat highlighted 5 critical insights from Stanford's AI Index reshaping enterprise tech strategy, emphasizing the data-driven analysis of AI's global development.",
+      "category": "Analysis",
+      "impact": "Medium",
+      "sources": ["VentureBeat"],
+      "cluster": "research"
+    },
+    {
+      "id": 50,
+      "date": "2025-03-01",
+      "title": "AI Hype Correction Begins",
+      "description": "MIT Technology Review and other outlets noted the beginning of a 'great AI hype correction,' with growing awareness that AGI claims may be best viewed as venture capital marketing.",
+      "category": "Analysis",
+      "impact": "Medium",
+      "sources": ["MIT Technology Review", "Ars Technica"],
+      "cluster": "industry-trends"
+    }
+  ],
+  "clusters": [
+    {
+      "id": "frontier-models",
+      "name": "Frontier Model Releases & Reasoning AI",
+      "description": "Major releases from OpenAI, Google, DeepSeek, and others, with focus on reasoning capabilities",
+      "event_count": 7
+    },
+    {
+      "id": "agentic-ai",
+      "name": "Agentic AI & Coding Assistants",
+      "description": "Rise of autonomous AI agents and AI-powered development tools",
+      "event_count": 8
+    },
+    {
+      "id": "infrastructure",
+      "name": "AI Infrastructure & Hardware",
+      "description": "Nvidia GTC announcements, Blackwell Ultra, AI factories, and energy challenges",
+      "event_count": 6
+    },
+    {
+      "id": "regulation-policy",
+      "name": "AI Regulation & Policy",
+      "description": "US state legislation, EU AI Act implementation, and governance frameworks",
+      "event_count": 2
+    },
+    {
+      "id": "investment",
+      "name": "AI Investment & Funding",
+      "description": "Record funding rounds including SoftBank-OpenAI deal and xAI raise",
+      "event_count": 4
+    },
+    {
+      "id": "legal-copyright",
+      "name": "AI Copyright & Legal Battles",
+      "description": "Thomson Reuters ruling, music copyright settlements, and growing litigation",
+      "event_count": 4
+    },
+    {
+      "id": "enterprise-ai",
+      "name": "Enterprise AI Adoption",
+      "description": "Microsoft Copilot updates, Databricks integration, and business AI tools",
+      "event_count": 3
+    },
+    {
+      "id": "ai-search",
+      "name": "AI-Powered Search Evolution",
+      "description": "Google AI Mode, search accuracy concerns, and changing user behavior",
+      "event_count": 3
+    },
+    {
+      "id": "research",
+      "name": "AI Research & Benchmarks",
+      "description": "Stanford AI Index, usage studies, and benchmark developments",
+      "event_count": 6
+    },
+    {
+      "id": "safety",
+      "name": "AI Safety & Alignment",
+      "description": "Safety research directions, teen protections, and alignment work",
+      "event_count": 2
+    },
+    {
+      "id": "ai-risks",
+      "name": "AI Risks & Deepfakes",
+      "description": "Voice cloning fraud, deepfake concerns, and security threats",
+      "event_count": 1
+    },
+    {
+      "id": "ai-limitations",
+      "name": "AI Limitations & Criticism",
+      "description": "Search accuracy issues, image generation limitations, and hype correction",
+      "event_count": 2
+    },
+    {
+      "id": "workforce",
+      "name": "AI & Workforce Impact",
+      "description": "Job displacement studies and labor market effects",
+      "event_count": 1
+    },
+    {
+      "id": "applications",
+      "name": "AI Applications",
+      "description": "Healthcare, robotics, and other domain-specific applications",
+      "event_count": 1
+    }
+  ]
+}

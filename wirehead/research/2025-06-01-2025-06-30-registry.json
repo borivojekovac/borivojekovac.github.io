@@ -1,0 +1,512 @@
+{
+  "period": {
+    "start_date": "2025-06-01",
+    "end_date": "2025-06-30"
+  },
+  "generated_at": "2026-01-19",
+  "total_events": 50,
+  "thematic_clusters": [
+    {
+      "id": "major_model_releases",
+      "name": "Major Model Releases & Reasoning AI",
+      "description": "New frontier models and reasoning capabilities from major AI labs"
+    },
+    {
+      "id": "agentic_ai",
+      "name": "Agentic AI & Coding Assistants",
+      "description": "AI agents that can autonomously complete tasks and assist developers"
+    },
+    {
+      "id": "apple_wwdc",
+      "name": "Apple WWDC & Consumer AI",
+      "description": "Apple's AI announcements and consumer-facing AI features"
+    },
+    {
+      "id": "copyright_legal",
+      "name": "Copyright & Legal Battles",
+      "description": "AI training copyright lawsuits and fair use rulings"
+    },
+    {
+      "id": "regulation_policy",
+      "name": "Regulation & Policy",
+      "description": "AI regulation developments in EU, US, and globally"
+    },
+    {
+      "id": "robotics_embodied",
+      "name": "Robotics & Embodied AI",
+      "description": "Physical AI, robotics models, and world models"
+    },
+    {
+      "id": "big_tech_moves",
+      "name": "Big Tech Strategic Moves",
+      "description": "Major corporate announcements, acquisitions, and strategic shifts"
+    },
+    {
+      "id": "ai_safety_misuse",
+      "name": "AI Safety & Misuse",
+      "description": "Security threats, malicious use, and safety concerns"
+    },
+    {
+      "id": "infrastructure_compute",
+      "name": "Infrastructure & Compute",
+      "description": "Data centers, chips, energy consumption, and environmental impact"
+    },
+    {
+      "id": "creative_ai",
+      "name": "Creative AI & Media",
+      "description": "AI in video, music, gaming, and creative industries"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "date": "2025-06-09",
+      "title": "Apple WWDC 2025: Apple Intelligence Expands with Live Translation and Developer Access",
+      "description": "Apple unveiled new Apple Intelligence features at WWDC 2025, including Live Translation for Messages, FaceTime, and phone calls, Visual Intelligence screen analysis, Workout Buddy AI coach, and opened its Foundation Models framework to third-party developers for offline AI capabilities.",
+      "impact": "high",
+      "clusters": ["apple_wwdc"],
+      "sources": ["Apple Newsroom", "TechCrunch", "The Verge", "CNBC"]
+    },
+    {
+      "id": 2,
+      "date": "2025-06-09",
+      "title": "Apple Opens Siri to Potential OpenAI Partnership",
+      "description": "Reports emerged that Apple's AI-powered Siri might be powered by OpenAI's technology, signaling a potential major partnership as Apple struggles to keep pace in the AI race.",
+      "impact": "high",
+      "clusters": ["apple_wwdc", "big_tech_moves"],
+      "sources": ["The Verge", "Reuters"]
+    },
+    {
+      "id": 3,
+      "date": "2025-06-10",
+      "title": "OpenAI Releases o3-pro Reasoning Model",
+      "description": "OpenAI launched o3-pro, an enhanced version of its o3 reasoning model that outperforms Google's Gemini 2.5 Pro on math benchmarks (AIME 2024) and beats Anthropic's Claude Opus 4 on complex reasoning tasks.",
+      "impact": "high",
+      "clusters": ["major_model_releases"],
+      "sources": ["TechCrunch", "OpenAI"]
+    },
+    {
+      "id": 4,
+      "date": "2025-06-10",
+      "title": "Mistral Releases Magistral Reasoning Models",
+      "description": "French AI lab Mistral launched its first reasoning model family, Magistral, with Small (24B parameters, open-source Apache 2.0) and Medium variants. The models work through problems step-by-step for improved math and physics performance.",
+      "impact": "medium",
+      "clusters": ["major_model_releases"],
+      "sources": ["TechCrunch", "Mistral AI"]
+    },
+    {
+      "id": 5,
+      "date": "2025-06-11",
+      "title": "Meta Releases V-JEPA 2 World Model",
+      "description": "Meta unveiled V-JEPA 2, a world model trained on video that achieves state-of-the-art visual understanding and prediction, enabling zero-shot robot control in new environments. The model helps AI 'think before it acts.'",
+      "impact": "high",
+      "clusters": ["robotics_embodied", "major_model_releases"],
+      "sources": ["Meta AI", "About Meta"]
+    },
+    {
+      "id": 6,
+      "date": "2025-06-17",
+      "title": "Google Announces General Availability of Gemini 2.5 Pro and Flash",
+      "description": "Google made Gemini 2.5 Pro and Flash generally available, also introducing Gemini 2.5 Flash-Lite optimized for speed and cost-efficiency.",
+      "impact": "medium",
+      "clusters": ["major_model_releases"],
+      "sources": ["Google", "Wikipedia"]
+    },
+    {
+      "id": 7,
+      "date": "2025-06-24",
+      "title": "GitHub Copilot Coding Agent Expands to Business Users",
+      "description": "GitHub expanded its Copilot coding agent from Pro+ and Enterprise to Business subscribers, allowing users to delegate coding tasks to Copilot that works autonomously in the background using GitHub Actions.",
+      "impact": "high",
+      "clusters": ["agentic_ai"],
+      "sources": ["GitHub Blog"]
+    },
+    {
+      "id": 8,
+      "date": "2025-06-24",
+      "title": "Google DeepMind Launches Gemini Robotics On-Device",
+      "description": "Google DeepMind introduced Gemini Robotics On-Device, an efficient VLA model optimized to run locally on robotic devices with general-purpose dexterity, fast task adaptation with as few as 50-100 demonstrations, and zero network dependency.",
+      "impact": "high",
+      "clusters": ["robotics_embodied"],
+      "sources": ["Google DeepMind"]
+    },
+    {
+      "id": 9,
+      "date": "2025-06-25",
+      "title": "Claude Sonnet 4 and Opus 4 Become Generally Available in GitHub Copilot",
+      "description": "Anthropic's Claude Sonnet 4 and Claude Opus 4 models became generally available in GitHub Copilot, with Opus 4 described as Anthropic's most powerful model for complex problem solving and AI agents.",
+      "impact": "medium",
+      "clusters": ["agentic_ai", "major_model_releases"],
+      "sources": ["GitHub Blog"]
+    },
+    {
+      "id": 10,
+      "date": "2025-06-27",
+      "title": "Facebook Requests Access to Users' Unpublished Camera Roll Photos for AI",
+      "description": "Facebook began asking users for permission to access their phone's camera roll to suggest AI-edited versions of photos not yet uploaded, raising privacy concerns about Meta's expanding AI data collection.",
+      "impact": "high",
+      "clusters": ["big_tech_moves", "ai_safety_misuse"],
+      "sources": ["TechCrunch"]
+    },
+    {
+      "id": 11,
+      "date": "2025-06-mid",
+      "title": "Mark Zuckerberg Announces Meta Superintelligence Labs",
+      "description": "Mark Zuckerberg announced the formation of Meta Superintelligence Labs, a new division focused on artificial superintelligence research, expressing displeasure with Llama 4's performance and pushing for more ambitious AI development.",
+      "impact": "high",
+      "clusters": ["big_tech_moves"],
+      "sources": ["The Verge", "Bloomberg", "Wikipedia"]
+    },
+    {
+      "id": 12,
+      "date": "2025-06-mid",
+      "title": "Meta Hires Scale AI CEO Alexandr Wang as Chief AI Officer",
+      "description": "Meta hired Scale AI founder and CEO Alexandr Wang as its first-ever Chief AI Officer to lead Meta Superintelligence Labs in a deal reportedly worth nearly $15 billion, marking one of the largest AI talent acquisitions.",
+      "impact": "high",
+      "clusters": ["big_tech_moves"],
+      "sources": ["Meta", "TechCrunch", "Economic Times"]
+    },
+    {
+      "id": 13,
+      "date": "2025-06-mid",
+      "title": "Federal Court Rules AI Training on Books Could Be 'Transformative' Fair Use",
+      "description": "In the Bartz v. Anthropic case, a federal judge ruled that using books to train AI could be 'transformative' fair use, a significant legal precedent for the AI industry, though the case later settled.",
+      "impact": "high",
+      "clusters": ["copyright_legal"],
+      "sources": ["Vorys", "Wolters Kluwer"]
+    },
+    {
+      "id": 14,
+      "date": "2025-06-25",
+      "title": "Meta Wins Authors' Copyright Lawsuit",
+      "description": "A federal judge ruled in favor of Meta against a group of authors who argued Meta used their books without permission to train AI, finding in favor of Meta's fair use defense.",
+      "impact": "high",
+      "clusters": ["copyright_legal"],
+      "sources": ["Reuters", "The Verge"]
+    },
+    {
+      "id": 15,
+      "date": "2025-06-25",
+      "title": "Authors File New Lawsuit Against Microsoft for AI Training",
+      "description": "A group of authors filed a lawsuit against Microsoft claiming the company used their books without permission to train its AI systems, expanding the legal battlefront in AI copyright disputes.",
+      "impact": "medium",
+      "clusters": ["copyright_legal"],
+      "sources": ["Sustainable Tech Partner"]
+    },
+    {
+      "id": 16,
+      "date": "2025-06-23",
+      "title": "Disney and Universal Sue Midjourney for Copyright Infringement",
+      "description": "Disney and Universal filed a major copyright infringement lawsuit against AI image generator Midjourney, marking a significant escalation in entertainment industry legal action against generative AI.",
+      "impact": "high",
+      "clusters": ["copyright_legal", "creative_ai"],
+      "sources": ["McKool Smith AI Litigation Tracker"]
+    },
+    {
+      "id": 17,
+      "date": "2025-06-mid",
+      "title": "Independent Artists File Class Action Against Suno",
+      "description": "Independent artists led by Anthony Justice and 5th Wheel Records filed a class action lawsuit against AI music generator Suno, targeting the company's use of copyrighted music for training.",
+      "impact": "medium",
+      "clusters": ["copyright_legal", "creative_ai"],
+      "sources": ["Music Business Worldwide"]
+    },
+    {
+      "id": 18,
+      "date": "2025-06-30",
+      "title": "European Startup Leaders Call for AI Act Pause",
+      "description": "Over 30 European startup founders and investors, including leaders from Kry, Voi, Synthesia, and Deel, published an open letter calling for the EU to 'stop the clock' on AI Act implementation due to incomplete Code of Practice.",
+      "impact": "high",
+      "clusters": ["regulation_policy"],
+      "sources": ["Sifted"]
+    },
+    {
+      "id": 19,
+      "date": "2025-06-mid",
+      "title": "New York Legislature Passes RAISE Act",
+      "description": "The New York state legislature passed the Responsible AI Safety and Education (RAISE) Act, establishing comprehensive regulation for frontier AI models, later signed by Governor Hochul in December.",
+      "impact": "high",
+      "clusters": ["regulation_policy"],
+      "sources": ["Morrison Foerster", "Jones Walker"]
+    },
+    {
+      "id": 20,
+      "date": "2025-06-mid",
+      "title": "OpenAI Publishes June 2025 Threat Intelligence Report",
+      "description": "OpenAI released its quarterly threat intelligence report detailing malicious uses of AI including authoritarian regime surveillance, covert influence operations, and cyber attacks, along with countermeasures.",
+      "impact": "medium",
+      "clusters": ["ai_safety_misuse"],
+      "sources": ["OpenAI"]
+    },
+    {
+      "id": 21,
+      "date": "2025-06-mid",
+      "title": "Anthropic Identifies 'Vibe Hacking' AI Misuse Pattern",
+      "description": "Anthropic's threat intelligence identified a new pattern of AI misuse called 'vibe hacking' where threat actors leverage AI for tactical operations at physically impossible request rates.",
+      "impact": "medium",
+      "clusters": ["ai_safety_misuse"],
+      "sources": ["Anthropic"]
+    },
+    {
+      "id": 22,
+      "date": "2025-06-02",
+      "title": "Sam Altman Keynotes Snowflake Summit 2025",
+      "description": "OpenAI CEO Sam Altman delivered a keynote at Snowflake Summit 2025 in San Francisco, discussing the future of AI and data innovation alongside Snowflake CEO Sridhar Ramaswamy.",
+      "impact": "medium",
+      "clusters": ["big_tech_moves"],
+      "sources": ["Snowflake", "Business Wire", "Indian Express"]
+    },
+    {
+      "id": 23,
+      "date": "2025-06-04",
+      "title": "ChatGPT Record Feature Launches for Team Users",
+      "description": "OpenAI launched ChatGPT Record for Team users, allowing the AI to transcribe, summarize, and turn voice recordings into helpful outputs like follow-ups, plans, or code on the macOS desktop app.",
+      "impact": "medium",
+      "clusters": ["agentic_ai"],
+      "sources": ["OpenAI Help Center"]
+    },
+    {
+      "id": 24,
+      "date": "2025-06-mid",
+      "title": "ChatGPT Advanced Voice Mode Gets Emotional Upgrade",
+      "description": "OpenAI upgraded ChatGPT's Advanced Voice Mode for all paid users with naturally timed pauses, varied pitch, subtle emphasis, and emotional awareness for more conversational interactions.",
+      "impact": "medium",
+      "clusters": ["major_model_releases"],
+      "sources": ["TechCrunch", "Data Studios"]
+    },
+    {
+      "id": 25,
+      "date": "2025-06-mid",
+      "title": "ChatGPT Reaches $10 Billion Annual Recurring Revenue",
+      "description": "OpenAI's ChatGPT hit $10 billion in annual recurring revenue by June 2025, demonstrating massive commercial success for the AI chatbot.",
+      "impact": "high",
+      "clusters": ["big_tech_moves"],
+      "sources": ["Nerdynav"]
+    },
+    {
+      "id": 26,
+      "date": "2025-06-27",
+      "title": "Gmail AI-Powered Search Upgrade Rolls Out to Workspace Users",
+      "description": "Google rolled out AI-powered search upgrades to Gmail for Workspace users, taking recency, most-clicked emails, and frequent contacts into account instead of just chronological keyword results.",
+      "impact": "medium",
+      "clusters": ["apple_wwdc"],
+      "sources": ["The Verge", "Google Workspace Updates"]
+    },
+    {
+      "id": 27,
+      "date": "2025-06-30",
+      "title": "Google Opens NotebookLM to Students Under 18",
+      "description": "Google announced that NotebookLM would be available to users under 18 for the first time, along with free Gemini AI tools for educators in Google Classroom.",
+      "impact": "medium",
+      "clusters": ["apple_wwdc"],
+      "sources": ["The Verge", "TechCrunch"]
+    },
+    {
+      "id": 28,
+      "date": "2025-06-mid",
+      "title": "Google's Carbon Emissions Rise Again Due to AI Push",
+      "description": "Google's 2025 Environmental Report revealed continued increases in carbon emissions driven by AI infrastructure expansion and data center growth.",
+      "impact": "medium",
+      "clusters": ["infrastructure_compute"],
+      "sources": ["The Verge", "Google Blog"]
+    },
+    {
+      "id": 29,
+      "date": "2025-06-mid",
+      "title": "Meta Spends $17 Billion on AI Data Center Infrastructure in Q2",
+      "description": "Meta reported $17 billion in capital expenditures for Q2 2025, primarily for AI data centers and infrastructure, while Microsoft spent $24.2 billion in the same period.",
+      "impact": "high",
+      "clusters": ["infrastructure_compute", "big_tech_moves"],
+      "sources": ["CNN", "NPR"]
+    },
+    {
+      "id": 30,
+      "date": "2025-06-mid",
+      "title": "Runway Announces AI Video Game Generation Capability",
+      "description": "AI video generation company Runway announced plans to let users generate video games with AI, expanding beyond video generation into interactive media.",
+      "impact": "medium",
+      "clusters": ["creative_ai"],
+      "sources": ["The Verge"]
+    },
+    {
+      "id": 31,
+      "date": "2025-06-mid",
+      "title": "LLMs Increasingly Used in Adult Content Industry",
+      "description": "Reports emerged that large language models are being extensively used to optimize the adult content industry, including platforms like OnlyFans, raising ethical questions about AI applications.",
+      "impact": "low",
+      "clusters": ["creative_ai", "ai_safety_misuse"],
+      "sources": ["The Verge"]
+    },
+    {
+      "id": 32,
+      "date": "2025-06-mid",
+      "title": "Reddit Celebrates 20th Anniversary with Major AI Push",
+      "description": "Reddit marked its 20th anniversary by announcing significant AI integration plans, building on its licensing deals with Google and OpenAI.",
+      "impact": "medium",
+      "clusters": ["big_tech_moves"],
+      "sources": ["The Verge"]
+    },
+    {
+      "id": 33,
+      "date": "2025-06-mid",
+      "title": "Google Launches Doppl AI App",
+      "description": "Google launched Doppl, a new AI-powered app that can analyze and interact with physical objects, demonstrated with capabilities like virtually removing socks.",
+      "impact": "low",
+      "clusters": ["apple_wwdc"],
+      "sources": ["The Verge"]
+    },
+    {
+      "id": 34,
+      "date": "2025-06-mid",
+      "title": "Hollywood's AI Video Prompting Challenges Emerge",
+      "description": "Reports highlighted that Hollywood's pivot to AI video generation faces significant 'prompting problems' as studios struggle to get consistent, usable results from generative AI tools.",
+      "impact": "medium",
+      "clusters": ["creative_ai"],
+      "sources": ["The Verge"]
+    },
+    {
+      "id": 35,
+      "date": "2025-06-mid",
+      "title": "M3GAN 2.0 Film Releases with AI Safety Themes",
+      "description": "The sequel to M3GAN released, embracing sci-fi themes about the dangers of artificial intelligence, reflecting growing cultural awareness of AI risks.",
+      "impact": "low",
+      "clusters": ["creative_ai"],
+      "sources": ["The Verge"]
+    },
+    {
+      "id": 36,
+      "date": "2025-06-mid",
+      "title": "Siri Notably Absent from Apple WWDC AI Announcements",
+      "description": "Despite extensive Apple Intelligence updates at WWDC 2025, Siri was conspicuously absent from the keynote, highlighting Apple's struggles to upgrade its voice assistant amid the AI race.",
+      "impact": "medium",
+      "clusters": ["apple_wwdc"],
+      "sources": ["The Verge"]
+    },
+    {
+      "id": 37,
+      "date": "2025-06-mid",
+      "title": "Apple Introduces 'Liquid Glass' Design Language",
+      "description": "Apple unveiled a new aesthetic called 'Liquid Glass' across its operating systems at WWDC 2025, representing the biggest visual facelift in a decade.",
+      "impact": "medium",
+      "clusters": ["apple_wwdc"],
+      "sources": ["TechCrunch", "CNBC"]
+    },
+    {
+      "id": 38,
+      "date": "2025-06-mid",
+      "title": "Apple Integrates ChatGPT into Image Playground",
+      "description": "Apple integrated ChatGPT into Image Playground, enabling new image generation styles like anime, oil painting, and watercolor through OpenAI's technology.",
+      "impact": "medium",
+      "clusters": ["apple_wwdc", "creative_ai"],
+      "sources": ["TechCrunch"]
+    },
+    {
+      "id": 39,
+      "date": "2025-06-mid",
+      "title": "Apple Introduces AI Call Screening and Hold Assist",
+      "description": "Apple announced AI-powered call screening that automatically answers unknown calls to identify callers, plus hold assist that detects hold music and alerts users when live agents become available.",
+      "impact": "medium",
+      "clusters": ["apple_wwdc"],
+      "sources": ["TechCrunch"]
+    },
+    {
+      "id": 40,
+      "date": "2025-06-mid",
+      "title": "Apple Opens Foundation Models Framework to Developers",
+      "description": "Apple introduced the Foundation Models framework, allowing third-party developers to access Apple's on-device AI models even when offline, encouraging AI feature development.",
+      "impact": "high",
+      "clusters": ["apple_wwdc", "agentic_ai"],
+      "sources": ["TechCrunch", "Apple"]
+    },
+    {
+      "id": 41,
+      "date": "2025-06-mid",
+      "title": "NVIDIA Announces Rubin AI Supercomputer Platform",
+      "description": "NVIDIA unveiled the Rubin platform with six new AI chips designed for rack-scale AI supercomputing, representing the next generation of AI infrastructure.",
+      "impact": "high",
+      "clusters": ["infrastructure_compute"],
+      "sources": ["NVIDIA News", "Developer NVIDIA Blog"]
+    },
+    {
+      "id": 42,
+      "date": "2025-06-mid",
+      "title": "FDA Authorizes Over 1,250 AI Medical Devices by Mid-2025",
+      "description": "The FDA had authorized more than 1,250 AI-powered medical devices by mid-2025, primarily in imaging, cardiac care, and remote monitoring applications.",
+      "impact": "medium",
+      "clusters": ["regulation_policy"],
+      "sources": ["MobiHealthNews"]
+    },
+    {
+      "id": 43,
+      "date": "2025-06-mid",
+      "title": "AI Companies Face Growing Entry-Level Job Displacement Concerns",
+      "description": "Reports highlighted accelerating decline in programmer employment since generative AI emerged, with employers eliminating entry-level jobs due to AI capabilities.",
+      "impact": "medium",
+      "clusters": ["ai_safety_misuse"],
+      "sources": ["IEEE Spectrum", "TechCrunch"]
+    },
+    {
+      "id": 44,
+      "date": "2025-06-mid",
+      "title": "Chinese Open-Source AI Models Reach 63% of Hugging Face Uploads",
+      "description": "Chinese fine-tuned or derivative models made up 63% of all new models released on Hugging Face, with Qwen and DeepSeek leading global open-weight AI development.",
+      "impact": "high",
+      "clusters": ["major_model_releases"],
+      "sources": ["Stanford HAI", "ZDNet", "SCMP"]
+    },
+    {
+      "id": 45,
+      "date": "2025-06-mid",
+      "title": "Gemini Workspace Add-on Subscriptions Begin Removal",
+      "description": "Google began removing separate Gemini add-on subscriptions from Workspace customers, integrating AI features directly into core Workspace editions.",
+      "impact": "low",
+      "clusters": ["big_tech_moves"],
+      "sources": ["Google Workspace Support"]
+    },
+    {
+      "id": 46,
+      "date": "2025-06-mid",
+      "title": "Luma Releases Video Modification Capabilities",
+      "description": "AI video startup Luma released video modification capabilities, competing with Runway and Kling in the generative video space.",
+      "impact": "low",
+      "clusters": ["creative_ai"],
+      "sources": ["TechCrunch"]
+    },
+    {
+      "id": 47,
+      "date": "2025-06-mid",
+      "title": "AI Coding Assistants Market Continues Rapid Growth",
+      "description": "GitHub Copilot reached 20M+ users across 77,000 enterprises, with Gartner positioning GitHub as a Leader in AI Code Assistants for the second consecutive year.",
+      "impact": "medium",
+      "clusters": ["agentic_ai"],
+      "sources": ["GitHub Blog", "Gartner"]
+    },
+    {
+      "id": 48,
+      "date": "2025-06-mid",
+      "title": "Anthropic Cracks Down on Unauthorized Claude Usage by Third-Party Tools",
+      "description": "Anthropic began enforcing restrictions on unauthorized Claude usage by third-party AI coding tools, reinforcing boundaries in the AI ecosystem.",
+      "impact": "medium",
+      "clusters": ["big_tech_moves", "agentic_ai"],
+      "sources": ["VentureBeat"]
+    },
+    {
+      "id": 49,
+      "date": "2025-06-mid",
+      "title": "AI-Powered Search Reshapes News Traffic Patterns",
+      "description": "Reports showed AI-powered search results increasingly replacing traditional news clicks, with users obtaining news directly from AI or AI-powered search results.",
+      "impact": "medium",
+      "clusters": ["big_tech_moves"],
+      "sources": ["TechCrunch", "Similarweb"]
+    },
+    {
+      "id": 50,
+      "date": "2025-06-mid",
+      "title": "34% of US Adults Report Using ChatGPT",
+      "description": "Surveys showed 34% of US adults had used ChatGPT by June 2025, with the platform generating 5.6 billion visits in July 2025 alone, becoming the 6th most visited website globally.",
+      "impact": "medium",
+      "clusters": ["big_tech_moves"],
+      "sources": ["Backlinko", "Similarweb"]
+    }
+  ]
+}

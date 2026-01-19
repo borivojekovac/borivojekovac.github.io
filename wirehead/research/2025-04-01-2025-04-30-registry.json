@@ -1,0 +1,554 @@
+{
+  "period": {
+    "start_date": "2025-04-01",
+    "end_date": "2025-04-30"
+  },
+  "generated_at": "2026-01-19",
+  "total_events": 50,
+  "events": [
+    {
+      "id": 1,
+      "date": "2025-04-16",
+      "title": "OpenAI Releases o3 and o4-mini Reasoning Models",
+      "category": "Model Release",
+      "impact": "High",
+      "description": "OpenAI released two new reasoning models - o3 and o4-mini - designed to handle broader tasks from coding to visual analysis. The o4-mini is the first o4 model, optimized for cost-efficient reasoning with competitive performance for its size.",
+      "sources": ["OpenAI", "Axios", "TechTarget", "New York Times"],
+      "related_events": [2, 3]
+    },
+    {
+      "id": 2,
+      "date": "2025-04-16",
+      "title": "GitHub Copilot Adds o3 and o4-mini Models",
+      "category": "Developer Tools",
+      "impact": "Medium",
+      "description": "GitHub announced that OpenAI's o3 and o4-mini models are now available in public preview for GitHub Copilot and GitHub Models, enabling developers to experiment with the new reasoning capabilities.",
+      "sources": ["GitHub Blog"],
+      "related_events": [1, 5]
+    },
+    {
+      "id": 3,
+      "date": "2025-04-30",
+      "title": "GPT-4 Retired from ChatGPT",
+      "category": "Model Lifecycle",
+      "impact": "High",
+      "description": "OpenAI officially retired GPT-4 from ChatGPT, fully replacing it with GPT-4o. The model that sparked global AI race in March 2023 ends its public-facing run, though it remains accessible via API.",
+      "sources": ["OpenAI", "Ars Technica", "Windows Central"],
+      "related_events": [1]
+    },
+    {
+      "id": 4,
+      "date": "2025-04-05",
+      "title": "Meta Releases Llama 4 Multimodal Models",
+      "category": "Model Release",
+      "impact": "High",
+      "description": "Meta unveiled the Llama 4 family - the first natively multimodal open-source models. Includes Llama 4 Scout (17B parameters, 16 experts) and Llama 4 Maverick, with Llama 4 Behemoth (2 trillion parameters) still in training.",
+      "sources": ["Meta AI", "Bloomberg", "TechCrunch"],
+      "related_events": [10]
+    },
+    {
+      "id": 5,
+      "date": "2025-04-04",
+      "title": "GitHub Copilot Code Review Goes GA",
+      "category": "Developer Tools",
+      "impact": "High",
+      "description": "GitHub announced general availability of Copilot code review, enabling AI-powered code review that can identify issues, suggest fixes, and improve code quality across pull requests.",
+      "sources": ["GitHub Blog", "GitHub Docs"],
+      "related_events": [2, 6]
+    },
+    {
+      "id": 6,
+      "date": "2025-04-09",
+      "title": "Google Cloud Next 2025: Ironwood TPU and Agent2Agent Protocol",
+      "category": "Infrastructure",
+      "impact": "High",
+      "description": "At Google Cloud Next, Google unveiled Ironwood (7th-gen TPU) - the first TPU designed specifically for inference - and announced the Agent2Agent Protocol (A2A) for AI agent interoperability with 50+ tech partners.",
+      "sources": ["Google Blog", "Google Cloud", "Mashable"],
+      "related_events": [7, 8]
+    },
+    {
+      "id": 7,
+      "date": "2025-04-09",
+      "title": "Gemini 2.5 and Gemma 3 Announced",
+      "category": "Model Release",
+      "impact": "High",
+      "description": "Google introduced Gemini 2.5 and Gemma 3 at Cloud Next, along with updates for creativity and collaboration features in the Gemini ecosystem.",
+      "sources": ["Google Blog", "Google Cloud"],
+      "related_events": [6]
+    },
+    {
+      "id": 8,
+      "date": "2025-04-09",
+      "title": "Agent2Agent Protocol Launches with 50+ Partners",
+      "category": "Standards",
+      "impact": "High",
+      "description": "Google Cloud launched the Agent2Agent Protocol (A2A), an open standard enabling AI agents to collaborate across enterprise systems regardless of vendor or framework. Over 50 tech partners joined at launch.",
+      "sources": ["Google Developers Blog", "Google Cloud"],
+      "related_events": [6]
+    },
+    {
+      "id": 9,
+      "date": "2025-04-09",
+      "title": "Anthropic Launches Claude Max at $200/month",
+      "category": "Product Launch",
+      "impact": "High",
+      "description": "Anthropic introduced Claude Max subscription tier at $100-$200/month, offering 5-20x higher usage limits than the $20 Pro plan. Directly challenges OpenAI's ChatGPT Pro tier.",
+      "sources": ["TechCrunch", "VentureBeat", "Ars Technica", "Reuters"],
+      "related_events": []
+    },
+    {
+      "id": 10,
+      "date": "2025-04-25",
+      "title": "Space Llama Deployed to International Space Station",
+      "category": "AI Applications",
+      "impact": "Medium",
+      "description": "Booz Allen deployed a fine-tuned version of Meta's Llama 3.2 to the ISS, marking a significant milestone for AI in space. The system runs on HPE's Spaceborne Computer-2 with NVIDIA acceleration.",
+      "sources": ["Meta", "CNBC", "Via Satellite"],
+      "related_events": [4]
+    },
+    {
+      "id": 11,
+      "date": "2025-04-09",
+      "title": "OpenAI 4o Image Generation Released",
+      "category": "Model Release",
+      "impact": "High",
+      "description": "OpenAI released native image generation capability in GPT-4o, significantly better than DALL-E 3. Features multi-turn consistency, improved text rendering, and ability to modify uploaded images.",
+      "sources": ["OpenAI", "CDOTrends", "InfoQ", "The Verge"],
+      "related_events": []
+    },
+    {
+      "id": 12,
+      "date": "2025-04-25",
+      "title": "Manus AI Raises $75M at $500M Valuation",
+      "category": "Funding",
+      "impact": "High",
+      "description": "Chinese AI agent startup Manus secured $75 million funding led by Benchmark at $500 million valuation, just weeks after its viral launch claiming to outperform OpenAI's Deep Research.",
+      "sources": ["TechCrunch", "Bloomberg", "CNBC"],
+      "related_events": [13]
+    },
+    {
+      "id": 13,
+      "date": "2025-04-01",
+      "title": "Manus AI Goes Viral as 'World's First General AI Agent'",
+      "category": "Product Launch",
+      "impact": "High",
+      "description": "Chinese startup Manus went viral on X after releasing what it claimed was the world's first general AI agent, capable of autonomous decision-making with minimal prompting.",
+      "sources": ["TechCrunch", "Reuters", "ChinaTalk"],
+      "related_events": [12]
+    },
+    {
+      "id": 14,
+      "date": "2025-04-30",
+      "title": "Nvidia CEO Jensen Huang at White House 'Investing in America' Event",
+      "category": "Policy",
+      "impact": "High",
+      "description": "Nvidia CEO Jensen Huang participated in White House event on AI investment, amid ongoing discussions about chip export controls and US-China tech competition.",
+      "sources": ["CNBC", "New York Times", "Politico"],
+      "related_events": [15]
+    },
+    {
+      "id": 15,
+      "date": "2025-04-01",
+      "title": "Trump Administration Implements New AI Chip Export Controls",
+      "category": "Policy",
+      "impact": "High",
+      "description": "The Trump administration implemented new export controls on AI chips for national security reasons, affecting Nvidia and other semiconductor companies.",
+      "sources": ["CNBC", "Inside Government Contracts"],
+      "related_events": [14]
+    },
+    {
+      "id": 16,
+      "date": "2025-04-22",
+      "title": "EU AI Office Publishes GPAI Guidelines",
+      "category": "Regulation",
+      "impact": "High",
+      "description": "The EU AI Office published preliminary guidelines clarifying obligations for providers of general-purpose AI models under the AI Act, ahead of August 2025 enforcement.",
+      "sources": ["EU AI Act Portal", "European Commission"],
+      "related_events": []
+    },
+    {
+      "id": 17,
+      "date": "2025-04-02",
+      "title": "Google DeepMind Publishes 'Responsible Path to AGI' Paper",
+      "category": "AI Safety",
+      "impact": "High",
+      "description": "DeepMind researchers published comprehensive paper on responsible AGI development, prioritizing readiness, proactive risk assessment, and collaboration with the AI community.",
+      "sources": ["Google DeepMind", "Google Blog"],
+      "related_events": []
+    },
+    {
+      "id": 18,
+      "date": "2025-04-01",
+      "title": "OpenAI Introduces 'Monday' Voice in ChatGPT",
+      "category": "Product Feature",
+      "impact": "Low",
+      "description": "OpenAI added a new 'grumpy' voice called Monday to ChatGPT's Voice Mode on April Fools' Day. The voice sounds annoyed and was available through end of April.",
+      "sources": ["India Today", "Hindustan Times", "The Verge"],
+      "related_events": []
+    },
+    {
+      "id": 19,
+      "date": "2025-04-16",
+      "title": "Researchers Claim Breakthrough Against Prompt Injection",
+      "category": "AI Security",
+      "impact": "Medium",
+      "description": "Researchers announced breakthrough in fighting prompt injection attacks, one of AI's most frustrating security vulnerabilities.",
+      "sources": ["Ars Technica"],
+      "related_events": [20]
+    },
+    {
+      "id": 20,
+      "date": "2025-04-01",
+      "title": "Google DeepMind Introduces CaMel Framework for Prompt Injection Defense",
+      "category": "AI Security",
+      "impact": "Medium",
+      "description": "Google DeepMind introduced the CaMel framework to fundamentally address prompt injection vulnerabilities in AI systems.",
+      "sources": ["LastPass Blog", "Keysight"],
+      "related_events": [19]
+    },
+    {
+      "id": 21,
+      "date": "2025-04-01",
+      "title": "Meta AI Celebrity Chatbots Controversy",
+      "category": "AI Ethics",
+      "impact": "High",
+      "description": "Wall Street Journal reported that Meta AI chatbots using celebrity voices engaged in sexually explicit conversations, including with accounts registered as minors. Meta made changes in response.",
+      "sources": ["The Verge", "WSJ", "Variety", "Deadline"],
+      "related_events": []
+    },
+    {
+      "id": 22,
+      "date": "2025-04-14",
+      "title": "Cursor and Windsurf Release GPT-4.1 to All Users",
+      "category": "Developer Tools",
+      "impact": "Medium",
+      "description": "AI-powered IDE tools Cursor and Windsurf announced release of GPT-4.1 model to all users, boosting developer productivity.",
+      "sources": ["AIBase"],
+      "related_events": [5]
+    },
+    {
+      "id": 23,
+      "date": "2025-04-01",
+      "title": "OpenAI $40 Billion SoftBank-Led Funding Round Announced",
+      "category": "Funding",
+      "impact": "High",
+      "description": "OpenAI announced $40 billion funding round led by SoftBank, nearly doubling its valuation to $300 billion. SoftBank committed $30 billion with conditions tied to for-profit restructuring.",
+      "sources": ["Reuters", "CNBC", "FinTech Weekly"],
+      "related_events": [24]
+    },
+    {
+      "id": 24,
+      "date": "2025-04-01",
+      "title": "OpenAI For-Profit Restructuring Pressure Mounts",
+      "category": "Corporate",
+      "impact": "High",
+      "description": "SoftBank's $40B investment came with stipulation that OpenAI must restructure into fully for-profit entity by end of 2025, or contribution would be reduced.",
+      "sources": ["Ars Technica", "Reuters"],
+      "related_events": [23]
+    },
+    {
+      "id": 25,
+      "date": "2025-04-01",
+      "title": "Agentic AI Era Officially Begins",
+      "category": "Industry Trend",
+      "impact": "High",
+      "description": "Industry observers declared 2025 the 'Agentic Era' as AI agents capable of autonomous task execution became mainstream, with major players releasing agentic coding assistants.",
+      "sources": ["The New Stack", "GitHub Blog", "APIpie"],
+      "related_events": [8, 12, 13]
+    },
+    {
+      "id": 26,
+      "date": "2025-04-01",
+      "title": "Top 5 Agentic AI Coding Assistants Emerge",
+      "category": "Developer Tools",
+      "impact": "Medium",
+      "description": "Industry analysis identified top agentic AI coding assistants that can plan solutions, modify multiple files, run tests, and iterate on code autonomously.",
+      "sources": ["APIpie", "The New Stack"],
+      "related_events": [5, 22, 25]
+    },
+    {
+      "id": 27,
+      "date": "2025-04-01",
+      "title": "AI Coding Tools Enter 'Agentic CLI Era'",
+      "category": "Developer Tools",
+      "impact": "Medium",
+      "description": "The emergence of command-line AI coding tools marked a new phase in developer tooling, with agents operating directly in terminal environments.",
+      "sources": ["The New Stack"],
+      "related_events": [25, 26]
+    },
+    {
+      "id": 28,
+      "date": "2025-04-01",
+      "title": "Stanford HAI Releases 2025 AI Index Report",
+      "category": "Research",
+      "impact": "High",
+      "description": "Stanford's Human-Centered AI Institute released its 2025 AI Index Report, providing comprehensive data-driven analysis of AI's global development.",
+      "sources": ["VentureBeat"],
+      "related_events": []
+    },
+    {
+      "id": 29,
+      "date": "2025-04-01",
+      "title": "AI Investment Hits Record Levels",
+      "category": "Funding",
+      "impact": "High",
+      "description": "AI companies on track for record $150 billion in 2025 funding, with 79% going to US-based companies and San Francisco Bay Area alone raising $122 billion.",
+      "sources": ["Crunchbase", "LA Times"],
+      "related_events": [23, 12]
+    },
+    {
+      "id": 30,
+      "date": "2025-04-01",
+      "title": "DeepSeek Continues to Gain Traction in Developing Nations",
+      "category": "Market",
+      "impact": "Medium",
+      "description": "Microsoft report showed Chinese AI company DeepSeek gaining significant traction in developing nations following its January 2025 R1 model release.",
+      "sources": ["AP News"],
+      "related_events": []
+    },
+    {
+      "id": 31,
+      "date": "2025-04-01",
+      "title": "AI Copyright Lawsuits Intensify",
+      "category": "Legal",
+      "impact": "High",
+      "description": "Major developments in AI copyright cases including Bartz v. Anthropic and Kadrey v. Meta, with courts beginning to define fair use boundaries for AI training.",
+      "sources": ["IP Watchdog", "Copyright Alliance"],
+      "related_events": []
+    },
+    {
+      "id": 32,
+      "date": "2025-04-01",
+      "title": "OWASP Lists Prompt Injection as #1 LLM Risk",
+      "category": "AI Security",
+      "impact": "Medium",
+      "description": "OWASP recognized prompt injection as the #1 risk in its 2025 Top 10 for LLM Applications, highlighting growing security concerns.",
+      "sources": ["Keysight", "MDPI"],
+      "related_events": [19, 20]
+    },
+    {
+      "id": 33,
+      "date": "2025-04-01",
+      "title": "AI Safety Index Released",
+      "category": "AI Safety",
+      "impact": "Medium",
+      "description": "Future of Life Institute released AI Safety Index tracking safety measures across major AI labs and models.",
+      "sources": ["Future of Life Institute"],
+      "related_events": [17]
+    },
+    {
+      "id": 34,
+      "date": "2025-04-01",
+      "title": "Anthropic Publishes AI Safety Research Directions",
+      "category": "AI Safety",
+      "impact": "Medium",
+      "description": "Anthropic published recommendations for technical AI safety research directions to help developers ensure safety of future systems.",
+      "sources": ["Anthropic Alignment"],
+      "related_events": [17, 33]
+    },
+    {
+      "id": 35,
+      "date": "2025-04-01",
+      "title": "Microsoft Copilot Studio 2025 Wave 1 Begins",
+      "category": "Product Launch",
+      "impact": "Medium",
+      "description": "Microsoft's 2025 release wave 1 for Copilot Studio began, covering new functionalities planned through September 2025.",
+      "sources": ["Microsoft Learn"],
+      "related_events": []
+    },
+    {
+      "id": 36,
+      "date": "2025-04-01",
+      "title": "Perplexity AI Continues Rapid Growth",
+      "category": "Market",
+      "impact": "Medium",
+      "description": "AI search startup Perplexity continued rapid growth trajectory, challenging Google's search dominance with AI-powered answer engine.",
+      "sources": ["Snap Inc.", "Yahoo Finance"],
+      "related_events": []
+    },
+    {
+      "id": 37,
+      "date": "2025-04-01",
+      "title": "AI Humanoid Robots Development Accelerates",
+      "category": "Robotics",
+      "impact": "Medium",
+      "description": "Major developments in humanoid robotics with Tesla Optimus, Figure, and Agility Digit scaling pilots with major companies.",
+      "sources": ["Humanoid Press", "Sherwood News"],
+      "related_events": []
+    },
+    {
+      "id": 38,
+      "date": "2025-04-01",
+      "title": "Nvidia Faces Export Control Challenges",
+      "category": "Policy",
+      "impact": "High",
+      "description": "Nvidia grappled with new export controls on AI chips while maintaining strong demand for its products.",
+      "sources": ["CNBC", "Reuters"],
+      "related_events": [14, 15]
+    },
+    {
+      "id": 39,
+      "date": "2025-04-01",
+      "title": "AI in Healthcare Advances",
+      "category": "AI Applications",
+      "impact": "Medium",
+      "description": "Continued advances in AI healthcare applications with new tools for evidence-based medicine and clinical decision support.",
+      "sources": ["Crescendo AI", "NCBI"],
+      "related_events": []
+    },
+    {
+      "id": 40,
+      "date": "2025-04-01",
+      "title": "China's AI Chip Development Accelerates",
+      "category": "Infrastructure",
+      "impact": "High",
+      "description": "Reports emerged of China's 'Manhattan Project' to develop domestic AI chips, including reverse-engineered EUV lithography machines.",
+      "sources": ["Last Week in AI", "Channel News Asia"],
+      "related_events": [15, 38]
+    },
+    {
+      "id": 41,
+      "date": "2025-04-01",
+      "title": "Mistral AI Continues European AI Leadership",
+      "category": "Market",
+      "impact": "Medium",
+      "description": "French AI lab Mistral maintained position as Europe's leading homegrown AI player, though facing increased competition from US rivals.",
+      "sources": ["CNBC", "Technology.org"],
+      "related_events": []
+    },
+    {
+      "id": 42,
+      "date": "2025-04-01",
+      "title": "Apple's AI Strategy Under Scrutiny",
+      "category": "Corporate",
+      "impact": "Medium",
+      "description": "Apple's cautious AI approach continued to draw attention as competitors advanced, with expectations for improved Siri in 2026.",
+      "sources": ["MacRumors", "Apple Insider"],
+      "related_events": []
+    },
+    {
+      "id": 43,
+      "date": "2025-04-01",
+      "title": "AI Video Generation Matures",
+      "category": "Model Release",
+      "impact": "Medium",
+      "description": "AI video generation tools like OpenAI's Sora and Google's Veo continued to mature, raising concerns about visual content authenticity.",
+      "sources": ["New York Times", "CNET"],
+      "related_events": []
+    },
+    {
+      "id": 44,
+      "date": "2025-04-01",
+      "title": "xAI and Grok Development Continues",
+      "category": "Model Release",
+      "impact": "Medium",
+      "description": "Elon Musk's xAI continued development of Grok chatbot, integrated into X platform with various new features.",
+      "sources": ["Mashable", "Wikipedia"],
+      "related_events": []
+    },
+    {
+      "id": 45,
+      "date": "2025-04-01",
+      "title": "AI Bubble Concerns Grow",
+      "category": "Market",
+      "impact": "Medium",
+      "description": "Growing concerns about AI investment bubble as funding reached unprecedented levels, with questions about sustainable returns.",
+      "sources": ["Ars Technica", "Business Insider"],
+      "related_events": [29]
+    },
+    {
+      "id": 46,
+      "date": "2025-04-01",
+      "title": "Enterprise AI Adoption Accelerates",
+      "category": "Market",
+      "impact": "High",
+      "description": "Enterprise AI adoption continued rapid acceleration with ChatGPT Enterprise messages increasing 8x year-over-year.",
+      "sources": ["OpenAI"],
+      "related_events": []
+    },
+    {
+      "id": 47,
+      "date": "2025-04-01",
+      "title": "AI Engineering Emerges as Distinct Discipline",
+      "category": "Industry Trend",
+      "impact": "Medium",
+      "description": "AI Engineering solidified as distinct discipline with focus on agents, MCP protocol, and production-grade AI systems.",
+      "sources": ["The New Stack", "Latent Space"],
+      "related_events": [25, 8]
+    },
+    {
+      "id": 48,
+      "date": "2025-04-01",
+      "title": "Vibe Coding Trend Emerges",
+      "category": "Industry Trend",
+      "impact": "Medium",
+      "description": "Term 'vibe coding' coined by Andrej Karpathy gained traction, describing new approach to AI-assisted development.",
+      "sources": ["Ben's Bites", "The New Stack"],
+      "related_events": [25, 26]
+    },
+    {
+      "id": 49,
+      "date": "2025-04-01",
+      "title": "Open Source AI Models Gain Ground",
+      "category": "Industry Trend",
+      "impact": "High",
+      "description": "Open source AI models continued gaining ground with Meta's Llama 4 and Chinese models like Qwen powering startup ecosystem.",
+      "sources": ["Hugging Face", "ChinaTalk"],
+      "related_events": [4]
+    },
+    {
+      "id": 50,
+      "date": "2025-04-01",
+      "title": "AI Developer Tools Market Heats Up",
+      "category": "Market",
+      "impact": "High",
+      "description": "Competition in AI developer tools intensified with Cursor, Windsurf, GitHub Copilot, and new entrants vying for developer mindshare.",
+      "sources": ["Qodo", "Medium", "Builder.io"],
+      "related_events": [5, 22, 26]
+    }
+  ],
+  "thematic_clusters": [
+    {
+      "cluster_id": "A",
+      "name": "Frontier Model Releases",
+      "description": "Major AI model releases from leading labs including OpenAI, Meta, Google, and Anthropic",
+      "event_ids": [1, 3, 4, 7, 11, 43, 44]
+    },
+    {
+      "cluster_id": "B",
+      "name": "Agentic AI and Developer Tools",
+      "description": "Rise of AI agents and transformation of software development workflows",
+      "event_ids": [2, 5, 8, 12, 13, 22, 25, 26, 27, 47, 48, 50]
+    },
+    {
+      "cluster_id": "C",
+      "name": "AI Infrastructure and Chips",
+      "description": "Hardware developments, TPUs, and semiconductor competition",
+      "event_ids": [6, 14, 15, 38, 40]
+    },
+    {
+      "cluster_id": "D",
+      "name": "AI Safety, Security, and Ethics",
+      "description": "Safety research, prompt injection defenses, and ethical concerns",
+      "event_ids": [17, 19, 20, 21, 32, 33, 34]
+    },
+    {
+      "cluster_id": "E",
+      "name": "AI Investment and Market Dynamics",
+      "description": "Funding rounds, valuations, and market trends",
+      "event_ids": [9, 23, 24, 29, 36, 45, 46]
+    },
+    {
+      "cluster_id": "F",
+      "name": "AI Policy and Regulation",
+      "description": "Government policies, export controls, and regulatory frameworks",
+      "event_ids": [14, 15, 16, 31, 38]
+    },
+    {
+      "cluster_id": "G",
+      "name": "Global AI Competition",
+      "description": "US-China tech competition and regional AI developments",
+      "event_ids": [12, 13, 30, 40, 41, 42]
+    }
+  ]
+}
