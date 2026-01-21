@@ -525,12 +525,12 @@ class WireheadBlog {
         meta.setAttribute('content', content);
     }
 
-            setupSearchHandlers() {
-                const searchButton = document.getElementById('search-button');
-                const searchInput = document.getElementById('search-input');
-                const searchDialog = document.getElementById('search-dialog');
-                const searchCancel = document.getElementById('search-cancel');
-                const searchProceed = document.getElementById('search-proceed');
+    setupSearchHandlers() {
+        const searchButton = document.getElementById('search-button');
+        const searchInput = document.getElementById('search-input');
+        const searchDialog = document.getElementById('search-dialog');
+        const searchCancel = document.getElementById('search-cancel');
+        const searchProceed = document.getElementById('search-proceed');
         
         searchButton.addEventListener('click', () => this.showSearchDialog());
         searchInput.addEventListener('keypress', (e) => {
@@ -546,33 +546,156 @@ class WireheadBlog {
         searchDialog.addEventListener('click', (e) => {
             if (e.target === searchDialog) {
                 this.hideSearchDialog();
-                    }
-                });
             }
+        });
+    }
 
-            setupHeroObserver() {
-                const hero = document.getElementById('hero');
-                const appBar = document.getElementById('app-bar');
-                if (!hero || !appBar || !('IntersectionObserver' in window)) {
-                    if (appBar) {
-                        appBar.classList.add('is-visible');
-                    }
-                    return;
-                }
-
-                const observer = new IntersectionObserver(
-                    ([entry]) => {
-                        appBar.classList.toggle('is-visible', entry.intersectionRatio <= 0.25);
-                    },
-                    { threshold: [0, 0.25, 1] }
-                );
-
-                observer.observe(hero);
+    setupHeroObserver() {
+        const hero = document.getElementById('hero');
+        const appBar = document.getElementById('app-bar');
+        if (!hero || !appBar || !('IntersectionObserver' in window)) {
+            if (appBar) {
+                appBar.classList.add('is-visible');
             }
+            return;
+        }
 
-            setupPostHandlers() {
-                this.postContainer = document.getElementById('posts-container');
-                if (!this.postContainer) return;
+        // Initialize WebGL for hero image effect
+        const urlParams = new URLSearchParams(window.location.search);
+        const heroImage = hero.querySelector('.hero-image');
+        if (heroImage && window.WebGLRenderingContext && urlParams.get('trippy') === 'true') {
+            this.setupHeroShader(hero, heroImage);
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                appBar.classList.toggle('is-visible', entry.intersectionRatio <= 0.25);
+            },
+            { threshold: [0, 0.25, 1] }
+        );
+
+        observer.observe(hero);
+    }
+
+    setupHeroShader(container, imageElement) {
+        // Create canvas to replace image
+        const canvas = document.createElement('canvas');
+        canvas.className = 'hero-image';
+        canvas.width = Math.round(imageElement.naturalWidth || imageElement.width);
+        canvas.height = Math.round(imageElement.naturalHeight || imageElement.height);
+        imageElement.replaceWith(canvas);
+
+        // Initialize WebGL
+        const gl = canvas.getContext('webgl', {
+            antialias: true,
+            powerPreference: 'high-performance'
+        });
+        if (!gl) {
+            console.error('WebGL not supported');
+            return;
+        }
+        
+        // Check for WebGL errors
+        const error = gl.getError();
+        if (error !== gl.NO_ERROR) {
+            console.error('WebGL error:', error);
+            return;
+        }
+
+        // Create shader program
+        const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vertexShader, `
+            attribute vec2 aPosition;
+            varying vec2 vUv;
+            void main() {
+                vUv = vec2(aPosition.x * 0.5 + 0.5, 1.0 - (aPosition.y * 0.5 + 0.5));
+                gl_Position = vec4(aPosition, 0.0, 1.0);
+            }
+        `);
+        gl.compileShader(vertexShader);
+        if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+            console.error('Vertex shader compilation error:', gl.getShaderInfoLog(vertexShader));
+            return;
+        }
+
+        const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fragmentShader, `
+            precision highp float;
+            uniform sampler2D uTexture;
+            uniform vec2 uResolution;
+            uniform float uTime;
+            varying vec2 vUv;
+
+            void main() {
+                vec2 uv = vUv;
+                
+                float freq = 14.0 + 2.0*sin(0.25*uTime);
+                vec2 warp = min(uTime*0.01, 1.0)*0.5000*cos( uv.xy*1.2*freq + vec2(0.0,1.0) + 3.0*uTime )/* +
+                            min(uTime*0.01, 1.0)*0.2500*cos( uv.yx*2.3*freq + vec2(1.0,2.0) + 1.0*uTime) +
+                            min(uTime*0.01, 1.0)*0.1250*cos( uv.xy*4.1*freq + vec2(5.0,3.0) + 1.0*uTime ) +
+                            min(uTime*0.01, 1.0)*0.0625*cos( uv.yx*7.9*freq + vec2(3.0,4.0) + 1.0*uTime )*/;
+                
+                vec2 st = uv + warp*0.0025;
+                
+                vec4 color = texture2D(uTexture, st);
+                gl_FragColor = color;
+            }
+        `);
+        gl.compileShader(fragmentShader);
+        if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+            console.error('Fragment shader compilation error:', gl.getShaderInfoLog(fragmentShader));
+            return;
+        }
+
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            console.error('Program linking error:', gl.getProgramInfoLog(program));
+            return;
+        }
+        gl.useProgram(program);
+
+        // Setup geometry
+        const positionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 1, 1, 1, -1, -1, 1, -1]), gl.STATIC_DRAW);
+
+        const positionLocation = gl.getAttribLocation(program, 'aPosition');
+        gl.enableVertexAttribArray(positionLocation);
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+        // Setup texture
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imageElement);
+
+        // Set uniforms
+        const resolutionLocation = gl.getUniformLocation(program, 'uResolution');
+        const timeLocation = gl.getUniformLocation(program, 'uTime');
+        gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+        gl.uniform1f(timeLocation, 0);
+
+        // Animation loop
+        let lastTime = 0;
+        const animate = (time) => {
+            const deltaTime = (time - lastTime) * 0.001;
+            lastTime = time;
+            gl.uniform1f(timeLocation, time * 0.001);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+    }
+
+    setupPostHandlers() {
+        this.postContainer = document.getElementById('posts-container');
+        if (!this.postContainer) return;
         this.postContainer.addEventListener('click', (event) => {
             const clearButton = event.target.closest('.search-clear-button, .search-results-button');
             if (clearButton && this.postContainer.contains(clearButton)) {
