@@ -76,6 +76,7 @@
     --font-size-app-bar-subtitle: 18px;
     --font-size-base: 18px;
     --font-size-small: 14px;
+    --font-size-regular: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -206,13 +207,13 @@ h1, h2, h3, h4, h5, h6 {
 .language-toggle {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 8px;
     background: transparent;
     border: none;
-    border-radius: 4px;
-    padding: 4px 4px 4px 10px;
+    border-radius: 8px;
+    padding: 14px 20px;
     color: var(--on-surface);
-    font-size: var(--font-size-small);
+    font-size: 1.2rem;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     cursor: pointer;
@@ -220,12 +221,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .language-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--primary-color);
+    color: var(--on-primary);
 }
 
 @media (prefers-color-scheme: dark) {
     .language-toggle:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: var(--primary-color);
+        color: var(--on-primary);
     }
 }
 
@@ -235,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .language-icon {
-    font-size: 18px;
+    font-size: 20px;
     color: var(--on-surface-variant);
     transition: transform 0.2s ease, color 0.2s ease;
 }
@@ -272,11 +275,11 @@ h1, h2, h3, h4, h5, h6 {
 .language-option {
     display: block;
     width: 100%;
-    padding: 6px 10px;
+    padding: 16px 20px;
     background: none;
     border: none;
     color: var(--on-surface);
-    font-size: var(--font-size-small);
+    font-size: 1.2rem;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     text-align: left;
@@ -284,7 +287,7 @@ h1, h2, h3, h4, h5, h6 {
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.language-option:hover {
+.language-option:hover, .language-option.selected:hover {
     background-color: var(--primary-color);
     color: var(--on-primary);
 }

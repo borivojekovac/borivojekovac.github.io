@@ -1,26 +1,27 @@
-const CACHE_NAME = 'wirehead-v15';
+const CACHE_NAME = 'wirehead-v17';
 const IS_DEV = ['localhost', '127.0.0.1', '0.0.0.0'].includes(self.location.hostname);
+// Use relative paths (no leading slash) so they work on GitHub Pages subpaths
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.json',
-  '/banner/wirehead-art-01.webp',
-  '/banner/wirehead-art-01.png',
-  '/posts.json',
-  '/sitemap.xml',
-  '/robots.txt',
-  '/lib/marked.min.js',
-  '/lib/WaterBrush-Regular.ttf',
-  '/lib/material-icons.woff2',
-  '/lib/roboto-regular.woff2',
-  '/lib/roboto-300.woff2',
-  '/lib/roboto-500.woff2',
-  '/lib/roboto-700.woff2',
-  '/lib/roboto-condensed-regular.woff2',
-  '/icon-192.png',
-  '/icon.svg'
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
+  './manifest.json',
+  './banner/wirehead-art-01.webp',
+  './banner/wirehead-art-01.png',
+  './posts.json',
+  './sitemap.xml',
+  './robots.txt',
+  './lib/marked.min.js',
+  './lib/WaterBrush-Regular.ttf',
+  './lib/material-icons.woff2',
+  './lib/roboto-regular.woff2',
+  './lib/roboto-300.woff2',
+  './lib/roboto-500.woff2',
+  './lib/roboto-700.woff2',
+  './lib/roboto-condensed-regular.woff2',
+  './icon-192.png',
+  './icon.svg'
 ];
 
 self.addEventListener('install', event => {

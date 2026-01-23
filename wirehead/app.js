@@ -1,6 +1,6 @@
 const APP_CONFIG = {
     preloadRecentMonths: 12,
-    initialAutoExpandCount: 0,
+    initialAutoExpandCount: 2,
     unloadedHintText: 'Click to load',
     searchHighlightClass: 'search-highlight',
     defaultLanguage: 'en',
@@ -156,14 +156,6 @@ class WireheadBlog {
     }
 
     async initDatabase() {
-        // Delete old database to recover from stuck upgrade
-        await new Promise((resolve) => {
-            const deleteRequest = indexedDB.deleteDatabase('WireheadBlog');
-            deleteRequest.onsuccess = () => resolve();
-            deleteRequest.onerror = () => resolve();
-            deleteRequest.onblocked = () => resolve();
-        });
-        
         return new Promise((resolve, reject) => {
             const request = indexedDB.open('WireheadBlog', 1);
             
@@ -403,11 +395,9 @@ class WireheadBlog {
         if (slug) {
             this.navigateToArticle(slug, false);
         } else {
-            const restoredCount = await this.restoreExpandedState();
-            if (!restoredCount) {
-                // Default behavior - expand initial posts
-                this.autoExpandFirstTwo();
-            }
+            await this.restoreExpandedState();
+            // Always expand top 2 articles regardless of persisted state
+            this.autoExpandFirstTwo();
         }
     }
 
