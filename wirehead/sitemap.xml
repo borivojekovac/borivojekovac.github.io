@@ -224,4 +224,20 @@
         <xhtml:link rel="alternate" hreflang="en" href="/?post=2025-01-zeitgeist"/>
         <xhtml:link rel="alternate" hreflang="sr" href="/?post=2025-01-zeitgeist&amp;lang=sr"/>
     </url>
+    <url>
+        <loc>/?post=2026-01-23-chanting-to-ghosts</loc>
+        <lastmod>2026-01-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-01-23-chanting-to-ghosts"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-01-23-chanting-to-ghosts&amp;lang=sr"/>
+    </url>
+    <url>
+        <loc>/?post=2026-01-23-chanting-to-ghosts&amp;lang=sr</loc>
+        <lastmod>2026-01-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-01-23-chanting-to-ghosts"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-01-23-chanting-to-ghosts&amp;lang=sr"/>
+    </url>
 </urlset>
