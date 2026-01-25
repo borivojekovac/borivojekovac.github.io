@@ -1,7 +1,7 @@
 # Chanting to Ghosts
 ## The stigma of today's agentic coding assistants - they look like sci-fi materialised, while in reality it's just infocracy snake oil. But is that really true? Can agents write anything beyond unit tests?
 
-The dark room smelled of espresso and ambition. A brilliant idea burned somewhere behind the optic nerve, waiting to flare to life on a 26-inch monitor. The agents waited patiently for her command - ready to jump to work. Only the dust packed into the screen’s corners - still dodging microfiber assaults - suggested imperfection.
+The dark room smelled of espresso and ambition. A brilliant idea burned somewhere behind the optic nerve, waiting to flare to life on a 34-inch Samsung. The agents waited patiently for her command - ready to jump to work. Only the dust packed into the screen’s corners - still dodging microfiber assaults - suggested imperfection.
 
 She typed... No. Even though it's one in the morning, there's nobody to wake up. Full steam ahead. She tapped the pale outline of the microphone icon at the bottom of the input field on her dark theme, and recited the opening spells. A couple of follow-ups came back. Some of them unexpectedly original. “Good boy,” she thought, with a faint smile. Then the alphanumerics started to pour into the Cascade. Surfing the inference waves had begun. A filthy-expensive GPU on the other side of the planet started gulping watts. Air current shoved the heat off aluminum and into some distant September afternoon. A swarm of agents pumped modern hieroglyphs at inhuman speeds into an intricate file structure.
 

@@ -1,7 +1,7 @@
 # Pojanje duhovima
 ## Stigma današnjih agentskih asistenata za kodiranje - izgledaju kao materijalizovani sci-fi, dok su zapravo samo magla, običan trik infokratije. Ali, da li je to stvarno istina? Da li agenti sa veštačkom inteligencijom mogu da napišu nešto više od unit testova?
 
-Mračna soba mirisala je na espreso i ambiciju. Brilijantna ideja pekla je negde iza optičkog nerva i čekala da zasija na 26-to inčnom monitoru. Agenti su strpljivo čekali njenu komandu pa da se bace na posao. Samo su slojevi prašine u uglovima ekrana, uporno eskiviravši napade mikrofibera, slutili nesavršenost.
+Mračna soba mirisala je na espreso i ambiciju. Brilijantna ideja pekla je negde iza optičkog nerva i čekala da zasija na 34-inčnom Samsungu. Agenti su strpljivo čekali njenu komandu pa da se bace na posao. Samo su slojevi prašine u uglovima ekrana, uporno eskiviravši napade mikrofibera, slutili nesavršenost.
 
 Ispisala je... Ne. Iako je jedan ujutro, nema nikoga ko bi mogao da se probudi. Pun gas. Pritisnula je bledi okvir ikonice mikrofona u dnu polja za unos na svojoj mračnoj temi, i odrecitovala početne bajalice. Usledilo je par podpitanja. Neka od njih neočekivano originalna. "Bravo mali", pomislila je uz blagi osmeh. Bujica alfanumerika počela je da lije kaskadom. Surf po talasima inferencije je počeo. Masno plaćeni GPU na drugom kraju planete naglo je počeo da guta vate. Struja vazduha gurala je vrelinu aluminijuma negde u septembarsko popodne. Jato inteligentnih agenata je nadljudskom brzinom pumpalo moderne hijeroglife u zamršeni sklop fajlova.
 
