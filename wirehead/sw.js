@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wirehead-v17';
+const CACHE_NAME = 'wirehead-v18';
 const IS_DEV = ['localhost', '127.0.0.1', '0.0.0.0'].includes(self.location.hostname);
 // Use relative paths (no leading slash) so they work on GitHub Pages subpaths
 const urlsToCache = [

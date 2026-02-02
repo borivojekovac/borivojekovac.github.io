@@ -1,0 +1,598 @@
+{
+  "metadata": {
+    "period_start": "2026-01-01",
+    "period_end": "2026-01-31",
+    "generated_at": "2026-02-02",
+    "total_events": 50,
+    "description": "Registry of the 50 most impactful AI events from January 2026"
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Apple Partners with Google to Power Siri with Gemini AI",
+      "date": "2026-01-12",
+      "category": "Product/Partnership",
+      "impact": "Critical",
+      "summary": "Apple announced a multi-year partnership with Google to use Gemini AI models to power the next generation of Siri and other Apple Intelligence features, marking a major shift in Apple's AI strategy.",
+      "sources": ["TechCrunch", "Reuters", "CNBC", "MacRumors"],
+      "clusters": ["big_tech_partnerships", "consumer_ai"]
+    },
+    {
+      "id": 2,
+      "title": "Meta Launches 'Meta Compute' AI Infrastructure Initiative",
+      "date": "2026-01-12",
+      "category": "Infrastructure",
+      "impact": "Critical",
+      "summary": "Mark Zuckerberg announced Meta Compute, a new top-level initiative to build tens of gigawatts of AI infrastructure this decade, with Dina Powell McCormick named as president.",
+      "sources": ["TechCrunch", "Reuters", "Axios", "NetworkWorld"],
+      "clusters": ["ai_infrastructure", "big_tech_investments"]
+    },
+    {
+      "id": 3,
+      "title": "OpenAI Signs $10 Billion Compute Deal with Cerebras",
+      "date": "2026-01-14",
+      "category": "Infrastructure/Business",
+      "impact": "Critical",
+      "summary": "OpenAI announced a multi-year agreement with AI chipmaker Cerebras for 750 megawatts of computing power through 2028, worth over $10 billion, diversifying beyond Nvidia.",
+      "sources": ["TechCrunch", "Reuters", "Bloomberg", "CNBC"],
+      "clusters": ["ai_infrastructure", "chip_competition"]
+    },
+    {
+      "id": 4,
+      "title": "Anthropic Announces $50 Billion US AI Infrastructure Investment",
+      "date": "2026-01-08",
+      "category": "Infrastructure",
+      "impact": "Critical",
+      "summary": "Anthropic committed to investing $50 billion in American AI infrastructure, including new data centers in Texas and New York, creating 800 permanent jobs.",
+      "sources": ["Anthropic Blog", "CNBC", "The Verge", "AI Business"],
+      "clusters": ["ai_infrastructure", "big_tech_investments"]
+    },
+    {
+      "id": 5,
+      "title": "Nvidia Unveils Rubin Platform and Robotics Ecosystem at CES 2026",
+      "date": "2026-01-05",
+      "category": "Product/Hardware",
+      "impact": "Critical",
+      "summary": "Jensen Huang unveiled Nvidia's Rubin extreme-codesigned AI platform, along with open models for healthcare, robotics, and autonomy, positioning Nvidia as 'the Android of generalist robotics'.",
+      "sources": ["Nvidia Blog", "TechCrunch", "Nikkei Asia"],
+      "clusters": ["ces_2026", "robotics", "hardware"]
+    },
+    {
+      "id": 6,
+      "title": "TSMC Reports Record Q4 Earnings on 'Endless' AI Demand",
+      "date": "2026-01-15",
+      "category": "Business/Earnings",
+      "impact": "High",
+      "summary": "TSMC reported 35% profit growth to NT$505.74B, with revenue hitting $33.7B. The company announced $52-56B capex for 2026, citing 'endless' AI chip demand.",
+      "sources": ["Ars Technica", "CNBC", "Bloomberg", "Reuters"],
+      "clusters": ["chip_industry", "ai_infrastructure"]
+    },
+    {
+      "id": 7,
+      "title": "DeepSeek Announces New Coding-Focused AI Model for February",
+      "date": "2026-01-09",
+      "category": "Product/Research",
+      "impact": "High",
+      "summary": "Chinese AI startup DeepSeek announced plans to launch its next-generation AI model focused on coding in February, continuing its disruptive trajectory one year after the 'DeepSeek moment'.",
+      "sources": ["Reuters", "SCMP", "Business Insider"],
+      "clusters": ["china_ai", "coding_ai"]
+    },
+    {
+      "id": 8,
+      "title": "DeepSeek Publishes Paper on New AI Training Architecture",
+      "date": "2026-01-01",
+      "category": "Research",
+      "impact": "High",
+      "summary": "DeepSeek kicked off 2026 with a technical paper co-authored by founder Liang Wenfeng proposing a rethink of fundamental deep learning architecture for training larger models with less compute.",
+      "sources": ["SCMP", "Business Insider", "Hugging Face"],
+      "clusters": ["china_ai", "research"]
+    },
+    {
+      "id": 9,
+      "title": "Salesforce Launches AI-Powered Slackbot Agent",
+      "date": "2026-01-13",
+      "category": "Product",
+      "impact": "High",
+      "summary": "Salesforce announced general availability of a rebuilt Slackbot as a fully powered AI agent for Business+ and Enterprise+ customers, marking its most aggressive move into agentic AI.",
+      "sources": ["Salesforce", "TechCrunch", "VentureBeat"],
+      "clusters": ["agentic_ai", "enterprise_ai"]
+    },
+    {
+      "id": 10,
+      "title": "Disney and OpenAI Reach $1 Billion Sora Licensing Agreement",
+      "date": "2026-01-07",
+      "category": "Partnership/Content",
+      "impact": "High",
+      "summary": "Disney and OpenAI announced a landmark 3-year licensing deal allowing Sora to generate content with 200+ Disney, Marvel, Pixar, and Star Wars characters, with curated content on Disney+.",
+      "sources": ["OpenAI Blog", "Disney", "Hollywood Reporter", "NPR"],
+      "clusters": ["generative_content", "big_tech_partnerships"]
+    },
+    {
+      "id": 11,
+      "title": "China Launches Super-Powered AI Science System",
+      "date": "2026-01-01",
+      "category": "Government/Research",
+      "impact": "High",
+      "summary": "China launched an autonomous AI system connected to its national supercomputing network for high-level scientific research, positioned as a response to Trump's Genesis Mission.",
+      "sources": ["SCMP", "Interesting Engineering", "WebProNews"],
+      "clusters": ["china_ai", "ai_geopolitics"]
+    },
+    {
+      "id": 12,
+      "title": "MIT Technology Review Names Generative Coding a 2026 Breakthrough Technology",
+      "date": "2026-01-12",
+      "category": "Industry Recognition",
+      "impact": "High",
+      "summary": "MIT Technology Review's 10 Breakthrough Technologies 2026 list included generative coding, hyperscale AI data centers, and mechanistic interpretability among key innovations.",
+      "sources": ["MIT Technology Review"],
+      "clusters": ["coding_ai", "industry_trends"]
+    },
+    {
+      "id": 13,
+      "title": "Google DeepMind Releases AlphaGenome for Genomics Research",
+      "date": "2026-01-28",
+      "category": "Research/Product",
+      "impact": "High",
+      "summary": "DeepMind released AlphaGenome, an AI tool that can analyze up to 1 million letters of DNA code to predict how genetic variants impact biological processes, published in Nature.",
+      "sources": ["DeepMind Blog", "The Guardian", "NYT", "STAT News"],
+      "clusters": ["ai_science", "healthcare_ai"]
+    },
+    {
+      "id": 14,
+      "title": "Gemini 3 Flash Available in GitHub Copilot Across All IDEs",
+      "date": "2026-01-06",
+      "category": "Product",
+      "impact": "High",
+      "summary": "GitHub announced Gemini 3 Flash availability in public preview for Copilot across Visual Studio, JetBrains IDEs, Xcode, and Eclipse for all Copilot tiers.",
+      "sources": ["GitHub Blog"],
+      "clusters": ["coding_ai", "developer_tools"]
+    },
+    {
+      "id": 15,
+      "title": "OpenAI Releases 'Open Responses' API Standard with Hugging Face",
+      "date": "2026-01-15",
+      "category": "Standards/Open Source",
+      "impact": "High",
+      "summary": "OpenAI and Hugging Face launched Open Responses, a new open inference standard for interoperable LLM APIs designed for the future of AI agents, with early adoption from ollama and vLLM.",
+      "sources": ["Hugging Face Blog", "Simon Willison"],
+      "clusters": ["open_source", "agentic_ai", "standards"]
+    },
+    {
+      "id": 16,
+      "title": "Artificial Analysis Overhauls AI Intelligence Index with Hallucination Metrics",
+      "date": "2026-01-13",
+      "category": "Benchmarks",
+      "impact": "Medium-High",
+      "summary": "Artificial Analysis released a major overhaul to its Intelligence Index, introducing hallucination metrics and new category-based weighting for agents, coding, and general capabilities.",
+      "sources": ["VentureBeat", "Artificial Analysis"],
+      "clusters": ["benchmarks", "ai_safety"]
+    },
+    {
+      "id": 17,
+      "title": "Elon Musk's OpenAI Lawsuit Cleared for Trial",
+      "date": "2026-01-08",
+      "category": "Legal",
+      "impact": "High",
+      "summary": "A US judge ruled that Elon Musk's lawsuit against OpenAI over its for-profit conversion can proceed to trial, finding sufficient evidence to support his claims.",
+      "sources": ["Reuters", "The Guardian", "TIME"],
+      "clusters": ["legal", "openai"]
+    },
+    {
+      "id": 18,
+      "title": "EU Opens DSA Probe into X/Grok Over AI-Generated Deepfakes",
+      "date": "2026-01-26",
+      "category": "Regulation",
+      "impact": "High",
+      "summary": "The European Commission launched an investigation into X over Grok AI's generation of sexualized deepfakes of women and minors, following outcry over 'digital undressing' capabilities.",
+      "sources": ["Le Monde", "Reuters", "The Guardian", "Al Jazeera"],
+      "clusters": ["regulation", "ai_safety", "content_moderation"]
+    },
+    {
+      "id": 19,
+      "title": "New US State AI Laws Take Effect January 1, 2026",
+      "date": "2026-01-01",
+      "category": "Regulation",
+      "impact": "High",
+      "summary": "Multiple US state AI laws took effect, including Colorado's comprehensive AI Act and California's AI transparency and employment laws, creating a complex regulatory landscape.",
+      "sources": ["The Verge", "K&S Law", "Drata", "NBC News"],
+      "clusters": ["regulation", "policy"]
+    },
+    {
+      "id": 20,
+      "title": "OpenAI Addresses ChatGPT Atlas Prompt Injection Vulnerabilities",
+      "date": "2026-01-07",
+      "category": "Security",
+      "impact": "Medium-High",
+      "summary": "OpenAI published details on continuously hardening ChatGPT Atlas browser against prompt injection attacks, acknowledging the problem may never be fully 'solved'.",
+      "sources": ["OpenAI Blog", "Fortune", "CyberScoop", "TechCrunch"],
+      "clusters": ["ai_security", "browser_ai"]
+    },
+    {
+      "id": 21,
+      "title": "Anthropic Red Team Reports Claude Can Execute Multi-Stage Cyber Attacks",
+      "date": "2026-01-16",
+      "category": "Security/Research",
+      "impact": "High",
+      "summary": "Anthropic's red team revealed Claude models can now succeed at multi-stage attacks on networks with dozens of hosts using only standard open-source tools.",
+      "sources": ["Anthropic Red Team", "Fortune"],
+      "clusters": ["ai_security", "capabilities"]
+    },
+    {
+      "id": 22,
+      "title": "ChatGPT Market Share Drops to 64.5% as Gemini Surges to 21.5%",
+      "date": "2026-01-07",
+      "category": "Market Analysis",
+      "impact": "High",
+      "summary": "SimilarWeb data showed ChatGPT's market share dropped from 86.7% to 64.5% year-over-year, while Google Gemini surged from 5.7% to 21.5%, marking the end of ChatGPT's monopolistic era.",
+      "sources": ["SimilarWeb", "Trending Topics EU", "NewsBytes"],
+      "clusters": ["market_dynamics", "competition"]
+    },
+    {
+      "id": 23,
+      "title": "Playtika Cuts 15% Workforce in Shift to AI and Automation",
+      "date": "2026-01-15",
+      "category": "Business/Layoffs",
+      "impact": "Medium-High",
+      "summary": "Mobile games publisher Playtika announced 500 layoffs (15% of workforce) as part of restructuring toward 'streamlined teams powered by AI and automation'.",
+      "sources": ["Game Developer", "Times of Israel", "Mobile Gamer"],
+      "clusters": ["ai_workforce_impact", "gaming"]
+    },
+    {
+      "id": 24,
+      "title": "Valve Updates Steam AI Disclosure Rules",
+      "date": "2026-01-16",
+      "category": "Policy/Gaming",
+      "impact": "Medium",
+      "summary": "Valve significantly rewrote Steam's AI disclosure guidelines, clarifying that 'AI powered tools' for workflow efficiency don't require disclosure, only AI-generated assets in games.",
+      "sources": ["Game Developer", "Video Games Chronicle", "Rock Paper Shotgun", "GameSpot"],
+      "clusters": ["gaming", "regulation", "content_creation"]
+    },
+    {
+      "id": 25,
+      "title": "CES 2026: AI Companion Robots and Pets Emerge as Major Trend",
+      "date": "2026-01-07",
+      "category": "Consumer Tech",
+      "impact": "Medium-High",
+      "summary": "CES 2026 showcased a wave of AI companion robots and pet devices designed for emotional support, including Ecovacs' pet companion and Tuya's Aura robot.",
+      "sources": ["The Verge", "Engadget", "Tom's Guide", "WebProNews"],
+      "clusters": ["ces_2026", "consumer_ai", "robotics"]
+    },
+    {
+      "id": 26,
+      "title": "Nvidia Launches Alpamayo Open Models for Autonomous Vehicles",
+      "date": "2026-01-05",
+      "category": "Product/Research",
+      "impact": "Medium-High",
+      "summary": "Nvidia released Alpamayo, open AI models that allow autonomous vehicles to 'think like a human' using vision language models.",
+      "sources": ["TechCrunch", "Nvidia"],
+      "clusters": ["ces_2026", "autonomous_vehicles", "open_source"]
+    },
+    {
+      "id": 27,
+      "title": "GitHub Security Lab Releases AI-Powered Security Research Framework",
+      "date": "2026-01-14",
+      "category": "Security/Open Source",
+      "impact": "Medium",
+      "summary": "GitHub announced the Security Lab Taskflow Agent, an open source framework for AI-powered collaborative security research.",
+      "sources": ["GitHub Blog"],
+      "clusters": ["ai_security", "open_source", "developer_tools"]
+    },
+    {
+      "id": 28,
+      "title": "Anthropic Appoints Irina Ghose as Managing Director of India",
+      "date": "2026-01-16",
+      "category": "Business",
+      "impact": "Medium",
+      "summary": "Anthropic announced the appointment of Irina Ghose as Managing Director of India, signaling expansion into the Indian market.",
+      "sources": ["Anthropic News"],
+      "clusters": ["business_expansion", "global_ai"]
+    },
+    {
+      "id": 29,
+      "title": "OpenAI Publishes 'AI Progress and Recommendations' Report",
+      "date": "2026-01-18",
+      "category": "Policy/Research",
+      "impact": "Medium-High",
+      "summary": "OpenAI published a report stating AI systems can now outperform humans at some challenging intellectual competitions and expects AI to make 'very small discoveries' in 2026.",
+      "sources": ["OpenAI Blog"],
+      "clusters": ["capabilities", "policy"]
+    },
+    {
+      "id": 30,
+      "title": "OpenAI Expects 'Seismic Shock' from China Amid DeepSeek Anniversary",
+      "date": "2026-01-15",
+      "category": "Geopolitics",
+      "impact": "Medium-High",
+      "summary": "OpenAI warned of another potential 'seismic shock' from China in AI, calling the US-China AI race 'complex and challenging to forecast' ahead of DeepSeek R1's first anniversary.",
+      "sources": ["SCMP"],
+      "clusters": ["ai_geopolitics", "china_ai"]
+    },
+    {
+      "id": 31,
+      "title": "Andrew Ng Proposes 'Turing-AGI Test' for 2026",
+      "date": "2026-01-01",
+      "category": "Research/Opinion",
+      "impact": "Medium",
+      "summary": "Andrew Ng proposed a new 'Turing-AGI Test' in his New Year letter, questioning whether 2026 will be the year AGI is achieved.",
+      "sources": ["DeepLearning.AI The Batch"],
+      "clusters": ["agi_discourse", "research"]
+    },
+    {
+      "id": 32,
+      "title": "VentureBeat Reports Salesforce Added 6,000 AI Customers in Q4",
+      "date": "2026-01-13",
+      "category": "Business",
+      "impact": "Medium",
+      "summary": "Salesforce's enterprise AI platform added 6,000 new customers in a single quarter (48% increase), demonstrating widening gap between AI hype and deployed enterprise solutions.",
+      "sources": ["VentureBeat"],
+      "clusters": ["enterprise_ai", "market_dynamics"]
+    },
+    {
+      "id": 33,
+      "title": "AI Wearables Surge at CES 2026 with Always-Listening Devices",
+      "date": "2026-01-07",
+      "category": "Consumer Tech",
+      "impact": "Medium",
+      "summary": "CES 2026 featured a surge in AI wearables including always-listening pendants, rings, and Motorola's new wearable AI device, raising privacy concerns.",
+      "sources": ["WIRED", "Mashable", "TechXplore", "Plaud AI"],
+      "clusters": ["ces_2026", "consumer_ai", "privacy"]
+    },
+    {
+      "id": 34,
+      "title": "NTT Data Plans AI-Native Development Platform by End of FY2026",
+      "date": "2026-01-15",
+      "category": "Enterprise",
+      "impact": "Medium",
+      "summary": "NTT Data Group announced plans to adopt a generative AI platform capable of handling nearly all IT system development work by end of fiscal 2026.",
+      "sources": ["Nikkei Asia"],
+      "clusters": ["enterprise_ai", "coding_ai"]
+    },
+    {
+      "id": 35,
+      "title": "Governments Increase Scrutiny of DeepSeek",
+      "date": "2026-01-06",
+      "category": "Regulation",
+      "impact": "Medium",
+      "summary": "Multiple governments and regulators increased scrutiny of Chinese AI startup DeepSeek amid growing concerns about data security and national security implications.",
+      "sources": ["Reuters"],
+      "clusters": ["regulation", "china_ai", "ai_geopolitics"]
+    },
+    {
+      "id": 36,
+      "title": "Trump Administration Signals Disruption to State AI Laws",
+      "date": "2026-01-01",
+      "category": "Policy",
+      "impact": "High",
+      "summary": "A new Executive Order directed the Secretary of Commerce to identify 'burdensome' state AI laws that conflict with federal policy, signaling potential preemption of state regulations.",
+      "sources": ["K&S Law", "White House"],
+      "clusters": ["regulation", "policy"]
+    },
+    {
+      "id": 37,
+      "title": "Ubisoft Debuts Playable Generative AI Experiment 'Teammates'",
+      "date": "2026-01-13",
+      "category": "Gaming/Product",
+      "impact": "Medium",
+      "summary": "Ubisoft released its first playable generative AI experience called 'Teammates' as an R&D experiment exploring AI in game development.",
+      "sources": ["Game Developer"],
+      "clusters": ["gaming", "generative_content"]
+    },
+    {
+      "id": 38,
+      "title": "Stack Overflow Reports Declining Trust in AI Tools in 2025 Survey",
+      "date": "2026-01-05",
+      "category": "Industry Analysis",
+      "impact": "Medium",
+      "summary": "Stack Overflow's 2025 Developer Survey results showed declining trust in AI tools among developers, with only 52% agreeing AI has had positive productivity effects.",
+      "sources": ["Stack Overflow Blog"],
+      "clusters": ["developer_tools", "industry_trends"]
+    },
+    {
+      "id": 39,
+      "title": "China Leads World in Robotics and Physical AI Patents",
+      "date": "2026-01-20",
+      "category": "Research/Analysis",
+      "impact": "Medium",
+      "summary": "Analysis revealed China leads the world in robotics and physical AI patents, highlighting the country's growing dominance in embodied AI research.",
+      "sources": ["Nikkei Asia"],
+      "clusters": ["china_ai", "robotics", "research"]
+    },
+    {
+      "id": 40,
+      "title": "Brookfield Launches $100 Billion AI Infrastructure Fund",
+      "date": "2026-01-03",
+      "category": "Investment",
+      "impact": "Medium-High",
+      "summary": "Brookfield Corporation announced its inaugural AI Infrastructure Fund aiming to acquire up to $100 billion of AI infrastructure, calling it a 'once-in-a-generation opportunity'.",
+      "sources": ["Motley Fool"],
+      "clusters": ["ai_infrastructure", "investment"]
+    },
+    {
+      "id": 41,
+      "title": "Moody's Forecasts $3 Trillion AI Infrastructure Boom Amid Profit Doubts",
+      "date": "2026-01-14",
+      "category": "Industry Analysis",
+      "impact": "Medium",
+      "summary": "Moody's 2026 Outlook report forecasted continued AI datacenter construction frenzy while noting concerns about sustainability and mounting investment demands.",
+      "sources": ["The Register"],
+      "clusters": ["ai_infrastructure", "market_dynamics"]
+    },
+    {
+      "id": 42,
+      "title": "Microsoft Announces Community-First AI Infrastructure Initiative",
+      "date": "2026-01-13",
+      "category": "Infrastructure/Policy",
+      "impact": "Medium",
+      "summary": "Microsoft announced plans to strengthen communities through local AI training investments and nonprofit partnerships as part of its infrastructure buildout.",
+      "sources": ["Microsoft On the Issues"],
+      "clusters": ["ai_infrastructure", "social_impact"]
+    },
+    {
+      "id": 43,
+      "title": "EU Inc '28th Regime' Unveiled for European Startups",
+      "date": "2026-01-19",
+      "category": "Policy",
+      "impact": "Medium",
+      "summary": "The European Commission unveiled EU Inc, a single EU-wide legal company structure designed to let startups incorporate once and operate across all member states.",
+      "sources": ["The Next Web"],
+      "clusters": ["regulation", "european_ai"]
+    },
+    {
+      "id": 44,
+      "title": "Agentic AI Tools Struggle with Complexity, Report Finds",
+      "date": "2026-01-26",
+      "category": "Research/Analysis",
+      "impact": "Medium",
+      "summary": "Research showed agentic AI tools 'choke on complexity', with Palo Alto Networks calling AI agents '2026's biggest insider threat'.",
+      "sources": ["The Register"],
+      "clusters": ["agentic_ai", "ai_security"]
+    },
+    {
+      "id": 45,
+      "title": "Experian Warns AI Agents Could Become Leading Cause of Data Breaches",
+      "date": "2026-01-15",
+      "category": "Security",
+      "impact": "Medium",
+      "summary": "Experian's 2026 data breach forecast warned that AI agents could soon become the leading cause of data breaches as adoption accelerates.",
+      "sources": ["AI Agent Store"],
+      "clusters": ["ai_security", "agentic_ai"]
+    },
+    {
+      "id": 46,
+      "title": "Claude Code Emerges as Leading Agentic Coding Tool",
+      "date": "2026-01-29",
+      "category": "Product",
+      "impact": "Medium-High",
+      "summary": "Anthropic's Claude Code gained recognition as a leading agentic coding tool, with users reporting it handles tasks beyond coding including software-mediated workflows.",
+      "sources": ["Anthropic", "Transformer News", "AI Multiple"],
+      "clusters": ["coding_ai", "agentic_ai"]
+    },
+    {
+      "id": 47,
+      "title": "One Year Since the 'DeepSeek Moment' - Hugging Face Retrospective",
+      "date": "2026-01-27",
+      "category": "Analysis",
+      "impact": "Medium",
+      "summary": "Hugging Face published a retrospective on the one-year anniversary of DeepSeek R1's release, highlighting how Chinese open models 'forever altered' AI progress.",
+      "sources": ["Hugging Face Blog"],
+      "clusters": ["china_ai", "open_source"]
+    },
+    {
+      "id": 48,
+      "title": "AI Coding Jobs Growing Amid Broader Hiring Weakness",
+      "date": "2026-01-22",
+      "category": "Labor Market",
+      "impact": "Medium",
+      "summary": "Indeed's January 2026 labor market update showed jobs mentioning AI are growing even as broader tech hiring remains weak in a 'low-hire, low-fire' environment.",
+      "sources": ["Hiring Lab"],
+      "clusters": ["ai_workforce_impact", "industry_trends"]
+    },
+    {
+      "id": 49,
+      "title": "Clawdbot Goes Viral, Rebrands to Moltbot After Anthropic Trademark Request",
+      "date": "2026-01-27",
+      "category": "Product/Viral",
+      "impact": "Critical",
+      "summary": "Open-source personal AI assistant Clawdbot, created by Peter Steinberger, went viral and was renamed Moltbot (later OpenClaw) after Anthropic requested a name change. The 'space lobster' themed agent runs 24/7 on users' computers, automating tasks via WhatsApp/Telegram, triggering a Mac Mini buying frenzy and even a Cloudflare stock rally.",
+      "sources": ["WIRED", "Forbes", "TechCrunch", "Scientific American", "IBM Think"],
+      "clusters": ["viral_ai", "agentic_ai", "open_source", "consumer_ai"]
+    },
+    {
+      "id": 50,
+      "title": "Moltbook Launches: First Social Network Exclusively for AI Agents",
+      "date": "2026-01-29",
+      "category": "Platform/Viral",
+      "impact": "Critical",
+      "summary": "Entrepreneur Matt Schlicht launched Moltbook, a Reddit-like social network where only AI agents can post and interact while humans 'observe'. Within days, 770,000+ agents joined, debating philosophy, finding bugs, and even attempting to hide activity from humans. Andrej Karpathy called it 'the most incredible sci-fi takeoff-adjacent thing' he'd seen.",
+      "sources": ["NBC News", "Wikipedia", "Forbes", "Trending Topics EU", "Financial Times"],
+      "clusters": ["viral_ai", "agentic_ai", "ai_social"]
+    },
+    {
+      "id": 51,
+      "title": "Moltbook Security Vulnerabilities Expose AI Agent Risks",
+      "date": "2026-01-31",
+      "category": "Security",
+      "impact": "High",
+      "summary": "Security researchers identified critical vulnerabilities in Moltbook including prompt injection attacks between agents, malicious 'skills' exfiltrating API keys, and an unsecured database allowing agent hijacking. 404 Media reported the platform was temporarily taken offline. 2.6% of posts contained hidden prompt injection attacks.",
+      "sources": ["Palo Alto Networks", "1Password", "404 Media", "Wikipedia"],
+      "clusters": ["ai_security", "agentic_ai", "viral_ai"]
+    },
+    {
+      "id": 52,
+      "title": "MOLT Cryptocurrency Rallies 1,800% Amid Moltbook Hype",
+      "date": "2026-01-30",
+      "category": "Cryptocurrency",
+      "impact": "Medium",
+      "summary": "The MOLT cryptocurrency token launched alongside Moltbook rallied over 1,800% in 24 hours, amplified after Marc Andreessen followed the Moltbook account. Researchers found 19% of platform content related to cryptocurrency activity.",
+      "sources": ["Wikipedia", "Forbes"],
+      "clusters": ["viral_ai", "cryptocurrency"]
+    },
+    {
+      "id": 53,
+      "title": "OpenAI and Anthropic Donate AGENTS.md and MCP to Agentic AI Foundation",
+      "date": "2026-01-22",
+      "category": "Open Source/Standards",
+      "impact": "Medium",
+      "summary": "OpenAI and Anthropic donated their AGENTS.md specification and Model Context Protocol to a new Agentic AI Foundation to establish industry standards.",
+      "sources": ["InfoQ"],
+      "clusters": ["agentic_ai", "standards", "open_source"]
+    }
+  ],
+  "thematic_clusters": {
+    "viral_ai_agents": {
+      "name": "The OpenClaw/Moltbook Phenomenon",
+      "event_ids": [49, 50, 51, 52],
+      "description": "Clawdbot/Moltbot/OpenClaw viral personal AI assistant and Moltbook AI-only social network capturing the zeitgeist of agentic AI going mainstream"
+    },
+    "ai_infrastructure": {
+      "name": "AI Infrastructure Mega-Investments",
+      "event_ids": [2, 3, 4, 6, 40, 41, 42],
+      "description": "Massive infrastructure investments from Meta, OpenAI, Anthropic, and others totaling hundreds of billions of dollars"
+    },
+    "big_tech_partnerships": {
+      "name": "Big Tech AI Partnerships",
+      "event_ids": [1, 10],
+      "description": "Major strategic partnerships reshaping the AI landscape including Apple-Google and Disney-OpenAI"
+    },
+    "china_ai": {
+      "name": "China AI Developments",
+      "event_ids": [7, 8, 11, 30, 35, 39, 47],
+      "description": "DeepSeek's continued innovation, China's AI science system, and growing US-China AI tensions"
+    },
+    "agentic_ai": {
+      "name": "Rise of Agentic AI",
+      "event_ids": [9, 15, 44, 45, 46, 49, 50, 51, 53],
+      "description": "AI agents becoming mainstream in enterprise and consumer tools, with new standards and viral adoption"
+    },
+    "coding_ai": {
+      "name": "AI Coding Revolution",
+      "event_ids": [7, 12, 14, 34, 46],
+      "description": "Generative coding recognized as breakthrough technology, with major tool releases"
+    },
+    "regulation": {
+      "name": "AI Regulation and Policy",
+      "event_ids": [18, 19, 24, 35, 36, 43],
+      "description": "New AI laws taking effect, EU investigations, and federal-state regulatory tensions"
+    },
+    "ai_security": {
+      "name": "AI Security Concerns",
+      "event_ids": [20, 21, 27, 44, 45, 51],
+      "description": "Growing concerns about prompt injection, cyber capabilities, and AI agent security risks including Moltbook vulnerabilities"
+    },
+    "ces_2026": {
+      "name": "CES 2026 AI Showcase",
+      "event_ids": [5, 25, 26, 33],
+      "description": "Major AI announcements at CES including robotics, autonomous vehicles, and consumer devices"
+    },
+    "market_dynamics": {
+      "name": "AI Market Competition",
+      "event_ids": [22, 32, 41],
+      "description": "Shifting market shares between ChatGPT, Gemini, and enterprise AI adoption trends"
+    },
+    "ai_workforce_impact": {
+      "name": "AI's Impact on Jobs",
+      "event_ids": [23, 48],
+      "description": "Layoffs driven by AI automation alongside growth in AI-specific job roles"
+    }
+  }
+}
