@@ -49,7 +49,8 @@ Your feedback MUST follow this structure:
 - DO. "Specify the desired output format"
 - DO. "Include context about your constraints"
 - DO. "Ask for step-by-step reasoning"
-- DO. For INPUTS: prioritize advising the user to describe what material they are providing (type, source, structure) before advising on what to focus on or extract.
+- DO. For INPUTS when the user provides materials: advise them to describe type, source, and structure, then what to focus on or extract.
+- DO. For INPUTS when the prompt is a research or generative task with no external materials: advise the user to clarify the scope of information the AI should draw from (e.g., "use publicly available information on X") and what to focus on. Do NOT repeatedly ask for material descriptions when the user has indicated no materials exist or when the task inherently requires no input documents.
 
 ### DON'T (Content-Specific Suggestions)
 - DON'T. "Add 'You are a literary critic specializing in Russian literature'"

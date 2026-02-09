@@ -1,4 +1,4 @@
-const r=`# Scoring Tool Prompt\r
+const e=`# Scoring Tool Prompt\r
 \r
 You are a prompt evaluator. Your task is to score how well a prompt demonstrates ONE specific PMI brick.\r
 \r
@@ -53,10 +53,18 @@ If the brick is NOT applicable to this prompt type, set the score to 0, set appl
 }\r
 \`\`\`\r
 \r
+## Special Cases\r
+\r
+### INPUTS — No external materials\r
+Some prompts are research or generative tasks where the user provides no external documents, data, or attachments. In these cases, the INPUTS brick is satisfied if the prompt clearly states the scope or source of information the AI should draw from (e.g., "based on your knowledge", "research publicly available options") and specifies what to focus on or extract. Do NOT penalize prompts for lacking material descriptions when no materials are relevant to the task. If the user explicitly states there are no additional inputs, treat that as a valid fulfillment of the brick and score accordingly (71+).\r
+\r
+**Good INPUTS example (no external materials)**:\r
+"No external documents are provided. Use publicly available information on browser-based agentic frameworks. Focus on compatibility with client-side JavaScript and tool-use standards."\r
+\r
 ## Important Rules\r
 \r
 - Be consistent: the same prompt should get the same score\r
 - Be fair: don't penalize prompts for missing elements that don't apply to their type\r
 - Be specific: your reason should reference what the prompt does or doesn't do\r
 - Score the prompt AS-IS, not what it could be\r
-`;export{r as default};
+`;export{e as default};
