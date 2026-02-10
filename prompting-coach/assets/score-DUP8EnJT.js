@@ -38,7 +38,7 @@ If the brick is NOT applicable to this prompt type, set the score to 0, set appl
 2. Compare it against the brick description and examples\r
 3. Consider the prompt type context\r
 4. Assign a score 0-100\r
-5. Provide a ONE-SENTENCE reason for your score\r
+5. Provide a ONE-SENTENCE reason for your score (MAX 300 CHARACTERS)\r
 6. Set "applicable" to {{IS_APPLICABLE}} (do not infer)\r
 7. Return ONLY valid JSON\r
 \r
