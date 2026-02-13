@@ -17,6 +17,22 @@
     </url>
     -->
     <url>
+        <loc>/?post=2026-02-13-engineering-magic</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-02-13-engineering-magic"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-02-13-engineering-magic&amp;lang=sr"/>
+    </url>
+    <url>
+        <loc>/?post=2026-02-13-engineering-magic&amp;lang=sr</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-02-13-engineering-magic"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-02-13-engineering-magic&amp;lang=sr"/>
+    </url>
+    <url>
         <loc>/?post=2026-01-zeitgeist</loc>
         <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
