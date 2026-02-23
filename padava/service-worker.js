@@ -4,7 +4,7 @@
  * @module service-worker
  */
 
-const CACHE_NAME = 'padava-v1';
+const CACHE_NAME = 'padava-v2';
 
 const STATIC_ASSETS = [
     './',
@@ -20,6 +20,10 @@ const STATIC_ASSETS = [
     './src/css/reset.css',
     './src/css/layout.css',
     './src/css/components.css',
+    './src/css/editor.css',
+    './src/css/app-bar.css',
+    './src/css/navigation-drawer.css',
+    './src/css/dialog.css',
     './src/css/responsive.css',
     './lib/material-icons/material-icons.css',
     './lib/material-icons/MaterialSymbolsOutlined-Regular.ttf'
