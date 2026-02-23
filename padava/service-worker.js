@@ -7,22 +7,22 @@
 const CACHE_NAME = 'padava-v1';
 
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/manifest.json',
-    '/favicon.svg',
-    '/icons/app-icon-32px.png',
-    '/icons/app-icon-180px.png',
-    '/icons/app-icon-192px.png',
-    '/icons/app-icon-512px.png',
-    '/src/app.js',
-    '/src/css/variables.css',
-    '/src/css/reset.css',
-    '/src/css/layout.css',
-    '/src/css/components.css',
-    '/src/css/responsive.css',
-    '/lib/material-icons/material-icons.css',
-    '/lib/material-icons/MaterialSymbolsOutlined-Regular.ttf'
+    './',
+    './index.html',
+    './manifest.json',
+    './favicon.svg',
+    './icons/app-icon-32px.png',
+    './icons/app-icon-180px.png',
+    './icons/app-icon-192px.png',
+    './icons/app-icon-512px.png',
+    './src/app.js',
+    './src/css/variables.css',
+    './src/css/reset.css',
+    './src/css/layout.css',
+    './src/css/components.css',
+    './src/css/responsive.css',
+    './lib/material-icons/material-icons.css',
+    './lib/material-icons/MaterialSymbolsOutlined-Regular.ttf'
 ];
 
 /**
