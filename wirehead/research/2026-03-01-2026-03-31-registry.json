@@ -1,0 +1,552 @@
+{
+  "period": {
+    "start_date": "2026-03-01",
+    "end_date": "2026-03-31"
+  },
+  "generated_at": "2026-04-20",
+  "total_events": 50,
+  "events": [
+    {
+      "id": 1,
+      "date": "2026-03-05",
+      "title": "OpenAI launches GPT-5.4 with Pro and Thinking variants",
+      "summary": "OpenAI released GPT-5.4, its most capable frontier model, in three variants: Standard (high-volume API), Thinking (extended chain-of-thought reasoning), and Pro (maximum capability with 1M token context). Features five-level reasoning effort control and a native Computer Use API scoring 75% on OSWorld.",
+      "impact": "very high",
+      "sources": ["TechCrunch", "Ars Technica", "The Verge", "VentureBeat"],
+      "cluster": "frontier_model_releases"
+    },
+    {
+      "id": 2,
+      "date": "2026-03-20",
+      "title": "Google releases Gemini 3.1 Ultra with native multimodal reasoning",
+      "summary": "Gemini 3.1 Ultra launched with a 2-million token context window across all modalities (text, image, audio, video), real-time audio understanding without transcription, and a new Code Execution tool for sandboxed mid-conversation code testing. Designed from training to reason natively across modalities.",
+      "impact": "very high",
+      "sources": ["Google Blog", "TechCrunch", "The Verge", "VentureBeat"],
+      "cluster": "frontier_model_releases"
+    },
+    {
+      "id": 3,
+      "date": "2026-03-03",
+      "title": "xAI releases Grok 4.20 Beta 2 with real-time data integration",
+      "summary": "Grok 4.20 Beta 2 launched with deep integration into X's real-time data stream and improved source attribution. Scored highest among all March frontier model releases on benchmarks measuring accuracy on news published within the prior 30 days. Features 2M token context window and agentic tool calling.",
+      "impact": "high",
+      "sources": ["TechCrunch", "Ars Technica", "The Verge"],
+      "cluster": "frontier_model_releases"
+    },
+    {
+      "id": 4,
+      "date": "2026-03-16",
+      "title": "Mistral releases Small 4: 119B MoE model under Apache 2.0",
+      "summary": "Mistral Small 4, a 119B-parameter Mixture-of-Experts model (6B active), launched under Apache 2.0 license. Collapses four previously separate Mistral products into one. Features 256K context window, configurable reasoning, multimodal text-image support, 40% latency cut over Small 3. Topped open-source benchmarks.",
+      "impact": "very high",
+      "sources": ["Mistral AI Blog", "TechCrunch", "Hugging Face", "Hacker News"],
+      "cluster": "open_source_models"
+    },
+    {
+      "id": 5,
+      "date": "2026-03-02",
+      "title": "Alibaba Qwen 3.5 Small Model Series launches",
+      "summary": "Alibaba's Qwen team released the Qwen 3.5 Small Model Series, completing a rapid rollout of nine models. The 9B model outperforms prior Qwen3-30B (3x larger) on MMLU-Pro, GPQA Diamond, and LongBench.",
+      "impact": "high",
+      "sources": ["Hugging Face", "r/MachineLearning", "Papers with Code"],
+      "cluster": "open_source_models"
+    },
+    {
+      "id": 6,
+      "date": "2026-03-30",
+      "title": "Alibaba releases Qwen3.5-Omni native multimodal model",
+      "summary": "Qwen3.5-Omni launched as a native end-to-end omnimodal architecture supporting text, audio, video, and real-time interaction. Includes speech generation, native web search, and function calling. Directly competes with Google Gemini's multimodal capabilities.",
+      "impact": "high",
+      "sources": ["Hugging Face", "r/MachineLearning", "Papers with Code", "Hacker News"],
+      "cluster": "open_source_models"
+    },
+    {
+      "id": 7,
+      "date": "2026-03-05",
+      "title": "Pentagon officially designates Anthropic as supply chain risk",
+      "summary": "The US Department of War confirmed Anthropic's designation as a supply chain risk to national security after failing to agree on terms for how Claude could be used. Government announced plans to replace all Claude use within six months. Anthropic immediately filed suit.",
+      "impact": "very high",
+      "sources": ["CNN", "CNBC", "BBC", "Anthropic Blog", "TechCrunch"],
+      "cluster": "anthropic_pentagon_conflict"
+    },
+    {
+      "id": 8,
+      "date": "2026-03-26",
+      "title": "Federal judge blocks Pentagon's supply chain risk designation of Anthropic",
+      "summary": "A federal judge in California indefinitely blocked the Pentagon's effort to label Anthropic a supply chain risk, ruling the designation was punitive. The injunction preserves Anthropic's ability to work with government agencies as the case moves forward.",
+      "impact": "very high",
+      "sources": ["CNN", "CNBC", "Reuters", "Ars Technica"],
+      "cluster": "anthropic_pentagon_conflict"
+    },
+    {
+      "id": 9,
+      "date": "2026-03-24",
+      "title": "OpenAI shuts down Sora video generation app and API",
+      "summary": "OpenAI discontinued its Sora video-generation app just six months after public launch, citing unsustainable economics — the compute cost per minute of high-quality video was multiples of what API customers paid. 30-day notice given before shutdown. Redirected enterprise video budgets to competitors.",
+      "impact": "very high",
+      "sources": ["BBC", "TechCrunch", "The Verge", "Ars Technica", "OpenAI Help Center"],
+      "cluster": "sora_shutdown_video_ai"
+    },
+    {
+      "id": 10,
+      "date": "2026-03-25",
+      "title": "Disney cancels $1 billion OpenAI partnership after Sora shutdown",
+      "summary": "Disney's planned $1 billion investment/partnership with OpenAI collapsed following the Sora discontinuation. Disney had been exploring AI video generation for its studios. The deal never fully materialized as OpenAI shifted strategic direction.",
+      "impact": "high",
+      "sources": ["BBC", "Ars Technica", "Deadline", "Hollywood Reporter"],
+      "cluster": "sora_shutdown_video_ai"
+    },
+    {
+      "id": 11,
+      "date": "2026-03-16",
+      "title": "NVIDIA GTC 2026 keynote: Jensen Huang sees $1 trillion in AI demand",
+      "summary": "NVIDIA CEO Jensen Huang opened GTC 2026 (March 16-19) with a keynote framing the token as the basic unit of modern AI. He quantified skyrocketing demand at $1 trillion through 2027, saying NVIDIA would only fulfill it by 2028. Announced Vera Rubin NVL72 rack systems.",
+      "impact": "very high",
+      "sources": ["NVIDIA Blog", "CNBC", "Forbes", "TechCrunch"],
+      "cluster": "nvidia_gtc_enterprise_ai"
+    },
+    {
+      "id": 12,
+      "date": "2026-03-16",
+      "title": "NVIDIA unveils NeMoCLAW enterprise agent orchestration framework",
+      "summary": "NeMoCLAW, NVIDIA's enterprise agent orchestration framework, was demonstrated at GTC running 47-agent pipelines handling end-to-end procurement workflows. Designed for multi-agent systems in controlled business environments with privacy and security controls.",
+      "impact": "high",
+      "sources": ["NVIDIA Blog", "Forbes", "VentureBeat"],
+      "cluster": "nvidia_gtc_enterprise_ai"
+    },
+    {
+      "id": 13,
+      "date": "2026-03-16",
+      "title": "NVIDIA releases OpenCLAW open-source agent framework",
+      "summary": "OpenCLAW, the open-source companion to NeMoCLAW, was released under Apache 2.0 at GTC. Designed for teams building custom agent orchestration without committing to NVIDIA's managed services. Drew immediate community interest.",
+      "impact": "high",
+      "sources": ["NVIDIA Blog", "Forbes", "Hacker News"],
+      "cluster": "nvidia_gtc_enterprise_ai"
+    },
+    {
+      "id": 14,
+      "date": "2026-03-16",
+      "title": "NVIDIA unveils Groq 3 LPU at GTC",
+      "summary": "Jensen Huang unveiled the Groq 3 Language Processing Unit, the first chip from NVIDIA's $20 billion Groq acquisition. Targets 1,500 tokens/sec for agentic AI inference. Not a GPU — a fundamentally different architecture optimized for running, not training, models. Expected to ship Q3 2026.",
+      "impact": "very high",
+      "sources": ["CNBC", "NVIDIA Blog", "TechCrunch"],
+      "cluster": "nvidia_gtc_enterprise_ai"
+    },
+    {
+      "id": 15,
+      "date": "2026-03-16",
+      "title": "GTC 2026 showcases Fortune 500 production agentic deployments",
+      "summary": "Five Fortune 500 companies presented case studies of agentic AI systems in production at scale across logistics, pharma R&D, financial services, manufacturing, and healthcare. All used GPU clusters in the thousands. The conversation shifted from 'is this viable?' to 'how do we govern existing deployments?'",
+      "impact": "high",
+      "sources": ["NVIDIA Blog", "Forbes", "VentureBeat", "InfoQ"],
+      "cluster": "nvidia_gtc_enterprise_ai"
+    },
+    {
+      "id": 16,
+      "date": "2026-03-19",
+      "title": "GTC 2026 Physical AI and humanoid robotics showcase",
+      "summary": "GTC featured extensive humanoid robotics demonstrations including new NVIDIA Isaac simulation frameworks, Cosmos and Isaac GR00T open models. Full-stack cloud-to-robot workflow connecting simulation, robot learning, and edge computing showcased for production-scale physical AI.",
+      "impact": "high",
+      "sources": ["NVIDIA Blog", "The Verge", "TechCrunch"],
+      "cluster": "nvidia_gtc_enterprise_ai"
+    },
+    {
+      "id": 17,
+      "date": "2026-03-25",
+      "title": "MCP crosses 97 million monthly SDK downloads",
+      "summary": "Anthropic's Model Context Protocol reached 97 million monthly SDK downloads, up from ~2 million at launch in November 2024. Every major AI provider now supports MCP. The MCP server registry reached 10,000+ published servers. Security Standard v1.1 published. Faster adoption curve than Kubernetes.",
+      "impact": "very high",
+      "sources": ["Anthropic Blog", "Hacker News", "Dev.to", "Latent Space"],
+      "cluster": "agentic_infrastructure"
+    },
+    {
+      "id": 18,
+      "date": "2026-03-06",
+      "title": "Google releases Workspace CLI with built-in MCP server",
+      "summary": "Google released an open-source Workspace CLI (gws) with native MCP server support and 100+ pre-built agent skills for Drive, Gmail, Calendar, Docs, and Sheets. Gained 10,000+ GitHub stars in its first week and hit #1 on Hacker News. Output is structured JSON for AI agents.",
+      "impact": "high",
+      "sources": ["Google", "Hacker News", "Mashable", "The Next Web"],
+      "cluster": "agentic_infrastructure"
+    },
+    {
+      "id": 19,
+      "date": "2026-03-31",
+      "title": "Claude Code source code leaked via npm source maps",
+      "summary": "Security researcher discovered Anthropic's Claude Code (~500,000 lines) had its entire source code exposed through a source map file accidentally published to npm. Quickly mirrored across GitHub. Revealed 'Self-Healing Memory' system, 'KAIROS' background agent, and controversial 'Undercover Mode'. Concurrent but unrelated axios npm supply chain attack compounded impact.",
+      "impact": "very high",
+      "sources": ["VentureBeat", "Ars Technica", "The Hacker News", "Hacker News", "The Pragmatic Engineer"],
+      "cluster": "security_and_trust"
+    },
+    {
+      "id": 20,
+      "date": "2026-03-31",
+      "title": "OpenAI closes record $122 billion funding round at $852 billion valuation",
+      "summary": "OpenAI closed its largest funding round at $122 billion committed capital, reaching an $852 billion post-money valuation. Reports $2 billion monthly revenue, 900 million weekly ChatGPT users. Funding supports expanded compute infrastructure, multi-cloud partnerships, and development of a unified AI 'superapp'.",
+      "impact": "very high",
+      "sources": ["OpenAI Blog", "TechCrunch", "Bloomberg", "The Guardian"],
+      "cluster": "business_and_funding"
+    },
+    {
+      "id": 21,
+      "date": "2026-03-20",
+      "title": "White House releases National Policy Framework for AI",
+      "summary": "The Trump administration released its National Policy Framework for AI with legislative recommendations organized around seven areas: child safety, community guidelines, IP handling, anti-censorship, accelerating AI innovation, workforce training, and preemption of state laws for a unified federal framework.",
+      "impact": "very high",
+      "sources": ["White House", "Reuters", "TechCrunch", "The Verge"],
+      "cluster": "policy_and_regulation"
+    },
+    {
+      "id": 22,
+      "date": "2026-03-30",
+      "title": "California Governor Newsom signs AI executive order for state contracts",
+      "summary": "Governor Newsom signed Executive Order N-5-26 requiring firms contracting with California to demonstrate AI safety policies and bias avoidance. Also directs California to designate state-level supply-chain risk designations. Seen as a direct response to Trump's push to preempt state AI laws.",
+      "impact": "high",
+      "sources": ["Reuters", "NYT", "Gov.ca.gov"],
+      "cluster": "policy_and_regulation"
+    },
+    {
+      "id": 23,
+      "date": "2026-03-01",
+      "title": "EU AI Act enforcement arm issues first formal inquiries",
+      "summary": "The EU AI Act enforcement body issued formal inquiries to three major AI providers regarding systemic risk assessments for their frontier models. While not enforcement actions, the inquiries signal active monitoring has begun as the compliance period ends.",
+      "impact": "high",
+      "sources": ["MIT Technology Review", "Sifted", "The Next Web"],
+      "cluster": "policy_and_regulation"
+    },
+    {
+      "id": 24,
+      "date": "2026-03-15",
+      "title": "Three US states pass AI transparency laws",
+      "summary": "Three US states passed AI transparency bills requiring disclosure when AI-generated content is used in consumer-facing applications. Bills vary in scope but generally apply to marketing, customer service, and content recommendation systems.",
+      "impact": "high",
+      "sources": ["TechCrunch", "The Verge", "Ars Technica"],
+      "cluster": "policy_and_regulation"
+    },
+    {
+      "id": 25,
+      "date": "2026-03-10",
+      "title": "OWASP publishes final Agentic AI Top 10 security risks",
+      "summary": "OWASP published the final version of the Agentic AI Top 10 security risks for 2026 (superseding February draft). Developed by 100+ experts. Top three: prompt injection, excessive agency, and supply chain vulnerabilities in MCP servers. Immediately adopted as baseline by enterprise security teams.",
+      "impact": "high",
+      "sources": ["OWASP", "Microsoft Security Blog", "Palo Alto Networks", "InfoQ"],
+      "cluster": "security_and_trust"
+    },
+    {
+      "id": 26,
+      "date": "2026-03-06",
+      "title": "Anthropic publishes workforce impact study on AI automation",
+      "summary": "Anthropic released its labor market impact report showing 75% of programming tasks, 67% of data entry, and significant portions of customer service can be covered by current AI. Most exposed positions belong to older, female, more educated, and higher-paid workers.",
+      "impact": "very high",
+      "sources": ["Anthropic Research", "Fortune", "The Verge"],
+      "cluster": "ai_workforce_impact"
+    },
+    {
+      "id": 27,
+      "date": "2026-03-04",
+      "title": "Block (Square) lays off 40% of workforce (~4,000 employees), cites AI",
+      "summary": "Jack Dorsey's Block laid off approximately 4,000 employees (40% of workforce), explicitly stating AI can automate much of the work. Block CFO said the company aims to 'move faster with highly talented teams using AI.'",
+      "impact": "very high",
+      "sources": ["CNBC", "TechCrunch", "The Guardian", "Reuters"],
+      "cluster": "ai_workforce_impact"
+    },
+    {
+      "id": 28,
+      "date": "2026-03-11",
+      "title": "Atlassian lays off 1,600 workers (10%) in AI pivot",
+      "summary": "Atlassian cut 10% of its workforce (~1,600 people) to 'rebalance resources for the future of teamwork in the AI era.' Co-founder Mike Cannon-Brookes said the bar for what 'great' looks like for software companies has gone up. 40% of layoffs in North America.",
+      "impact": "high",
+      "sources": ["Reuters", "The Guardian", "TechCrunch"],
+      "cluster": "ai_workforce_impact"
+    },
+    {
+      "id": 29,
+      "date": "2026-03-15",
+      "title": "Dell cuts 10% of workforce (11,000 employees) for second consecutive year",
+      "summary": "Dell reduced staff by 10% (~11,000 employees) in March, marking the second consecutive year of similar-scale layoffs. Part of a broader trend of tech companies restructuring around AI capabilities.",
+      "impact": "high",
+      "sources": ["Reuters", "Business Insider"],
+      "cluster": "ai_workforce_impact"
+    },
+    {
+      "id": 30,
+      "date": "2026-03-28",
+      "title": "Meta lays off several hundred workers amid AI spending surge",
+      "summary": "Meta laid off several hundred workers at the end of March as Reuters estimated 60 Silicon Valley tech companies have laid off more than 38,000 employees so far in 2026. Meta's layoffs came amid massive AI infrastructure spending increases.",
+      "impact": "high",
+      "sources": ["Reuters", "Business Insider"],
+      "cluster": "ai_workforce_impact"
+    },
+    {
+      "id": 31,
+      "date": "2026-03-13",
+      "title": "Morgan Stanley warns of AI breakthrough and US power shortfall",
+      "summary": "Morgan Stanley released its 'Intelligence Factory' report warning a transformative AI leap is coming in H1 2026 and most of the world isn't ready. Projects a net US power shortfall of 9-18 GW through 2028 (12-25% deficit) needed to run AI infrastructure.",
+      "impact": "high",
+      "sources": ["Fortune", "Morgan Stanley Research"],
+      "cluster": "infrastructure_and_economics"
+    },
+    {
+      "id": 32,
+      "date": "2026-03-23",
+      "title": "BlackRock CEO Larry Fink warns of AI-driven 'K-shaped' economy in annual letter",
+      "summary": "BlackRock CEO Larry Fink's 2026 annual letter to shareholders warned that AI is creating 'K-shaped' results — leading firms surging while lagging firms struggle. Argued the trend fires economic anxiety worldwide and urged broader investment access to offset widening wealth gap.",
+      "impact": "high",
+      "sources": ["CNN", "BlackRock", "Semafor", "Bloomberg"],
+      "cluster": "infrastructure_and_economics"
+    },
+    {
+      "id": 33,
+      "date": "2026-03-05",
+      "title": "BCG publishes 'AI Brain Fry' study on cognitive overload",
+      "summary": "BCG study of 1,488 US workers found excessive AI oversight causes 'AI brain fry' — cognitive overload affecting 14% of AI users (26% in marketing), causing 33% more decision fatigue. Productivity drops rapidly when using more than three AI tools simultaneously. Published in Harvard Business Review.",
+      "impact": "high",
+      "sources": ["Harvard Business Review", "Fortune", "Business Insider", "BCG"],
+      "cluster": "ai_workforce_impact"
+    },
+    {
+      "id": 34,
+      "date": "2026-03-10",
+      "title": "Token anxiety and AI coding agent supervision becomes major industry debate",
+      "summary": "'Token anxiety' emerged as a buzz phrase as companies incentivized developers to maximize AI token consumption as a proxy for productivity. Some firms pushed token leaderboards while developers shifted from writing code to supervising and reviewing agent output. StrongDM's 'Software Factory' approach gained attention.",
+      "impact": "high",
+      "sources": ["The Pragmatic Engineer", "Fortune", "The Information", "Latent Space"],
+      "cluster": "coding_agents_revolution"
+    },
+    {
+      "id": 35,
+      "date": "2026-03-31",
+      "title": "Fortune profiles rise of the 'supervisor class' in software development",
+      "summary": "Fortune published a major investigation into how AI agents are remaking the developer role, coining the 'supervisor class.' Developers who vibe code entire architectures create massive hidden maintenance taxes. Guardian apps and agent-monitoring agents emerge as new product category.",
+      "impact": "high",
+      "sources": ["Fortune", "The Information", "Latent Space", "The Pragmatic Engineer"],
+      "cluster": "coding_agents_revolution"
+    },
+    {
+      "id": 36,
+      "date": "2026-03-03",
+      "title": "OpenAI reported developing GitHub rival code-hosting platform",
+      "summary": "Reuters and The Information reported OpenAI is building a new code-hosting platform to rival Microsoft's GitHub. The project is in early stages and likely months from completion. Represents a direct challenge to a key Microsoft partner.",
+      "impact": "high",
+      "sources": ["Reuters", "The Information", "TechCrunch", "Ars Technica"],
+      "cluster": "business_and_funding"
+    },
+    {
+      "id": 37,
+      "date": "2026-03-26",
+      "title": "Anthropic's Claude Mythos model leaked, confirmed as 'step change' in capabilities",
+      "summary": "Anthropic accidentally leaked details of its unreleased Claude Mythos model, described as 'by far the most powerful model' they've released. Early access given to cybersecurity researchers. Later revealed to have autonomously discovered a 17-year-old FreeBSD RCE vulnerability (CVE-2026-4747).",
+      "impact": "very high",
+      "sources": ["Fortune", "Mashable", "The Information", "SecurityWeek"],
+      "cluster": "security_and_trust"
+    },
+    {
+      "id": 38,
+      "date": "2026-03-30",
+      "title": "Microsoft adds Critique mode to 365 Copilot Researcher using Claude",
+      "summary": "Microsoft added a 'Critique' feature to its Researcher agent that uses Anthropic's Claude to review answers from OpenAI's model, creating a multi-model verification system. Reports 13.8% higher DRACO benchmark scores. Also introduced Copilot Cowork feature based on Claude technology.",
+      "impact": "high",
+      "sources": ["Axios", "Microsoft", "Dataconomy"],
+      "cluster": "enterprise_ai_products"
+    },
+    {
+      "id": 39,
+      "date": "2026-03-25",
+      "title": "Google launches Lyria 3 Pro for music generation up to 3 minutes",
+      "summary": "Google released Lyria 3 Pro, enabling creation of music tracks up to 3 minutes with granular control over intros, verses, bridges, and choruses. Available across Vertex AI, Google AI Studio, Gemini API, Google Vids, and Gemini app. All tracks watermarked with SynthID.",
+      "impact": "medium",
+      "sources": ["Google Blog", "TechCrunch"],
+      "cluster": "creative_ai"
+    },
+    {
+      "id": 40,
+      "date": "2026-03-26",
+      "title": "Mistral launches Voxtral TTS open-source text-to-speech model",
+      "summary": "Mistral released Voxtral TTS, a 4B-parameter text-to-speech model under open-source license. Runs on consumer hardware, clones voices from under 5 seconds of audio, supports 9 languages, achieves 90ms time-to-first-audio. Beats ElevenLabs Flash v2.5 in human preference tests.",
+      "impact": "high",
+      "sources": ["TechCrunch", "Mistral Blog", "Hugging Face"],
+      "cluster": "open_source_models"
+    },
+    {
+      "id": 41,
+      "date": "2026-03-12",
+      "title": "Burger King begins piloting AI-powered 'Patty' headset in 500 US restaurants",
+      "summary": "Burger King launched pilot of 'Patty,' an AI voice assistant embedded in employee headsets for live service coaching, recipe guidance, inventory flagging, and monitoring whether employees say 'please.' Part of broader BK Assistant AI platform planned for all US locations by end of 2026.",
+      "impact": "medium",
+      "sources": ["The Verge", "BBC", "Restaurant Technology News"],
+      "cluster": "enterprise_ai_products"
+    },
+    {
+      "id": 42,
+      "date": "2026-03-12",
+      "title": "GoFundMe launches AI fundraising coach, projects $125M donation boost",
+      "summary": "GoFundMe officially launched its AI-powered Smart Fundraising Coach to help users create and manage campaigns. AI tools already used 80+ million times. Company projects the AI features will help raise an additional $125 million in donations in 2026.",
+      "impact": "medium",
+      "sources": ["Yahoo Finance", "Fast Company", "BusinessWire"],
+      "cluster": "enterprise_ai_products"
+    },
+    {
+      "id": 43,
+      "date": "2026-03-01",
+      "title": "Google expands Search Live globally and Canvas in AI Mode across US",
+      "summary": "Google rolled out Search Live to 200+ countries where AI Mode is available, enabling voice and camera-based back-and-forth dialogue. Canvas in AI Mode launched throughout the US for creative writing and coding tasks directly within Search.",
+      "impact": "medium",
+      "sources": ["Google Blog", "The Verge"],
+      "cluster": "enterprise_ai_products"
+    },
+    {
+      "id": 44,
+      "date": "2026-03-15",
+      "title": "Google upgrades Maps with Gemini AI: Ask Maps and Immersive Navigation",
+      "summary": "Google Maps major upgrade with Ask Maps conversational experience for complex queries and real-time booking. Immersive Navigation uses real-world imagery and natural language directions to simplify routing.",
+      "impact": "medium",
+      "sources": ["Google Blog", "The Verge", "TechCrunch"],
+      "cluster": "enterprise_ai_products"
+    },
+    {
+      "id": 45,
+      "date": "2026-03-18",
+      "title": "Musk wins pretrial ruling in OpenAI fraud case, trial proceeds",
+      "summary": "Elon Musk won a pretrial ruling barring OpenAI from questioning him about alleged ketamine use during the upcoming $134B fraud jury trial. Trial to determine if OpenAI violated its founding nonprofit mission by restructuring to for-profit entity. Judge found sufficient evidence of broken assurances.",
+      "impact": "high",
+      "sources": ["TechCrunch", "Reuters", "The Guardian", "Bloomberg"],
+      "cluster": "legal_battles"
+    },
+    {
+      "id": 46,
+      "date": "2026-03-10",
+      "title": "OpenAI reports plans to nearly double headcount to 8,000",
+      "summary": "The Information reported OpenAI is looking to nearly double its headcount from 4,500 to 8,000 by the end of 2026, even as many tech companies execute AI-driven layoffs. Highlights the divergent paths of AI-native companies vs. those restructuring around AI.",
+      "impact": "medium",
+      "sources": ["The Information", "TechCrunch"],
+      "cluster": "business_and_funding"
+    },
+    {
+      "id": 47,
+      "date": "2026-03-01",
+      "title": "Anthropic's Claude production hardening: computer use, batching, and agentic safety report",
+      "summary": "Anthropic shipped systematic improvements for production agentic use: 40% reduction in computer use error rates, new streaming/batching API endpoints, updated Constitutional AI guidelines for multi-agent pipelines, and published first public agentic safety incident report identifying top failure modes.",
+      "impact": "high",
+      "sources": ["Anthropic Blog", "VentureBeat", "Latent Space"],
+      "cluster": "agentic_infrastructure"
+    },
+    {
+      "id": 48,
+      "date": "2026-03-10",
+      "title": "Google introduces Personal Intelligence and Gemini chat import tools",
+      "summary": "Google expanded Personal Intelligence to AI Mode in Search, Gemini in Chrome, and the Gemini app across the US, connecting securely to Gmail and Photos for personalized results. Also introduced memory and chat history import features to migrate from competing AI assistants to Gemini.",
+      "impact": "medium",
+      "sources": ["Google Blog", "The Verge"],
+      "cluster": "enterprise_ai_products"
+    },
+    {
+      "id": 49,
+      "date": "2026-03-01",
+      "title": "Deutsche Telekom and ElevenLabs launch network-embedded AI call assistant at MWC",
+      "summary": "Deutsche Telekom and ElevenLabs announced the Magenta AI Call Assistant at MWC 2026, embedding AI voice assistance directly in the telecom network. Features real-time translation (50+ languages), calendar lookup, and recommendations — triggered by wake word during any phone call, no app required.",
+      "impact": "medium",
+      "sources": ["Wired", "ElevenLabs Blog", "Deutsche Telekom"],
+      "cluster": "enterprise_ai_products"
+    },
+    {
+      "id": 50,
+      "date": "2026-03-15",
+      "title": "Q1 2026 AI funding hits $297 billion; 22 deals over $10 billion",
+      "summary": "Crunchbase data showed AI companies raised an estimated $297 billion in Q1 2026 funding. Q1 2026 saw more large corporate AI deals than any quarter on record, with 22 transactions totaling over $10 billion per Wall Street Journal. Mag 7 AI stocks down 8-22% despite massive funding flows.",
+      "impact": "high",
+      "sources": ["Crunchbase", "Wall Street Journal", "TechCrunch"],
+      "cluster": "business_and_funding"
+    }
+  ],
+  "clusters": [
+    {
+      "id": "frontier_model_releases",
+      "name": "Frontier Model Arms Race",
+      "description": "GPT-5.4, Gemini 3.1, and Grok 4.20 all launched within a 23-day window, each with distinct differentiation: reliability/variants, multimodal depth, and real-time information respectively.",
+      "event_ids": [1, 2, 3]
+    },
+    {
+      "id": "open_source_models",
+      "name": "Open Source AI Surge",
+      "description": "Mistral Small 4, Qwen 3.5 series, and Voxtral TTS dramatically raised the bar for open-source models, offering Apache 2.0 licensed alternatives competitive with closed frontier models.",
+      "event_ids": [4, 5, 6, 40]
+    },
+    {
+      "id": "anthropic_pentagon_conflict",
+      "name": "Anthropic vs. Pentagon: The AI Defense Standoff",
+      "description": "Anthropic's refusal to allow unrestricted military use of Claude led to a supply chain risk designation, lawsuit, and federal injunction — the highest-profile clash between an AI company and the US government.",
+      "event_ids": [7, 8]
+    },
+    {
+      "id": "sora_shutdown_video_ai",
+      "name": "Sora Shutdown and the Economics of Video AI",
+      "description": "OpenAI's discontinuation of Sora and Disney's withdrawal exposed the brutal compute economics of video generation, reshaping the AI video landscape.",
+      "event_ids": [9, 10]
+    },
+    {
+      "id": "nvidia_gtc_enterprise_ai",
+      "name": "NVIDIA GTC 2026: The Enterprise AI Inflection",
+      "description": "GTC 2026 was the defining enterprise AI event, with $1T demand projections, Groq 3 LPU unveiling, NeMoCLAW/OpenCLAW frameworks, Fortune 500 production deployments, and physical AI robotics.",
+      "event_ids": [11, 12, 13, 14, 15, 16]
+    },
+    {
+      "id": "agentic_infrastructure",
+      "name": "Agentic AI Infrastructure Goes Mainstream",
+      "description": "MCP hit 97 million installs, Google Workspace CLI launched with native MCP support, and Anthropic hardened Claude for production agentic use — establishing the standard tooling layer for AI agents.",
+      "event_ids": [17, 18, 47]
+    },
+    {
+      "id": "security_and_trust",
+      "name": "AI Security Reckoning",
+      "description": "Claude Code leak, OWASP Agentic AI Top 10, Claude Mythos cybersecurity capabilities, and supply chain attacks highlighted growing security challenges in the AI ecosystem.",
+      "event_ids": [19, 25, 37]
+    },
+    {
+      "id": "ai_workforce_impact",
+      "name": "The Great AI Workforce Reshaping",
+      "description": "Massive AI-driven layoffs at Block, Atlassian, Dell, and Meta, alongside Anthropic's labor market study, BCG's brain fry research, and BlackRock's K-shaped economy warning painted a complex picture of AI's workforce impact.",
+      "event_ids": [26, 27, 28, 29, 30, 33]
+    },
+    {
+      "id": "policy_and_regulation",
+      "name": "Global AI Regulation Accelerates",
+      "description": "White House AI framework, California's executive order, EU AI Act enforcement, and state transparency laws represented the most active regulatory month since the EU AI Act passed.",
+      "event_ids": [21, 22, 23, 24]
+    },
+    {
+      "id": "business_and_funding",
+      "name": "AI Business and Funding Explosion",
+      "description": "OpenAI's $122B raise at $852B valuation, $297B Q1 funding, OpenAI's GitHub rival plans, and aggressive hiring contrasted with declining AI stock prices.",
+      "event_ids": [20, 36, 46, 50]
+    },
+    {
+      "id": "coding_agents_revolution",
+      "name": "The AI Coding Agent Revolution",
+      "description": "Token anxiety, vibe coding debates, the supervisor class, and agent-monitoring-agents defined a pivotal moment in how software gets built.",
+      "event_ids": [34, 35]
+    },
+    {
+      "id": "enterprise_ai_products",
+      "name": "Enterprise AI Products Proliferate",
+      "description": "Microsoft Critique, Google Maps AI, Burger King Patty, GoFundMe coach, and Deutsche Telekom AI assistant showed AI embedding into diverse consumer and enterprise products.",
+      "event_ids": [38, 41, 42, 43, 44, 48, 49]
+    },
+    {
+      "id": "legal_battles",
+      "name": "AI Legal Battles",
+      "description": "Musk vs. OpenAI trial proceeding alongside Anthropic-Pentagon litigation in a month of high-stakes legal confrontation.",
+      "event_ids": [45]
+    },
+    {
+      "id": "creative_ai",
+      "name": "Creative AI",
+      "description": "Google Lyria 3 Pro for music generation alongside video AI reshuffling after Sora shutdown.",
+      "event_ids": [39]
+    },
+    {
+      "id": "infrastructure_and_economics",
+      "name": "AI Infrastructure and Economics",
+      "description": "Morgan Stanley power shortfall warnings and BlackRock K-shaped economy observations highlighted infrastructure constraints and economic consequences of AI scaling.",
+      "event_ids": [31, 32]
+    }
+  ]
+}

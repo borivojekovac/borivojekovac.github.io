@@ -177,7 +177,17 @@
     "hype cycle": "hajp ciklus",
     "crustacean": "ljuskar",
     "federal preemption (override)": "potisnuti | ne 'poništiti'",
-    "exfiltrate": "izvlačiti"
+    "exfiltrate": "izvlačiti",
+    "terminal velocity": "krajnja brzina",
+    "plumbing (infrastructure metaphor)": "vodovod",
+    "supply chain risk": "rizik u lancu snabdevanja",
+    "headcount (as cost/bill)": "spisak zaposlenih",
+    "cognitive overload": "kognitivno preopterećenje",
+    "contested ground": "osporavana teritorija",
+    "Self-Healing Memory (AI feature)": "samolečeća memorija",
+    "Undercover Mode (AI feature)": "prikriveni režim",
+    "power shortfall": "deficit struje",
+    "open-weight (models)": "otvorenih težina"
   },
   "idioms": {
     "dropped like a stone": "pao je kao cigla na glavu",
@@ -196,7 +206,13 @@
     "outfit (fashion)": "stajling | ne 'outfit'",
     "assumptions dissolve under measurement": "odlaze niz vetar pod jasnim metrikama",
     "flows like meltwater": "teče kao prolećna bujica",
-    "arrive like weather systems": "pristižu poput olujnih frontova"
+    "arrive like weather systems": "pristižu poput olujnih frontova",
+    "arrive like ordnance on a schedule": "pristižu poput artiljerijskih salvi po rasporedu",
+    "compresses into commodity": "sabija se u robu",
+    "the value migrates to the plumbing": "vrednost se seli u vodovod",
+    "silicon shaped to the speed": "silicijum skrojen za brzinu",
+    "agency leaking from the box": "agentnost curi iz kutije",
+    "the bill is headcount": "račun je spisak zaposlenih"
   },
   "context_dependent": {
     "the implications": "implikacije (logičke) / posledice (konkretne)",

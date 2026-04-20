@@ -288,4 +288,20 @@
         <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-02-zeitgeist"/>
         <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-02-zeitgeist&amp;lang=sr"/>
     </url>
+    <url>
+        <loc>/?post=2026-03-zeitgeist</loc>
+        <lastmod>2026-03-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-03-zeitgeist"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-03-zeitgeist&amp;lang=sr"/>
+    </url>
+    <url>
+        <loc>/?post=2026-03-zeitgeist&amp;lang=sr</loc>
+        <lastmod>2026-04-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-03-zeitgeist"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-03-zeitgeist&amp;lang=sr"/>
+    </url>
 </urlset>
