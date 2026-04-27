@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>/</loc>
-        <lastmod>2026-01-15</lastmod>
+        <lastmod>2026-04-26</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -16,6 +16,22 @@
         <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-01-15-welcome&amp;lang=sr"/>
     </url>
     -->
+    <url>
+        <loc>/?post=2026-04-26-rise-of-the-markdown-engineer</loc>
+        <lastmod>2026-04-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-04-26-rise-of-the-markdown-engineer"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-04-26-rise-of-the-markdown-engineer&amp;lang=sr"/>
+    </url>
+    <url>
+        <loc>/?post=2026-04-26-rise-of-the-markdown-engineer&amp;lang=sr</loc>
+        <lastmod>2026-04-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-04-26-rise-of-the-markdown-engineer"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-04-26-rise-of-the-markdown-engineer&amp;lang=sr"/>
+    </url>
     <url>
         <loc>/?post=2026-02-13-engineering-magic</loc>
         <lastmod>2026-02-13</lastmod>
