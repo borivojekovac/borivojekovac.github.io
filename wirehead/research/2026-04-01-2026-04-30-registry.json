@@ -1,0 +1,482 @@
+{
+  "period": {
+    "start_date": "2026-04-01",
+    "end_date": "2026-04-30"
+  },
+  "generated_at": "2026-05-17",
+  "total_events": 50,
+  "events": [
+    {
+      "id": 1,
+      "date": "2026-04-02",
+      "title": "Google releases Gemma 4 under Apache 2.0",
+      "summary": "Google DeepMind released the Gemma 4 family as open Apache 2.0 models, adding multimodal image, text, video-style, and audio-capable variants with 128K to 256K context and broad support across transformers, llama.cpp, MLX, WebGPU, Rust, and local-agent tooling.",
+      "impact": "very high",
+      "sources": ["Hugging Face", "Ars Technica", "InfoQ"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 2,
+      "date": "2026-04-07",
+      "title": "Anthropic previews Mythos for cybersecurity partners",
+      "summary": "Anthropic debuted Claude Mythos Preview in a restricted cybersecurity initiative, keeping its most sensitive capabilities away from general release while testing vulnerability discovery and defensive patching with selected enterprise partners.",
+      "impact": "very high",
+      "sources": ["Anthropic Blog", "TechCrunch", "Ars Technica", "InfoQ"],
+      "cluster": "state_security_and_safety"
+    },
+    {
+      "id": 3,
+      "date": "2026-04-07",
+      "title": "Project Glasswing brings major tech firms into software security effort",
+      "summary": "Anthropic announced Project Glasswing with AWS, Apple, Broadcom, Cisco, CrowdStrike, Google, JPMorganChase, Linux Foundation, Microsoft, NVIDIA, and Palo Alto Networks to secure critical software with AI-assisted vulnerability work.",
+      "impact": "high",
+      "sources": ["Anthropic Blog"],
+      "cluster": "state_security_and_safety"
+    },
+    {
+      "id": 4,
+      "date": "2026-04-07",
+      "title": "Anthropic expands compute deal with Google and Broadcom",
+      "summary": "Anthropic increased its Google and Broadcom compute arrangements as Claude demand accelerated, reinforcing the pattern that frontier labs are now constrained as much by supply-chain commitments as by research velocity.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 5,
+      "date": "2026-04-07",
+      "title": "Uber adopts Amazon Trainium chips",
+      "summary": "Uber became another major customer for Amazon's AI chips, signaling that Trainium is moving beyond internal AWS workloads and into large-scale enterprise AI deployments.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 6,
+      "date": "2026-04-07",
+      "title": "Eclipse raises $1.3B physical AI fund",
+      "summary": "Venture firm Eclipse announced a $1.3B fund aimed at physical AI startups, backing robotics, industrial automation, and AI-native hardware companies as attention shifts beyond chatbots.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 7,
+      "date": "2026-04-07",
+      "title": "Firmus reaches $5.5B valuation for AI data center buildout",
+      "summary": "Firmus, the Nvidia-backed Southgate AI data center builder, hit a $5.5B valuation, reflecting continued investor appetite for companies that can turn power, land, and cooling into AI capacity.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 8,
+      "date": "2026-04-07",
+      "title": "Intel joins Elon Musk's Terafab chips project",
+      "summary": "Intel signed onto Elon Musk's Terafab chip project, a signal that AI infrastructure competition is expanding from GPUs into custom silicon, packaging, and massive manufacturing commitments.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 9,
+      "date": "2026-04-07",
+      "title": "Google launches offline AI dictation app",
+      "summary": "Google quietly released an offline AI dictation app, extending on-device AI into a practical productivity workflow where privacy, latency, and availability matter.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 10,
+      "date": "2026-04-08",
+      "title": "Google open-sources Scion multi-agent orchestration testbed",
+      "summary": "Google released Scion, an experimental testbed for multi-agent orchestration, adding another entrant to the increasingly crowded framework layer between models and production agent systems.",
+      "impact": "medium",
+      "sources": ["InfoQ"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 11,
+      "date": "2026-04-09",
+      "title": "Appeals court refuses emergency stay in Anthropic Pentagon dispute",
+      "summary": "Trump-appointed appeals judges declined to block the government's blacklisting of Anthropic AI technology, keeping legal uncertainty alive after Anthropic challenged the Pentagon's supply-chain-risk designation.",
+      "impact": "high",
+      "sources": ["Ars Technica"],
+      "cluster": "state_security_and_safety"
+    },
+    {
+      "id": 12,
+      "date": "2026-04-09",
+      "title": "First conviction under Take It Down Act involves AI nudes",
+      "summary": "An Ohio man became the first person convicted under the Take It Down Act after allegedly using more than 100 AI tools to create fake nude images, showing how generative media abuse is moving into enforcement reality.",
+      "impact": "high",
+      "sources": ["Ars Technica"],
+      "cluster": "state_security_and_safety"
+    },
+    {
+      "id": 13,
+      "date": "2026-04-10",
+      "title": "SteamGPT files leak hints at Valve AI moderation tooling",
+      "summary": "Leaked SteamGPT files suggested Valve is exploring AI tools to help moderators process suspicious activity, pointing to generative AI's quieter role in platform governance.",
+      "impact": "medium",
+      "sources": ["Ars Technica"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 14,
+      "date": "2026-04-11",
+      "title": "AI models perform poorly on Premier League betting",
+      "summary": "Financial Times testing reported by Ars Technica found Google, OpenAI, Anthropic, and xAI systems struggled with soccer betting, with Grok particularly weak, undercutting assumptions that frontier models generalize cleanly into probabilistic prediction markets.",
+      "impact": "medium",
+      "sources": ["Ars Technica"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 15,
+      "date": "2026-04-12",
+      "title": "GitHub Copilot CLI reaches general availability",
+      "summary": "GitHub Copilot CLI moved to general availability, bringing natural-language coding and operational assistance deeper into command-line workflows.",
+      "impact": "high",
+      "sources": ["InfoQ", "GitHub Blog"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 16,
+      "date": "2026-04-13",
+      "title": "Google releases Gemma 4 for local-first on-device inference",
+      "summary": "InfoQ highlighted Gemma 4's local-first design, including smaller variants meant to run near users rather than only behind cloud APIs.",
+      "impact": "high",
+      "sources": ["InfoQ", "Hugging Face"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 17,
+      "date": "2026-04-13",
+      "title": "Meta builds AI version of Mark Zuckerberg for employees",
+      "summary": "Meta reportedly created an internal AI version of Mark Zuckerberg to interact with employees, a symbolic example of corporate leaders turning themselves into persistent synthetic interfaces.",
+      "impact": "medium",
+      "sources": ["Ars Technica", "Financial Times"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 18,
+      "date": "2026-04-14",
+      "title": "Anthropic paper studies emotion-like mechanisms in LLMs",
+      "summary": "Anthropic research examined how emotion-like mechanisms affect model behavior, extending the safety discussion from refusals and benchmarks into the internal dynamics of assistant personas.",
+      "impact": "medium",
+      "sources": ["InfoQ", "Anthropic Blog"],
+      "cluster": "state_security_and_safety"
+    },
+    {
+      "id": 19,
+      "date": "2026-04-14",
+      "title": "Claude Managed Agents raises enterprise lock-in concerns",
+      "summary": "Anthropic's Claude Managed Agents platform offered enterprises a simpler way to deploy managed agents, but analysis warned that convenience could deepen vendor lock-in at the orchestration layer.",
+      "impact": "high",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 20,
+      "date": "2026-04-14",
+      "title": "Survey finds 43% of AI-generated code changes need production debugging",
+      "summary": "A VentureBeat-reported survey found 43% of AI-generated code changes required debugging in production, sharpening the distinction between code generation speed and software delivery quality.",
+      "impact": "high",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 21,
+      "date": "2026-04-15",
+      "title": "Adobe Firefly AI Assistant pushes Creative Cloud toward agentic workflows",
+      "summary": "Adobe announced a Firefly AI Assistant designed to operate Photoshop, Premiere, Illustrator, and other Creative Cloud tools from natural-language prompts, alongside broader Firefly and Frame.io updates.",
+      "impact": "high",
+      "sources": ["VentureBeat", "Ars Technica"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 22,
+      "date": "2026-04-15",
+      "title": "Meta researchers introduce hyperagents",
+      "summary": "Meta researchers proposed hyperagents for self-improving non-coding tasks, aiming at agents that can adapt beyond static workflows in enterprise environments.",
+      "impact": "medium",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 23,
+      "date": "2026-04-15",
+      "title": "Boston Dynamics robot dog reads gauges with Google AI",
+      "summary": "Boston Dynamics integrated Google AI so its robot dog can read gauges and thermometers in industrial inspections, showing multimodal AI crossing into physical operations.",
+      "impact": "medium",
+      "sources": ["Ars Technica"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 24,
+      "date": "2026-04-15",
+      "title": "Google TurboQuant promises 6x lower LLM memory usage",
+      "summary": "Google's TurboQuant compression work was reported as reducing LLM memory usage by up to 6x without quality loss, adding pressure to the idea that smaller deployment footprints may matter as much as bigger models.",
+      "impact": "high",
+      "sources": ["Ars Technica", "InfoQ"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 25,
+      "date": "2026-04-16",
+      "title": "Anthropic releases Claude Opus 4.7",
+      "summary": "Anthropic publicly released Claude Opus 4.7, claiming leadership on knowledge work, agentic coding, scaled tool use, computer use, and financial analysis while holding API pricing steady across major clouds.",
+      "impact": "very high",
+      "sources": ["Anthropic Blog", "VentureBeat"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 26,
+      "date": "2026-04-16",
+      "title": "OpenAI launches GPT-Rosalind for life sciences",
+      "summary": "OpenAI debuted GPT-Rosalind as a limited-access life sciences model, targeting drug discovery and research workflows that traditionally require long cycles and expensive experimentation.",
+      "impact": "high",
+      "sources": ["VentureBeat"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 27,
+      "date": "2026-04-16",
+      "title": "OpenAI updates Codex desktop app with broad app control",
+      "summary": "OpenAI substantially upgraded Codex desktop with more than 90 plugins, including CircleCI, GitLab, and Microsoft Suite connectors, plus image generation and webpage preview capabilities.",
+      "impact": "very high",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 28,
+      "date": "2026-04-16",
+      "title": "Google Photos adds personalized AI image generation",
+      "summary": "Google Photos began using a user's photo library to create more personalized AI images, bringing generative media closer to personal data stores rather than generic prompt boxes.",
+      "impact": "medium",
+      "sources": ["Ars Technica", "TechCrunch"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 29,
+      "date": "2026-04-17",
+      "title": "Anthropic launches Claude Design",
+      "summary": "Anthropic introduced Claude Design, an Anthropic Labs product for creating designs, prototypes, slides, and one-pagers, putting Claude in direct competition with visual collaboration and design tools.",
+      "impact": "high",
+      "sources": ["Anthropic Blog", "VentureBeat"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 30,
+      "date": "2026-04-18",
+      "title": "AWS DevOps Agent reaches general availability",
+      "summary": "AWS announced general availability for its DevOps Agent for automated incident investigation, another sign that production operations are becoming a core agent use case.",
+      "impact": "high",
+      "sources": ["InfoQ"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 31,
+      "date": "2026-04-21",
+      "title": "VentureBeat reports enterprise AI governance gap",
+      "summary": "VentureBeat research found that 72% of enterprises do not have the control and security posture they believe they have while scaling AI systems.",
+      "impact": "high",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 32,
+      "date": "2026-04-21",
+      "title": "Kimi K2.6 runs agents for days",
+      "summary": "Moonshot's Kimi K2.6 was reported as running agents for days, highlighting both open-model progress and the orchestration challenges caused by longer autonomous work loops.",
+      "impact": "high",
+      "sources": ["VentureBeat"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 33,
+      "date": "2026-04-22",
+      "title": "Google updates Workspace with office-agent features",
+      "summary": "Google updated Workspace to position AI as an office intern, adding features that bring Gemini deeper into daily productivity surfaces.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 34,
+      "date": "2026-04-22",
+      "title": "OpenAI unveils Workspace Agents",
+      "summary": "OpenAI introduced Workspace Agents as a successor to custom GPTs for enterprises, with agents accessible from ChatGPT and connected to tools such as Slack, Salesforce, and other third-party apps.",
+      "impact": "very high",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 35,
+      "date": "2026-04-22",
+      "title": "Google and AWS split AI agent stack between control and execution",
+      "summary": "Analysis of Google and AWS agent platforms showed the market separating into control-plane and execution-plane approaches for enterprise agents.",
+      "impact": "medium",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 36,
+      "date": "2026-04-22",
+      "title": "Stanford research questions AI swarm tax",
+      "summary": "Stanford-linked research challenged the assumption that multi-agent swarms outperform single agents, arguing that orchestration overhead can waste compute without improving outcomes.",
+      "impact": "medium",
+      "sources": ["VentureBeat"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 37,
+      "date": "2026-04-22",
+      "title": "Google unveils agentic-era TPUs",
+      "summary": "Google introduced two new Tensor AI chips, one aimed at inference and one at training, explicitly framing its TPU roadmap around the agentic era.",
+      "impact": "very high",
+      "sources": ["Ars Technica"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 38,
+      "date": "2026-04-23",
+      "title": "OpenAI releases GPT-5.5",
+      "summary": "OpenAI released GPT-5.5, presented as moving the company closer to an AI super app and retaking several public benchmark leads after Claude Opus 4.7.",
+      "impact": "very high",
+      "sources": ["TechCrunch", "VentureBeat", "OpenAI Blog"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 39,
+      "date": "2026-04-23",
+      "title": "OpenAI ends Microsoft legal peril over $50B Amazon deal",
+      "summary": "OpenAI resolved legal concerns involving Microsoft and its reported $50B Amazon cloud arrangement, marking another step in the company's move toward a multi-cloud compute strategy.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 40,
+      "date": "2026-04-24",
+      "title": "DeepSeek previews V4 and claims frontier gap is closing",
+      "summary": "DeepSeek previewed V4, with reports describing near state-of-the-art intelligence at substantially lower cost than Opus 4.7 and GPT-5.5.",
+      "impact": "very high",
+      "sources": ["TechCrunch", "VentureBeat", "Hugging Face"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 41,
+      "date": "2026-04-24",
+      "title": "Google plans up to $40B Anthropic investment",
+      "summary": "Google was reported to be investing up to $40B in Anthropic through cash and compute, following Amazon's increased backing and deepening the unusual cross-cloud dependency around Claude.",
+      "impact": "very high",
+      "sources": ["TechCrunch", "Ars Technica"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 42,
+      "date": "2026-04-24",
+      "title": "Meta signs deal for millions of Amazon AI CPUs",
+      "summary": "Meta reportedly signed for millions of Amazon AI CPUs, a striking example of hyperscalers buying capacity from competitors as the AI compute market tightens.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 43,
+      "date": "2026-04-24",
+      "title": "ComfyUI reaches $500M valuation",
+      "summary": "ComfyUI hit a $500M valuation as creators sought more control over AI-generated media pipelines, showing that workflow control can be valuable even in a market dominated by model providers.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "consumer_and_creative_ai"
+    },
+    {
+      "id": 44,
+      "date": "2026-04-24",
+      "title": "Cohere merges with Aleph Alpha",
+      "summary": "Cohere acquired and merged with Germany-based Aleph Alpha to form what reports called a transatlantic AI powerhouse, connecting enterprise AI with European sovereignty concerns.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 45,
+      "date": "2026-04-25",
+      "title": "Anthropic builds test marketplace for agent-on-agent commerce",
+      "summary": "Anthropic created a test marketplace where agents transact with other agents, previewing the coordination, payment, identity, and trust problems of autonomous commercial activity.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "agent_infrastructure"
+    },
+    {
+      "id": 46,
+      "date": "2026-04-27",
+      "title": "Natural gas plant costs surge on data center demand",
+      "summary": "Data center demand drove a reported 66% surge in natural gas power plant costs, making the physical energy consequences of AI buildout harder to treat as externalities.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 47,
+      "date": "2026-04-27",
+      "title": "China blocks Meta's $2B Manus deal",
+      "summary": "China blocked Meta's $2B Manus deal after a months-long probe, showing how AI assets and strategic data companies are becoming targets of geopolitical review.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "state_security_and_safety"
+    },
+    {
+      "id": 48,
+      "date": "2026-04-28",
+      "title": "Google expands Pentagon access to its AI",
+      "summary": "Google granted the US Department of Defense access to its AI for classified networks after Anthropic refused broader military terms, despite employee pressure to maintain stronger guardrails.",
+      "impact": "very high",
+      "sources": ["TechCrunch"],
+      "cluster": "state_security_and_safety"
+    },
+    {
+      "id": 49,
+      "date": "2026-04-29",
+      "title": "OpenAI says Stargate surpassed 10GW goal ahead of schedule",
+      "summary": "OpenAI said its Stargate infrastructure program had already exceeded the 10GW US capacity goal set for 2029, with more than 3GW added in the prior 90 days.",
+      "impact": "very high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "compute_capital_and_energy"
+    },
+    {
+      "id": 50,
+      "date": "2026-04-30",
+      "title": "OpenAI adds advanced ChatGPT account security with Yubico",
+      "summary": "OpenAI announced advanced security for ChatGPT accounts, including a Yubico partnership, as AI accounts become high-value targets holding work context, agent privileges, and payment-linked workflows.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "state_security_and_safety"
+    }
+  ],
+  "clusters": [
+    {
+      "name": "frontier_and_open_model_race",
+      "description": "April compressed model competition into a weekly cycle: Gemma 4, Claude Opus 4.7, GPT-5.5, DeepSeek V4, Kimi K2.6, GPT-Rosalind, and compression work all pushed different claims of capability, openness, cost, or domain specialization."
+    },
+    {
+      "name": "agent_infrastructure",
+      "description": "Agents moved from demos into product infrastructure: Codex desktop, Workspace Agents, Google Workspace updates, Copilot CLI, Claude Managed Agents, AWS DevOps Agent, Cloudflare Agent Memory, Vercel Open Agents, and agent commerce experiments."
+    },
+    {
+      "name": "compute_capital_and_energy",
+      "description": "The limiting reagent became capacity: Stargate, TPUs, Amazon chips, Google and Amazon backing Anthropic, Meta buying Amazon silicon, natural gas plant costs, and data center politics all turned AI strategy into infrastructure strategy."
+    },
+    {
+      "name": "state_security_and_safety",
+      "description": "The state became an active customer, regulator, plaintiff, and target: Pentagon AI access, Anthropic's dispute with the government, Project Glasswing, Take It Down enforcement, China's deal review, and account security all raised the stakes."
+    },
+    {
+      "name": "consumer_and_creative_ai",
+      "description": "Creative and consumer AI shifted toward embedded workflows: Claude Design, Adobe Firefly Assistant, Google Photos and Vids, YouTube AI search, Meta AI controls, ComfyUI's creator stack, and platform AI moderation."
+    }
+  ]
+}
