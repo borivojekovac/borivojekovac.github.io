@@ -1,0 +1,500 @@
+{
+  "period": {
+    "start_date": "2026-05-01",
+    "end_date": "2026-05-31"
+  },
+  "generated_at": "2026-06-21",
+  "total_events": 50,
+  "events": [
+    {
+      "id": 1,
+      "date": "2026-05-04",
+      "title": "OpenAI details low-latency voice AI infrastructure",
+      "summary": "OpenAI published engineering work on serving low-latency voice AI at scale, showing that real-time multimodal products are now constrained by systems engineering as much as model quality.",
+      "impact": "medium",
+      "sources": ["OpenAI Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 2,
+      "date": "2026-05-05",
+      "title": "OpenAI publishes supercomputer networking work for large-scale AI training",
+      "summary": "OpenAI described networking improvements for large-scale training systems, highlighting the increasingly specialized infrastructure needed to keep frontier model training efficient.",
+      "impact": "high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "compute_capital_and_chips"
+    },
+    {
+      "id": 3,
+      "date": "2026-05-05",
+      "title": "Anthropic releases finance agent templates",
+      "summary": "Anthropic released ten ready-to-run financial-services agent templates for pitchbooks, KYC review, month-end close, and other high-friction finance workflows, bundled through Claude Cowork, Claude Code, and Claude Managed Agents cookbooks.",
+      "impact": "high",
+      "sources": ["Anthropic Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 4,
+      "date": "2026-05-05",
+      "title": "Claude adds Microsoft 365 workflow integrations for finance teams",
+      "summary": "Anthropic expanded Claude across Excel, PowerPoint, Word, and Outlook workflows so context can carry from analysis into decks and documents without repeated prompting.",
+      "impact": "high",
+      "sources": ["Anthropic Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 5,
+      "date": "2026-05-06",
+      "title": "Anthropic signs SpaceX compute deal",
+      "summary": "Anthropic agreed to use all capacity at SpaceX's Colossus 1 data center, adding more than 300 megawatts and over 220,000 Nvidia GPUs while raising Claude Code and API usage limits.",
+      "impact": "very high",
+      "sources": ["Anthropic Blog"],
+      "cluster": "compute_capital_and_chips"
+    },
+    {
+      "id": 6,
+      "date": "2026-05-06",
+      "title": "Claude Code usage limits double for paid plans",
+      "summary": "Anthropic doubled Claude Code five-hour rate limits for Pro, Max, Team, and seat-based Enterprise plans and removed peak-hour limit reductions for Pro and Max users.",
+      "impact": "medium",
+      "sources": ["Anthropic Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 7,
+      "date": "2026-05-07",
+      "title": "OpenAI expands Trusted Access for Cyber with GPT-5.5-Cyber",
+      "summary": "OpenAI rolled out GPT-5.5-Cyber in limited preview for verified defenders, pairing more permissive authorized security workflows with stronger verification and account controls.",
+      "impact": "very high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 8,
+      "date": "2026-05-07",
+      "title": "Google announces GKE Agent Sandbox and hypercluster",
+      "summary": "Google Cloud announced GKE Agent Sandbox for isolated agent code execution and GKE hypercluster for managing up to a million accelerator chips from a single control plane.",
+      "impact": "high",
+      "sources": ["InfoQ"],
+      "cluster": "compute_capital_and_chips"
+    },
+    {
+      "id": 9,
+      "date": "2026-05-08",
+      "title": "OpenAI describes how it runs Codex safely",
+      "summary": "OpenAI published safety engineering details for Codex, emphasizing sandboxing, permissions, evaluation, and account controls as agentic coding tools gain broader file-system and execution access.",
+      "impact": "high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 10,
+      "date": "2026-05-09",
+      "title": "Nvidia's AI equity commitments pass $40B for 2026",
+      "summary": "TechCrunch reported Nvidia had already committed more than $40B to AI equity deals in 2026, including a $30B OpenAI investment and multibillion-dollar stakes in infrastructure suppliers.",
+      "impact": "very high",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_chips"
+    },
+    {
+      "id": 11,
+      "date": "2026-05-11",
+      "title": "OpenAI launches Deployment Company",
+      "summary": "OpenAI launched the OpenAI Deployment Company to help businesses build around intelligence, reinforcing the shift from model APIs toward implementation services and enterprise transformation.",
+      "impact": "high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "enterprise_market_and_labor"
+    },
+    {
+      "id": 12,
+      "date": "2026-05-13",
+      "title": "OpenAI builds a Windows sandbox for Codex",
+      "summary": "OpenAI described the sandbox architecture used to enable Codex on Windows, addressing the practical security problem of letting coding agents inspect and modify local projects.",
+      "impact": "high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 13,
+      "date": "2026-05-13",
+      "title": "OpenAI responds to TanStack npm supply-chain attack",
+      "summary": "OpenAI published its response to the TanStack npm supply-chain attack, connecting AI coding workflows with the older software supply-chain risk problem.",
+      "impact": "medium",
+      "sources": ["OpenAI Blog"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 14,
+      "date": "2026-05-13",
+      "title": "Spain holds firm on social media and AI rules",
+      "summary": "The Next Web reported Spain was maintaining its position on social media and AI regulation despite intensifying US tech lobbying, adding another point of tension in transatlantic AI governance.",
+      "impact": "medium",
+      "sources": ["The Next Web"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 15,
+      "date": "2026-05-14",
+      "title": "Anthropic explains six weeks of Claude Code quality complaints",
+      "summary": "InfoQ covered Anthropic's postmortem tracing Claude Code complaints to three overlapping product-layer changes, including a reasoning effort downgrade that users experienced as lower intelligence.",
+      "impact": "high",
+      "sources": ["InfoQ", "Anthropic Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 16,
+      "date": "2026-05-15",
+      "title": "ChatGPT gets a personal finance experience",
+      "summary": "OpenAI launched a personal finance experience in ChatGPT, pushing the product into a sensitive consumer domain where accuracy, privacy, and advice boundaries matter.",
+      "impact": "high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 17,
+      "date": "2026-05-15",
+      "title": "Databricks brings GPT-5.5 to enterprise agent workflows",
+      "summary": "OpenAI highlighted Databricks' use of GPT-5.5 in enterprise agent workflows, including a reported 46% error reduction on OfficeQA Pro-style document tasks versus GPT-5.4.",
+      "impact": "high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "enterprise_market_and_labor"
+    },
+    {
+      "id": 18,
+      "date": "2026-05-16",
+      "title": "TechCrunch captures the haves and have-nots of the AI boom",
+      "summary": "TechCrunch reported on a widening divide between AI-company employees who became extremely wealthy and engineers worried that the same technology is weakening their professional fallback.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "enterprise_market_and_labor"
+    },
+    {
+      "id": 19,
+      "date": "2026-05-19",
+      "title": "Google launches Gemini 3.5 Flash at I/O",
+      "summary": "Google launched Gemini 3.5 Flash, positioning it as a frontier-speed model for agents and coding with strong benchmark results on Terminal-Bench, GDPval-AA, and MCP Atlas.",
+      "impact": "very high",
+      "sources": ["Google DeepMind Blog", "Google Blog"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 20,
+      "date": "2026-05-19",
+      "title": "Google previews Gemini 3.5 Pro for June",
+      "summary": "At I/O, Google said Gemini 3.5 Pro was already in internal use and would arrive the following month, setting up another near-term frontier model contest.",
+      "impact": "high",
+      "sources": ["Google Blog"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 21,
+      "date": "2026-05-19",
+      "title": "Google introduces Gemini Omni",
+      "summary": "Google DeepMind introduced Gemini Omni Flash, a multimodal creative model that can generate video from images, audio, video, and text, and supports conversational video editing.",
+      "impact": "very high",
+      "sources": ["Google DeepMind Blog", "Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 22,
+      "date": "2026-05-19",
+      "title": "Antigravity 2.0 turns Google's coding tool into an agent platform",
+      "summary": "Google announced Antigravity 2.0 as a standalone desktop application for orchestrating cohorts of autonomous AI agents, expanding beyond code generation into broader agent management.",
+      "impact": "very high",
+      "sources": ["Google Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 23,
+      "date": "2026-05-19",
+      "title": "Gemini Spark brings 24/7 agents to the Gemini app",
+      "summary": "Google introduced Gemini Spark, a background agent running on Google Cloud VMs with Antigravity harness support and planned MCP integrations.",
+      "impact": "high",
+      "sources": ["Google Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 24,
+      "date": "2026-05-19",
+      "title": "Google announces information agents in Search",
+      "summary": "Google announced Search information agents that can operate in the background across web, news, social, finance, shopping, and sports data, moving Search toward persistent agentic monitoring.",
+      "impact": "very high",
+      "sources": ["Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 25,
+      "date": "2026-05-19",
+      "title": "Google brings generative UI to Search",
+      "summary": "Google said Search will use Gemini 3.5 Flash and Antigravity to build dynamic layouts, interactive visuals, and persistent mini-app-like dashboards in response to queries.",
+      "impact": "high",
+      "sources": ["Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 26,
+      "date": "2026-05-19",
+      "title": "Google launches Universal Cart for agentic commerce",
+      "summary": "Google introduced Universal Cart, an intelligent shopping cart meant to underpin agentic commerce across product discovery, comparison, and purchase workflows.",
+      "impact": "high",
+      "sources": ["Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 27,
+      "date": "2026-05-19",
+      "title": "Google Workspace gets Pics and AI Inbox updates",
+      "summary": "Google announced Pics, an AI image creation and editing tool for Workspace, plus Gmail, Docs, Keep, and AI Inbox updates that make workplace AI more visual and proactive.",
+      "impact": "high",
+      "sources": ["Google Blog", "TechCrunch"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 28,
+      "date": "2026-05-19",
+      "title": "Google expands SynthID and C2PA provenance tooling",
+      "summary": "Google expanded digital watermarking and provenance features with SynthID and C2PA Content Credentials, while InfoQ reported broader SynthID adoption by Nvidia, OpenAI, Kakao, and ElevenLabs.",
+      "impact": "high",
+      "sources": ["Google Blog", "InfoQ"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 29,
+      "date": "2026-05-19",
+      "title": "Gemini for Science launches at Google I/O",
+      "summary": "Google introduced Gemini for Science, a collection of tools, experiments, and Science Skills connecting agentic platforms to more than 30 life-science databases and tools.",
+      "impact": "high",
+      "sources": ["Google DeepMind Blog", "Google Blog"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 30,
+      "date": "2026-05-19",
+      "title": "Project Genie connects world generation with Street View",
+      "summary": "Google connected Project Genie with nearly two decades of Street View imagery to simulate real-world places, extending generative world models into geographic interfaces.",
+      "impact": "medium",
+      "sources": ["Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 31,
+      "date": "2026-05-19",
+      "title": "Google announces intelligent eyewear for fall",
+      "summary": "Google previewed Gemini-powered audio and display glasses that can provide directions, messaging, photo capture, and contextual assistance without pulling out a phone.",
+      "impact": "high",
+      "sources": ["Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 32,
+      "date": "2026-05-19",
+      "title": "Google AI Studio adds native Android vibe coding",
+      "summary": "Google announced native Android support in Google AI Studio, Workspace integrations, a mobile app, and broader developer tooling around fast agentic prototyping.",
+      "impact": "medium",
+      "sources": ["Google Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 33,
+      "date": "2026-05-19",
+      "title": "Mistral acquires Austrian AI startup Emmi",
+      "summary": "Sifted reported Mistral struck its second M&A deal in months by acquiring Austrian AI startup Emmi, as model companies increasingly verticalize into sector-specific products.",
+      "impact": "high",
+      "sources": ["Sifted"],
+      "cluster": "enterprise_market_and_labor"
+    },
+    {
+      "id": 34,
+      "date": "2026-05-20",
+      "title": "Google publishes 100 I/O AI announcements",
+      "summary": "Google's post-I/O roundup consolidated the scale of the company's push: Gemini 3.5, Gemini Omni, Antigravity, Search agents, Workspace creative tools, AI subscriptions, Android, Chrome, and science tooling.",
+      "impact": "high",
+      "sources": ["Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 35,
+      "date": "2026-05-20",
+      "title": "Nvidia posts record quarter and reveals $43B startup holdings",
+      "summary": "TechCrunch reported Nvidia posted another record quarter and disclosed privately held startup stakes that nearly doubled to $43B, making the chipmaker both supplier and financier of the AI economy.",
+      "impact": "very high",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_chips"
+    },
+    {
+      "id": 36,
+      "date": "2026-05-20",
+      "title": "Jensen Huang frames Vera as a $200B CPU market for agents",
+      "summary": "Nvidia CEO Jensen Huang argued Vera, Nvidia's CPU for agentic AI, opens a new $200B market because billions of agents will need CPU-heavy tool execution environments.",
+      "impact": "very high",
+      "sources": ["TechCrunch"],
+      "cluster": "compute_capital_and_chips"
+    },
+    {
+      "id": 37,
+      "date": "2026-05-21",
+      "title": "TechCrunch questions Google's consumer agent ecosystem",
+      "summary": "TechCrunch argued Google was pitching a broad AI agent ecosystem to consumers who may not yet want or trust persistent agents embedded across search, shopping, and productivity.",
+      "impact": "medium",
+      "sources": ["TechCrunch"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 38,
+      "date": "2026-05-22",
+      "title": "OpenAI named a Gartner Leader in enterprise coding agents",
+      "summary": "OpenAI said Gartner named it a Leader in enterprise coding agents, strengthening Codex's positioning as coding assistants become enterprise platforms rather than developer side tools.",
+      "impact": "medium",
+      "sources": ["OpenAI Blog"],
+      "cluster": "enterprise_market_and_labor"
+    },
+    {
+      "id": 39,
+      "date": "2026-05-24",
+      "title": "Google Cloud says enterprises must treat AI security as platform work",
+      "summary": "TechCrunch reported Google Cloud COO Francis deSouza warning enterprises that AI security cannot be bolted on later or left to individual employees, even as Google works through its own transition.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 40,
+      "date": "2026-05-25",
+      "title": "Pope Leo XIV releases AI encyclical Magnifica humanitas",
+      "summary": "Pope Leo XIV released an encyclical on safeguarding the human person in the age of AI, with Anthropic co-founder Chris Olah speaking at the Vatican presentation.",
+      "impact": "high",
+      "sources": ["Anthropic Blog", "TechCrunch"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 41,
+      "date": "2026-05-26",
+      "title": "DuckDuckGo installs jump after Google AI Search backlash",
+      "summary": "TechCrunch reported DuckDuckGo app installs rose after Google's I/O search changes, as users objected to being force-fed AI summaries and sought AI-free search options.",
+      "impact": "high",
+      "sources": ["TechCrunch"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 42,
+      "date": "2026-05-26",
+      "title": "SCMP compares China's AI registry with US policy retreat",
+      "summary": "South China Morning Post reported that China already has an AI model registry while the US was walking back model approval plans over competitiveness concerns.",
+      "impact": "high",
+      "sources": ["South China Morning Post"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 43,
+      "date": "2026-05-27",
+      "title": "OpenAI publishes Codex Windows sandbox details",
+      "summary": "OpenAI's engineering channel highlighted the safe sandbox architecture enabling Codex on Windows, an important step for mainstream desktop agent adoption.",
+      "impact": "medium",
+      "sources": ["OpenAI Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 44,
+      "date": "2026-05-28",
+      "title": "Anthropic releases Claude Opus 4.8",
+      "summary": "Anthropic launched Claude Opus 4.8 with stronger coding, agentic, computer-use, professional-work, and honesty claims, plus unchanged Opus 4.7 pricing.",
+      "impact": "very high",
+      "sources": ["Anthropic Blog"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 45,
+      "date": "2026-05-28",
+      "title": "Claude Opus 4.8 adds dynamic workflows",
+      "summary": "Anthropic introduced Dynamic Workflows in research preview, letting Claude Code plan large tasks and run hundreds of parallel subagents before verifying and reporting results.",
+      "impact": "very high",
+      "sources": ["Anthropic Blog"],
+      "cluster": "agent_infrastructure_and_workflows"
+    },
+    {
+      "id": 46,
+      "date": "2026-05-28",
+      "title": "Anthropic raises $65B at $965B valuation",
+      "summary": "Anthropic announced a $65B Series H led by Altimeter, Dragoneer, Greenoaks, and Sequoia, valuing the company at $965B post-money.",
+      "impact": "very high",
+      "sources": ["Anthropic Blog"],
+      "cluster": "compute_capital_and_chips"
+    },
+    {
+      "id": 47,
+      "date": "2026-05-28",
+      "title": "Google recaps 12 major I/O moments",
+      "summary": "Google's post-I/O recap emphasized Gemini Omni, Gemini 3.5 Flash, Search agents, generative UI, and the broader push to make AI a product-wide operating layer.",
+      "impact": "medium",
+      "sources": ["Google Blog"],
+      "cluster": "consumer_search_and_creative_ai"
+    },
+    {
+      "id": 48,
+      "date": "2026-05-29",
+      "title": "OpenAI launches Rosalind Biodefense",
+      "summary": "OpenAI announced Rosalind Biodefense, extending its life-science work into societal resilience and biosecurity as frontier models become more relevant to biological research.",
+      "impact": "high",
+      "sources": ["OpenAI Blog"],
+      "cluster": "security_policy_and_governance"
+    },
+    {
+      "id": 49,
+      "date": "2026-05-29",
+      "title": "Google showcases Gemini Omni and Gemini 3.5 demos",
+      "summary": "Google published demos of Gemini Omni and Gemini 3.5 in action, reinforcing I/O's message that multimodal generation and action-oriented models are converging.",
+      "impact": "medium",
+      "sources": ["Google Blog"],
+      "cluster": "frontier_and_open_model_race"
+    },
+    {
+      "id": 50,
+      "date": "2026-05-31",
+      "title": "May closes with agents, compute, and governance all tightening",
+      "summary": "By the end of May, the dominant AI story was no longer a single model race: consumer search agents, enterprise coding agents, creative models, massive capital raises, chip strategy, and cyber governance had merged into one operating-system-level contest.",
+      "impact": "high",
+      "sources": ["TechCrunch", "Google Blog", "OpenAI Blog", "Anthropic Blog", "InfoQ", "The Next Web", "SCMP", "Sifted"],
+      "cluster": "enterprise_market_and_labor"
+    }
+  ],
+  "clusters": [
+    {
+      "name": "frontier_and_open_model_race",
+      "description": "May's model race was split between GPT-5.5's professional and cyber variants, Claude Opus 4.8's reliability and honesty pitch, Gemini 3.5 Flash's speed/cost positioning, Gemini Omni's multimodal creation, Gemini for Science, and the continuing pressure from DeepSeek V4 and other open-weight systems."
+    },
+    {
+      "name": "agent_infrastructure_and_workflows",
+      "description": "Agents became managed work systems: Antigravity 2.0, Gemini Spark, Search agents, Claude finance templates, Dynamic Workflows, Codex Windows sandboxing, GKE Agent Sandbox, and Microsoft 365 integrations all pushed AI from chat into operating surfaces."
+    },
+    {
+      "name": "compute_capital_and_chips",
+      "description": "Capacity was strategy: Anthropic's SpaceX compute deal and $65B financing, Nvidia's record holdings and Vera CPU pitch, OpenAI's supercomputer networking work, and Google's hypercluster stack showed how money, chips, energy, and model roadmaps are now fused."
+    },
+    {
+      "name": "consumer_search_and_creative_ai",
+      "description": "Google I/O put AI into Search, shopping, Workspace, eyewear, video generation, and provenance; the immediate DuckDuckGo backlash showed that consumer acceptance is not guaranteed when AI becomes the default interface."
+    },
+    {
+      "name": "security_policy_and_governance",
+      "description": "Cyber access, software supply chain risk, AI provenance, national and European regulation, China's registry, Spain's rulemaking, the Vatican's AI encyclical, and OpenAI's biodefense work all reinforced that AI governance is moving from abstract principles to operational controls."
+    },
+    {
+      "name": "enterprise_market_and_labor",
+      "description": "OpenAI's Deployment Company, Gartner coding-agent recognition, Databricks deployment, Mistral's acquisition, and TechCrunch's labor-market reporting showed the enterprise market shifting from pilots into implementation, consolidation, and workforce anxiety."
+    }
+  ],
+  "sources_consulted": [
+    "OpenAI Blog",
+    "Anthropic Blog",
+    "Google Blog",
+    "Google DeepMind Blog",
+    "TechCrunch AI",
+    "InfoQ AI/ML",
+    "The Next Web",
+    "South China Morning Post AI",
+    "Sifted",
+    "Hugging Face Blog",
+    "VentureBeat AI"
+  ],
+  "notes": "Registry for May 2026 AI developments. Emphasis is on events within the target period and sources in the trusted-source list. The dominant themes were Google I/O's agentic Gemini platform push, OpenAI and Anthropic's model and agent workflow expansion, Nvidia and Anthropic compute/capital escalation, consumer resistance to default AI Search, and the operationalization of cyber and provenance controls."
+}

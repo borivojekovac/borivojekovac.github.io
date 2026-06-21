@@ -1,4 +1,30 @@
 {
+  "language_profile": {
+    "target_language": "Serbian",
+    "script": "Latin",
+    "style_rules": [
+      "Write as original Serbian prose, not as Serbian words placed into source-language syntax.",
+      "Preserve technical precision, but prefer idiomatic Serbian phrasing over formal equivalence.",
+      "Keep common AI and software anglicisms when Serbian practitioners normally use them.",
+      "Use Serbian inflection for foreign brand and product names when natural, usually with a hyphen: Google-ov, Claude-a, Anthropic-ov.",
+      "For literary or metaphor-heavy passages, preserve the effect of the image rather than the exact image if the exact image sounds foreign."
+    ],
+    "naturalness_gate": [
+      "Reject any sentence that only becomes clear after mentally translating it back to English.",
+      "Reject dictionary-equivalent words whose secondary meaning misleads in Serbian.",
+      "Reject English passive and abstract noun-heavy constructions when a natural Serbian verb phrase is clearer.",
+      "Prefer concrete Serbian verbs over imported abstractions where the text is narrative or essayistic."
+    ],
+    "false_friends": {
+      "action": "Do not default to 'akcija'. Use radnja, postupak, aktivnost, delovanje, obavljanje posla, or pokretanje radnje depending on context.",
+      "acts": "Do not default to 'deluje' when the meaning is 'takes action'. Use pokreće radnje, radi, izvršava, deluje u ime korisnika, or similar.",
+      "default": "Do not always use 'podrazumevano podešavanje'. Depending on context use početno stanje, unapred izabrano, automatski uključeno, podrazumevana opcija.",
+      "surface": "Do not always use 'površina'. Depending on context use interfejs, mesto pojavljivanja, proizvodni sloj, radna površina.",
+      "stack": "Keep 'stack' only when used as a technical term. Otherwise use sloj, sistem, sklop, infrastruktura.",
+      "native": "Avoid 'nativno'. Use ugrađeno, izvorno, u svojoj osnovi, or a fuller explanation.",
+      "agentic": "Use agentski when natural, but prefer a short explanation if the sentence would sound like jargon."
+    }
+  },
   "philosophy": {
     "principles": [
       "Adapt metaphors to target culture, never translate literally",
@@ -33,6 +59,9 @@
     "feed (social)": "fid | ne 'tok'",
     "noise/chatter": "šum (signal-noise) / buka (volume) / vriska (chaotic)",
     "deployment": "implementacija / produkcija",
+    "default setting": "podrazumevano podešavanje / početno stanje, zavisno od ritma rečenice",
+    "delegation": "delegiranje / prepuštanje odluke",
+    "actuator": "opisno: pokreće radnje, dobija dugmad i ruke; izbegavati 'aktuator' u publicističkom tekstu",
     "frontier models": "najjači modeli / najnoviji modeli",
     "cognitive commons": "deljeni kognitivni resurs",
     "creative pipeline": "kreativni proces | ne 'tok'",
@@ -194,7 +223,9 @@
     "Self-Healing Memory (AI feature)": "samolečeća memorija",
     "Undercover Mode (AI feature)": "prikriveni režim",
     "power shortfall": "deficit struje",
-    "open-weight (models)": "otvorenih težina"
+    "open-weight (models)": "otvorenih težina",
+    "cap table": "tabela vlasništva",
+    "heat plume": "termalni trag"
   },
   "idioms": {
     "dropped like a stone": "pao je kao cigla na glavu",
@@ -219,7 +250,8 @@
     "the value migrates to the plumbing": "vrednost se seli u vodovod",
     "silicon shaped to the speed": "silicijum skrojen za brzinu",
     "agency leaking from the box": "agentnost curi iz kutije",
-    "the bill is headcount": "račun je spisak zaposlenih"
+    "the bill is headcount": "račun je spisak zaposlenih",
+    "capacity has a cap table and a heat plume": "kapacitet ima tabelu vlasništva i termalni trag"
   },
   "context_dependent": {
     "the implications": "implikacije (logičke) / posledice (konkretne)",

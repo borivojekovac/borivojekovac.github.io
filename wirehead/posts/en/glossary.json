@@ -1,0 +1,25 @@
+{
+  "language_profile": {
+    "target_language": "English",
+    "style_rules": [
+      "Write as original English prose, not as a literal transfer of source-language syntax.",
+      "Prefer lean, idiomatic English verbs over abstract nominal constructions.",
+      "Split long source-language sentences when English rhythm benefits from shorter sentences.",
+      "Keep AI and software terms in standard industry English unless the source contains a deliberate localism.",
+      "For metaphor-heavy passages, preserve the effect and tension of the image rather than the exact source image."
+    ],
+    "naturalness_gate": [
+      "Reject any sentence that sounds like a calque from the source language.",
+      "Reject word order that is grammatical but not idiomatic in English.",
+      "Reject overly formal phrasing when the surrounding article uses essayistic or literary tech-blog prose.",
+      "Reject literal idiom translations unless the same idiom exists naturally in English."
+    ],
+    "false_friends": {},
+    "notes": [
+      "Expand this glossary after real Serbian-to-English translation work exposes recurring decisions."
+    ]
+  },
+  "terms": {},
+  "idioms": {},
+  "context_dependent": {}
+}
