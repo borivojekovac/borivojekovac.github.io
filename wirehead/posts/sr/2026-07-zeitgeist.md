@@ -1,4 +1,4 @@
-# Zeitgeist: Agentura curi
+# Zeitgeist: Agenti beže
 
 ## Jul je mesec u kojem se AI otima s lanca: kroz evaluacione sandboxove, cenovne kategorije, otvorene težine, elektroenergetsku mrežu, protokole za kompanije i, na kraju, u mašine koje se kreću kroz svet.
 
