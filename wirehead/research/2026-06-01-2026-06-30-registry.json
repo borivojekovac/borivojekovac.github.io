@@ -1,0 +1,723 @@
+{
+  "period": {
+    "start": "2026-06-01",
+    "end": "2026-06-30",
+    "timezone": "UTC",
+    "inclusive": true
+  },
+  "methodology": {
+    "scope": "AI events that happened and were reported inside the June 1-30, 2026 window.",
+    "selection": "Fifty events ranked for a blend of capability impact, deployment reach, capital and infrastructure significance, policy consequence, security relevance, and societal friction.",
+    "verification": "Each included event has at least one link to a trusted source named in instructions/blog.research.news.md. Aggregations and corporate announcements are labeled by source and publication date.",
+    "limitations": "Some source sites exposed archives or search-index snippets rather than stable article pages, and several outlets limited crawling. No event was treated as verified solely from an inaccessible source."
+  },
+  "clusters": [
+    {
+      "id": "frontier-governance",
+      "name": "Frontier models under border control",
+      "description": "Model launches, export controls, state review, and the emerging contest over who gets access to frontier capability."
+    },
+    {
+      "id": "agents-at-work",
+      "name": "Agents at work",
+      "description": "Agents moving from chat surfaces into software repositories, enterprise workflows, regulated systems, and long-running execution."
+    },
+    {
+      "id": "compute-infrastructure",
+      "name": "The compute frontier becomes a utility war",
+      "description": "Capital, chips, memory, power, water, and sovereign infrastructure constraining the next phase of AI deployment."
+    },
+    {
+      "id": "open-model-economics",
+      "name": "Open models and the price of intelligence",
+      "description": "Open weights, local inference, model efficiency, consumer surfaces, and new attempts to turn capability into defensible products."
+    },
+    {
+      "id": "proof-and-trust",
+      "name": "The proof problem",
+      "description": "Security incidents, evaluations, observability, labor friction, public resistance, and the evidence needed to trust autonomous systems."
+    }
+  ],
+  "stories": [
+    {
+      "id": "frontier-models-under-border-control",
+      "filename": "2026-06-01-2026-06-30-frontier-models-under-border-control.md",
+      "title": "Frontier Models Under Border Control"
+    },
+    {
+      "id": "agents-at-work",
+      "filename": "2026-06-01-2026-06-30-agents-at-work.md",
+      "title": "Agents at Work"
+    },
+    {
+      "id": "compute-frontier-is-a-utility-war",
+      "filename": "2026-06-01-2026-06-30-the-compute-frontier-is-a-utility-war.md",
+      "title": "The Compute Frontier Is a Utility War"
+    },
+    {
+      "id": "open-models-and-the-price-of-intelligence",
+      "filename": "2026-06-01-2026-06-30-open-models-and-the-price-of-intelligence.md",
+      "title": "Open Models and the Price of Intelligence"
+    },
+    {
+      "id": "the-proof-problem",
+      "filename": "2026-06-01-2026-06-30-the-proof-problem.md",
+      "title": "The Proof Problem"
+    }
+  ],
+  "events": [
+    {
+      "id": "e01-anthropic-ipo-path",
+      "date": "2026-06-01",
+      "title": "Anthropic confidentially submits a draft S-1",
+      "impact_score": 9,
+      "cluster_ids": ["frontier-governance", "compute-infrastructure"],
+      "story_ids": ["frontier-models-under-border-control", "compute-frontier-is-a-utility-war"],
+      "summary": "Anthropic disclosed that it had confidentially submitted a draft registration statement for a possible public offering, formalizing the race to finance frontier-model scale.",
+      "sources": [
+        {"source": "Anthropic Blog", "date": "2026-06-01", "title": "Anthropic newsroom listing for confidential S-1 filing", "url": "https://www.anthropic.com/news?via=aivyx"},
+        {"source": "TechCrunch AI", "date": "2026-06-01", "title": "Anthropic files to go public", "url": "https://techcrunch.com/2026/06/01/anthropic-files-to-go-public/"}
+      ]
+    },
+    {
+      "id": "e02-github-copilot-usage-billing",
+      "date": "2026-06-01",
+      "title": "GitHub moves Copilot toward usage-based billing",
+      "impact_score": 8,
+      "cluster_ids": ["agents-at-work", "proof-and-trust"],
+      "story_ids": ["agents-at-work", "the-proof-problem"],
+      "summary": "GitHub announced usage-based billing across Copilot plans, with code review consuming Actions minutes and new controls for budgets and Copilot Max usage.",
+      "sources": [
+        {"source": "GitHub Blog", "date": "2026-06-01", "title": "Updates to GitHub Copilot billing and plans", "url": "https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans/"},
+        {"source": "Ars Technica AI", "date": "2026-06-01", "title": "AI costs: how GitHub Copilot users react to new usage-based pricing", "url": "https://arstechnica.com/ai/2026/06/ai-costs-how-much-github-copilot-users-react-to-new-usage-based-pricing-system/"}
+      ]
+    },
+    {
+      "id": "e03-duckduckgo-no-ai-search",
+      "date": "2026-06-01",
+      "title": "DuckDuckGo makes no-AI search easier to reach",
+      "impact_score": 7,
+      "cluster_ids": ["open-model-economics", "proof-and-trust"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "the-proof-problem"],
+      "summary": "DuckDuckGo promoted a no-AI search mode as traffic to the option grew, creating a visible consumer counter-signal to the default-AI web.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-01", "title": "DuckDuckGo makes its no-AI search engine easier to access as its traffic booms", "url": "https://techcrunch.com/2026/06/01/duckduckgo-makes-its-no-ai-search-engine-easier-to-access-as-its-traffic-booms/"}
+      ]
+    },
+    {
+      "id": "e04-nvidia-agent-pc-cpu-market",
+      "date": "2026-06-01",
+      "title": "Nvidia chases the agent-PC CPU market",
+      "impact_score": 8,
+      "cluster_ids": ["compute-infrastructure", "agents-at-work"],
+      "story_ids": ["compute-frontier-is-a-utility-war", "agents-at-work"],
+      "summary": "Nvidia framed AI-agent PCs from Microsoft, Dell, and HP as an entry into a roughly $200 billion CPU opportunity, shifting the agent contest toward endpoints.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-01", "title": "Nvidia chases the $200B CPU market with AI agent PCs", "url": "https://techcrunch.com/2026/06/01/nvidia-chases-200b-cpu-market-with-ai-agent-pcs-from-microsoft-dell-and-hp/"}
+      ]
+    },
+    {
+      "id": "e05-trump-ai-oversight-order",
+      "date": "2026-06-02",
+      "title": "The White House narrows its AI oversight order",
+      "impact_score": 8,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "A revised executive order narrowed federal AI oversight after industry objections, while still asking frontier developers to participate in a 30-day testing and review process.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-02", "title": "Trump signs narrower executive order on AI oversight after industry objections", "url": "https://techcrunch.com/2026/06/02/trump-signs-narrower-executive-order-on-ai-oversight-after-industry-objections/"},
+        {"source": "SCMP AI", "date": "2026-06-03", "title": "Trump AI order amid China competition", "url": "https://www.scmp.com/tech/policy?module=china_future_tech&pgtype=section"}
+      ]
+    },
+    {
+      "id": "e06-microsoft-scout-agent-platform",
+      "date": "2026-06-02",
+      "title": "Microsoft presents an agent operating system for work",
+      "impact_score": 9,
+      "cluster_ids": ["agents-at-work", "compute-infrastructure"],
+      "story_ids": ["agents-at-work", "compute-frontier-is-a-utility-war"],
+      "summary": "Microsoft Build put identity, context, policy, oversight, Agent 365, Work IQ, and Scout at the center of an enterprise system intended to make agents persistent and governable.",
+      "sources": [
+        {"source": "Microsoft Blog", "date": "2026-06-02", "title": "AI alone won't change your business. The system running it will.", "url": "https://blogs.microsoft.com/blog/2026/06/02/ai-alone-wont-change-your-business-the-system-running-it-will/"},
+        {"source": "Microsoft Blog", "date": "2026-06-02", "title": "Microsoft Build 2026: be yourself at work", "url": "https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/"},
+        {"source": "TechCrunch AI", "date": "2026-06-02", "title": "Microsoft launches Scout, an OpenClaw-inspired personal assistant", "url": "https://techcrunch.com/2026/06/02/microsoft-launches-scout-an-openclaw-inspired-personal-assistant/"}
+      ]
+    },
+    {
+      "id": "e07-openai-codex-enterprise-tools",
+      "date": "2026-06-02",
+      "title": "OpenAI turns Codex into an enterprise workspace",
+      "impact_score": 8,
+      "cluster_ids": ["agents-at-work"],
+      "story_ids": ["agents-at-work"],
+      "summary": "Codex gained Sites, annotations, plugins, and role-specific workflows designed to let non-developers use long-running agents inside shared organizational contexts.",
+      "sources": [
+        {"source": "VentureBeat AI", "date": "2026-06-02", "title": "OpenAI's Codex update lets agents build interactive enterprise workspaces", "url": "https://venturebeat.com/orchestration/openais-codex-update-lets-agents-build-interactive-enterprise-workspaces-via-sites-and-role-specific-plugins"},
+        {"source": "TechCrunch AI", "date": "2026-06-02", "title": "OpenAI launches new Codex tools for white-collar work", "url": "https://techcrunch.com/2026/06/02/openai-launches-new-codex-tools-for-white-collar-work/"}
+      ]
+    },
+    {
+      "id": "e08-github-copilot-app-agent-native",
+      "date": "2026-06-02",
+      "title": "GitHub ships an agent-native Copilot desktop app",
+      "impact_score": 8,
+      "cluster_ids": ["agents-at-work"],
+      "story_ids": ["agents-at-work"],
+      "summary": "GitHub introduced a desktop Copilot app built around multiple agents, centralized context, and visible logs, moving the product model from autocomplete toward orchestration.",
+      "sources": [
+        {"source": "GitHub Blog", "date": "2026-06-02", "title": "GitHub Copilot app: the agent-native desktop experience", "url": "https://github.blog/news-insights/product-news/github-copilot-app-the-agent-native-desktop-experience/"},
+        {"source": "GitHub Blog", "date": "2026-06-02", "title": "Extend GitHub with agent apps", "url": "https://github.blog/changelog/2026-06-02-extend-github-with-agent-apps/"}
+      ]
+    },
+    {
+      "id": "e09-gemma-4-12b-local",
+      "date": "2026-06-03",
+      "title": "Google releases a laptop-sized multimodal Gemma 4",
+      "impact_score": 8,
+      "cluster_ids": ["open-model-economics", "agents-at-work"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "agents-at-work"],
+      "summary": "Gemma 4 12B arrived under Apache 2.0 with native vision and audio, agentic workflow support, and a footprint aimed at systems with about 16GB of RAM or VRAM.",
+      "sources": [
+        {"source": "Google Blog", "date": "2026-06-03", "title": "Introducing Gemma 4 12B", "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/"},
+        {"source": "Ars Technica AI", "date": "2026-06-03", "title": "Google's new Gemma 4 open AI model is sized for your laptop", "url": "https://arstechnica.com/google/2026/06/googles-new-gemma-4-open-ai-model-is-sized-for-your-laptop/"}
+      ]
+    },
+    {
+      "id": "e10-deepseek-funding",
+      "date": "2026-06-03",
+      "title": "DeepSeek nears a $7.4 billion funding round",
+      "impact_score": 9,
+      "cluster_ids": ["open-model-economics", "compute-infrastructure"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "compute-frontier-is-a-utility-war"],
+      "summary": "DeepSeek was reported to be raising more than 50 billion yuan, or about $7.4 billion, at a valuation near $60 billion with backing from major Chinese technology and industrial companies.",
+      "sources": [
+        {"source": "SCMP AI", "date": "2026-06-03", "title": "DeepSeek nears US$7b haul in first-ever funding round", "url": "https://www.scmp.com/tech/big-tech/article/3355818/deepseek-nears-us7b-haul-first-ever-funding-round-backing-tencent-catl?pgtype=live"},
+        {"source": "TLDR AI", "date": "2026-06-04", "title": "DeepSeek slated for $7B funding", "url": "https://ai.tldr.tech/p/tldr-ai-2026-06-04"}
+      ]
+    },
+    {
+      "id": "e11-openai-policy-agenda",
+      "date": "2026-06-03",
+      "title": "OpenAI publishes a public policy agenda",
+      "impact_score": 7,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "OpenAI's policy agenda grouped frontier safety, youth, education, workforce transition, provenance, and infrastructure among the governance issues it wants to shape.",
+      "sources": [
+        {"source": "OpenAI Blog", "date": "2026-06-03", "title": "Public policy agenda", "url": "https://openai.com/index/public-policy-agenda/"}
+      ]
+    },
+    {
+      "id": "e12-eu-tech-sovereignty",
+      "date": "2026-06-04",
+      "title": "The EU proposes a tech sovereignty package",
+      "impact_score": 8,
+      "cluster_ids": ["compute-infrastructure", "frontier-governance"],
+      "story_ids": ["compute-frontier-is-a-utility-war", "frontier-models-under-border-control"],
+      "summary": "Sifted reported on an EU package intended to reduce dependence on US technology, as European AI infrastructure funding and sovereign-compute arguments moved from rhetoric toward policy.",
+      "sources": [
+        {"source": "Sifted", "date": "2026-06-04", "title": "The EU's tech sovereignty package", "url": "https://sifted.eu/articles/eu-tech-sovereignty-package-analysis"}
+      ]
+    },
+    {
+      "id": "e13-deepseek-us-adoption",
+      "date": "2026-06-04",
+      "title": "US companies turn to DeepSeek for cheaper AI",
+      "impact_score": 8,
+      "cluster_ids": ["open-model-economics", "frontier-governance"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "frontier-models-under-border-control"],
+      "summary": "SCMP reported that DeepSeek had become a leading trending software vendor on Ramp as US firms sought lower-cost Chinese models, despite data-sovereignty and geopolitical concerns.",
+      "sources": [
+        {"source": "SCMP AI", "date": "2026-06-04", "title": "More US firms turn to China's DeepSeek over pricey Silicon Valley AI", "url": "https://www.scmp.com/tech/tech-trends/article/3355927/more-us-firms-turn-chinas-deepseek-over-pricey-silicon-valley-ai"}
+      ]
+    },
+    {
+      "id": "e14-google-spacex-compute",
+      "date": "2026-06-05",
+      "title": "Google signs a $920 million monthly SpaceX compute deal",
+      "impact_score": 9,
+      "cluster_ids": ["compute-infrastructure"],
+      "story_ids": ["compute-frontier-is-a-utility-war"],
+      "summary": "Google was reported to be committing roughly $920 million per month to SpaceX compute, a vivid signal that frontier-model growth is becoming a long-term infrastructure procurement market.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-05", "title": "Google will pay SpaceX $920M per month for compute", "url": "https://techcrunch.com/2026/06/05/google-will-pay-spacex-920m-per-month-for-compute/"}
+      ]
+    },
+    {
+      "id": "e15-airtrunk-india-ai-data-centers",
+      "date": "2026-06-05",
+      "title": "AirTrunk commits to a $30 billion, 5GW India buildout",
+      "impact_score": 8,
+      "cluster_ids": ["compute-infrastructure"],
+      "story_ids": ["compute-frontier-is-a-utility-war"],
+      "summary": "AirTrunk committed to a multibillion-dollar India data-center expansion sized around 5GW, tying national growth plans to the physical requirements of AI workloads.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-05", "title": "AirTrunk commits $30B to build 5GW of AI data centers in India", "url": "https://techcrunch.com/2026/06/05/airtrunk-commits-30b-to-build-5gw-of-ai-data-centers-in-india/"}
+      ]
+    },
+    {
+      "id": "e16-token-bill-ai-costs",
+      "date": "2026-06-05",
+      "title": "The AI industry confronts its token bill",
+      "impact_score": 8,
+      "cluster_ids": ["compute-infrastructure", "proof-and-trust"],
+      "story_ids": ["compute-frontier-is-a-utility-war", "the-proof-problem"],
+      "summary": "TechCrunch described an industry scramble to manage runaway token and inference costs, shifting the AI conversation from model capability alone toward unit economics and workload discipline.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-05", "title": "The token bill comes due", "url": "https://techcrunch.com/2026/06/05/the-token-bill-comes-due-inside-the-industry-scramble-to-manage-ai-runaway-costs/"}
+      ]
+    },
+    {
+      "id": "e17-fable-mythos-launch",
+      "date": "2026-06-09",
+      "title": "Anthropic launches Fable 5 and restricts Mythos 5",
+      "impact_score": 10,
+      "cluster_ids": ["frontier-governance", "open-model-economics"],
+      "story_ids": ["frontier-models-under-border-control", "open-models-and-the-price-of-intelligence"],
+      "summary": "Anthropic released Fable 5 publicly while reserving the more capable Mythos 5 behind a restricted-access program called Glasswing, making access policy part of the product launch.",
+      "sources": [
+        {"source": "Anthropic Blog", "date": "2026-06-09", "title": "Claude Fable 5 and Mythos 5", "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"},
+        {"source": "Ars Technica AI", "date": "2026-06-09", "title": "Anthropic says these topics are too dangerous to let its Fable 5 model talk about", "url": "https://arstechnica.com/ai/2026/06/anthropic-says-these-topics-are-too-dangerous-to-let-its-fable-5-model-talk-about/"}
+      ]
+    },
+    {
+      "id": "e18-apple-wwdc-ai-overhaul",
+      "date": "2026-06-08",
+      "title": "Apple unveils a more conversational Siri and private cloud AI",
+      "impact_score": 9,
+      "cluster_ids": ["open-model-economics", "proof-and-trust"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "the-proof-problem"],
+      "summary": "At WWDC, Apple previewed a more conversational Siri and expanded AI features while stressing that private personal data could remain protected even when inference uses Google's servers.",
+      "sources": [
+        {"source": "Ars Technica AI", "date": "2026-06-08", "title": "Say hi to Siri AI: Apple announces new more conversational voice assistant", "url": "https://arstechnica.com/ai/2026/06/say-hi-to-siri-ai-apple-announces-new-more-conversational-voice-assistant/"},
+        {"source": "Ars Technica AI", "date": "2026-06-09", "title": "Apple says its AI is still private even when it's running on Google's servers", "url": "https://arstechnica.com/ai/2026/06/apple-says-its-ai-is-still-private-even-when-its-running-on-googles-servers/"}
+      ]
+    },
+    {
+      "id": "e19-apple-on-device-agents",
+      "date": "2026-06-09",
+      "title": "Apple routes on-device agents around the memory wall",
+      "impact_score": 8,
+      "cluster_ids": ["compute-infrastructure", "agents-at-work"],
+      "story_ids": ["compute-frontier-is-a-utility-war", "agents-at-work"],
+      "summary": "VentureBeat reported that Apple's AFM 3 architecture stores a 20-billion-parameter on-device model in NAND flash and routes only task-relevant experts into DRAM, changing the tradeoff between local privacy and model size.",
+      "sources": [
+        {"source": "VentureBeat AI", "date": "2026-06-09", "title": "On-device AI agents hit a hard memory limit. Apple's new architecture routes around it.", "url": "https://venturebeat.com/technology/on-device-ai-agents-hit-a-hard-memory-limit-apples-new-architecture-routes-around-it"}
+      ]
+    },
+    {
+      "id": "e20-diffusiongemma",
+      "date": "2026-06-10",
+      "title": "Google open-sources DiffusionGemma for faster local generation",
+      "impact_score": 8,
+      "cluster_ids": ["open-model-economics", "compute-infrastructure"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "compute-frontier-is-a-utility-war"],
+      "summary": "DiffusionGemma, released under Apache 2.0, used a diffusion approach to generate text in parallel and was presented as up to four times faster on local hardware.",
+      "sources": [
+        {"source": "Google Blog", "date": "2026-06-10", "title": "DiffusionGemma: faster text generation", "url": "https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/"},
+        {"source": "Ars Technica AI", "date": "2026-06-10", "title": "Google's latest DiffusionGemma open AI model comes with a 4x speed boost", "url": "https://arstechnica.com/google/2026/06/googles-latest-diffusiongemma-open-ai-model-comes-with-a-4x-speed-boost/"}
+      ]
+    },
+    {
+      "id": "e21-xai-safety-engineer-lawsuit",
+      "date": "2026-06-10",
+      "title": "A lawsuit alleges xAI fired an engineer who raised Grok safety concerns",
+      "impact_score": 8,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "A lawsuit reported by TechCrunch alleged that xAI dismissed an engineer after safety complaints about Grok, putting internal escalation and accountability back into the public AI debate.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-10", "title": "xAI fired an engineer who raised alarms about Grok safety, new lawsuit claims", "url": "https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/"}
+      ]
+    },
+    {
+      "id": "e22-github-agentic-workflows",
+      "date": "2026-06-11",
+      "title": "GitHub previews agentic workflows written in Markdown",
+      "impact_score": 9,
+      "cluster_ids": ["agents-at-work", "proof-and-trust"],
+      "story_ids": ["agents-at-work", "the-proof-problem"],
+      "summary": "GitHub's public-preview Agentic Workflows compiled natural-language Markdown into Actions automation, with read-only defaults, sandboxing, containerization, firewalling, and threat scanning.",
+      "sources": [
+        {"source": "GitHub Blog", "date": "2026-06-11", "title": "GitHub Agentic Workflows is now in public preview", "url": "https://github.blog/changelog/2026-06-11-github-agentic-workflows-is-now-in-public-preview/"},
+        {"source": "GitHub Blog", "date": "2026-06-11", "title": "Agentic Workflows no longer need a personal access token", "url": "https://github.blog/changelog/2026-06-11-agentic-workflows-no-longer-need-a-personal-access-token/"}
+      ]
+    },
+    {
+      "id": "e23-openai-ona-acquisition",
+      "date": "2026-06-11",
+      "title": "OpenAI acquires Ona for long-running cloud agents",
+      "impact_score": 9,
+      "cluster_ids": ["agents-at-work"],
+      "story_ids": ["agents-at-work"],
+      "summary": "OpenAI acquired Ona to strengthen secure, customer-controlled cloud execution and orchestration for agents that continue working across hours, days, and remote sessions.",
+      "sources": [
+        {"source": "OpenAI Blog", "date": "2026-06-11", "title": "OpenAI to acquire Ona", "url": "https://openai.com/index/openai-to-acquire-ona/"}
+      ]
+    },
+    {
+      "id": "e24-multi-agent-safety-funding",
+      "date": "2026-06-11",
+      "title": "Google DeepMind and partners commit up to $10 million to multi-agent safety research",
+      "impact_score": 8,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "A Google DeepMind-led program invited research on collective behavior, sandboxes, identity, reputation, commitment, and oversight for networks of interacting agents.",
+      "sources": [
+        {"source": "Google DeepMind Blog", "date": "2026-06-11", "title": "Investing in multi-agent AI safety research", "url": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/"}
+      ]
+    },
+    {
+      "id": "e25-fable-mythos-export-controls",
+      "date": "2026-06-12",
+      "title": "US export controls suspend foreign-national access to Fable and Mythos",
+      "impact_score": 10,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "A US directive required Anthropic to suspend Fable 5 and Mythos 5 access for foreign nationals, including employees, turning a model safeguard boundary into a geopolitical access boundary.",
+      "sources": [
+        {"source": "Anthropic Blog", "date": "2026-06-12", "title": "Fable and Mythos access update", "url": "https://www.anthropic.com/news/fable-mythos-access?hsLang=en-us"},
+        {"source": "Ars Technica AI", "date": "2026-06-12", "title": "Anthropic shuts down Fable and Mythos models following Trump administration directive", "url": "https://arstechnica.com/ai/2026/06/anthropics-shuts-down-fable-mythos-models-following-trump-admin-directive/"}
+      ]
+    },
+    {
+      "id": "e26-spacex-ipo-ai-capital",
+      "date": "2026-06-12",
+      "title": "SpaceX's IPO resets the scale of AI-adjacent capital",
+      "impact_score": 9,
+      "cluster_ids": ["compute-infrastructure"],
+      "story_ids": ["compute-frontier-is-a-utility-war"],
+      "summary": "SpaceX's public offering was reported as closing sharply higher and valuing the company at a level that made launch, satellite, and AI-compute infrastructure part of one enormous capital story.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-12", "title": "SpaceX IPO coverage and AI infrastructure valuation", "url": "https://techcrunch.com/2026/06/12/"},
+        {"source": "The Next Web", "date": "2026-06-27", "title": "SpaceX IPO and the AI infrastructure capital market", "url": "https://thenextweb.com/latest/page/143"}
+      ]
+    },
+    {
+      "id": "e27-google-cybercrime-ai-scams",
+      "date": "2026-06-12",
+      "title": "Google sues an AI-automated cybercrime operation",
+      "impact_score": 9,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "Google sued a Chinese cybercrime network accused of using Gemini to automate scams at scale, offering a concrete example of model capability becoming operational criminal infrastructure.",
+      "sources": [
+        {"source": "Ars Technica AI", "date": "2026-06-12", "title": "Google sues Chinese cybercrime network that used Gemini to automate scams", "url": "https://arstechnica.com/ai/2026/06/google-sues-chinese-cybercrime-network-that-used-gemini-to-automate-scams/"},
+        {"source": "TechCrunch AI", "date": "2026-06-12", "title": "Chinese cybercrime operation that used AI to scam hundreds of thousands of victims sued by Google", "url": "https://techcrunch.com/2026/06/12/chinese-cybercrime-operation-that-used-ai-to-scam-hundreds-of-thousands-of-victims-sued-by-google/"}
+      ]
+    },
+    {
+      "id": "e28-uk-ai-planning",
+      "date": "2026-06-16",
+      "title": "The UK tests Gemini-assisted planning to speed housebuilding",
+      "impact_score": 7,
+      "cluster_ids": ["agents-at-work", "proof-and-trust"],
+      "story_ids": ["agents-at-work", "the-proof-problem"],
+      "summary": "Google DeepMind, UK government bodies, local councils, and Faculty tested Gemini-assisted planning workflows with an ambition to halve application times, putting agents inside a regulated public process.",
+      "sources": [
+        {"source": "Google DeepMind Blog", "date": "2026-06-16", "title": "Unlocking UK house building with AI-accelerated planning", "url": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/"}
+      ]
+    },
+    {
+      "id": "e29-chatgpt-market-share",
+      "date": "2026-06-16",
+      "title": "ChatGPT falls below half of chatbot market share",
+      "impact_score": 8,
+      "cluster_ids": ["open-model-economics", "proof-and-trust"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "the-proof-problem"],
+      "summary": "TechCrunch reported that ChatGPT's share of the chatbot market had slipped below 50 percent for the first time, a sign that distribution and product breadth were weakening a once-obvious default.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-16", "title": "ChatGPT's market share slips below 50% for first time", "url": "https://techcrunch.com/2026/06/16/chatgpts-market-share-slips-below-50-for-first-time/"},
+        {"source": "TLDR AI", "date": "2026-06-16", "title": "ChatGPT market share", "url": "https://tldr.tech/ai/archives"}
+      ]
+    },
+    {
+      "id": "e30-tenet-security",
+      "date": "2026-06-17",
+      "title": "Tenet Security raises $6 million for agent-side simulation",
+      "impact_score": 8,
+      "cluster_ids": ["agents-at-work", "proof-and-trust"],
+      "story_ids": ["agents-at-work", "the-proof-problem"],
+      "summary": "Tenet Security launched with a $6 million raise and a system intended to simulate an agent's next action, predict attacks, and intervene before an enterprise tool call becomes an incident.",
+      "sources": [
+        {"source": "VentureBeat AI", "date": "2026-06-17", "title": "Former Cisco AI defense builders launch Tenet Security", "url": "https://venturebeat.com/business/former-cisco-ai-defense-builders-launch-tenet-security-raise-6-million-to-prevent-attacks-on-enterprise-ai-agents"}
+      ]
+    },
+    {
+      "id": "e31-sentinelbench",
+      "date": "2026-06-08",
+      "title": "Microsoft Research introduces SentinelBench for monitoring agents",
+      "impact_score": 7,
+      "cluster_ids": ["proof-and-trust", "agents-at-work"],
+      "story_ids": ["the-proof-problem", "agents-at-work"],
+      "summary": "Microsoft Research highlighted SentinelBench, a benchmark for long-running monitoring agents, treating persistence, coverage, recall, and response time as first-class evaluation problems.",
+      "sources": [
+        {"source": "Microsoft Research Blog", "date": "2026-06-08", "title": "AI Frontiers lab news and updates: SentinelBench", "url": "https://www.microsoft.com/en-us/research/lab/ai-frontiers/news-updates/"}
+      ]
+    },
+    {
+      "id": "e32-openai-open-source-bugs",
+      "date": "2026-06-22",
+      "title": "OpenAI launches an initiative to find and patch open-source bugs",
+      "impact_score": 8,
+      "cluster_ids": ["proof-and-trust", "agents-at-work"],
+      "story_ids": ["the-proof-problem", "agents-at-work"],
+      "summary": "OpenAI launched a program to use AI systems to discover and help patch bugs in open-source software, turning agentic coding into a public security and maintenance experiment.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-22", "title": "OpenAI launches new initiative to help find and patch open-source bugs", "url": "https://techcrunch.com/2026/06/22/openai-launches-new-initiative-to-help-find-and-patch-open-source-bugs/"}
+      ]
+    },
+    {
+      "id": "e33-microsoft-chevron-gas-data-center",
+      "date": "2026-06-22",
+      "title": "Microsoft and Chevron plan a gas-powered data center project",
+      "impact_score": 8,
+      "cluster_ids": ["compute-infrastructure", "proof-and-trust"],
+      "story_ids": ["compute-frontier-is-a-utility-war", "the-proof-problem"],
+      "summary": "Microsoft and Chevron announced a natural-gas-powered data-center project, showing how AI capacity plans are colliding with grid constraints, emissions questions, and local infrastructure politics.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-22", "title": "Microsoft and Chevron's gas-powered data center project", "url": "https://techcrunch.com/2026/06/22/"}
+      ]
+    },
+    {
+      "id": "e34-sifted-ai-infra-sovereignty",
+      "date": "2026-06-22",
+      "title": "European AI infrastructure sovereignty becomes an investment thesis",
+      "impact_score": 8,
+      "cluster_ids": ["compute-infrastructure", "frontier-governance"],
+      "story_ids": ["compute-frontier-is-a-utility-war", "frontier-models-under-border-control"],
+      "summary": "Sifted argued that Europe's AI infrastructure sovereignty debate was becoming concrete as funding grew, hyperscalers retained a dominant cloud position, and regions competed on power and cooling.",
+      "sources": [
+        {"source": "Sifted", "date": "2026-06-22", "title": "Owning the entire AI stack is essential", "url": "https://sifted.eu/articles/owning-the-entire-ai-stack-is-essential-brnd"}
+      ]
+    },
+    {
+      "id": "e35-openai-broadcom-jalapeno-chip",
+      "date": "2026-06-24",
+      "title": "OpenAI and Broadcom announce a custom inference chip",
+      "impact_score": 10,
+      "cluster_ids": ["compute-infrastructure"],
+      "story_ids": ["compute-frontier-is-a-utility-war"],
+      "summary": "OpenAI and Broadcom announced a custom chip designed for large-scale language-model inference, extending the model labs' move from renting compute toward specifying and controlling the silicon beneath it.",
+      "sources": [
+        {"source": "Ars Technica AI", "date": "2026-06-24", "title": "OpenAI and Broadcom announce chip designed for LLM inference at scale", "url": "https://arstechnica.com/ai/2026/06/openai-and-broadcom-announce-chip-designed-for-llm-inference-at-scale/"},
+        {"source": "TechCrunch AI", "date": "2026-06-26", "title": "OpenAI's Jalapeño chip is Big Tech's move away from Nvidia", "url": "https://techcrunch.com/podcast/openais-jalapeno-chip-is-big-techs-spiciest-move-away-from-nvidia/"}
+      ]
+    },
+    {
+      "id": "e36-ai-engineering-jobs-resilient",
+      "date": "2026-06-24",
+      "title": "New data suggests engineering jobs are unusually resilient to AI",
+      "impact_score": 8,
+      "cluster_ids": ["proof-and-trust", "agents-at-work"],
+      "story_ids": ["the-proof-problem", "agents-at-work"],
+      "summary": "TechCrunch reported evidence that engineering roles were among the most resilient as AI adoption spread, complicating the simple story that coding automation immediately eliminates software jobs.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-24", "title": "AI was supposed to kill engineering jobs, but new data suggests they're the most resilient", "url": "https://techcrunch.com/2026/06/24/ai-was-supposed-to-kill-engineering-jobs-but-new-data-suggests-theyre-the-most-resilient/"}
+      ]
+    },
+    {
+      "id": "e37-patronus-digital-worlds",
+      "date": "2026-06-25",
+      "title": "Patronus AI raises $50 million to stress-test agents in digital worlds",
+      "impact_score": 8,
+      "cluster_ids": ["proof-and-trust", "agents-at-work"],
+      "story_ids": ["the-proof-problem", "agents-at-work"],
+      "summary": "Patronus AI raised $50 million to build simulated digital environments where agents can be tested against realistic tasks, failures, and adversarial conditions before deployment.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-25", "title": "Patronus AI lands $50M to build digital worlds that stress-test AI agents", "url": "https://techcrunch.com/2026/06/25/patronus-ai-lands-50m-to-build-digital-worlds-that-stress-test-ai-agents/"}
+      ]
+    },
+    {
+      "id": "e38-alibaba-claude-extraction",
+      "date": "2026-06-25",
+      "title": "Anthropic accuses Alibaba of a large-scale Claude extraction attack",
+      "impact_score": 9,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "Anthropic said Alibaba-linked actors had used thousands of accounts to extract Claude capabilities, making model distillation and competitive access-control enforcement a central frontier risk.",
+      "sources": [
+        {"source": "Ars Technica AI", "date": "2026-06-25", "title": "Anthropic says Alibaba must be punished for largest Claude cloning attack", "url": "https://arstechnica.com/ai/2026/06/anthropic-says-alibaba-must-be-punished-for-largest-claude-cloning-attack/"},
+        {"source": "TechCrunch AI", "date": "2026-06-25", "title": "Alibaba and Claude model extraction attack", "url": "https://techcrunch.com/2026/06/25/"}
+      ]
+    },
+    {
+      "id": "e39-gpt-5-6-sol-preview",
+      "date": "2026-06-26",
+      "title": "OpenAI previews GPT-5.6 Sol to a limited audience",
+      "impact_score": 10,
+      "cluster_ids": ["frontier-governance", "proof-and-trust"],
+      "story_ids": ["frontier-models-under-border-control", "the-proof-problem"],
+      "summary": "OpenAI introduced a limited preview of GPT-5.6 Sol, Terra, and Luna, with the Sol release held to a constrained audience while the White House reviewed the model and its safety posture.",
+      "sources": [
+        {"source": "OpenAI Blog", "date": "2026-06-26", "title": "Previewing GPT-5.6 Sol", "url": "https://openai.com/index/previewing-gpt-5-6-sol/"},
+        {"source": "TechCrunch AI", "date": "2026-06-25", "title": "The White House asks OpenAI to slow-roll its new model", "url": "https://techcrunch.com/2026/06/25/the-white-house-is-asking-openai-to-slow-roll-the-release-of-its-new-model-over-safety-concerns/"}
+      ]
+    },
+    {
+      "id": "e40-liquid-lfm-2-5",
+      "date": "2026-06-26",
+      "title": "Liquid AI releases a 230M-parameter LFM 2.5",
+      "impact_score": 7,
+      "cluster_ids": ["open-model-economics", "compute-infrastructure"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "compute-frontier-is-a-utility-war"],
+      "summary": "Liquid AI's LFM 2.5 used a non-transformer state-space and liquid architecture at 230 million parameters, with TLDR reporting performance comparable to models several times larger.",
+      "sources": [
+        {"source": "TLDR AI", "date": "2026-06-26", "title": "Liquid AI LFM 2.5", "url": "https://signup.tldr.tech/ai/2026-06-26"}
+      ]
+    },
+    {
+      "id": "e41-hp-openai-frontier",
+      "date": "2026-06-28",
+      "title": "HP expands its OpenAI Frontier partnership globally",
+      "impact_score": 7,
+      "cluster_ids": ["agents-at-work", "proof-and-trust"],
+      "story_ids": ["agents-at-work", "the-proof-problem"],
+      "summary": "HP moved its OpenAI Frontier partnership from pilots toward global customer and partner experiences, with telemetry, reporting, employee productivity, and software development among the stated use cases.",
+      "sources": [
+        {"source": "OpenAI Blog", "date": "2026-06-28", "title": "HP Frontier partnership", "url": "https://openai.com/index/hp-frontier-partnership/"}
+      ]
+    },
+    {
+      "id": "e42-ford-rehires-engineers",
+      "date": "2026-06-28",
+      "title": "Ford rehires engineers after AI-driven vehicle quality misses",
+      "impact_score": 8,
+      "cluster_ids": ["proof-and-trust", "agents-at-work"],
+      "story_ids": ["the-proof-problem", "agents-at-work"],
+      "summary": "Ford reportedly rehired hundreds of experienced engineers after AI-assisted vehicle work fell short, a high-profile reminder that tacit knowledge and accountability are difficult to automate away.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-28", "title": "Ford rehires gray-beard engineers after AI falls short", "url": "https://techcrunch.com/2026/06/28/"},
+        {"source": "The Next Web", "date": "2026-06-27", "title": "Ford rehired 350 engineers after AI vehicle quality problems", "url": "https://thenextweb.com/latest/page/143"}
+      ]
+    },
+    {
+      "id": "e43-south-korea-ramageddon",
+      "date": "2026-06-29",
+      "title": "South Korean tech companies commit more than $550 billion to ease the memory crunch",
+      "impact_score": 9,
+      "cluster_ids": ["compute-infrastructure"],
+      "story_ids": ["compute-frontier-is-a-utility-war"],
+      "summary": "South Korean technology companies committed more than $550 billion in plans aimed at relieving memory and semiconductor constraints, making RAM supply a strategic AI bottleneck.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-29", "title": "South Korean tech giants commit over $550B to ease RAMageddon", "url": "https://techcrunch.com/2026/06/29/south-korean-tech-giants-commit-over-550b-to-ease-ramageddon/"}
+      ]
+    },
+    {
+      "id": "e44-arena-100m",
+      "date": "2026-06-29",
+      "title": "Arena's AI leaderboard becomes a $100 million business",
+      "impact_score": 8,
+      "cluster_ids": ["open-model-economics", "proof-and-trust"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "the-proof-problem"],
+      "summary": "Arena's public model-comparison leaderboard was reported to have become a $100 million business, showing that evaluation and preference data can itself become infrastructure for the model market.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-29", "title": "Arena, the AI leaderboard everyone uses, is now a $100M business", "url": "https://techcrunch.com/2026/06/29/arena-the-ai-leaderboard-everyone-uses-is-now-a-100m-business/"}
+      ]
+    },
+    {
+      "id": "e45-base44-model",
+      "date": "2026-06-29",
+      "title": "Base44 launches its own model",
+      "impact_score": 7,
+      "cluster_ids": ["open-model-economics", "agents-at-work"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "agents-at-work"],
+      "summary": "Vibe-coding platform Base44 launched its own model as application companies looked for defensibility beyond a thin wrapper around a general-purpose API.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-29", "title": "Vibe-coding platform Base44 launches its own model", "url": "https://techcrunch.com/2026/06/29/vibe-coding-platform-base44-launches-own-model-as-ai-startups-seek-defensibility/"}
+      ]
+    },
+    {
+      "id": "e46-anthropic-california-deal",
+      "date": "2026-06-29",
+      "title": "California agrees to use Claude at half price",
+      "impact_score": 8,
+      "cluster_ids": ["agents-at-work", "frontier-governance"],
+      "story_ids": ["agents-at-work", "frontier-models-under-border-control"],
+      "summary": "Anthropic and California governor Gavin Newsom announced a deal allowing state government use of Claude at half price, a concrete public-sector deployment and procurement signal.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-29", "title": "Anthropic and Governor Newsom forge deal allowing California government to use Claude at half price", "url": "https://techcrunch.com/2026/06/29/anthropic-and-gov-newsom-forge-deal-allowing-california-government-to-use-claude-at-half-price/"}
+      ]
+    },
+    {
+      "id": "e47-claude-sonnet-5",
+      "date": "2026-06-30",
+      "title": "Anthropic launches Claude Sonnet 5 as a cheaper agent model",
+      "impact_score": 9,
+      "cluster_ids": ["open-model-economics", "agents-at-work"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "agents-at-work"],
+      "summary": "Claude Sonnet 5 was positioned as a more affordable, highly capable model for plans, tools, browsers, terminals, and autonomous work, making cost-per-agent-action a competitive frontier.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-30", "title": "Anthropic launches Claude Sonnet 5 as a cheaper way to run agents", "url": "https://techcrunch.com/2026/06/30/anthropic-launches-claude-sonnet-5-as-a-cheaper-way-to-run-agents/"}
+      ]
+    },
+    {
+      "id": "e48-nano-banana-2-lite",
+      "date": "2026-06-30",
+      "title": "Google releases faster, cheaper Nano Banana 2 Lite",
+      "impact_score": 8,
+      "cluster_ids": ["open-model-economics", "compute-infrastructure"],
+      "story_ids": ["open-models-and-the-price-of-intelligence", "compute-frontier-is-a-utility-war"],
+      "summary": "Google introduced Nano Banana 2 Lite at roughly four seconds and $0.034 per thousand images, targeting high-volume visual workflows where throughput and price matter more than novelty.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-30", "title": "Google introduces a faster, cheaper image generator with Nano Banana 2 Lite", "url": "https://techcrunch.com/2026/06/30/google-introduces-a-faster-cheaper-image-generator-with-nano-banana-2-lite/"}
+      ]
+    },
+    {
+      "id": "e49-amazon-fde-billion",
+      "date": "2026-06-30",
+      "title": "Amazon launches a $1 billion forward-deployed engineering organization",
+      "impact_score": 8,
+      "cluster_ids": ["agents-at-work", "compute-infrastructure"],
+      "story_ids": ["agents-at-work", "compute-frontier-is-a-utility-war"],
+      "summary": "Amazon created a $1 billion forward-deployed engineering organization, following similar moves by OpenAI and Anthropic to put technical staff inside enterprise implementations.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-30", "title": "Amazon launches new $1B FDE organization", "url": "https://techcrunch.com/2026/06/30/amazon-launches-new-1-billion-fde-org-following-openai-and-anthropic/"}
+      ]
+    },
+    {
+      "id": "e50-claude-science",
+      "date": "2026-06-30",
+      "title": "Anthropic's Claude Science bets on workflow rather than a new model",
+      "impact_score": 8,
+      "cluster_ids": ["agents-at-work", "proof-and-trust"],
+      "story_ids": ["agents-at-work", "the-proof-problem"],
+      "summary": "Anthropic's Claude Science initiative emphasized repeatable scientific workflows and tool use rather than another headline model release, making domain process the product surface.",
+      "sources": [
+        {"source": "TechCrunch AI", "date": "2026-06-30", "title": "Anthropic's Claude Science bets on workflow, not a new model, to win over scientists", "url": "https://techcrunch.com/2026/06/30/anthropics-claude-science-bets-on-workflow-not-a-new-model-to-win-over-scientists/"}
+      ]
+    }
+  ],
+  "trusted_sources_checked": [
+    {"name": "TechCrunch AI", "url": "https://techcrunch.com/category/artificial-intelligence/", "status": "checked", "qualifying_event_ids": ["e01-anthropic-ipo-path", "e03-duckduckgo-no-ai-search", "e04-nvidia-agent-pc-cpu-market", "e05-trump-ai-oversight-order", "e06-microsoft-scout-agent-platform", "e07-openai-codex-enterprise-tools", "e14-google-spacex-compute", "e15-airtrunk-india-ai-data-centers", "e16-token-bill-ai-costs", "e17-fable-mythos-launch", "e21-xai-safety-engineer-lawsuit", "e26-spacex-ipo-ai-capital", "e27-google-cybercrime-ai-scams", "e29-chatgpt-market-share", "e32-openai-open-source-bugs", "e33-microsoft-chevron-gas-data-center", "e35-openai-broadcom-jalapeno-chip", "e36-ai-engineering-jobs-resilient", "e37-patronus-digital-worlds", "e38-alibaba-claude-extraction", "e39-gpt-5-6-sol-preview", "e42-ford-rehires-engineers", "e43-south-korea-ramageddon", "e44-arena-100m", "e45-base44-model", "e46-anthropic-california-deal", "e47-claude-sonnet-5", "e48-nano-banana-2-lite", "e49-amazon-fde-billion", "e50-claude-science"]},
+    {"name": "VentureBeat AI", "url": "https://venturebeat.com/category/ai/", "status": "checked", "qualifying_event_ids": ["e07-openai-codex-enterprise-tools", "e19-apple-on-device-agents", "e30-tenet-security"]},
+    {"name": "MIT Technology Review", "url": "https://www.technologyreview.com/topic/artificial-intelligence/", "status": "checked_limited_by_robots", "qualifying_event_ids": []},
+    {"name": "The Verge AI", "url": "https://www.theverge.com/ai-artificial-intelligence", "status": "checked_limited_by_indexing", "qualifying_event_ids": []},
+    {"name": "Ars Technica AI", "url": "https://arstechnica.com/ai/", "status": "checked", "qualifying_event_ids": ["e02-github-copilot-usage-billing", "e09-gemma-4-12b-local", "e17-fable-mythos-launch", "e18-apple-wwdc-ai-overhaul", "e20-diffusiongemma", "e25-fable-mythos-export-controls", "e27-google-cybercrime-ai-scams", "e35-openai-broadcom-jalapeno-chip", "e38-alibaba-claude-extraction"]},
+    {"name": "GitHub Blog", "url": "https://github.blog/ai-and-ml/", "status": "checked", "qualifying_event_ids": ["e02-github-copilot-usage-billing", "e08-github-copilot-app-agent-native", "e22-github-agentic-workflows"]},
+    {"name": "Hugging Face Blog", "url": "https://huggingface.co/blog", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "OpenAI Blog", "url": "https://openai.com/news/", "status": "checked", "qualifying_event_ids": ["e11-openai-policy-agenda", "e23-openai-ona-acquisition", "e39-gpt-5-6-sol-preview", "e41-hp-openai-frontier"]},
+    {"name": "Anthropic Blog", "url": "https://www.anthropic.com/news", "status": "checked", "qualifying_event_ids": ["e01-anthropic-ipo-path", "e17-fable-mythos-launch", "e25-fable-mythos-export-controls"]},
+    {"name": "Google DeepMind Blog", "url": "https://deepmind.google/blog/", "status": "checked", "qualifying_event_ids": ["e24-multi-agent-safety-funding", "e28-uk-ai-planning"]},
+    {"name": "The Batch", "url": "https://www.deeplearning.ai/the-batch/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Ben's Bites", "url": "https://bensbites.beehiiv.com/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "TLDR AI", "url": "https://tldr.tech/ai", "status": "checked", "qualifying_event_ids": ["e10-deepseek-funding", "e29-chatgpt-market-share", "e40-liquid-lfm-2-5"]},
+    {"name": "Import AI", "url": "https://importai.substack.com/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Last Week in AI", "url": "https://lastweekin.ai/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Latent Space", "url": "https://www.latent.space/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "The Pragmatic Engineer", "url": "https://newsletter.pragmaticengineer.com/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Hacker News", "url": "https://news.ycombinator.com/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "r/MachineLearning", "url": "https://www.reddit.com/r/MachineLearning/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Papers with Code", "url": "https://paperswithcode.com/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "The Gradient", "url": "https://thegradient.pub/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Sifted", "url": "https://sifted.eu/sector/ai", "status": "checked", "qualifying_event_ids": ["e12-eu-tech-sovereignty", "e34-sifted-ai-infra-sovereignty"]},
+    {"name": "The Next Web", "url": "https://thenextweb.com/artificial-intelligence", "status": "checked_archive_limited", "qualifying_event_ids": ["e26-spacex-ipo-ai-capital", "e42-ford-rehires-engineers"]},
+    {"name": "SCMP AI", "url": "https://www.scmp.com/topics/artificial-intelligence", "status": "checked", "qualifying_event_ids": ["e05-trump-ai-oversight-order", "e10-deepseek-funding", "e13-deepseek-us-adoption"]},
+    {"name": "Nikkei Asia AI", "url": "https://asia.nikkei.com/Business/Technology", "status": "checked_limited_by_robots", "qualifying_event_ids": []},
+    {"name": "InfoQ AI/ML", "url": "https://www.infoq.com/ai-ml-data-eng/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Stack Overflow Blog AI", "url": "https://stackoverflow.blog/artificial-intelligence/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Game Developer", "url": "https://www.gamedeveloper.com/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []},
+    {"name": "Microsoft Research Blog", "url": "https://www.microsoft.com/en-us/research/blog/", "status": "checked", "qualifying_event_ids": ["e31-sentinelbench"]},
+    {"name": "AI Weirdness", "url": "https://www.aiweirdness.com/", "status": "checked_no_qualifying_item_used", "qualifying_event_ids": []}
+  ]
+}

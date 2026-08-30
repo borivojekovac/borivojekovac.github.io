@@ -225,7 +225,18 @@
     "power shortfall": "deficit struje",
     "open-weight (models)": "otvorenih težina",
     "cap table": "tabela vlasništva",
-    "heat plume": "termalni trag"
+    "heat plume": "termalni trag",
+    "jurisdiction": "nadležnost",
+    "control room": "komandni centar",
+    "custom inference chip": "čip za inferencu po meri",
+    "long-running monitoring agents": "agenti za dugotrajni nadzor",
+    "market share": "tržišni udeo",
+    "no-AI search": "pretraga bez AI-ja",
+    "forward-deployed engineering": "inženjeri raspoređeni direktno kod klijenata",
+    "proof problem": "problem dokaza",
+    "long-horizon safety work": "rad na bezbednosti pri dugotrajnim zadacima",
+    "stateless scale": "skaliranje bez stanja",
+    "agency leakage": "curenje agentnosti"
   },
   "idioms": {
     "dropped like a stone": "pao je kao cigla na glavu",
@@ -251,7 +262,10 @@
     "silicon shaped to the speed": "silicijum skrojen za brzinu",
     "agency leaking from the box": "agentnost curi iz kutije",
     "the bill is headcount": "račun je spisak zaposlenih",
-    "capacity has a cap table and a heat plume": "kapacitet ima tabelu vlasništva i termalni trag"
+    "capacity has a cap table and a heat plume": "kapacitet ima tabelu vlasništva i termalni trag",
+    "the frontier ships with a passport office": "najnoviji modeli stižu sa pasoškom kontrolom",
+    "consent stays expensive": "pristanak ostaje skup",
+    "the wall is learning to invoice it": "zid uči da joj ispostavlja račun"
   },
   "context_dependent": {
     "the implications": "implikacije (logičke) / posledice (konkretne)",

@@ -1,5 +1,7 @@
 {
   "posts": [
+    "2026-07-zeitgeist.md",
+    "2026-06-zeitgeist.md",
     "2026-05-zeitgeist.md",
     "2026-04-zeitgeist.md",
     "2026-04-26-rise-of-the-markdown-engineer.md",
@@ -23,28 +25,30 @@
     "2025-01-zeitgeist.md"
   ],
   "translations": {
-  "sr": [
-    "2026-05-zeitgeist.md",
-    "2026-04-zeitgeist.md",
-    "2026-04-26-rise-of-the-markdown-engineer.md",
-    "2026-03-zeitgeist.md",
-    "2026-02-zeitgeist.md",
-    "2026-02-13-engineering-magic.md",
-    "2026-01-zeitgeist.md",
-    "2026-01-23-chanting-to-ghosts.md",
-    "2026-01-15-welcome.md",
-    "2025-12-zeitgeist.md",
-    "2025-11-zeitgeist.md",
-    "2025-10-zeitgeist.md",
-    "2025-09-zeitgeist.md",
-    "2025-08-zeitgeist.md",
-    "2025-07-zeitgeist.md",
-    "2025-06-zeitgeist.md",
-    "2025-05-zeitgeist.md",
-    "2025-04-zeitgeist.md",
-    "2025-03-zeitgeist.md",
-    "2025-02-zeitgeist.md",
-    "2025-01-zeitgeist.md"
+    "sr": [
+      "2026-07-zeitgeist.md",
+      "2026-06-zeitgeist.md",
+      "2026-05-zeitgeist.md",
+      "2026-04-zeitgeist.md",
+      "2026-04-26-rise-of-the-markdown-engineer.md",
+      "2026-03-zeitgeist.md",
+      "2026-02-zeitgeist.md",
+      "2026-02-13-engineering-magic.md",
+      "2026-01-zeitgeist.md",
+      "2026-01-23-chanting-to-ghosts.md",
+      "2026-01-15-welcome.md",
+      "2025-12-zeitgeist.md",
+      "2025-11-zeitgeist.md",
+      "2025-10-zeitgeist.md",
+      "2025-09-zeitgeist.md",
+      "2025-08-zeitgeist.md",
+      "2025-07-zeitgeist.md",
+      "2025-06-zeitgeist.md",
+      "2025-05-zeitgeist.md",
+      "2025-04-zeitgeist.md",
+      "2025-03-zeitgeist.md",
+      "2025-02-zeitgeist.md",
+      "2025-01-zeitgeist.md"
   ]
 }
 }

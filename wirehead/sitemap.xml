@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>/</loc>
-        <lastmod>2026-06-21</lastmod>
+        <lastmod>2026-08-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -16,6 +16,38 @@
         <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-01-15-welcome&amp;lang=sr"/>
     </url>
     -->
+    <url>
+        <loc>/?post=2026-07-zeitgeist</loc>
+        <lastmod>2026-08-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-07-zeitgeist"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-07-zeitgeist&amp;lang=sr"/>
+    </url>
+    <url>
+        <loc>/?post=2026-07-zeitgeist&amp;lang=sr</loc>
+        <lastmod>2026-08-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-07-zeitgeist"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-07-zeitgeist&amp;lang=sr"/>
+    </url>
+    <url>
+        <loc>/?post=2026-06-zeitgeist</loc>
+        <lastmod>2026-08-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-06-zeitgeist"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-06-zeitgeist&amp;lang=sr"/>
+    </url>
+    <url>
+        <loc>/?post=2026-06-zeitgeist&amp;lang=sr</loc>
+        <lastmod>2026-08-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="/?post=2026-06-zeitgeist"/>
+        <xhtml:link rel="alternate" hreflang="sr" href="/?post=2026-06-zeitgeist&amp;lang=sr"/>
+    </url>
     <url>
         <loc>/?post=2026-05-zeitgeist</loc>
         <lastmod>2026-06-21</lastmod>
