@@ -37,6 +37,7 @@
   A.runPolicy = ({ pid, run }) => popup('runPolicy', { pid, run });
   A.sourceOpen = ({ pid, src }) => popup('source', { pid, src });
   A.profileOpen = () => popup('profile');
+  A.grantsOpen = () => popup('grants');
   A.profileSave = ({ form }) => { S().profiles[me()] = form.expertise; S().prefs[me()] = { number: form.number || 'en-GB', date: form.date || 'dmy' }; ADE.ui.popup = null; toast('Profile saved. Replies to your @agent comments use your expertise; number and date formats follow your preference. Summaries, facts, permissions and policy outcomes do not change.'); };
   A.journeysOpen = () => popup('journeys');
   A.regenerate = ({ key }) => {
@@ -449,18 +450,44 @@
     if (ok) event(p, 'link', `${ADE.source(p, form.src).title} attached to ${w ? w.id : p.name}`, 'Pinned to its current revision; no new source created', 'none');
     ADE.ui.popup = null; toast(ok ? 'Attached. No new source was created.' : 'Already attached.');
   };
+  // Uploads are a queue: a sample file, or any number of real files read in the browser. Each goes through the same
+  // fingerprinting (same content → link, same name → "new revision?"); a revision question pauses the queue.
+  const drainUploads = (p, d, w, choice) => {
+    while (d.queue.length) {
+      const up = d.queue[0]; const res = ADE.ingest(p, up, choice, me());
+      if (res.kind === 'ask') { d.ask = res.source.id; d.up = up; d.choice = undefined; ADE.ui.popup = { kind: 'attach', args: { pid: p.id } }; return; }
+      choice = undefined; d.queue.shift(); delete d.ask; delete d.up; delete d.choice;
+      const src = res.source;
+      if (w) ADE.attach(p, w, src.id);
+      const words = { linked: `Same content as ${src.title} @ ${src.revision}: linked to it instead of creating a new source`, fill: `${src.title} was unreadable; this file fills it as its first readable revision`, revision: `Recorded as revision ${src.revision} of ${src.title}; its older facts are superseded when extraction finishes`, overlap: `Added as a separate source ${src.id}, labelled as possibly overlapping`, new: `Added as source ${src.id}` }[res.kind];
+      event(p, res.kind === 'linked' ? 'link' : 'source', `${ADE.personName(me())} ${w ? `attached ${up.title} to ${w.id}` : `added ${up.title}`}`, `${words}${res.kind === 'linked' ? '' : '; extraction runs on the next tick'}`, 'none');
+      d.done.push(words);
+    }
+    const done = d.done; delete S().drafts.attach[p.id]; ADE.ui.popup = null;
+    toast(done.length === 1 ? `${done[0]}.` : `${done.length} files: ${done.join('; ')}.`);
+  };
   A.attachUpload = ({ pid, form = {} }) => {
     const p = ADE.P(pid); const { d, w } = attachTarget(p); if (w && !allowed(p, 'attach', { work: w })) return;
-    const up = (F.uploads[pid] || F.uploads.default).find((u) => u.id === (form.file || d.file));
-    if (!up) { toast('Choose a file.'); return; }
-    d.file = up.id;
-    const res = ADE.ingest(p, up, form.choice || d.choice, me());
-    if (res.kind === 'ask') { d.ask = res.source.id; ADE.ui.popup = { kind: 'attach', args: { pid } }; return; }
-    const src = res.source;
-    if (w) ADE.attach(p, w, src.id);
-    const words = { linked: `Same content as ${src.title} @ ${src.revision}: linked to it instead of creating a new source`, fill: `${src.title} was unreadable; this file fills it as its first readable revision`, revision: `Recorded as revision ${src.revision} of ${src.title}; its older facts are superseded when extraction finishes`, overlap: `Added as a separate source ${src.id}, labelled as possibly overlapping`, new: `Added as source ${src.id}` }[res.kind];
-    event(p, res.kind === 'linked' ? 'link' : 'source', `${ADE.personName(me())} ${w ? `attached ${up.title} to ${w.id}` : `added ${up.title}`}`, `${words}${res.kind === 'linked' ? '' : '; extraction runs on the next tick'}`, 'none');
-    delete S().drafts.attach[pid]; ADE.ui.popup = null; toast(`${words}.`);
+    if (!d.queue) {
+      const up = (F.uploads[pid] || F.uploads.default).find((u) => u.id === (form.file || d.file));
+      if (!up) { toast('Choose a file.'); return; }
+      d.queue = [up]; d.done = [];
+    }
+    drainUploads(p, d, w, form.choice || d.choice);
+  };
+  // Real files, read locally by the browser (never sent anywhere). Text is kept for the source viewer; other files keep
+  // a placeholder, since the prototype does not simulate extraction from binary formats.
+  const MAX_TEXT = 60000;
+  A.attachFiles = ({ pid, files = [] }) => {
+    const p = ADE.P(pid); const { d, w } = attachTarget(p); if (w && !allowed(p, 'attach', { work: w })) return;
+    if (!files.length) { toast('Choose at least one file.'); return; }
+    d.queue = files.map((f) => {
+      const text = typeof f.text === 'string' ? f.text.slice(0, MAX_TEXT) : '';
+      const first = (text.split('\n').find((l) => l.trim()) || '').replace(/^#+\s*/, '').trim();
+      return { id: `file:${f.name}`, title: f.name, label: f.name, purpose: first ? first.slice(0, 120) : `Uploaded file (${f.size || 0} bytes).`, markdown: text || `# ${f.name}\n\nBinary file, ${f.size || 0} bytes. The prototype does not extract text from this format.`, facts: [] };
+    });
+    d.done = [];
+    drainUploads(p, d, w);
   };
   A.attachChoice = ({ pid, choice }) => { S().drafts.attach[pid].choice = choice; };
   A.attachRefresh = ({ pid, wid, src }) => {
@@ -552,7 +579,7 @@
     const p = ADE.P(pid); if (!allowed(p, 'raise-risk')) return; if (!(form.title || '').trim()) { toast('Describe the risk.'); return; }
     const id = `R-${p.risks.length + 20}`;
     const owner = me() === p.owner ? form.owner || null : null;
-    p.risks.push({ id, title: form.title.trim(), status: owner ? 'open' : 'needs-owner', dims: { [form.dim || 'customer']: form.level || 'medium' }, now: [Number(form.likelihood) || 0, Number(form.impact) || 2], target: [1, 1], owner, treatment: 'Not decided yet.', costImpact: 'Unknown', timeImpact: 'Unknown', affects: form.work ? [form.work] : [], evidence: [], responses: [], comments: [] });
+    p.risks.push({ id, title: form.title.trim(), consequence: (form.consequence || '').trim(), status: owner ? 'open' : 'needs-owner', dims: { [form.dim || 'customer']: form.level || 'medium' }, now: [Number(form.likelihood) || 0, Number(form.impact) || 2], target: [1, 1], owner, treatment: 'Not decided yet.', costImpact: 'Unknown', timeImpact: 'Unknown', affects: form.work ? [form.work] : [], evidence: [], responses: [], comments: [] });
     if (form.work) { const w = ADE.item(p, form.work); if (w) w.risks.push(id); }
     event(p, 'report_problem', `${ADE.personName(me())} raised ${id}`, owner ? `Owner ${ADE.personName(owner)}` : `Needs an owner: ${ADE.personName(p.owner)} assigns one`, owner ? 'none' : 'needs-decision');
     ADE.ui.popup = null; ADE.nav(ADE.plink(pid, 'risks', { risk: id }));
@@ -766,7 +793,7 @@
     });
   };
   const verdictBody = (e, rule, w) => `<div class="policy-verdict">${ADE.badge(e.verdict === 'allow' ? 'allow' : e.verdict, { allow: 'Allowed', 'needs-decision': 'Needs decision', deny: 'Denied' }[e.verdict])}<p>${esc(e.reason)}${e.requires.length ? ` Requires: ${esc(e.requires.join(', '))}.` : ''}${e.decider ? ` Decider: ${esc(ADE.personName(e.decider))}${e.youDecide ? ' (you)' : ''}.` : ''}</p></div>
-        ${w ? `<p class="meta">Readiness is a separate fact: this verdict applies once the item is ready (now: ${esc(ADE.label(ADE.ready(ADE.P(w.pid), w.it) || w.it.status))}).</p>` : ''}
+        ${w ? (() => { const rd = ADE.readiness(ADE.P(w.pid), w.it); const f = (rd.failing || [])[0]; return rd.state === 'ready' || w.it.status !== 'open' ? '' : `<p class="meta">${icon('info')}${esc(w.it.id)} isn't ready yet${f ? `: ${esc(f.fix.charAt(0).toLowerCase() + f.fix.slice(1).replace(/\.$/, ''))}` : ''}. Nothing starts until it is ready; then this verdict applies.</p>`; })() : ''}
         <h3>Facts used</h3><table class="table"><thead><tr><th>Fact</th><th>Value</th><th>From</th></tr></thead><tbody>${e.facts.map((f) => `<tr><td>${esc(f.name)}</td><td><strong>${esc(f.value)}</strong></td><td class="meta">${esc(f.source)}</td></tr>`).join('')}</tbody></table>
         <h3>Matched rule</h3><pre class="code">${esc(rule ? JSON.stringify(rule, null, 2) : 'No rule matched.')}</pre>
         <p class="meta">Deterministic: the same facts and revision always give the same verdict. Rules are checked in order; the first match wins.</p>`;
@@ -842,8 +869,8 @@
     const draft = draftFor(`risk:${pid}:${rid}`); const isOwner = me() === p.owner; const pol = ADE.riskPolicyLine(p, r);
     const go = ADE.can(p, 'risk-owner');
     return { eyebrow: ['report_problem', `Risk ${r.id} · ${ADE.label(r.status)}`], title: r.title, wide: true,
-      body: `<div class="risk-detail"><div>${ADE.riskMatrix([r], pid, true)}<p class="meta">Filled: now · ring: target</p></div><div class="risk-card__dims">${Object.entries(r.dims).map(([d, lv]) => ADE.level(d, lv)).join('')}</div></div>
-        <dl class="kv"><div><dt>Treatment</dt><dd>${esc(r.treatment)}</dd></div><div><dt>Cost impact</dt><dd>${esc(r.costImpact)}</dd></div><div><dt>Time impact</dt><dd>${esc(r.timeImpact)}</dd></div><div><dt>Policy now</dt><dd>${esc(pol.text)}${pol.wid ? ` <button class="link" type="button" data-act="policyEval" data-pid="${esc(pid)}" data-wid="${esc(pol.wid)}">Why?</button>` : ''}</dd></div><div><dt>Affects</dt><dd>${r.affects.map((w) => ADE.item(p, w)).filter(Boolean).map((w) => ADE.a(w.title, ADE.plink(pid, `work/${w.id}`))).join(', ') || '—'}</dd></div><div><dt>Evidence</dt><dd>${r.evidence.map((s) => ADE.source(p, s)).filter(Boolean).map((s) => `<button class="link" type="button" data-act="sourceOpen" data-pid="${esc(pid)}" data-src="${esc(s.id)}">${esc(s.title)}</button>`).join(', ') || '<span class="meta">None linked</span>'}</dd></div></dl>
+      body: `${r.consequence ? `<p class="risk-detail__lead">${esc(r.consequence)}</p>` : ''}<div class="risk-detail"><aside class="risk-detail__side" aria-label="Dimensions and exposure"><div class="risk-card__dims">${Object.entries(r.dims).map(([d, lv]) => ADE.level(d, lv)).join('')}</div>${ADE.riskExposure(r)}</aside>
+        <dl class="kv risk-detail__main"><div><dt>Treatment</dt><dd>${esc(r.treatment)}</dd></div><div><dt>Cost impact</dt><dd>${esc(r.costImpact)}</dd></div><div><dt>Time impact</dt><dd>${esc(r.timeImpact)}</dd></div><div><dt>Effect on agents</dt><dd>${esc(pol.text)}${pol.wid ? ` <button class="link" type="button" data-act="policyEval" data-pid="${esc(pid)}" data-wid="${esc(pol.wid)}">Why?</button>` : ''}</dd></div><div><dt>Affects</dt><dd>${r.affects.map((w) => ADE.item(p, w)).filter(Boolean).map((w) => ADE.a(w.title, ADE.plink(pid, `work/${w.id}`))).join(', ') || '—'}</dd></div><div><dt>Evidence</dt><dd>${r.evidence.map((s) => ADE.source(p, s)).filter(Boolean).map((s) => `<button class="link" type="button" data-act="sourceOpen" data-pid="${esc(pid)}" data-src="${esc(s.id)}">${esc(s.title)}</button>`).join(', ') || '<span class="meta">None linked</span>'}</dd></div></dl></div>
         ${r.status !== 'closed' ? `<h3>Proposed responses</h3>${ADE.optionCards(`risk:${pid}:${rid}`, r.responses, draft, { ownLabel: r.responses.length ? 'Own response' : 'Describe a response' })}
         <p class="meta">${isOwner ? 'You can approve spending as the accountable owner.' : `Responses that cost money become a decision for ${esc(ADE.personName(p.owner))}.`}</p>
         <div class="row-actions">${ADE.btn('Record response', 'riskRespond', { pid, rid }, 'primary', 'task_alt')}</div>
@@ -852,6 +879,10 @@
         <h3>Comments</h3>${ADE.comments(p, 'risk', rid, r.comments || [])}`,
       footer: '' };
   });
+  // The fixed grant table, reached from the project policy tab: not part of any contract, so not a configuration tab.
+  P.grants = () => ({ eyebrow: ['lock', 'Grants · fixed in this prototype'], title: 'Who may do what', wide: true,
+    body: `<table class="table"><thead><tr><th>Role</th><th>May do</th></tr></thead><tbody>${ADE.grantTable().map(([r, t]) => `<tr><td><strong>${esc(r)}</strong></td><td>${esc(t)}</td></tr>`).join('')}</tbody></table><p class="meta">Grants are separate from policy verdicts: a member may start an agent, and policy then allows it, routes it for a decision or denies it. Actions a person may not take stay visible, disabled, with the reason.</p>`,
+    footer: ADE.btn('Close', 'popupClose', {}, 'quiet') });
   P.profile = () => { const x = ADE.persona(); const pr = ADE.prefs(); return { eyebrow: ['person', 'Your profile'], title: x.name, body: `<p class="meta">${esc(x.role)}</p><label>Describe your expertise<textarea class="input" name="expertise" rows="4">${esc(ADE.expertise(x.id))}</textarea></label><p class="meta">Agents use this to adapt replies to your @agent comments. Summaries, facts, navigation, permissions and policy outcomes stay the same for everyone.</p>
       <h3>Preferences</h3><div class="grid grid--2"><label>Number format<select class="input" name="number"><option value="en-GB" ${pr.number === 'en-GB' ? 'selected' : ''}>1,234.50</option><option value="de-DE" ${pr.number === 'de-DE' ? 'selected' : ''}>1.234,50</option></select></label><label>Date format<select class="input" name="date"><option value="dmy" ${pr.date === 'dmy' ? 'selected' : ''}>14 Oct</option><option value="mdy" ${pr.date === 'mdy' ? 'selected' : ''}>Oct 14</option><option value="numeric" ${pr.date === 'numeric' ? 'selected' : ''}>14.10.</option></select></label></div><p class="meta">Currency, time zone and the working day are project settings (Configuration → Project settings).</p>`, footer: ADE.btn('Save', 'profileSave', {}, 'primary') }; };
   P.newWork = ({ pid, parent }) => withP(pid, (p) => ({ eyebrow: ['add', 'New work item'], title: 'Add work', wide: true, body: `<label>Title<input class="input" name="title"></label><label>Inside<select class="input" name="parent">${ADE.can(p, 'create-work').ok ? '<option value="">Top level</option>' : ''}${p.work.filter((w) => ADE.can(p, 'add-child', { work: w }).ok).map((w) => `<option value="${esc(w.id)}" ${w.id === parent ? 'selected' : ''}>${'· '.repeat(ADE.ancestors(p, w.id).length)}${esc(w.title)}${w.status === 'done' ? ' (done — adding reopens it)' : ''}</option>`).join('')}</select></label><label>Purpose (why)<input class="input" name="purpose"></label><label class="radio"><input type="checkbox" name="visible"> Customer-visible change</label><p class="meta">Add scope and acceptance criteria on the item with the edit button next to each section. The item is not ready until purpose, in scope and one criterion are written.</p>`, footer: ADE.btn('Create', 'newWorkSave', { pid }, 'primary', 'add') }));
@@ -866,7 +897,7 @@
     const ups = F.uploads[pid] || F.uploads.default;
     const tabsHtml = w ? `<div class="tabs-inline">${[['existing', 'Existing project source'], ['new', 'New file']].map(([t, l]) => `<button type="button" class="tab${d.tab === t ? ' is-active' : ''}" data-act="attachTab" data-pid="${esc(pid)}" data-tab="${t}">${l}</button>`).join('')}</div>` : '';
     if (d.ask) {
-      const s = ADE.source(p, d.ask); const up = ups.find((u) => u.id === d.file);
+      const s = ADE.source(p, d.ask); const up = d.up;
       return { eyebrow: ['compare', `Attach to ${target}`], title: `Is this a new revision of ${s.title}?`, wide: true,
         body: `<p><strong>${esc(up.label)}</strong> has the same name as <strong>${esc(s.title)}</strong> @ ${esc(s.revision)} but different content.</p>
           <label class="radio"><input type="radio" name="choice" value="revision" data-act="attachChoice" data-pid="${esc(pid)}" data-choice="revision" ${d.choice === 'revision' ? 'checked' : ''}> Yes — record it as the next revision of ${esc(s.title)}. Facts from the older revision are marked superseded, not duplicated; items pinned to the older revision keep it until someone chooses the new one.</label>
@@ -875,8 +906,9 @@
     }
     const existing = p.sources.filter((s) => !(w && w.attachments.some((a) => a.src === s.id)));
     const body = d.tab === 'existing' ? `${tabsHtml}<p class="meta">Link a source the project already has. No new source is created.</p>${existing.map((s) => `<label class="radio"><input type="radio" name="src" value="${esc(s.id)}"> ${icon('description')}${esc(s.title)} <span class="meta">${esc(s.kind)} @ ${esc(s.revision)}</span></label>`).join('') || '<p class="meta">Every project source is already attached.</p>'}`
-      : `${tabsHtml}<p class="meta">Prototype: choose one of the synthetic files instead of uploading. ADE fingerprints the content: the same file becomes a link, a changed file with the same name asks whether it is a new revision.</p>${ups.map((u) => { const c = ADE.classifyUpload(p, u); return `<label class="radio"><input type="radio" name="file" value="${esc(u.id)}"> ${icon('description')}${esc(u.label)} <span class="meta">${esc(u.purpose)}</span>${c.kind === 'linked' ? ` ${ADE.tone(`Already in project as ${c.source.title}`, 'info', 'link')}` : c.kind === 'ask' ? ` ${ADE.tone(`Same name as ${c.source.id}`, 'warn', 'compare')}` : ''}</label>`; }).join('')}<p class="meta">Every attachment becomes a project source; the original is kept unchanged and extraction runs on the next tick.</p>`;
-    return { eyebrow: ['add', `Attach to ${target}`], title: w ? 'Attach a document' : 'Add a document to project knowledge', wide: true, body, footer: d.tab === 'existing' ? ADE.btn('Attach', 'attachExisting', { pid }, 'primary', 'link') : ADE.btn('Add and extract', 'attachUpload', { pid }, 'primary', 'source') };
+      : `${tabsHtml}<label class="dropzone" data-dropzone data-pid="${esc(pid)}">${icon('upload_file')}<strong>Drop files here, or choose files</strong><span class="meta">Any number of files. They are read in your browser and stay on this computer. ADE fingerprints each one: the same content becomes a link, a changed file with the same name asks whether it is a new revision.</span><input class="visually-hidden" type="file" multiple data-files="attachFiles" data-pid="${esc(pid)}"></label>
+        <h3 class="h-small">Or use a sample file</h3>${ups.map((u) => { const c = ADE.classifyUpload(p, u); return `<label class="radio"><input type="radio" name="file" value="${esc(u.id)}"> ${icon('description')}${esc(u.label)} <span class="meta">${esc(u.purpose)}</span>${c.kind === 'linked' ? ` ${ADE.tone(`Already in project as ${c.source.title}`, 'info', 'link')}` : c.kind === 'ask' ? ` ${ADE.tone(`Same name as ${c.source.id}`, 'warn', 'compare')}` : ''}</label>`; }).join('')}<p class="meta">Every attachment becomes a project source; the original is kept unchanged and extraction runs on the next tick.</p>`;
+    return { eyebrow: ['add', `Attach to ${target}`], title: w ? 'Attach a document' : 'Add a document to project knowledge', wide: true, body, footer: d.tab === 'existing' ? ADE.btn('Attach', 'attachExisting', { pid }, 'primary', 'link') : ADE.btn('Add sample file', 'attachUpload', { pid }, 'primary', 'source') };
   });
   P.detach = ({ pid, wid, src }) => withP(pid, (p) => {
     const w = ADE.item(p, wid); const s = ADE.source(p, src);
@@ -910,7 +942,7 @@
   };
   P.done = ({ pid, wid }) => withP(pid, (p) => { const w = ADE.item(p, wid); const leaf = ADE.isLeaf(p, w); return { eyebrow: ['task_alt', `${leaf ? 'Record human contribution' : 'Mark done'} · ${wid}`], title: w.title, wide: true, body: `<p>${leaf ? 'Use this when a person did the work, or the item is settled without an agent run.' : 'All children are done or deferred.'} Record what shows it is done.</p><label>Evidence (required)<textarea class="input" name="evidence" rows="3" placeholder="e.g. Rule agreed with the library board on 12 Oct; written into domain-notes.md @ 18aa"></textarea></label><label>Human effort in hours (optional)<input class="input" type="number" name="hours" step="0.5" min="0"></label><p class="meta">Hours are shown as days using the project's ${esc(ADE.fmtCtx.dayHours)}-hour working day. Items that depend on this one are re-checked.</p>`, footer: ADE.btn('Mark done', 'doneSave', { pid, wid }, 'primary', 'task_alt') }; });
   P.addRepo = () => ({ eyebrow: ['link', 'Connect repository'], title: 'Connect a repository', body: '<label>URL<input class="input" name="url" placeholder="git.example/team/repo"></label><label class="radio"><input type="radio" name="kind" value="code" checked> Code repository</label><label class="radio"><input type="radio" name="kind" value="docs"> Documentation repository</label><p class="meta">ADE reads at an exact revision and never writes to the repository from here.</p>', footer: ADE.btn('Connect', 'addRepoSave', { pid: ADE.parse().parts[1] }, 'primary', 'link') });
-  P.raiseRisk = ({ pid }) => withP(pid, (p) => ({ eyebrow: ['report_problem', 'Raise a risk'], title: 'What could derail outcome, cost or time?', wide: true, body: `<label>Risk<input class="input" name="title"></label><div class="grid grid--2"><label>Main dimension<select class="input" name="dim">${['customer', 'cost', 'time', 'scope', 'authority', 'evidence', 'capacity'].map((d) => `<option>${d}</option>`).join('')}</select></label><label>Level<select class="input" name="level"><option>low</option><option selected>medium</option><option>high</option><option>unknown</option></select></label><label>Likelihood<select class="input" name="likelihood"><option value="0">Unknown</option><option value="1">Low</option><option value="2" selected>Medium</option><option value="3">High</option></select></label><label>Impact<select class="input" name="impact"><option value="1">Low</option><option value="2" selected>Medium</option><option value="3">High</option></select></label>${me() === p.owner ? `<label>Owner<select class="input" name="owner"><option value="">Nobody yet</option>${Object.values(F.people).filter((x) => p.access.includes(x.id)).map((x) => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></label>` : `<p class="meta">${esc(ADE.personName(p.owner))} (accountable owner) assigns the owner.</p>`}<label>Affects<select class="input" name="work"><option value="">—</option>${p.work.filter((w) => w.status !== 'done').map((w) => `<option value="${esc(w.id)}">${esc(w.title)}</option>`).join('')}</select></label></div>`, footer: ADE.btn('Raise risk', 'raiseRiskSave', { pid }, 'primary') }));
+  P.raiseRisk = ({ pid }) => withP(pid, (p) => ({ eyebrow: ['report_problem', 'Raise a risk'], title: 'What could derail outcome, cost or time?', wide: true, body: `<label>Risk<input class="input" name="title"></label><label>What happens if it occurs?<input class="input" name="consequence" placeholder="Who is affected, and how"></label><div class="grid grid--2"><label>Main dimension<select class="input" name="dim">${['customer', 'cost', 'time', 'scope', 'authority', 'evidence', 'capacity'].map((d) => `<option>${d}</option>`).join('')}</select></label><label>Level<select class="input" name="level"><option>low</option><option selected>medium</option><option>high</option><option>unknown</option></select></label><label>Likelihood<select class="input" name="likelihood"><option value="0">Unknown</option><option value="1">Low</option><option value="2" selected>Medium</option><option value="3">High</option></select></label><label>Impact<select class="input" name="impact"><option value="1">Low</option><option value="2" selected>Medium</option><option value="3">High</option></select></label>${me() === p.owner ? `<label>Owner<select class="input" name="owner"><option value="">Nobody yet</option>${Object.values(F.people).filter((x) => p.access.includes(x.id)).map((x) => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></label>` : `<p class="meta">${esc(ADE.personName(p.owner))} (accountable owner) assigns the owner.</p>`}<label>Affects<select class="input" name="work"><option value="">—</option>${p.work.filter((w) => w.status !== 'done').map((w) => `<option value="${esc(w.id)}">${esc(w.title)}</option>`).join('')}</select></label></div>`, footer: ADE.btn('Raise risk', 'raiseRiskSave', { pid }, 'primary') }));
   P.contractJson = ({ pid, key }) => { const c = ADE.P(pid).contracts[key]; return { eyebrow: ['code', `Active · revision ${c.revision}`], title: ADE.CONTRACTS[key].title, wide: true, body: `<pre class="code">${esc(JSON.stringify(c.json, null, 2))}</pre>`, footer: '<span class="meta">Read-only. Change it by describing the change.</span>' }; };
   P.contractReadme = ({ pid, key }) => { const c = ADE.P(pid).contracts[key]; return { eyebrow: ['menu_book', 'README'], title: `How ${ADE.CONTRACTS[key].title.toLowerCase()} work${key === 'settings' || key === 'skills' || key === 'agents' ? '' : 's'}`, body: `<ul class="plain">${c.readme.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>`, footer: '' }; };
   P.contractHistory = ({ pid, key }) => { const c = ADE.P(pid).contracts[key]; return { eyebrow: ['history', 'History'], title: 'Revisions', body: `<table class="table"><tbody>${[...c.history].reverse().map((h) => `<tr><td>Revision ${h.revision}</td><td>${esc(h.date)}</td><td>${esc(ADE.personName(h.by))}</td><td>${esc(h.change)}</td></tr>`).join('')}</tbody></table>`, footer: '' }; };

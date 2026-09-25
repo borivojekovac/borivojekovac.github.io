@@ -55,6 +55,9 @@
   // Route effect, called by the DOM layer (and check.mjs) after navigation: remembers where each person was.
   ADE.visit = function (hash) {
     const { parts } = ADE.parse(hash); const st = ADE.state; const me = st.persona;
+    // The omni-navigation banner belongs to the view it opened; leaving that view ends it, so coming back later
+    // (e.g. by a tab) never shows a stale “Opened for …” banner.
+    if (st.omniApplied && st.omniApplied.hash !== hash) st.omniApplied = null;
     if (parts[0] !== 'p' || !st.projects[parts[1]] || !st.projects[parts[1]].access.includes(me)) return;
     st.lastProject[me] = parts[1];
     if (parts[2] === 'work' && parts[3] && ADE.item(st.projects[parts[1]], parts[3])) (st.lastWork[me] = st.lastWork[me] || {})[parts[1]] = parts[3];
@@ -105,15 +108,15 @@
 
   /* ------------------------------------------------------------------ policy evaluation (deterministic) */
   const LEVEL = { low: 1, medium: 2, high: 3, unknown: 2 };
-  ADE.evaluate = function (p, it, actorId = ADE.state.persona) {
+  // `without` evaluates as if one risk were not linked: that is how a risk card tells whether the risk changes a verdict.
+  ADE.evaluate = function (p, it, actorId = ADE.state.persona, { without } = {}) {
     const pol = p.contracts.policy.json; const limit = pol.limits.agentRunMax;
-    const linked = (it.risks || []).map((id) => riskById(p, id)).filter((r) => r && r.status !== 'closed');
+    const linked = (it.risks || []).filter((id) => id !== without).map((id) => riskById(p, id)).filter((r) => r && r.status !== 'closed');
     const maxRisk = linked.reduce((m, r) => (LEVEL[exposure(r)] > LEVEL[m] ? exposure(r) : m), 'low');
     const hi = it.forecast ? it.forecast[1] : null;
     const authority = actorId === p.owner ? 'accountable-owner' : actorId === 'automation' ? 'automation' : 'contributor';
-    const readiness = ADE.readiness(p, it).state;
+    // Readiness is not a policy fact: no rule reads it. The explanation states it separately, in words.
     const facts = [
-      { name: 'Readiness', value: readiness ? ADE.label(readiness) : ADE.label(it.status), source: `Work item ${it.id} (checks and dependencies)` },
       { name: 'Forecast (high end)', value: hi == null ? 'Unknown' : eur(hi), source: 'Recorded estimate' },
       { name: 'Run limit', value: eur(limit), source: `Policy revision ${pol.revision} · limits.agentRunMax` },
       { name: 'Highest linked risk', value: linked.length ? `${maxRisk} (${linked.map((r) => r.id).join(', ')})` : 'none', source: 'Risk register' },
@@ -143,13 +146,19 @@
     return { verdict, rule: rule ? rule.id : null, reason, facts, requires: (rule && rule.requires) || [], decider, revision: pol.revision, youDecide: verdict === 'needs-decision' && decider === actorId };
   };
   ADE.capacity = (p) => { const used = p.runs.filter((r) => r.state === 'running').length; return { used, slots: p.capacity.slots, free: used < p.capacity.slots }; };
-  // The policy line on a risk card is generated from the evaluator for the first open item the risk affects.
+  // Effect on agents: does this risk change what policy lets an agent do on the open work it affects? Each affected item
+  // is evaluated with and without the risk; only a difference is reported as an effect. Generated from the evaluator.
   ADE.riskPolicyLine = function (p, r) {
-    const w = r.affects.map((id) => item(p, id)).find((x) => x && x.status === 'open' && ADE.isLeaf(p, x));
-    if (!w) return { text: r.affects.length ? 'No open work item is affected, so no start is being evaluated.' : 'Not linked to work yet; policy is not evaluated.' };
-    const e = ADE.evaluate(p, w);
-    const words = { allow: 'is allowed', 'needs-decision': `needs ${e.decider ? `${ADE.personName(e.decider)}'s decision` : 'a decision'}`, deny: 'is denied' }[e.verdict];
-    return { text: `Starting an agent on ${w.id} now ${words} (rule ${e.rule || '—'}).`, wid: w.id };
+    const open = r.affects.map((id) => item(p, id)).filter((x) => x && x.status === 'open' && ADE.isLeaf(p, x));
+    if (!open.length) return { text: 'Not linked to open work, so it doesn\'t change what agents may do.', changes: false };
+    const verdictWords = (e) => ({ allow: 'is allowed', 'needs-decision': `needs ${e.decider ? `${ADE.personName(e.decider)}'s agreement` : 'a decision'}`, deny: 'is denied' }[e.verdict]);
+    for (const w of open) {
+      const e = ADE.evaluate(p, w); const e0 = ADE.evaluate(p, w, undefined, { without: r.id });
+      if (e.verdict !== e0.verdict || e.rule !== e0.rule || e.decider !== e0.decider) {
+        return { text: `Because this risk is ${exposure(r)}, starting an agent on ${w.id} ${verdictWords(e)} (rule ${e.rule || '—'}). Without it, it ${verdictWords(e0)}.`, wid: w.id, changes: true };
+      }
+    }
+    return { text: `Doesn't change what agents may do on ${open.map((w) => w.id).join(', ')}.`, wid: open[0].id, changes: false };
   };
 
   /* ------------------------------------------------------------------ generated work summary (prototype stand-in, always live) */
@@ -260,14 +269,17 @@
   ADE.kind = (k) => `<span class="kind kind--${esc(k.toLowerCase().replace(/[^a-z]+/g, '-'))}">${esc(k)}</span>`;
   ADE.empty = (ic, title, text, action = '') => `<div class="empty">${icon(ic)}<div><strong>${esc(title)}</strong><p>${esc(text)}</p>${action}</div></div>`;
 
-  ADE.pageHeader = function ({ eyebrow, crumbs = [], title, titleEdit = '', sub, subKey, personal, outdated, facts = [], actions = '' }) {
+  // `factCards` renders the facts as a strip of small cards (work item); `below` is a block after the facts (the
+  // project description, so the short facts keep their place however long it grows).
+  ADE.pageHeader = function ({ eyebrow, crumbs = [], title, titleEdit = '', sub, subKey, personal, outdated, facts = [], factCards = false, below = '', actions = '' }) {
     return `<header class="page-header">
       ${crumbs.length ? `<p class="crumbs">${crumbs.map(([t, h]) => (h ? ADE.a(t, h) : `<span>${esc(t)}</span>`)).join(icon('chevron_right'))}</p>` : ''}
       ${eyebrow ? `<p class="eyebrow">${esc(eyebrow)}</p>` : ''}
       <h1>${esc(title)}${titleEdit}</h1>
       ${sub ? `<p class="subtitle${outdated ? ' is-outdated' : ''}">${esc(sub)}${subKey ? ADE.gen(subKey, personal, outdated) : ''}</p>` : ''}
       ${outdated ? `<p class="meta outdated-note">${icon('history')}The basis changed after this was generated. AU-1 regenerates it on the next tick.</p>` : ''}
-      ${facts.length ? `<div class="facts">${facts.map(([k, v]) => `<span class="facts__item"><small>${esc(k)}</small>${v}</span>`).join('')}</div>` : ''}
+      ${facts.length ? `<div class="facts${factCards ? ' facts--cards' : ''}">${facts.map(([k, v]) => `<span class="facts__item"><small>${esc(k)}</small>${v}</span>`).join('')}</div>` : ''}
+      ${below}
       ${actions ? `<div class="page-actions">${actions}</div>` : ''}
     </header>`;
   };
@@ -287,9 +299,9 @@
     if (t.hi > budget) return ADE.tone(`Forecast may exceed budget by up to ${eur(t.hi - budget)}`, 'warn', 'warning_amber');
     return ADE.tone('Within budget', 'ok', 'check_circle');
   };
-  ADE.costGauge = function (t, budget, compact) {
+  ADE.costGauge = function (t, budget, compact, href) {
     const max = Math.max(budget, t.hi, t.actual) * 1.12 || 1;
-    return ADE.gauge({ title: compact ? '' : 'Cost', compact, lo: t.lo / max, hi: t.hi / max, fill: t.actual / max, mark: budget / max, labels: { fill: `Spent ${eur(t.actual)}`, range: `Forecast ${range([t.lo, t.hi])}${t.unknown ? ` + ${t.unknown} unestimated` : ''}`, mark: `Budget ${eur(budget)}` } });
+    return ADE.gauge({ title: compact ? '' : 'Cost', compact, href, lo: t.lo / max, hi: t.hi / max, fill: t.actual / max, mark: budget / max, labels: { fill: `Spent ${eur(t.actual)}`, range: `Forecast ${range([t.lo, t.hi])}${t.unknown ? ` + ${t.unknown} unestimated` : ''}`, mark: `Budget ${eur(budget)}` } });
   };
   ADE.timeGauge = function (rel, title = 'Time') {
     if (!rel.timeRatio) return ADE.gauge({ title, unknown: true, labels: { fill: `Planned ${ADE.date(rel.planned)}` } });
@@ -318,14 +330,20 @@
       ${small ? '' : `<span class="matrix__axis matrix__axis--x">Likelihood</span>${unknown.length ? `<p class="matrix__unknown">Likelihood unknown: ${unknown.map((r) => `<a class="matrix__chip" href="${esc(ADE.plink(pid, 'risks', { risk: r.id }))}">${esc(r.id)}</a>`).join(' ')}</p>` : ''}`}
     </div>`;
   };
+  // Exposure as words: now → target, each as severity with likelihood · impact. Used in the risk popup.
+  const LIK = { 1: 'unlikely', 2: 'possible', 3: 'likely' }; const IMP = { 1: 'minor', 2: 'moderate', 3: 'major' };
+  const sevOf = ([l, i]) => (!l ? 'unknown' : l * i >= 7 ? 'high' : l * i >= 3 ? 'medium' : 'low');
+  ADE.riskExposureParts = (r) => [['Now', r.now], ['Target', r.target]].map(([k, v]) => ({ k, sev: sevOf(v), lik: v[0] ? LIK[v[0]] : 'likelihood unknown', imp: IMP[v[1]] || '?', text: v[0] ? `${LIK[v[0]]} · ${IMP[v[1]]}` : `likelihood unknown · ${IMP[v[1]] || '?'}` }));
+  ADE.riskExposure = (r) => `<p class="risk-exposure">${ADE.riskExposureParts(r).map((x) => `<span><small>${x.k}</small> <strong>${esc(x.sev)}</strong> ${esc(x.text)}</span>`).join(' → ')}</p>`;
+  // One impact line for cards: time and cost impact, skipping the ones that say nothing.
+  ADE.riskImpact = (r) => [r.timeImpact, r.costImpact].filter((x) => x && !/^(none|unknown|€0|none directly|none yet)$/i.test(x)).join(' · ') || ([r.timeImpact, r.costImpact].some((x) => /unknown/i.test(x || '')) ? 'Impact not yet estimated' : 'No cost or time impact yet');
   ADE.riskCard = function (p, r) {
     const dims = Object.entries(r.dims).slice(0, 3).map(([d, lv]) => ADE.level(d, lv)).join('');
-    const pol = ADE.riskPolicyLine(p, r);
     return `<article class="card risk-card">
       <div class="risk-card__head">${ADE.badge(r.status)}<span class="meta">${esc(r.id)}</span></div>
       <h3 class="risk-card__title">${esc(r.title)}</h3>
-      <div class="risk-card__body">${ADE.riskMatrix([r], p.id, true)}<div class="risk-card__dims">${dims}<span class="meta">Exposure now <strong>${esc(exposure(r))}</strong> · target ${esc(r.target[0] * r.target[1] >= 7 ? 'high' : r.target[0] * r.target[1] >= 3 ? 'medium' : 'low')}</span></div></div>
-      <p class="risk-card__policy meta">${icon('shield')}${esc(pol.text)}</p>
+      <div class="risk-card__dims">${dims}</div>
+      <p class="risk-card__impact meta">${esc(ADE.riskImpact(r))}</p>
       <div class="risk-card__foot">${ADE.person(r.owner)}${ADE.a('Details', ADE.plink(p.id, 'risks', { ...ADE.parse().q, risk: r.id }), 'btn btn--quiet')}</div>
     </article>`;
   };
@@ -397,9 +415,9 @@
     const prof = run.profile && ADE.profile(p, run.profile); const reviewA = ADE.reviewAssignment(p, run.id);
     const prev = run.prev && p.runs.find((r) => r.id === run.prev); const next = run.next && p.runs.find((r) => r.id === run.next);
     return `<div class="run__detail">
-        <p><strong>Why it started:</strong> ${esc(run.trigger)}. <strong>Policy:</strong> ${esc(run.policy)} <button class="link" type="button" data-act="runPolicy" data-pid="${esc(p.id)}" data-run="${esc(run.id)}">Policy explanation</button></p>
+        <div class="cols"><div><h4>Why it started</h4><p>${esc(run.trigger)}.</p></div><div><h4>Policy</h4><p>${esc(run.policy)} <button class="link" type="button" data-act="runPolicy" data-pid="${esc(p.id)}" data-run="${esc(run.id)}">Policy explanation</button></p></div></div>
         ${prev || next || run.prev ? `<p class="meta">${run.prev ? `Follows ${prev ? `<a class="link" href="${esc(ADE.plink(p.id, 'activity', { run: prev.id }))}">${esc(prev.id)}</a> (${esc(ADE.label(prev.state))})` : esc(run.prev)}` : ''}${run.prev && next ? ' · ' : ''}${next ? `Followed by <a class="link" href="${esc(ADE.plink(p.id, 'activity', { run: next.id }))}">${esc(next.id)}</a> (${esc(ADE.label(next.state))})` : ''}</p>` : ''}
-        <dl class="kv"><div><dt>Profile</dt><dd>${prof ? `<a class="link" href="${esc(ADE.plink(p.id, 'config', { contract: 'agents' }))}">${esc(prof.title)}</a>` : esc(run.system || run.profile || '—')}</dd></div><div><dt>Runner</dt><dd>${esc(run.runner)}</dd></div><div><dt>Repository</dt><dd><code>${esc(run.repo)}</code> · <code>${esc(run.branch)}</code></dd></div><div><dt>Started</dt><dd>${esc(run.started)} · ${esc(run.elapsed)}</dd></div><div><dt>Stops by itself if</dt><dd>${run.stop.length ? esc(run.stop.join(' · ')) : '—'}</dd></div>${reviewA ? `<div><dt>Reviewer</dt><dd>${esc(ADE.personName(reviewA.to))} (${esc(reviewA.id)})</dd></div>` : ''}</dl>
+        <dl class="kv"><div><dt>Run</dt><dd>${esc(run.id.replace('RUN-', ''))} · attempt ${run.attempt}</dd></div><div><dt>Profile</dt><dd>${prof ? `<a class="link" href="${esc(ADE.plink(p.id, 'config', { contract: 'agents' }))}">${esc(prof.title)}</a>` : esc(run.system || run.profile || '—')}</dd></div><div><dt>Model</dt><dd>${esc((() => { const st = prof && run.wf.at ? prof.workflow.steps[run.wf.at] : null; return st && st.model ? `${st.model} (this step)` : prof ? prof.model : run.model || '—'; })())}</dd></div><div><dt>Runner</dt><dd>${esc(run.runner)}</dd></div><div><dt>Repository</dt><dd><code>${esc(run.repo)}</code> · <code>${esc(run.branch)}</code></dd></div><div><dt>Started</dt><dd>${esc(run.started)} · ${esc(run.elapsed)}</dd></div><div><dt>Stops by itself if</dt><dd>${run.stop.length ? esc(run.stop.join(' · ')) : '—'}</dd></div>${reviewA ? `<div><dt>Reviewer</dt><dd>${esc(ADE.personName(reviewA.to))} (${esc(reviewA.id)})</dd></div>` : ''}</dl>
         <div class="cols"><div><h4>Steps</h4>${ADE.stepList(p, run)}</div>
         <div><h4>Context supplied</h4><ul class="plain">${run.context.map((c) => `<li>${c.src ? `<button class="link" type="button" data-act="sourceOpen" data-pid="${esc(p.id)}" data-src="${esc(c.src)}">${esc(c.label)}</button>` : ADE.a(c.label, ADE.plink(p.id, `work/${c.work}`))}</li>`).join('') || '<li class="meta">None recorded</li>'}</ul>
         ${run.excluded.length ? `<h4>Excluded</h4><ul class="plain">${run.excluded.map((c) => `<li>${esc(c.label)} <span class="meta">— ${esc(c.why)}</span></li>`).join('')}</ul>` : ''}</div></div>

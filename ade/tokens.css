@@ -58,6 +58,11 @@
   --gauge-ok: #3f9a5a;
   --gauge-watch: #e3901d;
   --gauge-over: #cc3d45;
+  /* hi-fi three-zone scale: estimated range in blue; pale tints for the part not yet spent */
+  --gauge-range: #3b78b8;
+  --gauge-ok-tint: #d5ebdc;
+  --gauge-range-tint: #d6e4f3;
+  --gauge-over-tint: #f6d6d8;
   /* level ramp (risk dimensions, matrix) */
   --level-low-bg: var(--success-surface);
   --level-low-ink: var(--success);

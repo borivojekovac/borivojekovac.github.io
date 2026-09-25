@@ -120,7 +120,10 @@
       if (ADE.ui.omniAlternatives) { ADE.ui.omniAlternatives = null; render(); }
     }
   });
-  window.addEventListener('hashchange', () => { if (ADE.ui.popup && ADE.ui.popup.kind === 'risk' && !/[?&]risk=/.test(location.hash)) ADE.ui.popup = null; ADE.ui.editing = null; ADE.visit(location.hash); ADE.save(); render(); $('#main')?.focus({ preventScroll: true }); window.scrollTo(0, 0); });
+  // A new page starts at the top; a change of view on the same page (tab, filter, pager, matrix cell, risk popup:
+  // only the query differs) keeps the scroll position.
+  let lastPath = (location.hash || '#/').split('?')[0];
+  window.addEventListener('hashchange', () => { if (ADE.ui.popup && ADE.ui.popup.kind === 'risk' && !/[?&]risk=/.test(location.hash)) ADE.ui.popup = null; ADE.ui.editing = null; ADE.visit(location.hash); ADE.save(); const path = location.hash.split('?')[0]; const same = path === lastPath; lastPath = path; const y = window.scrollY; render(); $('#main')?.focus({ preventScroll: true }); window.scrollTo(0, same ? y : 0); });
 
   ADE.load();
   ADE.visit(location.hash || '#/');

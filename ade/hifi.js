@@ -26,6 +26,16 @@
   // (never colour alone), and stays in the accessible name and the tooltip.
   ADE.level = (dim, lv) => `<span class="dim level--${esc(lv)}" role="img" aria-label="${esc(dim)}: ${esc(lv)}" title="${esc(dim)}: ${esc(lv)}"><span class="dim__meter" aria-hidden="true"><i></i><i></i><i></i></span><span aria-hidden="true">${esc(dim)}</span></span>`;
 
+  /* ------------------------------------------------------------------ GrantDisabled: reason as a tooltip */
+  // Owner review (Phase 6, round 2): the reason a button is disabled shows on hover beside the button instead of as
+  // a separate line under the action row, where it was hard to connect to the button. It stays the button's
+  // accessible description. Mobile is secondary: there the reason is still read out and shown on press.
+  ADE.gbtn = (grant, text, act, data = {}, variant = 'outline', ic) => {
+    if (grant.ok) return ADE.btn(text, act, data, variant, ic);
+    const id = `why-${act}-${data.wid || data.run || data.rid || data.key || ''}`.replace(/[^\w-]/g, '');
+    return `<span class="granted-off" data-why="${esc(grant.why)}"><button type="button" class="btn btn--${variant}" disabled aria-describedby="${esc(id)}">${ic ? icon(ic) : ''}${esc(text)}</button><span class="visually-hidden" id="${esc(id)}">${esc(grant.why)}</span></span>`;
+  };
+
   /* ------------------------------------------------------------------ PolicyOutcome: verdict stamp */
   const STAMP = { allow: 'allow', 'needs-decision': 'decision', deny: 'deny' };
   ADE.stamp = (verdict, text) => `<span class="stamp stamp--${STAMP[verdict] || 'decision'}">${icon(verdict === 'allow' ? 'shield' : verdict === 'deny' ? 'block' : 'help_outline')}${esc(text)}</span>`;
@@ -43,18 +53,23 @@
   };
 
   /* ------------------------------------------------------------------ CostPosture gauge (gallery markup) */
-  ADE.gauge = function ({ title, lo, hi, fill, mark, unknown, labels, compact }) {
+  // Owner review (Phase 6, round 2): a three-zone scale — green before the forecast low, blue across the estimated
+  // range, red beyond it — in pale tints, with the spent (or elapsed) part as a flat semi-transparent fill of the zone
+  // colours and a full-colour bottom line up to the current point. One vertical line marks the budget (or planned date): blue while it
+  // has not been passed, red once it has. The full view labels spent and budget; the compact view has no labels, shows
+  // every value on hover and links to its details.
+  ADE.gauge = function ({ title, lo, hi, fill, mark, unknown, labels, compact, href }) {
     const head = title ? `<div class="gauge__head"><strong>${esc(title)}</strong></div>` : '';
-    if (unknown) return `<div class="gauge gauge--unknown${compact ? ' gauge--compact' : ''}" role="img" aria-label="${esc(`${title || 'Forecast'}: unknown. ${labels.fill || ''}`)}">${head}<div class="gauge__track"><span class="gauge__unknown">Forecast unknown</span></div><div class="gauge__below"><span class="gauge__tag" style="left:0">${esc(labels.fill || '')}</span></div></div>`;
+    const tip = unknown ? `${labels.fill || ''} · forecast unknown` : `${labels.fill} · ${labels.range} · ${labels.mark}`;
+    const wrap = (inner, cls, style = '') => (href
+      ? `<a class="${cls} gauge--link" href="${esc(href)}"${style} role="img" aria-label="${esc(`${title || 'Gauge'}: ${tip}. Open details`)}" data-tip="${esc(tip)}">${inner}</a>`
+      : `<div class="${cls}"${style} role="img" aria-label="${esc(`${title || 'Gauge'}: ${tip}`)}"${compact ? ` data-tip="${esc(tip)}"` : ''}>${inner}</div>`);
+    if (unknown) return wrap(`${head}<div class="gauge__track"><span class="gauge__unknown">Forecast unknown</span></div>${compact ? '' : `<div class="gauge__below"><span class="gauge__tag" style="left:0">${esc(labels.fill || '')}</span></div>`}`, `gauge gauge--unknown${compact ? ' gauge--compact' : ''}`);
     const past = fill > mark;
-    const cls = ['gauge', compact && 'gauge--compact', past && 'gauge--fill-past-mark', !past && fill < 0.22 && 'gauge--fill-start', !past && mark > 0.78 && 'gauge--mark-end', past && fill > 0.78 && 'gauge--fill-end'].filter(Boolean).join(' ');
-    // Owner review (Phase 6): no forecast label or bracket above the track; the forecast range is the part of the
-    // track framed by a top and bottom border. The range stays in the accessible name and the tooltip.
-    const style = `--lo:${pct(lo)};--hi:${pct(hi)};--fill:${pct(fill)};--mark:${pct(mark)}`;
-    return `<div class="${cls}" style="${style}" role="img" aria-label="${esc(`${title || 'Gauge'}: ${labels.fill}, ${labels.range}, ${labels.mark}`)}" title="${esc(labels.range)}">${head}
-      <div class="gauge__track" aria-hidden="true"><span class="gauge__zones"></span><span class="gauge__rest"></span><span class="gauge__range"></span><span class="gauge__mark"></span></div>
-      <div class="gauge__below" aria-hidden="true"><span class="gauge__tag gauge__tag--fill">${esc(labels.fill)}</span><span class="gauge__tag gauge__tag--mark">${esc(labels.mark)}</span></div>
-    </div>`;
+    const cls = ['gauge', compact && 'gauge--compact', past && 'gauge--over', past && 'gauge--fill-past-mark', !past && fill < 0.22 && 'gauge--fill-start', !past && mark > 0.78 && 'gauge--mark-end', past && fill > 0.78 && 'gauge--fill-end'].filter(Boolean).join(' ');
+    const style = ` style="--lo:${pct(lo)};--hi:${pct(hi)};--fill:${pct(fill)};--mark:${pct(mark)}"`;
+    return wrap(`${head}<div class="gauge__track" aria-hidden="true"><span class="gauge__zones"></span><span class="gauge__fill"></span><span class="gauge__mark"></span></div>
+      ${compact ? '' : `<div class="gauge__below" aria-hidden="true"><span class="gauge__tag gauge__tag--fill">${esc(labels.fill)}</span><span class="gauge__tag gauge__tag--mark">${esc(labels.mark)}</span></div>`}`, cls, style);
   };
 
   /* ------------------------------------------------------------------ StepLine: Material icons, no text glyphs */
@@ -66,21 +81,28 @@
   };
 
   /* ------------------------------------------------------------------ AgentRun row: aligned columns, attention as a line, not a banner */
+  // Owner review (Phase 6, round 2): collapsed, a run says only what it is working on, where it is, what it has spent
+  // and what you can do. Profile, model and the full step line are in the expanded card.
+  ADE.runNow = function (p, run) {
+    const steps = ADE.runSteps(p, run); const i = steps.findIndex((s) => s.status === 'now');
+    const at = i >= 0 ? steps[i] : [...steps].reverse().find((s) => s.status === 'fail');
+    if (!at) return run.deniedBeforeStart ? 'Denied before the first step' : ['complete', 'accepted'].includes(run.state) ? 'Finished' : ADE.label(run.state);
+    const n = steps.indexOf(at) + 1;
+    return `${at.status === 'fail' ? 'Stopped at' : run.state === 'awaiting-input' ? 'Waiting at' : 'Now'}: ${at.title}${at.max && at.visits > 1 ? ` (attempt ${at.visits} of ${at.max})` : ''} · step ${n} of ${steps.length}`;
+  };
   ADE.runRow = function (p, run, forceOpen) {
     const open = !!ADE.ui.expanded[run.id] || forceOpen; const w = run.work && ADE.item(p, run.work);
     const pct = Math.min(100, Math.round((run.spent / run.reserved) * 100));
-    const prof = run.profile && ADE.profile(p, run.profile); const st = prof && run.wf.at ? prof.workflow.steps[run.wf.at] : null;
     const bad = ['failed', 'rejected', 'stopped'].includes(run.state) || run.deniedBeforeStart;
     return `<div class="run${open ? ' is-open' : ''}" id="run-${esc(run.id)}">
       <div class="run__row">
         <button class="icon-btn run__toggle" type="button" data-act="toggle" data-key="${esc(run.id)}" data-default="${forceOpen ? '1' : '0'}" aria-expanded="${!!open}" aria-label="${open ? 'Hide' : 'Show'} run details">${icon(open ? 'expand_more' : 'chevron_right')}</button>
-        <div class="run__state">${ADE.badge(run.state)}<small>${esc(run.id.replace('RUN-', 'Run '))} · attempt ${run.attempt}</small></div>
-        <div class="run__main"><span class="run__title">${w ? ADE.a(w.title, ADE.plink(p.id, `work/${w.id}`)) : esc(run.system || run.profile)}</span>${ADE.stepLine(p, run)}${run.attention ? `<p class="run__note${bad ? ' is-bad' : ''}">${icon(bad ? 'block' : 'warning_amber')}<span>${esc(run.attention)}</span></p>` : ''}</div>
-        <div class="run__agent"><span>${esc(prof ? prof.title : run.agent)}</span><small>${esc(st && st.model ? st.model : prof ? prof.model : run.model)}</small></div>
-        <div class="run__spend"><span class="minibar" aria-hidden="true"><i style="width:${pct}%"></i></span><small>${esc(ADE.eur(run.spent))} of ${esc(ADE.eur(run.reserved))}</small></div>
+        <div class="run__state">${ADE.badge(run.state)}</div>
+        <div class="run__main"><span class="run__title">${w ? ADE.a(w.title, ADE.plink(p.id, `work/${w.id}`)) : esc(run.system || run.profile)}</span><small class="run__now">${esc(ADE.runNow(p, run))}</small>${run.attention ? `<p class="run__note${bad ? ' is-bad' : ''}">${icon(bad ? 'block' : 'warning_amber')}<span>${esc(run.attention)}</span></p>` : ''}</div>
         <div class="run__controls">${ADE.runControls(p, run)}</div>
+        <div class="run__spend" title="${esc(`${ADE.eur(run.spent)} of ${ADE.eur(run.reserved)} reserved`)}"><span class="minibar" aria-hidden="true"><i style="width:${pct}%"></i></span><small>${esc(ADE.eur(run.spent))} of ${esc(ADE.eur(run.reserved))}</small></div>
       </div>
-      ${open ? ADE.runDetail(p, run) : ''}
+      ${open ? `<div class="run__body">${ADE.runDetail(p, run)}</div>` : ''}
     </div>`;
   };
 
@@ -116,19 +138,17 @@
   };
   ADE.riskMatrix = (risks, pid, small, opts) => (small && risks.length === 1 ? miniMatrix(risks[0]) : fullMatrix(risks, pid, opts));
 
-  const states = (r) => `<dl class="risk__states">
-      <div><dt>Now</dt><dd>${r.now[0] ? `<span class="lvl level--${sev(r.now[0], r.now[1])}">${esc(sev(r.now[0], r.now[1]))}</span>${esc(LIKELY[r.now[0]])} · ${esc(IMPACT[r.now[1]])}` : '<span class="lvl level--unknown">unknown</span>likelihood unknown'}</dd></div>
-      <div><dt>Target</dt><dd><span class="lvl level--${sev(r.target[0], r.target[1])}">${esc(sev(r.target[0], r.target[1]))}</span>${esc(LIKELY[r.target[0]])} · ${esc(IMPACT[r.target[1]])}</dd></div>
-    </dl>`;
+  // Owner review (Phase 6, round 2): the card keeps only what is needed to scan — status, title, the risk dimensions,
+  // one impact line and the owner. Exposure now/target, consequence and the effect on agents live in the risk popup.
+  // Owner review round 7: now and target in two rows of one grid, so level, likelihood and impact line up and compare.
+  ADE.riskExposure = (r) => `<div class="risk-exposure" role="table" aria-label="Exposure now and target">${ADE.riskExposureParts(r).map((x) => `<div class="risk-exposure__row" role="row"><span class="risk-exposure__k" role="rowheader">${esc(x.k)}</span><span role="cell"><span class="lvl level--${esc(x.sev)}">${esc(x.sev)}</span></span><span class="risk-exposure__lik" role="cell">${esc(x.lik)}</span><span class="risk-exposure__imp" role="cell">${esc(x.imp)}</span></div>`).join('')}</div>`;
   ADE.riskCard = function (p, r) {
     const dims = Object.entries(r.dims).slice(0, 3).map(([d, lv]) => ADE.level(d, lv)).join('');
-    const pol = ADE.riskPolicyLine(p, r);
     return `<article class="card risk" data-risk="${esc(r.id)}">
       <div class="risk__top">${ADE.badge(r.status)}<span class="meta">${esc(r.id)}</span></div>
       <h3 class="risk__title">${esc(r.title)}</h3>
       <div class="risk__dims">${dims}</div>
-      <div class="risk__level">${miniMatrix(r)}${states(r)}</div>
-      <p class="risk__policy">${icon('shield')}<span>${esc(pol.text)}</span></p>
+      <p class="risk__impact">${icon('schedule')}<span>${esc(ADE.riskImpact(r))}</span></p>
       <div class="risk__foot">${ADE.person(r.owner)}${ADE.a('Details', ADE.plink(p.id, 'risks', { ...ADE.parse().q, risk: r.id }), 'btn btn--quiet')}</div>
     </article>`;
   };
@@ -266,7 +286,7 @@
       basis: [['J1', 'J7'], 'SummaryBasisPopup'], policy: [['J1', 'J4', 'J6'], 'PolicyOutcome'], runPolicy: [['J6'], 'PolicyOutcome'], source: [['J7'], 'SourceViewer'],
       decide: [['J1', 'J5'], 'OptionCard'], start: [['J1', 'J4', 'J6'], 'PolicyOutcome'], stop: [['J6'], 'AgentRun'], review: [['J1'], 'ReviewSections'],
       answer: [['J2'], 'ContributionAssignment'], delegate: [['J2'], 'ContributionAssignment'], contribution: [['J4'], 'ContributionAssignment'], risk: [['J5'], 'RiskCard'],
-      profile: [['J1'], 'KeyValueList'], newWork: [['J4'], 'SectionEditPopup'], addToRelease: [['J5'], 'MembershipTable'], releaseAdd: [['J5'], 'MembershipTable'],
+      profile: [['J1'], 'KeyValueList'], grants: [['J5', 'J6'], 'GrantDisabled'], newWork: [['J4'], 'SectionEditPopup'], addToRelease: [['J5'], 'MembershipTable'], releaseAdd: [['J5'], 'MembershipTable'],
       releaseOutcome: [['J5'], 'ReleaseSummary'], newRelease: [['J5'], 'CostPosture'], description: [['J3'], 'SectionEditPopup'], attach: [['J7'], 'RevisionPrompt'],
       detach: [['J7'], 'AttachmentList'], deps: [['J4'], 'DependencyChip'], field: [['J4'], 'ItemListEditor'], done: [['J2', 'J4'], 'SectionEditPopup'],
       addRepo: [['J7'], 'SourceViewer'], raiseRisk: [['J5'], 'RiskCard'], contractJson: [['J5', 'J6'], 'ConfigJsonControl'], contractReadme: [['J5', 'J6'], 'ConfigJsonControl'],
@@ -277,17 +297,17 @@
     classes: {
       Foundation: ['app', 'field-row', 'field-stack', 'icon', 'meta', 'visually-hidden', 'link', 'linkish', 'num', 'code', 'md', 'md-li', 'plain', 'ranked', 'h-small', 'section', 'section__', 'grid', 'grid--', 'cols', 'dash', 'dash__', 'toolbar', 'toolbar__gap', 'row-actions', 'form', 'input', 'radio', 'approve', 'seg', 'seg__btn', 'depth', 'filter', 'tabs', 'tabs-inline', 'tab', 'table', 'fs-target', 'clamp', 'is-', 'chips', 'chip', 'chip--', 'btn', 'btn--', 'icon-btn', 'kv', 'kv--', 'count', 'sentences', 'guide', 'basis__quote', 'diff', 'ln', 'add', 'del', 'c-dim', 'eyebrow', 'crumbs', 'crumbs--small', 'subtitle', 'kind', 'kind--', 'lvl', 'level--', 'c', 'l0', 'l1', 'l2', 'l3', 'now', 'target', 'answer', 'for-you'],
       WorkspaceShell: ['topbar', 'brand', 'brand__mark', 'project-menu', 'menu', 'menu__', 'omni', 'omni__', 'omni-banner', 'profile-btn', 'profile-btn__name', 'body', 'rail', 'rail__link', 'main', 'main--wide'],
-      PageHeader: ['page-header', 'facts', 'facts__item', 'page-actions', 'outdated-note'],
+      PageHeader: ['page-header', 'facts', 'facts__item', 'facts--cards', 'project-description', 'page-actions', 'outdated-note'],
       GeneratedMark: ['gen', 'gen--personal', 'gen--stale'], StatusBadge: ['badge', 'badge--'], DimensionBadge: ['dim', 'dim__meter'],
       PolicyOutcome: ['policy-row', 'policy-row__', 'policy-verdict', 'stamp', 'stamp--', 'rule-link'], GrantDisabled: ['granted-off', 'granted-off__why'],
       Card: ['card', 'repo'], Callout: ['callout', 'callout--'], Empty: ['empty'], Stepper: ['stepper'], ContinueCard: ['resume'], NeedsYouCard: ['need', 'need__kind'],
       CostPosture: ['cost', 'cost__head', 'cost--inline', 'cost-row', 'cost-row__head', 'cost-row__time', 'gauge', 'gauge__', 'gauge--'],
-      ReleaseSummary: ['release-card', 'release-card__tags'], MembershipTable: [],
-      RiskCard: ['risk', 'risk__', 'risk-card', 'risk-card__', 'risk-detail', 'matrix'], RiskMatrix: ['risk-matrix', 'risk-matrix__'], RiskLayout: ['risk-layout', 'risk-layout__', 'risk-grid'],
+      ReleaseSummary: ['release-card', 'release-card__tags', 'release-card__foot'], MembershipTable: [],
+      RiskCard: ['risk', 'risk__', 'risk-card', 'risk-card__', 'risk-detail', 'risk-detail__', 'risk-exposure', 'risk-exposure__', 'matrix'], RiskMatrix: ['risk-matrix', 'risk-matrix__'], RiskLayout: ['risk-layout', 'risk-layout__', 'risk-grid'],
       WorkTree: ['tree', 'tree--inline', 'tree--reorder', 'tree__', 'person', 'person--', 'avatar', 'avatar--'], LiveDocument: ['doc', 'doc__main', 'doc__margin', 'doc-section', 'doc-section__', 'scope-list', 'criteria', 'section-edit', 'fact-edit', 'child-fields', 'child-table', 'dep-list', 'attach-list', 'anchor'],
       MarginCard: ['margin-card', 'margin-card__', 'margin-card--next'], ReadinessChecklist: ['checks'], DoneWhenList: ['done-when'], ItemListEditor: ['list-editor', 'list-editor__'],
       ContributionAssignment: ['assignment', 'assignment__cat', 'assignment__foot'], CommentThread: ['comments', 'comment', 'comment--agent', 'comment__proposal', 'comment-form'],
-      OptionCard: ['options', 'option', 'option__'], GroundedQA: ['qa', 'qa__label', 'qa__row', 'answer-block', 'answer-block__text'], KnowledgeChain: ['chain', 'chain__step'],
+      OptionCard: ['options', 'option', 'option__'], GroundedQA: ['qa', 'qa__label', 'qa__row', 'qa__suggestions', 'qa__suggestion', 'answer-block', 'answer-block__text'], AttachmentList: ['dropzone'], KnowledgeChain: ['chain', 'chain__step'],
       AgentRun: ['run', 'run__', 'minibar', 'console', 'console__bar', 'ctx'], StepLine: ['step-line', 'step-line__step', 'step-line__sep', 'step-line--empty', 'step-status'], StepDetail: ['step-detail', 'step-detail__'],
       DiffViewer: ['diff-viewer', 'diff-viewer__bar', 'diff-file', 'diffstat'], Pager: ['pager', 'pager__'], EventRow: ['event', 'event__'], AutomationCard: ['automation'],
       ConfigJsonControl: ['proposal'], ReviewSections: ['review-section', 'review-section__body'], SummaryBasisPopup: [], Popup: ['popup', 'popup__', 'popup--wide'], StartCard: ['start-card'],
@@ -342,6 +362,15 @@
   let fitTimer = null; const refit = () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => fitGauges(), 60); };
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(refit).observe(document.documentElement); else window.addEventListener('resize', refit);
   if (document.fonts) { document.fonts.ready.then(refit); document.fonts.addEventListener('loadingdone', refit); }
+  // Add document: real files (picked or dropped) are read locally and handed to the shared attachFiles action.
+  const readFiles = async (list, pid) => {
+    const files = await Promise.all([...list].map(async (f) => ({ name: f.name, size: f.size, text: /^text\/|json|xml|markdown|csv|yaml/.test(f.type) || /\.(md|txt|csv|json|ya?ml|xml|html?)$/i.test(f.name) ? await f.text() : '' })));
+    ADE.run('attachFiles', { pid, files });
+  };
+  document.addEventListener('change', (e) => { const el = e.target; if (el.matches && el.matches('input[type=file][data-files]') && el.files.length) readFiles(el.files, el.dataset.pid); });
+  document.addEventListener('dragover', (e) => { const z = e.target.closest && e.target.closest('[data-dropzone]'); if (!z) return; e.preventDefault(); z.classList.add('is-over'); });
+  document.addEventListener('dragleave', (e) => { const z = e.target.closest && e.target.closest('[data-dropzone]'); if (z && !z.contains(e.relatedTarget)) z.classList.remove('is-over'); });
+  document.addEventListener('drop', (e) => { const z = e.target.closest && e.target.closest('[data-dropzone]'); if (!z) return; e.preventDefault(); z.classList.remove('is-over'); if (e.dataTransfer.files.length) readFiles(e.dataTransfer.files, z.dataset.pid); });
   // RiskLayout: hovering or focusing a card highlights its chip in the matrix.
   const hot = (e, on) => { const card = e.target.closest && e.target.closest('.risk[data-risk]'); if (!card) return; document.querySelectorAll(`.risk-matrix__chip[data-risk="${card.dataset.risk}"]`).forEach((c) => c.classList.toggle('is-hot', on)); };
   document.addEventListener('mouseover', (e) => hot(e, true)); document.addEventListener('mouseout', (e) => hot(e, false));
