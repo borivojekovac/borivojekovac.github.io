@@ -1,0 +1,95 @@
+/* ADE v3 design tokens · shared by the gallery (styles.css) and the hi-fi prototype (hifi/hifi.css).
+   All skin-sensitive values are custom properties mirrored in tokens.json. Font URLs resolve relative to this file. */
+
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/roboto-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/roboto-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("assets/fonts/roboto-latin-700-normal.woff2") format("woff2"); }
+
+:root {
+  /* colour */
+  --brand: #a5c83b;
+  --brand-hover: #95b62f;
+  --on-brand: #1f2a0a;
+  --primary-fill: #647d1b;
+  --primary-fill-hover: #556b16;
+  --on-primary: #fff;
+  --action: #4c6510;
+  --focus: #526d12;
+  --canvas: #fff;
+  --surface: #fff;
+  --subtle: #f6f7f7;
+  --ink: #22282f;
+  --ink-soft: #3d4650;
+  --muted: #59636e;
+  --border: #d9dee1;
+  --rule: #e7ebed;
+  --selected: #f0f5df;
+  --selected-ink: #405512;
+  --success: #276443;
+  --success-surface: #eaf4ee;
+  --success-mid: #bfe0cc;
+  --warning: #855000;
+  --warning-surface: #fff4df;
+  --warning-mid: #f5d596;
+  --danger: #ab3037;
+  --danger-surface: #fceeef;
+  --danger-mid: #f0b9bd;
+  --info: #275d89;
+  --info-surface: #edf4fb;
+  --neutral: #56616d;
+  --neutral-surface: #eef1f4;
+  --generated: #5a4c98;
+  --generated-surface: #f1eefa;
+  --highlight: #fff1c2;
+  --code-bg: #1c2227;
+  --code-ink: #d8e0e4;
+  --code-dim: #8b989f;
+  --code-add: #9ad7a4;
+  --code-del: #ff9aa1;
+  /* dark controls on code surfaces (hi-fi prototype bar, console) */
+  --code-surface: #2a3238;
+  --code-surface-hover: #343d44;
+  --code-border: #3a454d;
+  /* warm person tint (Elena's avatar in the gallery) */
+  --warm-surface: #f8ead7;
+  --warm-ink: #805016;
+  --specimen-border: #aeb8be;
+  /* gauge zones: before, across and beyond the forecast range */
+  --gauge-ok: #3f9a5a;
+  --gauge-watch: #e3901d;
+  --gauge-over: #cc3d45;
+  /* level ramp (risk dimensions, matrix) */
+  --level-low-bg: var(--success-surface);
+  --level-low-ink: var(--success);
+  --level-medium-bg: var(--warning-mid);
+  --level-medium-ink: #5a3600;
+  --level-high-bg: var(--danger);
+  --level-high-ink: #fff;
+  --level-unknown-bg: var(--neutral-surface);
+  --level-unknown-ink: var(--neutral);
+  /* elevation */
+  --shadow-card: 0 1px 2px rgb(20 31 39 / 6%), 0 3px 10px rgb(20 31 39 / 6%);
+  --shadow-popup: 0 18px 50px rgb(20 31 39 / 24%);
+  /* type */
+  --font-ui: "Roboto", "Segoe UI", Arial, sans-serif;
+  --font-display: Cambria, Georgia, serif;
+  --font-code: Consolas, "Courier New", monospace;
+  /* layout and shape */
+  --rail-width: 224px;
+  --content-max: 1480px;
+  --measure: 720px;
+  --margin-col: 280px;
+  --radius-control: 4px;
+  --radius-card: 6px;
+  --radius-popup: 8px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+}

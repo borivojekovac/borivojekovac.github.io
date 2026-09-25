@@ -2,7 +2,7 @@
    Consumes the tokens in ../tokens.css (mirrored in tokens.json) and the gallery's primitive styling (../styles.css),
    mapped onto the class names the shared screens emit. Colours come only from custom properties (no hex literals;
    check.mjs enforces it). Surfaces follow primitive-contracts.md: Flat, Card, Popup, Full screen. */
-@import url("../tokens.css");
+@import url("tokens.css");
 
 /* ================================================================ base */
 * { box-sizing: border-box; }
