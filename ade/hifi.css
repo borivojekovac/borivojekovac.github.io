@@ -725,6 +725,11 @@ h1 .section-edit { margin-left: 6px; font-size: 15px; vertical-align: middle; }
 .popup { width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px); padding: 0; border: 0; border-radius: var(--radius-popup); background: var(--surface); box-shadow: var(--shadow-popup); color: var(--ink); }
 .popup--wide { width: min(960px, calc(100vw - 32px)); }
 .popup::backdrop { background: rgb(21 30 36 / 45%); }
+/* While a popup is open the page behind it does not scroll (owner review round 13); the gutter stays reserved so
+   the page does not shift sideways when its scrollbar is locked, and scrolling inside the popup never chains to it. */
+html { scrollbar-gutter: stable; }
+html:has(.popup[open]), html:has(.popup[open]) body { overflow: hidden; }
+.popup__body { overscroll-behavior: contain; }
 .popup__frame { display: flex; max-height: calc(100vh - 48px); flex-direction: column; }
 .popup__header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); padding: 18px 16px 14px 24px; border-bottom: 1px solid var(--rule); }
 .popup__eyebrow { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; color: var(--muted); font-size: .7rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
@@ -751,14 +756,13 @@ h1 .section-edit { margin-left: 6px; font-size: 15px; vertical-align: middle; }
 .plain { margin: 0; padding: 0; list-style: none; }
 .plain li { padding: 5px 0; }
 .plain li > small { display: block; margin-top: 1px; }
-.review-section { border-top: 1px solid var(--rule); }
-.review-section:last-of-type { border-bottom: 1px solid var(--rule); }
-.review-section summary { display: flex; align-items: center; gap: 8px; padding: 10px 0; cursor: pointer; list-style: none; }
-.review-section summary::-webkit-details-marker { display: none; }
-.review-section summary strong { font: 500 1.05rem var(--font-display); }
-.review-section summary .icon { color: var(--muted); transition: transform .15s; }
-.review-section:not([open]) summary .icon { transform: rotate(-90deg); }
-.review-section__body { padding: 0 0 var(--space-4) 28px; }
+/* Review popup sections are LiveDocument sections (owner review round 11). Inside a popup there is no page margin
+   for the chevron, so it sits before the heading, always visible. */
+.review-section > summary { padding: 10px 0; }
+.review-section > summary > .icon:first-child { position: static; opacity: 1; }
+.review-section[open] > summary > .icon:first-child { opacity: 1; color: var(--muted); }
+.review-section .doc-section__title { font-size: 1.12rem; }
+.review-section .doc-section__body { padding-left: 32px; }
 .guide { padding: var(--space-3) 0; border-top: 1px solid var(--rule); }
 .guide ol { margin: 6px 0 10px; padding-left: 20px; font-size: .88rem; }
 .fs-target.is-fullscreen, .console.is-fullscreen { position: fixed; inset: 0; z-index: 50; margin: 0; padding: 32px max(24px, calc((100vw - 1100px) / 2)); overflow: auto; background: var(--surface); }
