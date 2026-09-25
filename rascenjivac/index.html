@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="sr-Latn">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#f5f5f5" />
+		<link rel="icon" type="image/x-icon" href="/brand/favicon.ico" />
+		<link rel="apple-touch-icon" href="/brand/apple-touch-icon-180x180.png" />
+		<title>Rascenjivač</title>
+		<script>
+			// No-flash theme bootstrap (FR-THEME-04, D-5.1). Runs before the
+			// SvelteKit head placeholder below injects stylesheets, so
+			// data-theme is set before first paint. Duplicates the storage
+			// key/shape of lib/state/settings.svelte.ts (D-7.2) since this
+			// must be a plain inline script, not a module import.
+			(function () {
+				var STORAGE_KEY = 'rascenjivac:settings';
+				var THEME_COLOR = { light: '#f5f5f5', dark: '#100f0f' };
+
+				function resolveTheme(preference) {
+					if (preference === 'light' || preference === 'dark') return preference;
+					return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				}
+
+				function readStoredPreference() {
+					try {
+						var raw = localStorage.getItem(STORAGE_KEY);
+						if (!raw) return 'system';
+						var envelope = JSON.parse(raw);
+						var theme = envelope && envelope.data && envelope.data.theme;
+						return theme === 'light' || theme === 'dark' || theme === 'system' ? theme : 'system';
+					} catch (error) {
+						return 'system';
+					}
+				}
+
+				function applyTheme(resolved) {
+					document.documentElement.setAttribute('data-theme', resolved);
+					var meta = document.querySelector('meta[name="theme-color"]');
+					if (meta) meta.setAttribute('content', THEME_COLOR[resolved]);
+				}
+
+				var preference = readStoredPreference();
+				applyTheme(resolveTheme(preference));
+
+				if (preference === 'system' && window.matchMedia) {
+					window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+						if (readStoredPreference() === 'system') applyTheme(resolveTheme('system'));
+					});
+				}
+			})();
+		</script>
+		<meta http-equiv="content-security-policy" content="default-src 'self'; worker-src 'self'; connect-src 'self' https://api.openai.com; font-src 'self'; img-src 'self' blob: data:; manifest-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'none'; script-src 'self' 'sha256-SP8Mo49dwB9072DsMGiC+mvtTJxLca+b/XJUrPiBNdc='">
+		<link href="./_app/immutable/entry/start.RSSxqJvM.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DoxWp2on.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/DEcmRXuR.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/app.CExIjig8.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/uBIymjUX.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/0.t9KJ7AXV.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BT39Ul-D.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/2.7ieMMgq7.js" rel="modulepreload">
+		
+		<link href="./_app/immutable/assets/0.BKBVzC6U.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/2.CTXdk2u5.css" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">
+			<script>
+				{
+					__sveltekit_1c7o3gd = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("./_app/immutable/entry/start.RSSxqJvM.js"),
+						import("./_app/immutable/entry/app.CExIjig8.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element);
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
