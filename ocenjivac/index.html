@@ -6,7 +6,7 @@
 		<meta name="theme-color" content="#f5f5f5" />
 		<link rel="icon" type="image/x-icon" href="./brand/favicon.ico" />
 		<link rel="apple-touch-icon" href="./brand/apple-touch-icon-180x180.png" />
-		<title>Rascenjivač</title>
+		<title>Ocenjivač</title>
 		<script>
 			// No-flash theme bootstrap (FR-THEME-04, D-5.1). Runs before the
 			// SvelteKit head placeholder below injects stylesheets, so
@@ -14,7 +14,7 @@
 			// key/shape of lib/state/settings.svelte.ts (D-7.2) since this
 			// must be a plain inline script, not a module import.
 			(function () {
-				var STORAGE_KEY = 'rascenjivac:settings';
+				var STORAGE_KEY = 'ocenjivac:settings';
 				var THEME_COLOR = { light: '#f5f5f5', dark: '#100f0f' };
 
 				function resolveTheme(preference) {
@@ -50,33 +50,33 @@
 				}
 			})();
 		</script>
-		<meta http-equiv="content-security-policy" content="default-src 'self'; worker-src 'self'; connect-src 'self' https://api.openai.com; font-src 'self'; img-src 'self' blob: data:; manifest-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'none'; script-src 'self' 'sha256-1f50MB16GQl7NnkyHUtmVwNsh/6O7CyHpzwSX36YTCw='">
-		<link href="./_app/immutable/entry/start.DTbwDhtb.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/BnJeAVsW.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/DEcmRXuR.js" rel="modulepreload">
-		<link href="./_app/immutable/entry/app.DiUe8q-l.js" rel="modulepreload">
+		<meta http-equiv="content-security-policy" content="default-src 'self'; worker-src 'self'; connect-src 'self' https://api.openai.com; font-src 'self'; img-src 'self' blob: data:; manifest-src 'self'; object-src 'none'; script-src 'self' 'sha256-w0fu21Pmfgb9AtyeNUjL0bfMgTCw10CUrGxoN8iDMn8=' 'sha256-ugBIh/NjEseVIGyYf29jOmU4NIDnHDo/PhjlhFDRp8I='; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'none'">
+		<link href="./_app/immutable/entry/start.DA_IHyi9.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BA8jTP8A.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/UEd15kBp.js" rel="modulepreload">
+		<link href="./_app/immutable/entry/app.DeS2Yy2Q.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/uBIymjUX.js" rel="modulepreload">
 		<link href="./_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/0.Bn4MQ-iE.js" rel="modulepreload">
-		<link href="./_app/immutable/chunks/BT39Ul-D.js" rel="modulepreload">
-		<link href="./_app/immutable/nodes/2.B03Rh4r7.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/0.C04lJClk.js" rel="modulepreload">
+		<link href="./_app/immutable/chunks/BxWuWIEp.js" rel="modulepreload">
+		<link href="./_app/immutable/nodes/2.BM8RAV8r.js" rel="modulepreload">
 		
-		<link href="./_app/immutable/assets/0.C8RT8pV3.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/2.CTXdk2u5.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/0.BFQ9rGZB.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/2.CJwdAT_d.css" rel="stylesheet">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_1dtr3en = {
+					__sveltekit_1rbml02 = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.DTbwDhtb.js"),
-						import("./_app/immutable/entry/app.DiUe8q-l.js")
+						import("./_app/immutable/entry/start.DA_IHyi9.js"),
+						import("./_app/immutable/entry/app.DeS2Yy2Q.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
