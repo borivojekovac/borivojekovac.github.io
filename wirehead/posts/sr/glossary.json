@@ -237,7 +237,19 @@
     "proof problem": "problem dokaza",
     "long-horizon safety work": "rad na bezbednosti pri dugotrajnim zadacima",
     "stateless scale": "skaliranje bez stanja",
-    "agency leakage": "curenje agentnosti"
+    "agency leakage": "curenje agentnosti",
+    "keyring (credentials metaphor)": "svežanj ključeva",
+    "persistent agent/assistant": "trajni agent/asistent",
+    "model misalignment": "neusklađenost modela",
+    "model misuse": "zloupotreba modela",
+    "human credentials": "ljudski akreditivi",
+    "open model commons": "zajedničko dobro otvorenih modela",
+    "stateful service": "servis sa stanjem",
+    "stateful agent": "agent koji čuva stanje",
+    "credentialed footing": "svet akreditiva | prilagoditi metaforu, ne prevoditi doslovno",
+    "revocation": "opoziv | za ukidanje pristupa ili dozvola",
+    "chain of permissions": "lanac dozvola",
+    "merge authority": "ovlašćenje za merge"
   },
   "idioms": {
     "dropped like a stone": "pao je kao cigla na glavu",
