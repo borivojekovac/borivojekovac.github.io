@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "AI Self-Assessment | Endava",
-  "short_name": "AI Assessment",
-  "description": "A browser-based, directional AI maturity self-assessment.",
+  "name": "Samoprocena AI spremnosti | Endava",
+  "short_name": "Procena primene AI-ja",
+  "description": "Okvirna samoprocena zrelosti za primenu veštačke inteligencije, dostupna u pregledaču.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,6 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "lang": "sr-Latn"
 }

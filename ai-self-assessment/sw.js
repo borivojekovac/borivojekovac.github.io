@@ -1,6 +1,6 @@
 const CACHE_PREFIX = 'ai-self-assessment-app-';
-const BUILD_ID = '633a08268625525a';
-const PRECACHE_URLS = ["./assets/DavaSans-Bold-Cn2emffz.ttf","./assets/DavaSans-Medium-B5xyrn11.ttf","./assets/DavaSans-MediumBold-DA7CUDJi.ttf","./assets/DavaSans-Regular-BTcPz21n.ttf","./assets/endava-logo-transparent-BjkFltmC.png","./assets/index-Btzef--r.js","./assets/index-CNyCgNef.css","./icons/app-icon-192.png","./icons/app-icon-512.png","./icons/app-icon-maskable-192.png","./icons/app-icon-maskable-512.png","./icons/app-icon-maskable.svg","./icons/app-icon.svg","./index.html","./manifest.webmanifest"];
+const BUILD_ID = 'd0e000708ce7e00a';
+const PRECACHE_URLS = ["./assets/DavaSans-Bold-Cn2emffz.ttf","./assets/DavaSans-Medium-B5xyrn11.ttf","./assets/DavaSans-MediumBold-DA7CUDJi.ttf","./assets/DavaSans-Regular-BTcPz21n.ttf","./assets/endava-logo-transparent-BjkFltmC.png","./assets/index-Ptqp1UZx.js","./assets/index-RNAzkrfk.css","./icons/app-icon-192.png","./icons/app-icon-512.png","./icons/app-icon-maskable-192.png","./icons/app-icon-maskable-512.png","./icons/app-icon-maskable.svg","./icons/app-icon.svg","./index.html","./locale-init.js","./manifest.en-GB.webmanifest","./manifest.webmanifest"];
 const CACHE_NAME = `${CACHE_PREFIX}${BUILD_ID}`;
 const SAVE_ACK_TIMEOUT_MS = 8000;
 
