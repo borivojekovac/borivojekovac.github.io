@@ -1,6 +1,6 @@
 const CACHE_PREFIX = 'ai-self-assessment-app-';
-const BUILD_ID = 'e57d530dd7bc1184';
-const PRECACHE_URLS = ["./assets/DavaSans-Bold-Cn2emffz.ttf","./assets/DavaSans-Medium-B5xyrn11.ttf","./assets/DavaSans-MediumBold-DA7CUDJi.ttf","./assets/DavaSans-Regular-BTcPz21n.ttf","./assets/endava-logo-transparent-BjkFltmC.png","./assets/flag-serbia-B4rEw9QT.svg","./assets/index-Crql0Ohv.css","./assets/index-pVJj9Ecu.js","./icons/app-icon-192.png","./icons/app-icon-512.png","./icons/app-icon-maskable-192.png","./icons/app-icon-maskable-512.png","./icons/app-icon-maskable.svg","./icons/app-icon.svg","./index.html","./locale-init.js","./manifest.en-GB.webmanifest","./manifest.webmanifest"];
+const BUILD_ID = 'a4c0117bffcaa89f';
+const PRECACHE_URLS = ["./assets/DavaSans-Bold-Cn2emffz.ttf","./assets/DavaSans-Medium-B5xyrn11.ttf","./assets/DavaSans-MediumBold-DA7CUDJi.ttf","./assets/DavaSans-Regular-BTcPz21n.ttf","./assets/endava-logo-transparent-BjkFltmC.png","./assets/flag-serbia-B4rEw9QT.svg","./assets/index-Crql0Ohv.css","./assets/index-CzTkzXqH.js","./icons/app-icon-192.png","./icons/app-icon-512.png","./icons/app-icon-maskable-192.png","./icons/app-icon-maskable-512.png","./icons/app-icon-maskable.svg","./icons/app-icon.svg","./index.html","./locale-init.js","./manifest.en-GB.webmanifest","./manifest.sr-Cyrl.webmanifest","./manifest.webmanifest"];
 const CACHE_NAME = `${CACHE_PREFIX}${BUILD_ID}`;
 const SAVE_ACK_TIMEOUT_MS = 8000;
 
