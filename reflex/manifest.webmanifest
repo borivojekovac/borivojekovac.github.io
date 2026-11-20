@@ -1,1 +1,0 @@
-{"name":"Reflex","short_name":"Reflex","description":"A browser recreation of the DOS game Reflex.","start_url":"/","display":"fullscreen","background_color":"#020712","theme_color":"#020712","lang":"en","scope":"/","orientation":"landscape","icons":[{"src":"/reflex-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
